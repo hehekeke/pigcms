@@ -1,0 +1,53 @@
+<include file="Public:head" />
+<link rel="stylesheet" type="text/css" href="{pigcms:$staticPath}/tpl/static/test/css/cymain.css" />
+<script>
+
+</script>
+<div class="content">
+	<div class="cLineB">
+		<h4 class="left">趣味测试【<?php echo $test['name']?>】的数据</h4>
+		<a href="{pigcms::U('Test/index',array('token'=>$token))}"  class="right btnGreen" >返回</a>
+	</div>
+	
+	<div class="msgWrap">
+		<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+			<thead>
+				<tr>
+					<th>选项名称</th>
+					<th>选项被选数</th>
+				</tr>
+			</thead>
+			<tbody>
+				
+				<tr>
+					<td><?php echo $test['fistq']?></td>
+					<td><?php echo $count[1]?></td>
+				</tr>
+				
+				<tr>
+					<td><?php echo $test['secondq']?></td>
+					<td><?php echo $count[2]?></td>
+				</tr>
+				<?php if($test['thirdq'] != ""){?>
+				<tr>
+					<td><?php echo $test['thirdq']?></td>
+					<td><?php echo $count[3]?></td>
+				</tr>
+				<?php }?>
+				<?php if($test['fourq'] != ""){?>
+				<tr>
+					<td><?php echo $test['fourq']?></td>
+					<td><?php echo $count[4]?></td>
+				</tr>
+				<?php }?>
+				<?php if($test['fiveq'] != ""){?>
+				<tr>
+					<td><?php echo $test['fiveq']?></td>
+					<td><?php echo $count[5]?></td>
+				</tr>
+				<?php }?>
+			</tbody>
+		</table>
+	</div>
+</div>
+<include file="Public:footer"/>

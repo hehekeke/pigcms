@@ -1,0 +1,202 @@
+<include file="Public:head" />
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<link rel="stylesheet" href="{pigcms::STATICS}/kindeditor/themes/default/default.css" />
+<link rel="stylesheet" href="{pigcms::STATICS}/kindeditor/plugins/code/prettify.css" />
+<script src="{pigcms::STATICS}/kindeditor/kindeditor.js" type="text/javascript"></script>
+<script src="{pigcms::STATICS}/kindeditor/lang/zh_CN.js" type="text/javascript"></script>
+<script src="{pigcms::STATICS}/kindeditor/plugins/code/prettify.js" type="text/javascript"></script>
+<link href="{pigcms:$staticPath}/tpl/static/yundabao/css/index.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="{pigcms:$staticPath}/tpl/static/bargain/css/cymain.css" />
+<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script>
+<script type="text/javascript" src="{pigcms::RES}/js/formCheck/formcheck.js"></script>
+<script>
+</script>
+<form class="form" method="post"   action="{pigcms::U('Yundabao/doupdate',array('token'=>$token))}"  target="_top" enctype="multipart/form-data">
+	<div class="content">
+		<div class="cLineB">
+			<h4 class="left">应用【{pigcms:$yundabao.AppName}】的修改</h4>
+			<a href="{pigcms::U('Yundabao/applist',array('token'=>$token))}" class="right btnGreen">返回</a>
+		</div>
+		<div class="msgWrap bgfc">
+			<table class="userinfoArea" style=" margin:0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+				<tbody>
+					<tr>
+						<th>【基本信息】</th>
+					</tr>
+					<tr>
+						<th>应用名称：</th>
+						<td>
+							<input type="input" class="px" id="AppName" value="{pigcms:$yundabao.AppName}" name="AppName" style="width:400px" />&nbsp;应用名称1至10个字。
+						</td>
+					</tr>
+					<tr>
+						<th valign="top">应用说明：</th>
+						<td>
+							<textarea  class="px" id="AppNote" name="AppNote"  style="width:400px; height:125px" >{pigcms:$yundabao.AppNote}</textarea>
+						</td>
+					</tr>
+					<tr>
+						<th>隐藏标题栏：</th>
+						<td>
+							<input type="radio" id="HideTop0" value="0" name="HideTop" <?php if($yundabao['HideTop'] == 0){?>checked<?php }?> /><label for="HideTop0">否</label>
+							&nbsp;
+							&nbsp;
+							&nbsp;
+							<input type="radio" id="HideTop1" value="1" name="HideTop" <?php if($yundabao['HideTop'] == 1){?>checked<?php }?> /><label for="HideTop1">是</label>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="cLineB"></div>
+		<div class="msgWrap bgfc">
+			<table class="userinfoArea" style=" margin:0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+				<tbody>
+					<tr>
+						<th>【图标设置】</th>
+					</tr>
+					<tr>
+						<td>选择图标颜色可以在图标上添加一个字的名称，如果不选择图标颜色可以自己上传图标，如果自己上传了图标，图标颜色和名称不会显示，为达最佳显示效果请选择大小为114*114像素的图片！</td>
+					</tr>
+					<tr>
+						<th>图标颜色：</th>
+						<td>
+							<input type="radio" id="IconType1" value="1" name="IconType" <?php if($yundabao['IconType'] == 1){?>checked<?php }?> />&nbsp;&nbsp;<label for="IconType1"><img src="{pigcms:$staticPath}/tpl/static/yundabao/images/5_a.png" width="50px"></label>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" id="IconType2" value="2" name="IconType" <?php if($yundabao['IconType'] == 2){?>checked<?php }?> />&nbsp;&nbsp;<label for="IconType2"><img src="{pigcms:$staticPath}/tpl/static/yundabao/images/7_a.png" width="50px"></label>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" id="IconType3" value="3" name="IconType" <?php if($yundabao['IconType'] == 3){?>checked<?php }?> />&nbsp;&nbsp;<label for="IconType3"><img src="{pigcms:$staticPath}/tpl/static/yundabao/images/1_a.png" width="50px"></label>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" id="IconType4" value="4" name="IconType" <?php if($yundabao['IconType'] == 4){?>checked<?php }?> />&nbsp;&nbsp;<label for="IconType4"><img src="{pigcms:$staticPath}/tpl/static/yundabao/images/8_a.png" width="50px"></label>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" id="IconType5" value="5" name="IconType" <?php if($yundabao['IconType'] == 5){?>checked<?php }?> />&nbsp;&nbsp;<label for="IconType5"><img src="{pigcms:$staticPath}/tpl/static/yundabao/images/4_a.png" width="50px"></label>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<br/>
+							<input type="radio" id="IconType6" value="6" name="IconType" <?php if($yundabao['IconType'] == 6){?>checked<?php }?> />&nbsp;&nbsp;<label for="IconType6"><img src="{pigcms:$staticPath}/tpl/static/yundabao/images/3_a.png" width="50px"></label>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" id="IconType7" value="7" name="IconType" <?php if($yundabao['IconType'] == 7){?>checked<?php }?> />&nbsp;&nbsp;<label for="IconType7"><img src="{pigcms:$staticPath}/tpl/static/yundabao/images/2_a.png" width="50px"></label>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" id="IconType8" value="8" name="IconType" <?php if($yundabao['IconType'] == 8){?>checked<?php }?> />&nbsp;&nbsp;<label for="IconType8"><img src="{pigcms:$staticPath}/tpl/static/yundabao/images/9_a.png" width="50px"></label>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" id="IconType9" value="9" name="IconType" <?php if($yundabao['IconType'] == 9){?>checked<?php }?> />&nbsp;&nbsp;<label for="IconType9"><img src="{pigcms:$staticPath}/tpl/static/yundabao/images/6_a.png" width="50px"></label>
+						</td>
+					</tr>
+					<tr>
+						<th>图标名称：</th>
+						<td>
+							<input type="input" class="px" id="IconName" value="{pigcms:$yundabao.IconName}" name="IconName" style="width:100px" />
+							&nbsp;
+							默认1个汉字或字符
+						</td>
+					</tr>
+					<tr>
+						<th>自定义上传图标：</th>
+						<td>
+							<input type="input" class="px" id="IconName_url"  name="IconName_url" value="{pigcms:$yundabao.IconName_url}"  style="width:250px"/>
+							<a href="###" onclick="upyunPicUpload('IconName_url',114,114,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('IconName_url')">预览</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="msgWrap bgfc">
+			<table class="userinfoArea" style=" margin:0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+				<tbody>
+					<tr>
+						<th>【Logo设置】</th>
+					</tr>
+					<tr>
+						<td>Logo显示在软件进入后的顶部导航中间部位，Logo内容为显示文字，自己上传的Logo图片为显示图片，上传图片后将不显示文字，为达最佳显示效果请选择大小为440*60像素的图片！</td>
+					</tr>
+					<tr>
+						<th>Logo内容：</th>
+						<td>
+							<input type="input" class="px" id="LogoName"  name="LogoName" value="{pigcms:$yundabao.LogoName}"  style="width:250px"/>&nbsp;LOGO标题不能超过10个汉字
+						</td>
+					</tr>
+					<tr>
+						<th>自己上传Logo：</th>
+						<td>
+							<input type="input" class="px" id="LogoName_url"  name="LogoName_url" value="{pigcms:$yundabao.LogoName_url}"  style="width:250px"/>
+							<a href="###" onclick="upyunPicUpload('LogoName_url',440,60,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('LogoName_url')">预览</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="msgWrap bgfc">
+			<table class="userinfoArea" style=" margin:0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+				<tbody>
+					<tr>
+						<th>【风格设置】</th>
+					</tr>
+					<tr>
+						<th>选择风格：</th>
+						<td>
+							<input type="radio" id="BgColor1" value="1" name="BgColor" <?php if($yundabao['BgColor'] == 1){?>checked<?php }?> />&nbsp;&nbsp;<label for="BgColor1"><img src="{pigcms:$staticPath}/tpl/static/yundabao/images/bg01_s1.png" width="50px"></label>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" id="BgColor2" value="2" name="BgColor" <?php if($yundabao['BgColor'] == 2){?>checked<?php }?> />&nbsp;&nbsp;<label for="BgColor2"><img src="{pigcms:$staticPath}/tpl/static/yundabao/images/bg02_s1.png" width="50px"></label>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" id="BgColor3" value="3" name="BgColor" <?php if($yundabao['BgColor'] == 3){?>checked<?php }?> />&nbsp;&nbsp;<label for="BgColor3"><img src="{pigcms:$staticPath}/tpl/static/yundabao/images/bg03_s1.png" width="50px"></label>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" id="BgColor4" value="4" name="BgColor" <?php if($yundabao['BgColor'] == 4){?>checked<?php }?> />&nbsp;&nbsp;<label for="BgColor4"><img src="{pigcms:$staticPath}/tpl/static/yundabao/images/bg04_s1.png" width="50px"></label>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" id="BgColor5" value="5" name="BgColor" <?php if($yundabao['BgColor'] == 5){?>checked<?php }?> />&nbsp;&nbsp;<label for="BgColor5"><img src="{pigcms:$staticPath}/tpl/static/yundabao/images/bg05_s1.png" width="50px"></label>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" id="BgColor6" value="6" name="BgColor" <?php if($yundabao['BgColor'] == 6){?>checked<?php }?> />&nbsp;&nbsp;<label for="BgColor6"><img src="{pigcms:$staticPath}/tpl/static/yundabao/images/bg06_s1.png" width="50px"></label>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" id="BgColor7" value="7" name="BgColor" <?php if($yundabao['BgColor'] == 7){?>checked<?php }?> />&nbsp;&nbsp;<label for="BgColor7"><img src="{pigcms:$staticPath}/tpl/static/yundabao/images/bg07_s1.png" width="50px"></label>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" id="BgColor8" value="8" name="BgColor" <?php if($yundabao['BgColor'] == 8){?>checked<?php }?> />&nbsp;&nbsp;<label for="BgColor8"><img src="{pigcms:$staticPath}/tpl/static/yundabao/images/bg08_s1.png" width="50px"></label>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="msgWrap bgfc">
+			<table class="userinfoArea" style=" margin:0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+				<tbody>
+					<tr>
+						<th>【欢迎图设置】</th>
+					</tr>
+					<tr>
+						<td>自己上传欢迎图后只显示自己上传的，选择的欢迎图将不显示，为达最佳显示效果请选择大小为800*1280像素的图片！</td>
+					</tr>
+					<tr>
+						<th>选择欢迎图：</th>
+						<td>
+							<input type="radio" id="SplashType1" value="1" name="SplashType" <?php if($yundabao['SplashType'] == 1){?>checked<?php }?> />&nbsp;&nbsp;<label for="SplashType1"><img src="{pigcms:$staticPath}/tpl/static/yundabao/images/welcome1.png" width="100px"></label>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" id="SplashType2" value="2" name="SplashType" <?php if($yundabao['SplashType'] == 2){?>checked<?php }?> />&nbsp;&nbsp;<label for="SplashType2"><img src="{pigcms:$staticPath}/tpl/static/yundabao/images/welcome2.png" width="100px"></label>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" id="SplashType3" value="3" name="SplashType" <?php if($yundabao['SplashType'] == 3){?>checked<?php }?> />&nbsp;&nbsp;<label for="SplashType3"><img src="{pigcms:$staticPath}/tpl/static/yundabao/images/welcome3.png" width="100px"></label>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" id="SplashType4" value="4" name="SplashType" <?php if($yundabao['SplashType'] == 4){?>checked<?php }?> />&nbsp;&nbsp;<label for="SplashType4"><img src="{pigcms:$staticPath}/tpl/static/yundabao/images/welcome4.png" width="100px"></label>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" id="SplashType5" value="5" name="SplashType" <?php if($yundabao['SplashType'] == 5){?>checked<?php }?> />&nbsp;&nbsp;<label for="SplashType5"><img src="{pigcms:$staticPath}/tpl/static/yundabao/images/welcome5.png" width="100px"></label>
+						</td>
+					</tr>
+					<tr>
+						<th>自己上传欢迎图：</th>
+						<td>
+							<input type="input" class="px" id="SplashName"  name="SplashName" value="{pigcms:$yundabao.SplashName}"  style="width:250px"/>
+							<a href="###" onclick="upyunPicUpload('SplashName',800,1280,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('SplashName')">预览</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="msgWrap bgfc">
+			<table class="userinfoArea" style=" margin:0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+				<tbody>
+					<tr>
+						<th><input type="hidden" name="AppId" value="{pigcms:$yundabao.AppId}" /></th>
+						<td><button type="submit" class="btnGreen" >修改</button></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</form>
+<include file="Public:footer"/>

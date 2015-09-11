@@ -1,0 +1,193 @@
+<include file="Public:head" />
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<link rel="stylesheet" type="text/css" href="{pigcms:$staticPath}/tpl/static/livingcircle/css/cymain.css" />
+<script>
+	$(document).ready(function(){
+		$("form").submit(function () {
+			var keyword = $("#keyword").val();
+			var wxtitle = $("#wxtitle").val();
+			var wxpic = $("#wxpic").val();
+			var fistpic = $("#fistpic").val();
+			var navpic = $("#navpic").val();
+			var mysellerpic = $("#mysellerpic").val();
+			var ajaxreturn = false;
+			if(keyword == ""){
+				alert('请填写关键字');
+				buterror("#keyword");
+				return false;
+			}else if(wxtitle == ""){
+				alert('请填写微信回复标题');
+				buterror("#wxtitle");
+				return false;
+			}else if(wxpic == ""){
+				alert('请添加微信图文信息图片');
+				buterror("#wxpic");
+				return false;
+			}else if(fistpic == ""){
+				alert('请添加至少一个首页展示图片');
+				buterror("#fistpic");
+				return false;
+			}else if(navpic == ""){
+				alert('请添“本地导航”图片');
+				buterror("#navpic");
+				return false;
+			}else if(mysellerpic == ""){
+				alert('请添“我的商家”图片');
+				buterror("#mysellerpic");
+				return false;
+			}else{
+				return true;
+			}
+		});
+	});
+	
+	function buterror(id){
+		$("html,body").animate({scrollTop: $(id).offset().top}, 500);
+		$(id).css("border","2px solid red");
+		$(id).focus(function(){
+			$(id).css("border","1px solid");
+			$(id).css("border-color","#848484 #E0E0E0 #E0E0E0 #848484");
+		})
+	}
+</script>
+<form class="form" method="post"   action="{pigcms::U('LivingCircle/doupdate',array('token'=>$token))}"  target="_top" enctype="multipart/form-data" >
+	<div class="content">
+		<div class="cLineB">
+			<h4 class="left">微信生活圈</h4>
+			<div class="clr"></div>
+		</div>
+		<div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-bottom:5px;font-size:12px;">
+			温馨提示：本功能使用了模板消息中的"订单发货提醒"模板消息,模板消息编号为OPENTM200565259。<br/>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			开通微信支付功能的公众号在使用此功能的时候可以在"基本设置——微信模板消息"中配置对应的模板消息。
+		</div>
+		<div class="tab">
+			<ul>
+				<li class="current tabli" id="tab1"><a href="{pigcms::U('LivingCircle/index',array('token'=>$token))}">基础信息</a></li>
+				<li class="tabli"><a href="{pigcms::U('LivingCircle/type',array('token'=>$token))}">分类管理</a></li>
+				<li class="tabli" id="tab2"><a href="{pigcms::U('LivingCircle/sellcircle',array('token'=>$token))}">商圈管理</a></li>
+				<li class="tabli" id="tab2"><a href="{pigcms::U('LivingCircle/seller',array('token'=>$token))}">商家管理</a></li>
+			</ul>
+		</div>
+		
+		<div class="cLineB">
+			<h4 class="left">基础信息</h4>
+		</div>
+		
+		<div class="msgWrap bgfc">
+		<table class="userinfoArea" style=" margin:0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+			<tbody>
+				
+				<tr>
+					<th valign="top"><span class="red">*</span>关键词：</th>
+					<td>
+						<input type="input" class="px" id="keyword" value="{pigcms:$livingcircle.keyword}" name="keyword" style="width:400px" />
+						<br/>
+						<span class="red">只能写一个关键词</span>，用户输入此关键词将会触发此活动。
+					</td>
+					<td rowspan="999" valign="top">
+						<div style="margin-left:20px">
+							<img id="wxpic_src" src="{pigcms:$livingcircle.wxpic}" width="373px" >
+							<br/>
+							<input class="px"  name="wxpic" value="{pigcms:$livingcircle.wxpic}" id="wxpic" style="width:363px;"  />
+							<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('wxpic',900,500,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('wxpic')">预览</a>&nbsp;<span class="red"><strong>*</strong></span>微信图文信息图片，推荐尺寸：900*500
+						</div>
+					</td>
+				</tr>
+				
+				<tr>
+					<th valign="top"><span class="red">*</span>微信回复标题</th>
+					<td>
+						<input type="input" class="px" id="wxtitle" value="{pigcms:$livingcircle.wxtitle}" name="wxtitle" style="width:400px" />
+						<br/>
+						请不要多于50字!
+					</td>
+				</tr>
+				
+				<tr>
+					<th valign="top">微信回复信息说明：</th>
+					<td>
+						<textarea  class="px" id="wxinfo" name="wxinfo"  style="width:400px; height:125px" >{pigcms:$livingcircle.wxinfo}</textarea>
+						<br/>
+						换行请输入
+						&lt;br&gt;
+					</td>
+				</tr>
+				
+				<tr>
+					<th valign="top"><span class="red">*</span>首页展示图片1：</th>
+					<td>
+						<input type="input" class="px" id="fistpic"  name="fistpic" value="{pigcms:$livingcircle.fistpic}"  style="width:250px"/>
+						<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('fistpic',900,500,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('fistpic')">预览</a><br/><span class="red"><strong>*</strong></span>推荐尺寸：900*500
+					</td>
+				</tr>
+				
+				<tr>
+					<th valign="top">首页展示图片2：</th>
+					<td>
+						<input type="input" class="px" id="secondpic"  name="secondpic" value="{pigcms:$livingcircle.secondpic}"  style="width:250px"/>
+						<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('secondpic',900,500,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('secondpic')">预览</a>
+					</td>
+				</tr>
+				
+				<tr>
+					<th valign="top">首页展示图片3：</th>
+					<td>
+						<input type="input" class="px" id="thirdpic"  name="thirdpic" value="{pigcms:$livingcircle.thirdpic}"  style="width:250px"/>
+						<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('thirdpic',900,500,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('thirdpic')">预览</a>
+					</td>
+				</tr>
+				
+				<tr>
+					<th valign="top">首页展示图片4：</th>
+					<td>
+						<input type="input" class="px" id="fourpic"  name="fourpic" value="{pigcms:$livingcircle.fourpic}"  style="width:250px"/>
+						<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('fourpic',900,500,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('fourpic')">预览</a>
+					</td>
+				</tr>
+				
+				<tr>
+					<th valign="top">首页展示图片5：</th>
+					<td>
+						<input type="input" class="px" id="fivepic"  name="fivepic" value="{pigcms:$livingcircle.fivepic}"  style="width:250px"/>
+						<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('fivepic',900,500,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('fivepic')">预览</a>
+					</td>
+				</tr>
+				
+				<tr>
+					<th valign="top">首页展示图片6：</th>
+					<td>
+						<input type="input" class="px" id="sixpic"  name="sixpic" value="{pigcms:$livingcircle.sixpic}"  style="width:250px"/>
+						<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('sixpic',900,500,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('sixpic')">预览</a>
+					</td>
+				</tr>
+				
+				<tr>
+					<th valign="top"><span class="red">*</span>“本地导航”图标：</th>
+					<td>
+						<input type="input" class="px" id="navpic"  name="navpic" value="{pigcms:$livingcircle.navpic}"  style="width:250px"/>
+						<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('navpic',900,500,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('navpic')">预览</a>
+					</td>
+				</tr>
+				
+				<tr>
+					<th valign="top"><span class="red">*</span>“我的商家”图标：</th>
+					<td>
+						<input type="input" class="px" id="mysellerpic"  name="mysellerpic" value="{pigcms:$livingcircle.mysellerpic}"  style="width:250px"/>
+						<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('mysellerpic',900,500,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('mysellerpic')">预览</a>
+					</td>
+				</tr>
+				
+				<tr>
+					<th>&nbsp;</th>
+					<td><button type="submit" class="btnGreen" >保存</button></td>
+				</tr>
+				
+			</tbody>
+		</table>
+	</div>
+	
+</div>
+</form>
+<include file="Public:footer"/>

@@ -1,0 +1,70 @@
+<include file="Public:head"/>
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<script src="{pigcms::RES}/js/date/WdatePicker.js"></script>
+ <form class="form" method="post"   action=""  target="_top" enctype="multipart/form-data" >
+        <div class="content">
+<!--活动开始-->
+<div class="cLineB">
+    <h4>高级微场景设置</h4><a href="{pigcms::U('SeniorScene/index',array('token'=>$token))}"  class="right btnGrayS vm" style="margin-top:-27px" >返回</a>
+</div>
+<div class="msgWrap bgfc">
+<TABLE class="userinfoArea" style=" margin:0;" border="0" cellSpacing="0" cellPadding="0" width="100%"><TBODY>
+
+<TR>
+  <th valign="top"><span class="red">*</span>活动名称：</th>
+  <TD>
+  <input type="input" class="px" id="name" value="{pigcms:$info.name}" name="name" style="width:400px" />
+    <br />
+    （请不要多于50字!）
+  </TD>
+</TR>
+
+<TR>
+  <th valign="top"><span class="red">*</span>关键词：</th>
+  <TD>
+	<input type="hidden" class="px" value="{pigcms:$info.id}" name="id">
+	<input type="input" class="px" id="keyword" value="<if condition="$info['keyword'] eq ''">{pigcms:$lotteryTypeName}<else/>{pigcms:$info.keyword}</if>" name="keyword" style="width:400px" ><br />
+  	（<span class="red">只能写一个关键词</span>，用户输入此关键词将会触发此活动。）
+  </TD>
+</TR>
+
+<TR>
+<th valign="top">场景说明：</th>
+<td><textarea  class="px" id="info" name="intro"  style="width:400px; height:100px" >{pigcms:$info.intro}</textarea>
+</td>
+</TR>
+
+<tr>
+  <th>封面图片地址：</th>
+  <td>
+    <input class="px"  name="pic" value="{pigcms:$info.pic}" id="pic1" style="width:250px;"  />
+      <script src="/tpl/static/upyun.js"></script>
+      <a href="###" onclick="upyunPicUpload('pic1',640,990,'{pigcms:$token}')" class="a_upload">上传</a> 
+      <a href="###" onclick="viewImg('pic1')">预览</a>[640*990]&nbsp;（场景首页展示图）
+  </td>
+</tr>
+<tr>
+  <th valign="top"><label for="url">选择已有场景 ：</label></th>
+  <td><input type="text" class="px" id="url" value="{pigcms:$info.url}" name="url" style="width:300px"> <a href="###" onclick="addLink('url',0)" class="a_choose">从功能库添加</a><a href="{pigcms::U('SeniorScene/highLive',array('token'=>$token))}" target="_blank" class="a_choose">创建新场景</a><br>
+  </td>
+  <td>&nbsp;</td>
+</tr>
+<TR>
+<th>&nbsp;</th>
+<td><button type="submit" class="btnGreen" >保存</button>　<a href=""  class="btnGray vm">取消</a>　<span class="red"></span></td>
+</TR>
+</TBODY>
+</TABLE>
+</div>
+</form>
+
+        <div class="clr"></div>
+      </div>
+    </div>
+  </div>
+
+<!--底部-->
+  	</div>
+
+<include file="Public:footer"/>

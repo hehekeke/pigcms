@@ -1,0 +1,306 @@
+<include file="Public:head"/>  
+<script src="/tpl/static/jquery.min.js"></script>
+<link rel="stylesheet" href="{pigcms:$staticPath}/tpl/static/card/css/card_dispel.css"/>
+<div class="content">
+	<div class="cLineB">
+		<h4 class="left">卡券管理</h4>
+		<div class="searchbar right"></div>
+		<div class="clr"></div>
+	</div>
+	<div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-top:5px;">
+		“普通卡券”可被粉丝领取。 <if condition="$wxuser.wx_coupons eq 1">“微信卡券”通过审核后才能领取。</if> “赠送券”无法领取，设置“开卡赠送”时可选择使用
+		<br/>
+		“状态”若显示“活动中”则说明此优惠券在微活动优惠券里使用中，会员卡里将不再显示此优惠券，只能在微活动优惠券中抽取。
+	</div>  
+	<div class="cLine">
+		<div class="left">
+			<a href="javascript:void(0);" title="添加卡券" class="btnGrayS vm bigbtn" id="addCard"><img class="vm" src="./tpl/User/default/common/images/product/add.png">普通卡券</a>
+			<!-- <a href="{pigcms::U('Member_card/coupons_set',array('token'=>$token,'coupon_type'=>'local'))}" title="新增会员卡" class="btnGrayS vm bigbtn"><img class="vm" src="./tpl/User/default/common/images/product/add.png">普通卡券</a>
+			<a href="{pigcms::U('Member_card/coupons_set',array('token'=>$token,'coupon_type'=>'gift'))}" title="新增会员卡" class="btnGrayS vm bigbtn"><img class="vm" src="./tpl/User/default/common/images/product/add.png">赠送卡券</a>
+			<if condition="$wxuser.wx_coupons eq 1">
+				<a href="{pigcms::U('Member_card/coupons_set',array('token'=>$token,'coupon_type'=>'weixin'))}" title="新增会员卡" class="btnGrayS vm bigbtn"><img class="vm" src="./tpl/User/default/common/images/product/add.png">微信卡券</a>
+			</if> -->
+		</div>
+		<div class="right" style="line-height:30px;margin:5px 0;">
+       	<form action="{pigcms::U('Member_card/coupons',array('token'=>$token))}" method="POST">
+		   <select name="cardid">
+				<option value="">请选择所属会员卡</option>
+				<volist name="allcard" id="allcard">
+					<option value="{pigcms:$allcard.id}" <if condition="$allcard['id'] eq $cardid">selected</if>>ID{pigcms:$allcard.id}-{pigcms:$allcard.cardname}</option>
+				</volist>
+			</select>
+          	<select name="is_weixin">
+				<option value="-1"<if condition="$is_weixin eq ''">selected</if>>请选择卡券类型</option>
+				<option value="0" <if condition="$is_weixin neq '' and $is_weixin eq 0">selected</if>>普通卡券</option>
+				<option value="1" <if condition="$is_weixin eq 1">selected</if>>微信卡券</option>
+				<option value="2" <if condition="$is_weixin eq 3">selected</if>>赠送卡券</option>
+			</select>
+          		     
+	        <select name="type">
+	            <option value="-1"<if condition="$type eq ''">selected</if>>请选择卡券属性</option>
+	            <option value="1" <if condition="$type eq 1">selected</if>>优惠券</option>
+	            <option value="2" <if condition="$type eq 2">selected</if>>礼品券</option>
+				<option value="0" <if condition="$type neq '' and $type eq 0">selected="true"</if>>代金券</option>
+	        </select>
+			-
+          	<input type="text" name="keyword" value="{pigcms:$keyword}" placeholder="请填写卡券名称" class="px">
+          	<input type="submit" value="查找" class="btnGreen vm">
+        </form>
+      	</div>
+
+	</div>
+
+
+        <div class="msgWrap">
+          <form method="post" action="index.php?ac=importtxt&amp;id=9878&amp;wxid=gh_423dwjkewad" id="info">
+          <input name="delall" type="hidden" value="del">
+           <input name="wxid" type="hidden" value="gh_423dwjkewad">
+            <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+              <thead>
+                <tr>
+					<th class="time" style="width:60px;">卡券类型</th>
+					<th class="time" style="width:120px;">卡券名称</th>
+					<th class="time" style="width:40px;">
+						库存
+						<a target="999" class="tooltips">
+							<img src="./tpl/User/default/common/images/price_help.png" align="absmiddle">
+							<span>
+								<p>增加库存填写整数，如50。减少库存用带“-”的负数，如：-50</p>
+							</span>
+						</a>
+					</th>
+					<th class="time" style="width:40px;">领取次数</th>
+					<th class="time" style="width:40px;">使用次数</th>
+					<th class="time" style="width:40px;">状态</th>
+					<th class="edit norightborder">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <volist name="data_vip" id="data_vip">           
+                <tr>
+					<td>
+						<if condition="$data_vip.is_weixin eq 1">
+							(微)
+					  	<elseif condition="$data_vip.attr eq '1'"/>
+							(赠)
+						<else/>
+							(普)
+					  	</if>
+						<if condition="$data_vip.type eq '1'">
+					  		优惠券
+					  	<elseif condition="$data_vip.type eq '2'"/>
+							礼品券
+						<else/>
+							代金券
+					  	</if>
+					 </td> 
+					 <td>
+						{pigcms:$data_vip.title}
+						<!--<p>门店：{pigcms:$data_vip.company_name}</p>
+						<p>有效期：{pigcms:$data_vip.statdate|date='Y-m-d',###} 至 {pigcms:$data_vip.enddate|date='Y-m-d',###}</p>-->
+					  </td>
+					   
+					  <!-- <td>{pigcms:$data_vip.cardname}</td> -->
+					  <td>
+						<span class="total_{pigcms:$data_vip.id}">{pigcms:$data_vip.total}</span><br/>
+						<input type="text" name="stock" class="px number_{pigcms:$data_vip.id}" style="width:40px;"><input type="button" data-id="{pigcms:$data_vip.id}" class="btnGrayS editStock" value="确定">
+					  </td>
+					  <td>{pigcms:$data_vip.count}</td>
+					  <td>{pigcms:$data_vip.usetime}</td>
+					  <td>
+						<if condition="$data_vip.is_check eq 1">
+							<span style="color:#44b549;">已审核</span>
+						<else/>
+							<span style="color:#f00;">未审核</span>
+						</if>
+						<if condition="$data_vip.is_huodong neq 0">
+							<br/>
+							<span style="color:red">活动中</span>
+						</if>
+					  </td>
+					  <td class="norightborder" align="center">
+						<a href="{pigcms::U('Member_card/coupons_record',array('id'=>$data_vip['cardid'],'type'=>'coupon','itemid'=>$data_vip['id']))}">统计</a>
+						<if condition="$data_vip.is_weixin eq 1">
+							<a href="{pigcms::U('Member_card/coupons_save',array('token'=>$token,'itemid'=>$data_vip['id']))}">编辑</a> 
+						<else/>
+							<a href="{pigcms::U('Member_card/coupons_set',array('token'=>$token,'itemid'=>$data_vip['id']))}&coupon_type=<if condition="$data_vip.attr eq '1'">gift<else/>local</if>">编辑</a> 
+						</if>
+						<a href="{pigcms::U('Member_card/coupons_del',array('token'=>$token,'itemid'=>$data_vip['id']))}" onclick="return confirm('确定要删除？');">删除</a>
+					  </td>
+                </tr>
+				</volist>
+      			 
+              </tbody>
+            </table>
+           </form> 
+			<script>
+			   function checkvotethis() {
+					var aa=document.getElementsByName('del_id[]');
+					var mnum = aa.length;
+					j=0;
+					for(i=0;i<mnum;i++){
+					if(aa[i].checked){
+					j++;
+					}
+					}
+					if(j>0) {
+					document.getElementById('info').submit();
+					} else {
+					alert('未选中内容！')
+					}
+				}
+				$(function(){
+					$('.editStock').click(function(){
+
+						var data_id 	= $(this).attr('data-id');
+						var number 		= $('.number_'+data_id).val();
+
+						var ex = /^-?\d+$/;
+
+						if(ex.test(number) && number != 0){
+							
+							var post_data 	= {
+								data_id:data_id,
+								number:number,
+							};
+
+							$.post("{pigcms::U('Member_card/coupons_stock',array('token'=>$token))}",post_data,function(res){
+								if(res.errcode > 0){
+									alert(res.errmsg);
+								}else{
+									var total 	= $('.total_'+data_id).html();
+									 $('.total_'+data_id).html(total*1+number*1);
+								}
+							},'json');
+
+						}else{
+
+							alert('请填写要修改的库存数');
+							return false;
+
+						}
+					});
+
+				});
+			</script>
+          </div>
+          <div class="cLine">
+            <div class="pageNavigator right">
+                 <div class="pages">{pigcms:$page}</div>
+             </div>
+            <div class="clr"></div>
+          </div>
+	</div>
+</div>
+
+<div class="dialog_wrp " style="width: 726px; display: none; margin-left: -363px; margin-top: -250px;">
+	<div class="dialog">
+		<div class="dialog_hd">
+			<h3>选择卡券类型</h3>
+			<!--#0001#-->
+			<a href="javascript:;" onclick="return false" class="icon16_opr closed pop_closed">关闭</a>
+			<!--%0001%-->
+		</div>
+		<div class="dialog_bd">
+			<div class="proc_put_tick">
+				<div class="frm_control_group radio_row">
+					<label for="" class="frm_label">选择你要创建的卡券属性</label>
+					<div class="frm_controls frm_vertical_lh" style="line-height:30px;">
+						<label class="frm_radio_label" for="checkbox0" style="margin-bottom:0px;">
+							<i class="icon_radio card_attr selected" attr-id="0"></i>
+							<span class="lbl_content">普通卡券</span>
+							<input type="radio" value="0" checked="true" id="attr0" class="frm_radio js_card_attr">
+							<i class="icon_radio card_attr" attr-id="1"></i>
+							<span class="lbl_content">赠送卡券</span>
+							<input type="radio" value="1" class="frm_radio js_card_attr" id="attr1">
+						</label>
+					</div>
+					<label for="" class="frm_label">选择你要创建的卡券类型</label>
+					<div class="frm_controls frm_vertical_lh">
+						
+						<label class="frm_radio_label" for="checkbox1">
+							<i class="icon_radio card_type" type-id="1"></i>
+							<span class="lbl_content">优惠券</span>
+							<input type="radio" value="1" class="frm_radio js_card_type" id="type1">
+							<p class="frm_tips">即“优惠券”，普通优惠券</p>
+						</label>
+						<label class="frm_radio_label" for="checkbox3">
+							<i class="icon_radio card_type"  type-id="2"></i>
+							<span class="lbl_content">礼品券</span>
+							<input type="radio" value="2" class="frm_radio js_card_type" id="type2">
+							<p class="frm_tips">可为用户提供消费送赠品服务</p>
+						</label>
+						<label class="frm_radio_label" for="checkbox2">
+							<i class="icon_radio card_type" type-id="0"></i>
+							<span class="lbl_content">代金券</span>
+							<input type="radio" value="0" class="frm_radio js_card_type" id="type0">
+							<p class="frm_tips">可为用户提供抵扣现金服务。可设置成为“满*元，减*元”</p>
+						</label>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="dialog_ft">
+            <span class="btn btn_default btn_input js_btn_p">
+            	<button type="submit" name="button" class="btnGreen" id="sub" style="vertical-align:top;padding:4px 12px!important;">确认</button>
+            </span>
+            <span class="btn btn_default btn_input js_btn_p">
+            	<button type="button" class="btnGrayS pclosed" data-index="1">取消</button>
+            </span>  
+		</div>
+	</div>
+</div>
+<div class="mask" style="display: none;"><iframe frameborder="0" style="filter:progid:DXImageTransform.Microsoft.Alpha(opacity:0);position:absolute;top:0px;left:0px;width:100%;height:100%;" src="about:blank"></iframe></div>
+
+
+<script>
+	$(function(){
+		var is_weixin 	= '{pigcms:$wxuser.wx_coupons}';
+		$('#addCard').click(function(){
+			$('.mask,.dialog_wrp').show();
+		});
+
+		$('#sub').click(function(){
+			var cardAttr = $('.js_card_attr:checked').val();
+			var cardType = $('.js_card_type:checked').val();
+			
+			var url 	= "{pigcms::U('Member_card/coupons_set',array('token'=>$token))}";
+
+			if(is_weixin == 1){
+				url += '&coupon_type=weixin';
+			}else{
+				url += '&coupon_type=local';
+			}
+
+			if(cardAttr){
+				url += '&attr='+cardAttr;
+			}
+
+			if(typeof(cardType) == 'undefined'){
+				alert('请选择优惠券类型');
+			}else{
+				url += '&cardType='+cardType;
+				window.location.href=url;
+			}
+		});
+
+		$('.card_attr').click(function(){
+			$(this).addClass('selected').siblings('.card_attr').removeClass('selected');
+			var attr_id 	= $(this).attr('attr-id');
+			$('#attr'+attr_id).attr('checked',true).siblings('.js_card_attr').attr('checked',false);
+		});
+
+		$('.card_type').click(function(){
+			$(this).addClass('selected').parent('.frm_radio_label').siblings().children('.card_type').removeClass('selected');
+			var type_id 	= $(this).attr('type-id');
+			$('#type'+type_id).attr('checked',true).parent('.frm_radio_label').siblings().children('.js_card_type').attr('checked',false);
+		});
+
+		$('.pop_closed,.pclosed').click(function(){
+			$('.mask,.dialog_wrp').hide();
+		});
+
+	});
+</script>
+<include file="Public:footer"/>

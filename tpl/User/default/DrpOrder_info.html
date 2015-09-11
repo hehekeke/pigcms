@@ -1,0 +1,81 @@
+<include file="Drp:head" />
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+<div class="content">
+    <div class="cLineB">
+        <h4 class="left">订单 - {pigcms:$order.orderid}</h4>
+        <div class="clr"></div>
+    </div>
+    <div class="msgWrap">
+        <div style="line-height:200%;padding:10px 20px;background: #eee">
+            支付状态：<if condition="$order.paid eq 1"><span class="green">已付款</span><else/><span class="red">未付款</span></if><br>
+            会员：{pigcms:$order.username}<br>
+            订单金额：<span style="color:#f30;font-size:16px;font-weight:bold">{pigcms:$order.price}</span>元 (含运费)<br>
+            <b>买家留言：</b><span class="red">{pigcms:$order.comment}</span><br>
+            收货信息：<b>收货人：</b>{pigcms:$order.truename}&nbsp;&nbsp;&nbsp;<b>收货地址：</b>{pigcms:$order.address}&nbsp;&nbsp;&nbsp;<b>联系方式：</b>{pigcms:$order.tel}
+        </div>
+
+
+        <div class="bgfc" style="margin-top: 20px;border: 1px solid #EEEEEE;">
+            <table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%">
+                <tbody>
+                <tr>
+                    <th>支付状态：</th>
+                    <td>
+                        <if condition="$order.paid eq 0">未付款</if>
+                        <if condition="$order.paid eq 1">已付款</if>
+                    </td>
+                </tr>
+                <tr>
+                    <th>发货状态：</th>
+                    <td>
+                        <if condition="$order.sent eq 0">未发货</if>
+                        <if condition="$order.sent eq 1">已发货</if>
+                    </td>
+                </tr>
+                <tr>
+                    <th>快递公司：</th>
+                    <td>{pigcms:$order.logistics}</td>
+                </tr>
+                <tr>
+                    <th>快递单号：</th>
+                    <td>{pigcms:$order.logisticsid}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+            <thead>
+            <tr>
+                <th width="120" align="center" style="text-align:center">图片</th>
+                <th>商品</th>
+                <th width="160" style="text-align:right">单价（元）</th>
+                <th style="text-align: right">数量</th>
+                <th>买家留言</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr></tr>
+            <volist name="products" id="product">
+                <tr>
+                    <td align="center"><img src="{pigcms:$product.logourl}"  width="100" /><br /></td>
+                    <td>{pigcms:$product.name}
+                        <if condition="$product['skus'] neq ''">
+                        <p class="green">
+                        <volist name="product['skus']" id="sku">
+                            - {pigcms:$key}:{pigcms:$sku}<br/>
+                        </volist>
+                        </p>
+                        </if>
+                    </td>
+                    <td align="right">{pigcms:$product.price|number_format=###, 2, '.', ''}</td>
+                    <td align="right">{pigcms:$product.quantity}</td>
+                    <td class="red">{pigcms:$product.comment}</td>
+                </tr>
+            </volist>
+            </tbody>
+        </table>
+    </div>
+</div>
+<include file="Public:footer"/>

@@ -1,0 +1,109 @@
+<include file="Drp:head" />
+<style type="text/css">
+    .price {
+        color: #c40000;
+    }
+    .delline {
+        text-decoration: line-through;
+    }
+</style>
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+<div class="content">
+<div class="cLineB">
+<h4 class="left">商品管理 - 已上架商品</h4>
+<div class="clr"></div>
+</div>
+<div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-top:5px;"><b>已上架商品</b><br>此处只显示分销商正在销售的商品</div>
+    <!--tab start-->
+    <div class="tab">
+        <ul>
+            <li class="tabli" id="tab0"><a href="{pigcms::U('DrpProduct/index')}">可分销商品</a></li>
+            <li class="current tabli" id="tab1"><a href="{pigcms::U('DrpProduct/putaway_products')}">已上架商品</a></li>
+            <li class="tabli" id="tab2"><a href="{pigcms::U('DrpProduct/soldout_products')}">已下架商品</a></li>
+        </ul>
+    </div>
+    <!--tab end-->
+
+    <div class="cLine">
+<div class="clr"></div>
+</div>
+<div class="msgWrap">
+<form method="post" action="" id="info">
+<select name="catid" style="width: 150px;height: 30px">
+    <option value="">选择商品分类</option>
+    {pigcms:$categories}
+</select>
+<button type="submit" class="btnGreen" style="margin-top:-27px">筛选</button>
+</form>
+<form method="post" action="{pigcms::U('DrpProduct/putaway_products', array('type' => 'soldout'))}" id="distribution">
+<div style="text-align:right"><button type="submit" class="btnGreen batch" />批量下架</button></div>
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<thead>
+	<tr>
+        <th style="text-align:center"><input type="checkbox" class="checked-all" /></th>
+		<th>名称</th>
+        <th style="text-align: right">分销价格(元)</th>
+        <th style="text-align: right">运费(元)</th>
+        <th style="text-align: right">库存(件)</th>
+		<th style="text-align: right">佣金</th>
+        <th style="text-align: center">分销</th>
+	</tr>
+</thead>
+<tbody>
+<volist name="products" id="product">
+	<tr>
+        <td style="text-align:center"><input type="checkbox" class="checked" value="{pigcms:$product.id}" name="id[]" /></td>
+		<td>{pigcms:$product.name}</td>
+        <td style="text-align: right"><span class="price">{pigcms:$product.price|number_format=###, 2, '.', ''}</span></td>
+        <td style="text-align: right"><if condition="$product.mailprice eq 0 ">免运费<else />{pigcms:$product.mailprice|number_format=###, 2, '.', ''}</if></td>
+        <td align="right" <if condition="$product.num gt 0">class="green"<else />class="red"</if>>{pigcms:$product.num}</td>
+		<td style="text-align: right">
+            <if condition="$product.commission_type eq 'fixed'">{pigcms:$product.commission}元</if>
+            <if condition="$product.commission_type eq 'float'">{pigcms:$product.commission}%</if>
+        </td>
+        <td style="text-align: center">
+            <a href="{pigcms::U('DrpProduct/putaway_products', array('id' => $product['id'], 'type' => 'soldout'))}">下架</a>
+        </td>
+	</tr>
+</volist>
+</tbody>
+</table>
+</form>
+</div>
+<div class="cLine">
+	<div class="pageNavigator right">
+		<div class="pages">{pigcms:$page}</div>
+	</div>
+	<div class="clr"></div>
+</div>
+</div>
+<script type="text/javascript">
+    $(function(){
+        $('.checked-all').click(function(event) {
+            if ($(this).is(':checked')) {
+                $('.checked').attr('checked', true);
+            } else {
+                $('.checked').attr('checked', false);
+            }
+        });
+        $('.checked').click(function(event) {
+            if (!$(this).is(':checked')) {
+                $('.checked-all').attr('checked', false);
+            }
+            if ($('.checked:checked').length == $('.checked').length) {
+                $('.checked-all').attr('checked', true);
+            }
+        });
+
+        $('.batch').click(function(event) {
+            if ($('.checked:checked').length == 0) {
+                $('.aui_close').trigger('click');
+                art.dialog({id: 'msg', title:'消息提示', time:300, width:300, height:100, content:'请选择要下架的商品！'});
+                return false;
+            }
+        });
+    })
+</script>
+<include file="Public:footer"/>

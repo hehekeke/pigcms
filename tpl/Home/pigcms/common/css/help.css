@@ -1,0 +1,17 @@
+@charset "utf-8";
+/* CSS Document */
+.banner .zhutu{width:100%;height:300px;position:absolute;left:0px;top:114px; text-align:center;}
+.content{ width:1000px; margin:0 auto; margin-top:60px; margin-bottom:60px;}
+.content .congtS .shangLt{ float:left; border-bottom:2px solid #83bb43; padding:10px; font-size:16px;}
+.content .congtS .shangRt{ float:left; border-bottom:2px solid #e3e3e3; padding:11px; font-size:14px; width:893px;}
+.congtS .shangRt p{ float:left; padding-right:20px;}
+.shangRt p a{ color:#363636;}
+.shangRt p a:hover{ color:#83bb43;}
+.content .congtX { margin-top:35px;}
+.content .congtX .title{ font-size:30px; color:#fff; background-color:#3caf59; height:70px; line-height:70px; padding-left:20px;}
+.content .congtX .atation{ font-size:14px; color:#000; height:40px; line-height:40px; padding-left:20px;}
+.content .congtX .first{ font-size:20px; color:#3caf59; height:50px; line-height:50px; padding-left:20px;}
+.content .congtX li{ font-size:16px; color:#7c7c7c; line-height:26px;}
+.content .congtX .suojin{ padding-left:20px;}
+.congtX .suojin span{ color:red;}
+

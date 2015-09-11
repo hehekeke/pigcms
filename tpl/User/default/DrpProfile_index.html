@@ -1,0 +1,104 @@
+<include file="Drp:head" />
+ <script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<script src="/tpl/static/upyun.js?{pigcms::date('YmdHis',time())}"></script>
+  <div class="content"> 
+   <div class="cLineB"> 
+    <h4>资料修改</h4>
+   </div> 
+   <form class="form" method="post" action=""> 
+    <input type="hidden" name="id" value="{pigcms:$setting.id}" /> 
+    <input type="hidden" name="token" value="{pigcms:$token}" /> 
+    <input type="hidden" name="cid" value="{pigcms:$cid}" /> 
+     
+    <div class="msgWrap bgfc"> 
+     <table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%"> 
+      <tbody>
+       <tr>
+        <th>昵称：</th>
+        <td><input type="text" name="name" value="{pigcms:$distributor.name}" class="px" /></td>
+       </tr>
+       <tr>
+        <th>原密码：</th>
+        <td><input type="password" name="oldpwd" id="oldpwd" class="px" /></td>
+       </tr>
+       <tr>
+        <th>新密码：</th>
+        <td><input type="password" name="newpwd" id="newpwd" class="px" disabled="true" style="background: lightgray" /></td>
+       </tr>
+       <tr>
+        <th>重复新密码：</th>
+        <td><input type="password" name="repwd" id="repwd" class="px" disabled="true" style="background: lightgray" /></td>
+       </tr>
+       <tr>
+           <th>手机：</th>
+           <td><input type="text" name="tel" class="px" value="{pigcms:$distributor.tel}" /></td>
+       </tr>
+       <tr>
+           <th>地址：</th>
+           <td><input type="text" name="addr" class="px" value="{pigcms:$distributor.addr}" /></td>
+       </tr>
+       <tr>
+           <th>简介：</th>
+           <td><textarea name="intro" class="px" style="width:400px;height:80px;">{pigcms:$distributor.intro}</textarea></td>
+       </tr>
+       <tr>         
+       <th>&nbsp;</th>
+       <td>
+       <input type="hidden" name="id" value="{pigcms:$distributor.id}" />
+       <button type="submit" name="button" class="btnGreen">保存</button> &nbsp; <a href="{pigcms::U('DrpOrder/index')}" class="btnGray vm">取消</a></td>
+       </tr> 
+      </tbody> 
+     </table> 
+     </div>
+   </form> 
+  </div>
+<script type="text/javascript">
+  $(document).ready(function(){
+      $('#oldpwd').blur(function(){
+          if ($(this).val() != '') {
+              var obj = this;
+              $.post("{pigcms::U('DrpProfile/checkPwd')}", {'pwd' : $(this).val()}, function(data) {
+                  data = $.parseJSON(data);
+                  if (!data.data) {
+                      art.dialog({title:'消息提示', ok:true, width:300, height:200, content:'原密码不正确，请重新输入。'});
+                      $(obj).val('');
+                      $('#newpwd').attr('disabled', true).css('background', 'lightgray');
+                      $('#repwd').attr('disabled', true).css('background', 'lightgray');
+                      return false;
+                  } else {
+                      $('#newpwd').attr('disabled', false).css('background', 'white');
+                      $('#repwd').attr('disabled', false).css('background', 'white');
+                  }
+              })
+          }
+      })
+
+      $('#newpwd').blur(function(){
+          if ($(this).val() != '' && $(this).val().length < 6) {
+              art.dialog({title:'消息提示', ok:true, width:300, height:200, content:'新密码太简单，请重新输入。'});
+              $(this).val('');
+              return false;
+          }
+      })
+
+      $('#repwd').blur(function(){
+          if ($(this).val() != $('#newpwd').val()) {
+              art.dialog({title:'消息提示', ok:true, width:300, height:200, content:'两次密码输入不一致，请重新输入。'});
+              $(this).val('');
+              return false;
+          }
+      })
+
+      $('.btnGreen').click(function(){
+            if ($('#repwd').val() != $('#newpwd').val()) {
+                art.dialog({title:'消息提示', ok:true, width:300, height:200, content:'两次密码输入不一致，请重新输入。'});
+                $('#repwd').val('');
+                return false;
+            }
+            return true;
+      })
+  });
+
+</script>
+<include file="Public:footer" />

@@ -1,0 +1,97 @@
+<include file="LivingCircle:head" />
+<link rel="stylesheet" type="text/css" href="{pigcms:$staticPath}/tpl/static/livingcircle/css/cymain.css" />
+<script>
+	$(document).ready(function(){
+		$("form").submit(function () {
+			var name = $("#name").val();
+			var price = $("#price").val();
+			if(name == ""){
+				alert("请填写商品名称");
+				buterror("#name");
+				return false;
+			}else if(price == ""){
+				alert("请填写商品价格");
+				buterror("#price");
+				return false;
+			}else if(price <= 0){
+				alert("商品价格不能小于等于零");
+				buterror("#price");
+				return false;
+			}else{
+				return true;
+			}
+		});
+	});
+	function buterror(id){
+		//$("html,body").animate({scrollTop: $("#ooo").offset().top}, 500);
+		$(id).css("border","2px solid red");
+		$(id).focus(function(){
+			$(id).css("border","1px solid");
+			$(id).css("border-color","#848484 #E0E0E0 #E0E0E0 #848484");
+		})
+	}
+</script>
+<form class="form" method="post"   action="{pigcms::U('LivingCircle/domysellergoodsadd',array('token'=>$token))}"  target="_top" enctype="multipart/form-data" >
+	<div class="content">
+		<div class="cLineB">
+			<h4 class="left">微信生活圈</h4>
+			<div class="clr"></div>
+		</div>
+		
+		<div class="tab">
+			<ul>
+				<li class="tabli" id="tab2"><a href="{pigcms::U('LivingCircle/myseller',array('token'=>$token))}">商家信息</a></li>
+				<li class="current tabli" id="tab2"><a href="{pigcms::U('LivingCircle/mysellergoods',array('token'=>$token))}">商品管理</a></li>
+				<li class="tabli" id="tab2"><a href="{pigcms::U('LivingCircle/mysellerorder',array('token'=>$token))}">订单管理</a></li>
+			</ul>
+		</div>
+		
+		<div class="cLineB">
+			<h4 class="left" >添加一个商品</h4>
+			<a href="{pigcms::U('LivingCircle/mysellergoods',array('token'=>$token))}"  class="right btnGreen" >返回</a>
+		</div>
+		
+		<div class="msgWrap">
+			<table class="userinfoArea" style=" margin:20px 0 0 0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+				<tbody>
+				
+					<tr>
+						<th valign="top"><span class="red">*</span>商品名称：</th>
+						<td><input type="text" class="px" id="name" value="" name="name" style="width:500px" /></td>
+						<td>&nbsp;</td>
+					</tr>
+				
+					<tr>
+						<th valign="top"><span class="red">*</span>商品价格：</th>
+						<td><input type="text" class="px" id="price" value="" name="price" style="width:80px" /> 元</td>
+						<td>&nbsp;</td>
+					</tr>
+				
+					<tr>
+						<th valign="top"><span class="red"></span>商品顺序：</th>
+						<td><input type="text" class="px" id="num" value="1" name="num" style="width:80px" /> 值越小越靠前，值相同则按照添加时间最新的在前面</td>
+						<td>&nbsp;</td>
+					</tr>
+					
+					<tr>
+						<th valign="top">是否显示：</th>
+						<td>
+							<input type="radio" id="radio1" class="px display" value="1" name="display" checked /><label for="radio1">是</label>
+							&nbsp;
+							&nbsp;
+							<input type="radio" id="radio2" class="px display" value="0" name="display" /><label for="radio2">否</label>
+						</td>
+						<td>&nbsp;</td>
+					</tr>
+					
+					<tr>
+						<th>&nbsp;</th>
+						<td><button type="submit" class="btnGreen" >保存</button>　<a href="{pigcms::U('LivingCircle/mysellergoods',array('token'=>$token))}"  class="btnGray vm">取消</a></td>
+					</tr>
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+</form>
+<include file="Public:footer"/>

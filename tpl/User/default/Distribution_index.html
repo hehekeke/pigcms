@@ -1,0 +1,115 @@
+<if condition="$ischild neq 1">
+<include file="Public:head" />
+<else />
+<include file="Repast:head" />
+</if>
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+<style type="text/css">
+    i {
+        color:#999;
+    }
+</style>
+ <div class="content">
+<div class="cLineB">
+<h4 class="left">分销商管理</h4>
+<div class="clr"></div>
+</div>
+<!--tab start-->
+<div class="tab">
+    <ul>
+        <li class="tabli" id="tab0"><a href="{pigcms::U('Distribution/order',array('token'=>$token))}">订单管理</a></li>
+        <li class="current tabli" id="tab1"><a href="{pigcms::U('Distribution/index',array('token'=>$token))}">分销商管理</a></li>
+        <li class="tabli" id="tab2"><a href="{pigcms::U('Distribution/withdraw',array('token'=>$token))}">提现申请</a></li>
+        <li class="tabli" id="tab3"><a href="{pigcms::U('Distribution/settings',array('token'=>$token))}">分销配置</a></li>
+        <li class="tabli" id="tab4"><a href="{pigcms::U('Distribution/statistics',array('token'=>$token))}">数据统计</a></li>
+    </ul>
+</div>
+<!--tab end-->
+<div class="cLine">
+<div class="clr"></div>
+</div>
+<div class="msgWrap">
+<form method="post" action="" id="info">
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<thead>
+<tr>
+<th>分销商</th>
+<th style="text-align: right">佣金余额（元）</th>
+<th style="text-align: right">佣金提现（元）</th>
+<th style="text-align: right">销售额（元）</th>
+<th style="text-align: center">加盟审核</th>
+<th class="norightborder" style="text-align: center">操作</th>
+</tr>
+</thead>
+<tbody>
+<tr></tr>
+<volist name="distributors" id="distributor">
+<tr>
+<td>{pigcms:$distributor.name}</td>
+<td align="right">{pigcms:$distributor.balance}元</td>
+<td align="right">{pigcms:$distributor.paid}元</td>
+<td align="right">{pigcms:$distributor.saletotal}元</td>
+<td align="center" class="norightborder" style="border-right: #E7E9F3 1px solid" class="check-status"><if condition="$distributor['checked'] eq 0">未审核 <span><a href="javascript:void(0);" data="{pigcms:$distributor['id']}" class="pass" style="color:#f00">通过</a></span><else />已审核</if></td>
+<td class="norightborder" style="text-align: center">
+    <span><a href="{pigcms::U('Distribution/order', array('did' => $distributor['id'], 'token' => $token))}">订单</a></span>&nbsp;|&nbsp;
+    <span><a href="{pigcms::U('Distribution/info',array('id' => $distributor['id'],'token'=>$token))}" style="color:#f00">详细</a></span>
+    <if condition="$distributor['status'] eq 1">
+        <span>&nbsp;|&nbsp;<a href="javascript:void(0);" style="color:#f00" data="{pigcms:$distributor['id']}" class="disabled">禁用</a></span>
+    <else />
+        <span>&nbsp;|&nbsp;<a href="javascript:void(0);" style="color:#f00" data="{pigcms:$distributor['id']}" class="enabled">启用</a></span>
+    </if>
+</td>
+</tr>
+</volist>
+</tbody>
+</table>
+</form>
+</div>
+<div class="cLine">
+<div class="pageNavigator right">
+<div class="pages">{pigcms:$page}</div>
+</div>
+<div class="clr"></div>
+</div>
+</div>
+<script type="text/javascript">
+    $(function() {
+        //审核
+        $('.pass').click(function(){
+            var id = $(this).attr('data');
+            var obj = this;
+            $.get("{pigcms::U('Distribution/checked', array('token' => $token))}", {"id":id}, function(data){
+                var data = $.parseJSON(data);
+                if (data.data == 1) {
+                    $(obj).parents('td').html(data.info);
+                }
+            })
+        })
+
+        //启用
+        $('.enabled').live('click', function(){
+            var id = $(this).attr('data');
+            var obj = this;
+            $.get("{pigcms::U('Distribution/status', array('token' => $token, 'status' => 1))}", {"id":id}, function(data){
+                var data = $.parseJSON(data);
+                if (data.data == 1) {
+                    $(obj).removeClass('enabled').addClass('disabled');
+                    $(obj).html('禁用');
+                }
+            })
+        })
+        //禁用
+        $('.disabled').live('click', function(){
+            var id = $(this).attr('data');
+            var obj = this;
+            $.get("{pigcms::U('Distribution/status', array('token' => $token, 'status' => 0))}", {"id":id}, function(data){
+                var data = $.parseJSON(data);
+                if (data.data == 1) {
+                    $(obj).removeClass('disabled').addClass('enabled');
+                    $(obj).html('启用');
+                }
+            })
+        })
+    })
+</script>
+<include file="Public:footer"/>

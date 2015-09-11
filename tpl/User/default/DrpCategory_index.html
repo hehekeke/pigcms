@@ -1,0 +1,32 @@
+<include file="Drp:head" />
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+<div class="content">
+<div class="cLineB">
+<h4 class="left">商品分类</h4>
+<div class="clr"></div>
+</div>
+<div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-top:5px;"><b>商品分类</b><br>此处只显示分销商能够分销的商品分类</div>
+<div class="cLine">
+<div class="clr"></div>
+</div>
+<div class="msgWrap">
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<thead>
+	<tr>
+		<th>名称</th>
+        <th>规格</th>
+        <th>外观</th>
+		<th>描述</th>
+		<th style="text-align:center">商品</th>
+	</tr>
+</thead>
+<tbody>
+{pigcms:$categories}
+</tbody>
+</table>
+</div>
+<div class="cLine">
+	<div class="clr"></div>
+</div>
+</div>
+<include file="Public:footer"/>

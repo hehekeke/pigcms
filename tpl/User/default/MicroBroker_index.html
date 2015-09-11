@@ -1,0 +1,77 @@
+<include file="Public:head"/>
+
+<div class="content">
+         
+          <div class="cLineB">
+             <h4>全民经纪人活动 ({pigcms:$count}) 条</h4>
+        
+
+              <div class="clr"></div>
+
+          </div>
+          <div class="cLine">
+            <div class="pageNavigator">
+			<a href="{pigcms::U('MicroBroker/mbkadd',array('token'=>$token))}" class="btnGrayS vm bigbtn">发布一个全民经纪人活动</a>
+ 
+            </div>
+          
+            <div class="clr"></div>
+          </div>
+          <div class="msgWrap">
+          <form method="post" action="index.php?ac=vote-manage&amp;id=9878" id="info">
+          <input name="delall" type="hidden" value="del">
+           <input name="wxid" type="hidden" value="gh_423dwjkewad">
+            <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+              <thead>
+                <tr>
+					<th>图文消息标题</th>
+					<th>关键词</th>
+					<th class="time">开始时间</th>
+					<th class="time">结束时间</th>
+					<th>产品顾问邀请码</th>
+					<th class="norightborder">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr></tr>
+                  <volist id="list" name="list">
+                <tr>
+				  <td>{pigcms:$list.title}</td>
+                  <td>{pigcms:$list.keyword}</td>
+                  <td>{pigcms:$list.statdate|date='Y-m-d',###}</td>
+                  <td>{pigcms:$list.enddate|date='Y-m-d',###}</td>
+				  <td>{pigcms:$list.invitecode}</td>
+                   <td class="norightborder">
+                    <a href="{pigcms::U('MicroBroker/mbkClients',array('id'=>$list['id'],'token'=>$token))}" title="客户管理列表">客户列表</a> |
+					<a href="{pigcms::U('MicroBroker/mbkBrokers',array('id'=>$list['id'],'token'=>$token))}" title="经纪人管理列表">经纪人列表</a> |
+					<a href="{pigcms::U('MicroBroker/mbkConfirm',array('id'=>$list['id'],'token'=>$token))}" title="佣金管理列表">已回款客户列表</a> |
+                    <a href="{pigcms::U('MicroBroker/mbkedit',array('id'=>$list['id'],'token'=>$token))}" title="编辑">编辑</a> |
+                    <a href="###" onclick="toDelmbk({pigcms:$list['id']})">删 除</a> 
+                  
+                   </td>
+          
+                </tr>
+                  </volist>
+      			                
+                  
+              </tbody>
+            </table>
+           </form> 
+   </div> 
+      <div class="cLine">
+       <div class="pageNavigator right">
+        <div class="pages"></div>
+         </div>
+         <div class="clr"></div>
+     </div>
+  </div>
+   <script type="text/javascript">
+      function toDelmbk(id){
+	  	  if(confirm('您确定要删除吗？删除会把相关数据一起删除的！')){
+	     $.post('{pigcms::U('MicroBroker/mbkdel')}',{id:id,token:'{pigcms:$token}'},function(ret){
+			    window.location.reload();
+		 },'json');
+	  }
+	  }
+   </script>
+<include file="Public:footer"/>

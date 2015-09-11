@@ -1,0 +1,87 @@
+<include file="Public:head"/> 
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+<link href="{pigcms:$staticPath}/tpl/static/crowdfunding/css/index.css" rel="stylesheet" type="text/css">
+        <div class="content">
+<div class="cLineB">
+<h4 class="left">微众筹</h4>
+<a href="{pigcms::U('Crowdfunding/index',array('token'=>$token))}"  class="right btnGrayS vm" >返回</a>
+<div class="clr"></div>
+</div>
+
+<div class="cLine">
+
+<div class="searchbar right">
+	<form method="post" action="">
+		<input type="text" id="msgSearchInput" class="txt left" placeholder="输入订单号" name="search" value="">
+		<input type="hidden" name="ac" value="hotels-list">
+		<input type="hidden" name="id" value="9878">
+		<input type="hidden" name="wxid" value="gh_423dwjkewad">
+		<input type="submit" value="搜索" id="msgSearchBtn" href="" class="btnGrayS" title="搜索">
+	</form>
+</div>
+<div class="clr"></div>
+</div>
+<div class="msgWrap">
+<form method="post" action="" id="info">
+<input name="delall" type="hidden" value="">
+<input name="wxid" type="hidden" value="">
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<thead>
+<tr>
+<th width="80">订单号</th>
+<th width="80">订单金额</th>
+<th width="60">下单时间</th>
+<th width="60">订单类型</th>
+<th width="60">订单状态</th>
+<th width="60">收货人</th>
+<th width="110" class="norightborder">操作</th>
+</tr>
+</thead>
+<tbody>
+<tr></tr>
+<volist name="order" id="order"> 
+<tr>
+<td class="align-left">
+	{pigcms:$order.orderid}
+</td>
+<td class="align-left">
+	￥ {pigcms:$order.price}
+</td>
+<td>{pigcms:$order.add_time|date="Y-m-d H:i:s",###}</td>
+<td>
+	<if condition="$order.reward_id eq -1">
+		无私奉献
+	<else/>
+		支持
+	</if>
+</td>
+<td>
+	<if condition="$order.paid eq 1">
+		支付完成
+	<else/>
+		未支付
+	</if>
+</td> 
+<td>
+	{pigcms:$order.username}
+</td> 
+
+<td class="norightborder">
+	<a href="{pigcms::U('Crowdfunding/order_detail',array('id'=>$order['id'],'token'=>$token))}">订单详情</a>&nbsp;
+	<a href="javascript:drop_confirm('您确定要删除吗?', '{pigcms::U('Crowdfunding/order_del',array('token'=>$token,'pid'=>$order['pid'],'id'=>$order['id']))}');">删除</a></td>
+</tr>
+
+</volist>
+</tbody>
+</table>
+</form>
+
+</div>
+<div class="cLine">
+<div class="pageNavigator right">
+<div class="pages">{pigcms:$page}</div>
+</div>
+<div class="clr"></div>
+</div>
+</div>
+<include file="Public:footer"/>

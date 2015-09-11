@@ -1,0 +1,79 @@
+<div id="top" class="alert alert-info" style="line-height: 16px;padding-bottom:0px;">
+				父级菜单：	<select name="pid" id="pid">
+					<option selected="selected" value="0">请选择根菜单：</option>
+					<volist name="class" id="pid">
+						<option  value="{pigcms:$pid.id}" <if condition="$show['pid'] eq $pid['id']">selected</if>>{pigcms:$pid.title}</option>
+					</volist>
+				</select>
+				<span style="color:red">二级菜单需要选择父菜单</span>
+		</div>
+		<div id="top" class="alert alert-info" style="line-height: 16px;padding-bottom:0px;">
+			菜单名称：<input type="text" id="cdmcinpo" name="title" value="{pigcms:$show.title}" style="margin-top: 6px;">
+			<span style="color:red">一级菜单最多4个汉字</span>
+		</div>
+		
+		<div class="alert alert-info" style="line-height: 16px;padding-bottom:6px;">
+			显　　示：
+			<input type="radio" name="is_show" <if condition="$show['is_show'] eq 1">checked="checked"</if> value="1">是　　　　
+			<input type="radio" name="is_show" <if condition="$show['is_show'] eq 0">checked="checked"</if> value="0">否
+		</div>
+		<div class="alert alert-info" style="line-height: 16px;padding-bottom:0px;">
+			排　　序：<input id="sortid" name="sort" title="排序" value="{pigcms:$show.sort}" type="text" >			
+			<span style="color:red">数字大的排在前面（不填默认为0）</span>
+		</div>
+		<div class="system l"></div>
+		
+		<div class="control-group alert alert-info">
+			  <label class="control-label" for="answertype">菜单类型:</label>
+			    <div class="controls">
+			    
+					<select name="menu_type" class="menu_type" id="answertype">
+						<option value="1" <if condition="$type eq 1">selected</if>>关键词回复菜单</option>		
+						<option value="2" <if condition="$type eq 2">selected</if>>url链接菜单</option>
+						<option value="3" <if condition="$type eq 3">selected</if>>微信扩展菜单</option>
+						<option value="4" <if condition="$type eq 4">selected</if>>一键拨号菜单</option>
+						<option value="5" <if condition="$type eq 5">selected</if>>一键导航</option>
+					</select>
+			   </div>
+		  	</div>  	
+
+			<!-- 关键字  -->
+			<div class="szcjbt alert alert-info" <if condition="$show.keyword neq ''">style="display:block;"</if> id="res_1">
+				要触发的关键字：<input type="text" name="keyword" id="menu_keyword"  value="{pigcms:$show.keyword}" >
+				<a href="###" onclick="addLink('menu_keyword',1)" class="a_choose">从功能库添加</a>
+			</div>
+			<!-- url  -->
+			<div class="szcjbt alert alert-info"<if condition="$show.url neq ''">style="display:block;"</if> id="res_2">
+				要链接到的URL地址：<input type="text" name="url" id="menu_key" value="{pigcms:$show.url}" >
+				<pigcmsif where="$wxuser['oauth'] eq 1"><a href="###" onclick="addLink('menu_key',0)" class="a_choose">从功能库添加</a></pigcmsif><br/>
+				<span style="color:red">必须开启授权, 禁止使用短网址</span><br/>
+			</div>
+			
+			<!-- 扩展菜单  -->
+			<div class="szcjbt alert alert-info" <if condition="$show.wxsys neq ''">style="display:block;"</if> id="res_3">
+				扩展菜单：
+					<div class="mr15 l">
+						<select name="wxsys">
+							<volist name="wxsys" id="wxsys">
+								<option value="{pigcms:$wxsys}" <if condition="$wxsys eq $show['wxsys']">selected</if>>{pigcms:$wxsys}</option>
+							</volist>
+						</select>
+					</div>
+			</div>
+			
+			<!-- 一键拨号 -->
+			<div class="szcjbt alert alert-info" <if condition="$show.tel neq ''">style="display:block;"</if> id="res_4">
+				一键拨号：<input type="text" name="tel" value="{pigcms:$show.tel}"><br/>
+				<span style="color:red">格式：0551-65371998 或 13912345678</span>
+			</div>
+			
+			<!-- 一键导航 -->
+			<div class="szcjbt alert alert-info" <if condition="$show.nav neq ''">style="display:block;"</if> id="res_5">
+				一键导航：<input value="{pigcms:$show.longitude}" type="text" name="longitude"  id="longitude" style="width:80px;" > 
+						<input value="{pigcms:$show.latitude}" style="width:80px;" type="text" name="latitude"  id="latitude" >
+						<a href="###" onclick="setlatlng($('#longitude').val(),$('#latitude').val())">在地图中查看/设置</a><br/>
+			</div>
+			
+			<p style="text-align:center;">
+				<button class="btnGreen" style="width:80px;line-height:30px;margin-top:10px;" type="submit">保存</button>
+			</p>

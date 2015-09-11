@@ -1,0 +1,204 @@
+<include file="Drp:head" />
+<style type="text/css">
+    .price {
+        color: #c40000;
+    }
+    .green {
+        color: green;
+    }
+</style>
+<link rel="stylesheet" href="{pigcms::STATICS}/kindeditor/themes/default/default.css" />
+<link rel="stylesheet" href="{pigcms::STATICS}/kindeditor/plugins/code/prettify.css" />
+<script src="{pigcms::STATICS}/kindeditor/kindeditor.js" type="text/javascript"></script>
+<script src="{pigcms::STATICS}/kindeditor/lang/zh_CN.js" type="text/javascript"></script>
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+<script type="text/javascript">
+    var editor;
+    KindEditor.ready(function(K) {
+        editor = K.create('#intro', {
+            resizeType : 1,
+            allowPreviewEmoticons : false,
+            allowImageUpload : true,
+            allowUpload : true,
+            postParams:{'PHPSESSID':"<?php echo session_id();?>"},
+            uploadJson : '/index.php?g=User&m=DrpStore&a=kindedtiropic',
+            items : [
+                'source','undo','clearhtml','hr',
+                'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                'insertunorderedlist', '|', 'emoticons', 'image' ,'multiimage', 'link', 'unlink','baidumap','lineheight','table','anchor','preview','print','template','code','cut']
+        });
+
+    });
+</script>
+<div class="content">
+<div class="cLineB">
+<h4 class="left">店铺配置 - 默认配置</h4>
+<div class="clr"></div>
+</div>
+<div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-top:5px;"><b>默认配置</b><br>此处配置店铺显示效果，首页模板、底部导航、顶部导航背景色</div>
+    <!--tab start-->
+    <div class="tab">
+        <ul>
+            <li class="tabli" id="tab0"><a href="{pigcms::U('DrpStore/notice')}">店铺公告</a></li>
+            <li class="current tabli" id="tab1"><a href="{pigcms::U('DrpStore/index')}">默认配置</a></li>
+            <li class="tabli" id="tab2"><a href="{pigcms::U('DrpStore/receipt')}">收款配置</a></li>
+        </ul>
+    </div>
+    <!--tab end-->
+
+    <div class="cLine">
+<div class="clr"></div>
+</div>
+<div class="msgWrap">
+<form method="post" action="" id="info">
+    <table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%">
+        <tbody>
+        <tr>
+            <th>名称：</th>
+            <td><input type="text" id="name" name="name" class="px" style="width: 250px" value="{pigcms:$store.name}" /></td>
+        </tr>
+        <tr>
+            <th>Logo地址：</th>
+            <td><input type="text" id="logourl" name="logourl" class="px" style="width: 250px" value="{pigcms:$store.logourl}" /><script src="/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('logourl',700,420,'{pigcms:$token}')" class="btnGreen">上传</a> <a href="###" onclick="viewImg('logourl')">预览</a></td>
+        </tr>
+        <tr>
+            <th>图文详细页内容：</th>
+            <td><textarea name="intro" id="intro"  rows="5" style="width:590px;height:360px">{pigcms:$store.intro}</textarea></td>
+        </tr>
+        <tr>
+            <th>首页Banner：</th>
+            <td><input type="text" id="banner" name="banner" class="px" style="width: 250px" value="{pigcms:$store.banner}" /><script src="/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('banner',700,420,'{pigcms:$token}')" class="btnGreen">上传</a> <a href="###" onclick="viewImg('banner')">预览</a></td>
+        </tr>
+        <!-- <tr>
+            <th valign="top"><label for="keyword">首页模板：</label></th>
+            <td>
+                <input type="text" id="selecttpl" class="px" value="<if condition="$store['tpid'] gt 0"> 已选择模板{pigcms:$store['tpid']}<else />点击右侧按钮选择</if>" disabled size="40"  />
+                <a class="btnGreen" onclick="chooseTpl('tpid','selecttpl',1)">选择模板</a>
+                <a class="btnGreen" onclick="viewTpl()">预览</a>
+                <a class="btnGreen" onclick="deletetpl()">恢复默认模板</a>
+                <script>
+                    function viewTpl(){
+                        var tid = $('#tpid').val();
+                        chooseTpl(tid,'',2);
+                    }
+                </script>
+                <input type="hidden" class="px" id="tpid" value="<if condition="$store['tpid'] gt 0"> {pigcms:$store['tpid']}<else />1</if>" name="tpid" style="width:250px">
+            </td>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <th valign="top"><label for="keyword">底部导航：</label></th>
+            <td>
+                <input type="text" id="showfooter" class="px" value="已选择样式 {pigcms:$store['footerid']}" disabled size="40"  />
+                <a class="btnGreen" onclick="chooseMenu('footerid', 'showfooter')">选择样式 </a>
+                <a class="btnGreen" onclick="viewMenu()">预览</a>
+                <script>
+                    function viewMenu(){
+                        var tid = $('#footerid').val();
+                        chooseMenu(tid,'',2);
+                    }
+                </script>
+                <input type="hidden" class="px" id="footerid" value="{pigcms:$store['footerid']}" name="footerid" style="width:250px">
+            </td>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <th>顶部导航背景色：</th>
+            <td id="header">
+                <input type="hidden" name="headerid" value="{pigcms:$store['headerid']}" id="headerid"/>
+                <div style="background:#D80000;width:20px;height:20px;float:left;margin-left:2px; <if condition="$store['headerid'] eq 1">border:dotted 2px;</if>" id="1"></div>
+                <div style="background:#DF0300;width:20px;height:20px;float:left;margin-left:2px; <if condition="$store['headerid'] eq 2">border:dotted 2px;</if>" id="2"></div>
+                <div style="background:#E70303;width:20px;height:20px;float:left;margin-left:2px; <if condition="$store['headerid'] eq 3">border:dotted 2px;</if>" id="3"></div>
+                <div style="background:#EE5C5C;width:20px;height:20px;float:left;margin-left:2px; <if condition="$store['headerid'] eq 4">border:dotted 2px;</if>" id="4"></div>
+                <div style="background:#FF8BB7;width:20px;height:20px;float:left;margin-left:2px; <if condition="$store['headerid'] eq 5">border:dotted 2px;</if>" id="5"></div>
+                <div style="background:#D66AD6;width:20px;height:20px;float:left;margin-left:2px; <if condition="$store['headerid'] eq 6">border:dotted 2px;</if>" id="6"></div>
+                <div style="background:#9962CF;width:20px;height:20px;float:left;margin-left:2px; <if condition="$store['headerid'] eq 7">border:dotted 2px;</if>" id="7"></div>
+                <div style="background:#6161CF;width:20px;height:20px;float:left;margin-left:2px; <if condition="$store['headerid'] eq 8">border:dotted 2px;</if>" id="8"></div>
+                <div style="background:#318FEC;width:20px;height:20px;float:left;margin-left:2px; <if condition="$store['headerid'] eq 9">border:dotted 2px;</if>" id="9"></div>
+                <div style="background:#5DD1F8;width:20px;height:20px;float:left;margin-left:2px; <if condition="$store['headerid'] eq 10">border:dotted 2px;</if>" id="10"></div>
+                <div style="background:#83F1F1;width:20px;height:20px;float:left;margin-left:2px; <if condition="$store['headerid'] eq 11">border:dotted 2px;</if>" id="11"></div>
+                <div style="background:#A8F56B;width:20px;height:20px;float:left;margin-left:2px; <if condition="$store['headerid'] eq 12">border:dotted 2px;</if>" id="12"></div>
+                <div style="background:#92D60B;width:20px;height:20px;float:left;margin-left:2px; <if condition="$store['headerid'] eq 13">border:dotted 2px;</if>" id="13"></div>
+                <div style="background:#64BD0C;width:20px;height:20px;float:left;margin-left:2px; <if condition="$store['headerid'] eq 14">border:dotted 2px;</if>" id="14"></div>
+                <div style="background:#A0A002;width:20px;height:20px;float:left;margin-left:2px; <if condition="$store['headerid'] eq 15">border:dotted 2px;</if>" id="15"></div>
+
+                <div style="background:#D3D303;width:20px;height:20px;float:left;margin-left:2px; <if condition="$store['headerid'] eq 16">border:dotted 2px;</if>" id="16"></div>
+                <div style="background:#EEEE4D;width:20px;height:20px;float:left;margin-left:2px; <if condition="$store['headerid'] eq 17">border:dotted 2px;</if>" id="17"></div>
+                <div style="background:#FCFC00;width:20px;height:20px;float:left;margin-left:2px; <if condition="$store['headerid'] eq 18">border:dotted 2px;</if>" id="18"></div>
+                <div style="background:#FFEC61;width:20px;height:20px;float:left;margin-left:2px; <if condition="$store['headerid'] eq 19">border:dotted 2px;</if>" id="19"></div>
+                <div style="background:#FFE000;width:20px;height:20px;float:left;margin-left:2px; <if condition="$store['headerid'] eq 20">border:dotted 2px;</if>" id="20"></div>
+                <div style="background:#FFC200;width:20px;height:20px;float:left;margin-left:2px; <if condition="$store['headerid'] eq 21">border:dotted 2px;</if>" id="21"></div>
+                <div style="background:#FD9D67;width:20px;height:20px;float:left;margin-left:2px; <if condition="$store['headerid'] eq 22">border:dotted 2px;</if>" id="22"></div>
+                <div style="background:#DA9E62;width:20px;height:20px;float:left;margin-left:2px; <if condition="$store['headerid'] eq 23">border:dotted 2px;</if>" id="23"></div>
+                <div style="background:#B88B61;width:20px;height:20px;float:left;margin-left:2px; <if condition="$store['headerid'] eq 24">border:dotted 2px;</if>" id="24"></div>
+                <div style="background:#AC5600;width:20px;height:20px;float:left;margin-left:2px; <if condition="$store['headerid'] eq 25">border:dotted 2px;</if>" id="25"></div>
+                <div style="background:#3A3A3D;width:20px;height:20px;float:left;margin-left:2px; <if condition="$store['headerid'] eq 26">border:dotted 2px;</if>" id="26"></div>
+                <div style="background:#697077;width:20px;height:20px;float:left;margin-left:2px; <if condition="$store['headerid'] eq 27">border:dotted 2px;</if>" id="27"></div>
+                <div style="background:#A0A0A0;width:20px;height:20px;float:left;margin-left:2px; <if condition="$store['headerid'] eq 28">border:dotted 2px;</if>" id="28"></div>
+                <div style="background:#CFCDCD;width:20px;height:20px;float:left;margin-left:2px; <if condition="$store['headerid'] eq 29">border:dotted 2px;</if>" id="29"></div>
+            </td>
+        </tr> -->
+        <tr>
+            <th>分销引导广告：</th>
+            <td><input type="text" id="ad_img" name="ad_img" class="px" style="width: 250px" value="{pigcms:$store.ad_img}" /><script src="/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('ad_img',700,420,'{pigcms:$token}')" class="btnGreen">上传</a> <a href="###" onclick="viewImg('ad_img')">预览</a></td>
+        </tr>
+        <tr>
+            <th>&nbsp;</th>
+            <td>
+                <input type="hidden" value="{pigcms:$store.id}" name="id" />
+                <button type="submit" name="button" class="btnGreen">保存</button> &nbsp; <a href="{pigcms::U('DrpStore/index')}" class="btnGray vm">取消</a></td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+</div>
+<div class="cLine">
+	<div class="pageNavigator right">
+		<div class="pages">{pigcms:$page}</div>
+	</div>
+	<div class="clr"></div>
+</div>
+</div>
+<script type="text/javascript">
+    function chooseTpl(domid,domid2,type){
+        art.dialog.data('domid', domid);
+        art.dialog.data('domid2', domid2);
+        if(type == 1 || type == 3 || type == 5 || type == 6){
+            art.dialog.open('?g=User&m=DrpStore&a=chooseTpl&type='+type,{lock:true,title:'选择模板',width:1093,height:550,yesText:'关闭',background: '#000',opacity: 0.45});
+        }else{
+            art.dialog.open('?g=User&m=DrpStore&a=chooseTpl&tpid='+domid+'&type='+type,{lock:true,title:'预览选中模板',width:500,height:390,yesText:'关闭',background: '#000',opacity: 0.45});
+        }
+    }
+    /*选择底部菜单*/
+    function chooseMenu(domid,domid2){
+        art.dialog.data('domid', domid);
+        art.dialog.data('domid2', domid2);
+        art.dialog.open('?g=User&m=DrpStore&a=chooseMenu',{lock:true,title:'选择样式',width:1050,height:450,yesText:'关闭',background: '#000',opacity: 0.45});
+    }
+    $(document).ready(function(){
+        $("#header div").click(function(){
+            $(this).css("border", "dotted 2px").siblings().css("border", "");
+            $("#headerid").val($(this).attr("id"));
+        });
+    });
+    function deletetpl()
+    {
+        $("#tpid, #headerid").val(0);
+        $("#selecttpl").val('默认模板');
+    }
+
+    function upyunPicUpload(domid,width,height,token){
+        art.dialog.data('width', width);
+        art.dialog.data('height', height);
+        art.dialog.data('domid', domid);
+        art.dialog.data('lastpic', $('#'+domid).val());
+        art.dialog.open('?g=User&m=DrpStore&a=upload&token='+token+'&width='+width,{lock:true,title:'上传图片',width:600,height:400,yesText:'关闭',background: '#000',opacity: 0.45});
+    }
+</script>
+<include file="Public:footer"/>

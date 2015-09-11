@@ -1,0 +1,745 @@
+<include file="Public:head"/>
+<script type="text/javascript" src="tpl/static/person/js/Calendar3.js"></script>
+<script charset="utf-8" src="tpl/static/person/js/kindeditor.js"></script>
+<script charset="utf-8" src="tpl/static/person/js/zh_CN.js"></script>
+<script src="/tpl/static/upyun.js"></script>
+<script src="/tpl/static/jquery.min.js"></script>
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<script type="text/javascript" src="tpl/static/person/js/spectrum.js"></script><!--颜色选取-->
+<script type="text/javascript" src="tpl/static/person/js/docs.js"></script><!--颜色选取-->
+<script type="text/javascript" src="tpl/static/person/js/jquery.uploadify.min.js"></script>
+<script src="tpl/static/person/js/jquery.Jcrop.js" type="text/javascript"></script>
+<script type="text/javascript" src="tpl/static/person/js/queue.js"></script>
+<link href="tpl/static/person/css/reset.css" rel="stylesheet" type="text/css">
+<link href="tpl/static/person/css/global.css" rel="stylesheet" type="text/css">
+<link href="tpl/static/person/css/public_tc.css" rel="stylesheet" type="text/css">
+<link href="tpl/static/person/css/com_list2.css" rel="stylesheet" type="text/css">
+<link href="tpl/static/person/css/micro_card_new.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="tpl/static/person/css/spectrum.css"><!--颜色选取-->
+<link rel="stylesheet" type="text/css" href="tpl/static/person/css/docs.css"><!--颜色选取-->
+<link rel="stylesheet" href="tpl/static/person/css/jquery.Jcrop.css" type="text/css">
+<!--页面开始-->
+<script type="text/javascript">
+$(document).ready(function(){
+	var id = "{pigcms:$card.mould_id}";
+	if(id!='' && !isNaN(id)){
+		choosetemp(id);
+	}else{
+		choosetemp(1);
+	}
+	var option = "{pigcms:$card.background}";
+	if("{pigcms:$card.background_id}" == 2){
+		choosebgtemp(2);
+        if(option == 0){
+            $(".bannerclsimg").attr("src","");
+            $(".bannerclsimg").css("display","none");
+        }else{
+        	$("#option"+option).attr("selected","selected");
+		    $(".bannerclsimg").attr("src","tpl/static/person/images/"+option+".jpg");
+	        $(".bannerclsimg").css("display","block");
+        }
+	}
+	if("{pigcms:$card.background_id}" == 1){
+		choosebgtemp(1);
+		$(".bannerclsimg").attr('src',option);//使用背景图
+		$(".bannerclsimg").css("display","block");
+	}
+	if("{pigcms:$card.background_id}" == 3){
+		choosebgtemp(3);
+		// 使用颜色
+    $(".bannercls").css("background-color","#ffffff");
+    $(".bannercls").css("background-color",option);
+	}
+    if("{pigcms:$card.background_id}" != 3){
+    colorgenerate('full','#1dca1d','1');
+    }
+	if(!"{pigcms:$card.font_color}"){
+	colorgenerate('full2','#ffffff','2');
+	}
+});
+</script>
+
+<div id="content" style="min-height: 620px;margin-left:2px;width:1032px;background:#fafafa;">
+  <!--主内容部分-->
+  <div id="con-box">
+   <h4 style="font-size: 16px;color: #000;font-weight: bold">微名片设置</h4>
+    <!--微名片内容开-->
+      <div class="coupons_box"> 
+        <!--左侧手机预览开始-->
+        <div class="lf-bg">
+          <div class="phone">
+            <!--模板一开始-->
+                <div class="vcard_content il1 ilbox" style="display:block;">
+                  <div class="banner01 bannercls" style="background-color:">
+                  		<img class="bannerclsimg" id="backbg1" style="width:100%;height:100%;display:none;">
+                  </div>
+                  <div class="mod_main">
+                   <table class="tab_top01">
+                    <tbody><tr>
+                   <td width="34%"><div class="icon_top_w"><img src="tpl/static/person/images/call01c.png" alt="一键拔号"></div></td>
+                   <td width="32%">
+                      <div class="photo_w">
+                          <img class="headimgsrc" id="head1" width="90" height="90" alt="我是用户头像" src=<if condition="$card.portrait neq ''">"{pigcms:$card.portrait}" <else /> "tpl/static/person/images/tx.png"</if>>
+                  </div>
+                    </td>
+                   <td width="34%"><div class="icon_top_w"><img src="tpl/static/person/images/sms01.png" alt="一键短信"></div></td>
+                    </tr>
+                    <tr>
+                     <td colspan="3" class="pd-top-8">
+                    <p class="name nameclass ftclass" style="color:{pigcms:$card.font_color}">{pigcms:$card.username}</p>
+                    <p class="zhiwei positionclass ftclass" style="color:{pigcms:$card.font_color}">{pigcms:$card.position}</p>
+                   </td>
+                    </tr>
+                   </tbody></table>
+                  </div>
+
+                  <div class="mainbox01">
+                    <h2 class="tit01"><i class="i_01a"></i><span>公司</span></h2>
+                    <p class="companyclass">{pigcms:$card.company}</p>
+
+                    <h2 class="tit01"><i class="i_08a"></i><span>官网</span></h2>
+                    <p class="urlclass" style="word-break:break-all">{pigcms:$card.domain}</p>
+
+                    <h2 class="tit01"><i class="i_02a"></i><span>手机</span></h2>
+                    <p class="telclass">{pigcms:$card.mobile}</p>
+
+                    <h2 class="tit01"><i class="i_03a"></i><span>座机</span></h2>
+                    <p class="phoneclass">{pigcms:$card.tel}</p>
+
+                    <h2 class="tit01"><i class="i_04a"></i><span>传真</span></h2>
+                    <p class="faxclass">{pigcms:$card.fax}</p>
+
+                    <h2 class="tit01"><i class="i_05a"></i><span>邮箱</span></h2>
+                    <p class="mailclass" style="word-break:break-all">{pigcms:$card.mail}</p>
+
+                    <h2 class="tit01"><i class="i_06a"></i><span>地址</span></h2>
+                    <p class="addressclass" style="word-break:break-all">{pigcms:$card.address}</p>
+
+                    <h2 class="tit01"><i class="i_07a"></i><span>备注</span></h2>
+                    <p class="textarea_bz remarkclass" style="word-break:break-all">{pigcms:$card.remark}</p>
+                  </div>
+
+                </div><!--模板一结束-->
+
+                <!--模板二开始-->
+                <div class="vcard_content il2 ilbox" style="display: none;">
+                	<div class="bannercls banner02" style="height:100%;padding-bottom: 10px;background-color:;">
+	                  <img class="bannerclsimg il2imgsrc" id="backbg2" style="width: 290px; height: 438px; position: absolute; display: none;">
+
+
+	                  <div class="mod_main02">
+	                   <table class="tab_top01">
+	                    <tbody><tr>
+	                   <td width="38%" align="right">
+	                      <div class="photo_w02">
+	                          <img class="headimgsrc" id="head2" width="90" height="90" alt="我是用户头像" src=<if condition="$card.portrait neq ''">"{pigcms:$card.portrait}" <else /> "tpl/static/person/images/tx.png"</if>>
+	                      </div>
+	                  </td>
+	                     <td width="62%" align="left">
+	                    <p class="name02 nameclass ftclass" style="color:{pigcms:$card.font_color}">{pigcms:$card.username}</p>
+	                    <p class="zhiwei02 positionclass ftclass" style="color:{pigcms:$card.font_color}">{pigcms:$card.position}</p>
+	                    <p class="zhiwei02 companyclass ftclass" style="color:{pigcms:$card.font_color}">{pigcms:$card.company}</p>
+	                   </td>
+	                    </tr>
+	                   </tbody></table>
+	                  </div>
+
+	                  <div class="mainbox02">
+	                    <p class="tit02 tit02-1"><i class="i_02b"></i><span class="telclass" style="min-height:21px;">{pigcms:$card.mobile}</span><b></b></p>
+
+	                    <p class="tit02 tit02-2"><i class="i_03b"></i><span class="phoneclass" style="min-height:21px;">{pigcms:$card.tel}</span><b></b></p>
+
+	                    <p class="tit02 tit02-2"><i class="i_04b"></i><span class="faxclass" style="min-height:21px;">{pigcms:$card.fax}</span><b></b></p>
+
+	                    <p class="tit02 tit02-2"><i class="i_08b"></i><span class="urlclass" style="min-height:21px;">{pigcms:$card.domain}</span><b></b></p>
+
+	                    <p class="tit02 tit02-3"><i class="i_05b"></i><span class="mailclass" style="min-height:21px;">{pigcms:$card.mail}</span><b></b></p>
+
+	                    <p class="tit02 tit02-4"><i class="i_06b"></i><span class="addressclass" style="min-height:21px;">{pigcms:$card.address}</span></p>
+
+	                    <p class="tit02 tit02-4"><i class="i_07b"></i><span class="remarkclass" style="min-height:21px;">{pigcms:$card.remark}</span></p>
+	                  </div>
+	                </div>
+                </div>
+                <!--模板二结束-->
+
+                <!--模板三开始-->
+                <div class="vcard_content il3 ilbox" style="display:none;">
+                  <div class="banner03 bannercls" style="background-color:;"><!--<img src="../images/vcard_new/banner03.jpg" alt="广告图片">-->
+                  		<img class="bannerclsimg" id="backbg3" style="width:100%;height:100%;display:none;">
+
+                  </div>
+
+                  <div class="mod_main03">
+                   <table class="tab_top01">
+                    <tbody><tr>
+                   <td width="28%" align="right">
+                      <div class="photo_w03">
+                          <img class="headimgsrc" id="head3" width="64" height="64" alt="我是用户头像" src=<if condition="$card.portrait neq ''">"{pigcms:$card.portrait}" <else /> "tpl/static/person/images/tx.png"</if>>
+                      </div>
+                  </td>
+                     <td width="72%" align="left" class="pd-left-5">
+                    <p class="name02 nameclass ftclass" style="color:{pigcms:$card.font_color};font-size:15px;">{pigcms:$card.username}</p>
+                    <p class="zhiwei02 positionclass ftclass" style="color:{pigcms:$card.font_color};font-size:9px;line-height:1.0">{pigcms:$card.position}</p>
+                    <p class="zhiwei02 companyclass ftclass" style="color:{pigcms:$card.font_color};font-size:9px;line-height:1.0">{pigcms:$card.company}</p>
+                   </td>
+                    </tr>
+                   </tbody></table>
+                  </div>
+
+                  <div class="mainbox03">
+                    <div class="tit03">
+                      <h2 class="tit03-left"><i class="i_02c"></i><span>手机</span></h2>
+                      <p style="min-height:21px"><span class="telclass">{pigcms:$card.mobile}</span> <span class="i_w"><i class="i_smsc"></i><i class="i_callc mg-left-10"></i></span></p>
+                    </div>
+
+                    <div class="tit03">
+                      <h2 class="tit03-left"><i class="i_03c"></i><span>座机</span></h2>
+                      <p style="min-height:21px"><span class="phoneclass">{pigcms:$card.tel}</span> <span class="i_w"><i class="i_callc"></i></span></p>
+                    </div>
+
+                    <div class="tit03">
+                      <h2 class="tit03-left"><i class="i_04c"></i><span>传真</span></h2>
+                      <p class="faxclass" style="min-height:21px">{pigcms:$card.fax}</p>
+                    </div>
+
+                    <div class="tit03">
+                      <h2 class="tit03-left"><i class="i_08c"></i><span>官网</span></h2>
+                      <p class="urlclass" style="word-break:break-all;min-height:21px">{pigcms:$card.domain}</p>
+                    </div>
+
+                    <div class="tit03">
+                      <h2 class="tit03-left"><i class="i_05c"></i><span>邮箱</span></h2>
+                      <p class="mailclass" style="min-height:21px;word-break:break-all;">{pigcms:$card.mail}</p>
+                    </div>
+
+                    <div class="tit03">
+                      <h2 class="tit03-left"><i class="i_06c"></i><span>地址</span></h2>
+                      <p class="addressclass" style="min-height:21px;word-break:break-all">{pigcms:$card.address}</p>
+                    </div>
+
+                    <div class="tit03 border-b-no">
+                      <h2 class="tit03-left"><i class="i_07c"></i><span>备注</span></h2>
+                      <p class="remarkclass" style="min-height:21px;word-break:break-all">{pigcms:$card.remark}</p>
+                    </div>
+                  </div>
+
+                </div>
+          </div>
+        </div>
+        <!--左侧手机预览结束--> 
+        <!--右侧编辑开始-->
+		<form id="for1" method="post" action="/index.php?g=User&m=Person_card&a=weimp_add&token={pigcms:$token}&id={pigcms:$card.id}"  onsubmit="return savecontent()">
+        <div class="rt-bg mg-left-15">
+		
+          <dl class="goods_list">
+           <dt><span class="red">*</span>选择模板</dt>
+			
+           <dd class="pd-top-5">
+             <label class="mblist">
+                <!--<div class="radio" name="radios" value="1" style="cursor:pointer;margin-top:3px;" id="radiov1" onclick="choosetemp(1)"></div>-->
+				<input type="radio"  class="radio" name="radios" value="1" style="cursor:pointer;margin-top:3px;" id="radiov1" onclick="choosetemp(1)" <if condition="($card.mould_id eq 1) and ($card.id)">checked="checked" <else /> checked="checked"</if>>
+                <span>模板一<span>
+              </span></span></label>
+              <label class="mblist">
+                <!--<div class="radio-foucs" name="radios" value="2" style="cursor:pointer;margin-top:3px;" id="radiov2" onclick="choosetemp(2)"></div>-->
+				<input type="radio" class="radio" name="radios" value="2" style="cursor:pointer;margin-top:3px;" id="radiov2" onclick="choosetemp(2)" <if condition="($card.mould_id eq 2) and ($card.id)">checked="checked"</if>>
+                <span>模板二<span>
+              </span></span></label>
+             <label class="mblist">
+                <!--<div class="radio-foucs" name="radios" value="3" style="cursor:pointer;margin-top:3px;" id="radiov3" onclick="choosetemp(3)"></div>-->
+				<input type="radio" class="radio" name="radios" value="3" style="cursor:pointer;margin-top:3px;" id="radiov3" onclick="choosetemp(3)" <if condition="($card.mould_id eq 3) and ($card.id)">checked="checked"</if>>
+                <span>模板三<span>
+            </span></span></label>
+           </dd>
+		   
+          </dl>
+
+          <!---------------------->
+              <dl class="goods_list">
+               <dt>头像设置</dt>
+               <dd><hr></dd>
+              </dl>
+
+              <dl class="goods_list">
+               <dt><span class="mg-left-5">头像</span></dt>
+               <dd>
+                <div>
+                  <div class="imguploadc float-lf">
+					<div style="height: 29px; width: 77px;background:#d9d9d9;text-align:center;font-size:15px;line-height:30px;cursor:pointer" onclick="upyunPicUpload('touxiang',180,180,'{pigcms:$token}')">上传头像</div>
+					<input type="text" style="display: none;" name="touX" id="touxiang" value="{pigcms:$card.portrait}">
+                  </div>
+                  <div class="scbtn_r float-lf" onclick="backheadimg()" style="cursor:pointer;background:url(/tpl/static/person/images/reset.jpg)"></div>
+                  <span class="float-lf grey font14 mg-left-10 mg-top-5">(尺寸180x180，不超过100K)</span>
+                </div>
+               </dd>
+              </dl>
+              <dl class="goods_list">
+               <dt>字体设置</dt>
+               <dd><hr></dd>
+              </dl>
+
+              <dl class="goods_list">
+               <dt><span class="mg-left-5">颜色</span></dt>
+               <dd>
+                <span class="float-lf">
+                    <input id="full2" name="color" value="{pigcms:$card.font_color}" style="display: none;">
+                </span>
+               </dd>
+              </dl>
+
+              <dl class="goods_list">
+               <dt style="width:150px;">背景设置<span class="grey">（任选一种）</span></dt>
+               <dd style="width:249px;"><hr></dd>
+              </dl>
+
+              <dl class="goods_list myradio">
+               <dt>
+			  <span class="radiobg" style="display:online" name="bgradios" value="1" onclick="choosebgtemp(1)" id="radiobg1" ></span>
+                   <span class="mg-left-5">图片</span>
+               </dt>
+               <dd>
+                <div>
+				  <div class="scbtn_l float-lf piclayshow" style="height:29px;width:77px;background:#d9d9d9;cursor:pointer;font-size:15px;text-align:center;line-height:30px;">上传图片</div>
+				  <input type="hidden" name="Bgbody" id="radiobg" value="">
+                  <div class="scbtn_r float-lf" id="bgimdid"  style="cursor:pointer;background:url(/tpl/static/person/images/reset.jpg)"></div>
+                  <span class="float-lf grey font14 mg-left-10 mg-top-5">(尺寸<span class="bgsizeportrait">640x400</span>，不超过200K)</span>
+                </div>
+               </dd>
+              </dl>
+              <dl class="goods_list myradio">
+               <dt>
+			   <span class="radiobg" name="bgradios" value="2" id="radiobg2" onclick="choosebgtemp(2)"></span>
+			   
+			   <span class="mg-left-5">模版</span></dt>
+               <dd>
+                <div>
+				
+                  <select id="selectbg" name="Bgbody1" class="inp_01 sel_box w140 font14" onchange="changpic()" disabled="disabled">
+                    <option value="0">请选择</option>
+                    <option value="1" >晨曦</option>
+                    <option value="2" >科技</option>
+                    <option value="3" >沙漠</option>
+                  </select>
+                </div>
+               </dd>
+              </dl>
+
+              <dl class="goods_list myradio">
+               <dt>
+			   <span class="radio-fouce" name="bgradios" id="radiobg3" onclick="choosebgtemp(3)"></span>
+			  
+			   <span class="mg-left-5">颜色</span></dt>
+               <dd>
+                <div>
+                    <span class="float-lf">
+                        <div id="textareause" style="width: 80px; height: 40px; position: absolute; z-index: -1;"></div>
+                        <input name="Bgbody2" id="full" style="display: none;" value="">
+                    </span>
+                </div>
+               </dd>
+              </dl>
+
+          <dl class="goods_list">
+           <dt>信息编辑</dt>
+           <dd><hr></dd>
+          </dl>
+         
+          <dl class="goods_list">
+           <dt><span class="red">*</span>姓名</dt>
+           <dd><input name="name" id="inputname" class="inp_01 w310" type="text" maxlength="10" placeholder="" value="{pigcms:$card.username}" onkeyup="changename()"></dd>
+          </dl>
+          <span style="float: right;margin-top:-25px ;font-size: 12px;color: #666666 ">真实姓名不可超过10个字</span>
+          <dl class="goods_list">
+           <dt>职位</dt>
+           <dd><input name="position" id="inputposition" class="inp_01 w310" type="text" maxlength="16" placeholder="" value="{pigcms:$card.position}" onkeyup="changeposition()"></dd>
+          </dl>
+            <span style="float: right;margin-top:-25px;font-size: 12px;color: #666666 ">职位长度不可超过16个字</span>
+          <dl class="goods_list">
+           <dt>公司</dt>
+           <dd><input name="company" id="inputcompany" class="inp_01 w310" type="text" maxlength="30" placeholder="" value="{pigcms:$card.company}" onkeyup="changecompany()"></dd>
+          </dl>
+            <span style="float: right;margin-top:-25px;font-size: 12px;color: #666666 ">公司名称不可超过20个字</span>
+          <dl class="goods_list">
+           <dt>网站</dt>
+           <dd><input name="url" id="inputurl" class="inp_01 w310" type="text" maxlength="50" placeholder="" value="{pigcms:$card.domain}" onkeyup="changeurl()"></dd>
+          </dl>
+          <span style="float: right;margin:-25px -25px 0px 0;font-size: 12px;color: #666666 ">网址以"(https)或http://"开头</span>
+          <dl class="goods_list">
+           <dt>邮箱</dt>
+           <dd><input name="mail" id="inputmail" class="inp_01 w310" type="text" maxlength="50" placeholder="" value="{pigcms:$card.mail}" onkeyup="changemail()"></dd>
+          </dl>
+            <span style="float: right;margin:-25px 38px 0px 0;font-size: 12px;color: #666666 ">请填写正确的邮箱</span>
+          <dl class="goods_list">
+           <dt>手机</dt>
+           <dd><input name="tel" id="inputtel" class="inp_01 w310" type="text" maxlength="11" onkeyup="value=value.replace(/[^\d]/g,&#39;&#39;);changetel()" placeholder="" value="{pigcms:$card.mobile}"></dd>
+          </dl>
+            <span style="float: right;margin:-25px 25px 0px 0;font-size: 12px;color: #666666 ">请填写您的手机号码</span>
+          <dl class="goods_list">
+           <dt>座机</dt>
+           <dd><input name="phone" id="inputphone" class="inp_01 w310" type="text" maxlength="20" onkeyup="value=value.replace(/[a-zA-Z]/g,&#39;&#39;);changephone()" placeholder="" value="{pigcms:$card.tel}"></dd>
+          </dl>
+            <span style="float: right;margin:-25px 26px 0 0;font-size: 12px; color: #666666">例:0551-65371998</span>
+          <dl class="goods_list">
+           <dt>传真</dt>
+           <dd><input name="fax" id="inputfax" class="inp_01 w310" type="text" maxlength="20" onkeyup="changefax()" placeholder="" value="{pigcms:$card.fax}"></dd>
+          </dl>
+            <span style="float: right;margin:-25px 26px 0 0;font-size: 12px;color: #666666 ">例:0551-65371998</span>
+          <dl class="goods_list">
+           <dt>地址</dt>
+           <dd><input name="address" id="inputaddress" class="inp_01 w310" type="text" maxlength="35" placeholder="" value="{pigcms:$card.address}" onkeyup="changeaddress()"></dd>
+          </dl>
+            <span style="float: right;margin:-25px 0px 0px 0;font-size: 12px;color: #666666 ">地址长度不可超过20个字</span>
+          <dl class="goods_list">
+            <dt>备注</dt>
+            <dd class="pd-top-5">
+                <textarea name="mark" id="inputremark" placeholder="" style="width:325px; height:60px; border:2px solid #e0e0e0; " maxlength="25"  onkeyup="changeremark()">{pigcms:$card.remark}</textarea>
+            </dd>
+
+          </dl>
+            <span style="float: right;margin-top:-25px;font-size: 12px; color: #666666">备注长度不可超过35个字</span>
+          <hr>
+      
+          <div class=" pd-top-10 pd-bottom-20 float-rt">
+            <input class="btnGreen" style="cursor:pointer;margin-right:180px " type="submit" id="add" value="保存并生成二维码">
+          </div>
+
+          <div class="grey-btn float-rt mg-right-15" style="margin-top:10px;">
+            <a href="javascript:history.go(-1)">返回</a>
+          </div>
+
+        </div>
+        <!--右侧编辑结束--> 
+      </div>
+      <!--微名片内容结束--> 
+    </div>
+<form>
+</div>
+
+  
+<script type="text/javascript">
+
+$(function(){
+
+//    if('{pigcms:$card.background}' == 3){
+//        colorgenerate('full','{pigcms:$card.background}','1');
+//    }else{
+//        colorgenerate('full','#1dca1d','1');
+//    }
+//    if('{pigcms:$card.font_color}'){
+//        colorgenerate('full2','{pigcms:$card.font_color}','2');
+//    }else{
+//        colorgenerate('full2','#ffffff','2');
+//    }
+      $('.piclayshow').attr('onclick','');
+      $('#bgimdid').attr('onclick','');
+      $('#selectbg').attr('disabled','disabled');
+      $('#textareause').css('z-index','-1');
+  });
+function changename(){
+  $(".nameclass").text($("#inputname").val());
+}
+
+function changeposition(){
+  $(".positionclass").text($("#inputposition").val());
+}
+
+function changecompany(){
+   $(".companyclass").text($("#inputcompany").val());
+}
+
+function changeurl(){
+  $(".urlclass").text($("#inputurl").val());
+  scrimgfix();
+}
+
+function changemail(){
+  $(".mailclass").text($("#inputmail").val());
+  scrimgfix();
+}
+
+function changetel(){
+  $(".telclass").text($("#inputtel").val());
+}
+
+function changephone(){
+  $(".phoneclass").text($("#inputphone").val());
+}
+
+
+function changefax(){
+  $(".faxclass").text($("#inputfax").val());
+}
+
+function changeaddress(){
+  $(".addressclass").text($("#inputaddress").val());
+  scrimgfix(); 
+}
+
+function changeremark(){
+  $(".remarkclass").text($("#inputremark").val());
+  scrimgfix();   
+}
+function getElementsByName(tagName, eName){
+        var tags = document.getElementsByTagName(tagName);
+        var returns = new Array();
+
+        if (tags != null && tags.length > 0) {
+            for (var i = 0; i < tags.length; i++) {
+                if (tags[i].getAttribute("name") == eName) {
+                    returns[returns.length] = tags[i];
+                }
+            }
+        }
+        return returns;
+}
+function choosetemp(id){
+  //var oRadio = getElementsByName('div','radios');
+//  for(var i=0;i<oRadio.length;i++){
+//        oRadio[i].className = "radio-foucs";//全部还原未选中状态的样式
+//  }
+  $("#radiov"+id).addClass("radio").removeClass("radio-foucs");
+  if(id=='1'){
+    $('.bgsizeportrait').html('640*400');
+    //$('#cutpicvalue').val('1.6');
+    $('#selectbg').html("<option value=\"0\">请选择</option><option id=\"option1\" value=\"1\">晨曦</option><option id=\"option2\" value=\"2\">科技</option><option id=\"option3\" value=\"3\">沙漠</option>");//模板选择下拉框
+  }else if(id=='2'){
+    $('.bgsizeportrait').html('640*1008');
+    $('.il2imgsrc').css('height',$('.il2').css('height'));
+    $('#selectbg').html("<option value=\"0\">请选择</option><option id=\"option4\"  value=\"4\">晨曦</option><option id=\"option5\" value=\"5\">风车</option><option id=\"option6\" value=\"6\">向日葵</option><option id=\"option7\" value=\"7\">星空</option>");
+  }else{
+    $('.bgsizeportrait').html('640*180');
+    $('#selectbg').html("<option value=\"0\">请选择</option><option id=\"option8\" value=\"8\">晨曦</option><option id=\"option9\" value=\"9\">科技</option><option id=\"option10\" value=\"10\">沙漠</option>");
+  }
+  if($('.radio-fouce').attr('value')=='2'){
+    $(".bannerclsimg").css("display","none");
+  }else{
+    $(".bannerclsimg").css("display","block");
+  }
+
+  $(".vcard_content").css("display","none");
+  $(".il"+id).css("display","block");
+
+}
+function choosebgtemp(id){
+  var oRadioa = getElementsByName('span','bgradios');
+  for(var i=0;i<oRadioa.length;i++){
+        oRadioa[i].className = "radiobg";//全部还原未选中状态的样式
+  }
+  $("#radiobg"+id).addClass("radio-fouce").removeClass("radiobg");
+  if(id=='1'){
+      if('{pigcms:$card.background_id}' != 1){
+          $(".bannerclsimg").attr('src','');
+          $(".bannerclsimg").css("display","none");
+      }else{
+          $(".bannerclsimg").attr('src','{pigcms:$card.background}');
+          $(".bannerclsimg").css("display","block");
+      }
+    $('.piclayshow').attr('onclick',"upyunPicUpload('radiobg',640,400,'{pigcms:$token}')");
+    $('#bgimdid').attr('onclick','backbgimg()');
+    $('#selectbg').attr('disabled','disabled');
+    $('#textareause').css('z-index','88');
+  }else if(id=='2'){
+    changpic();
+    $('.piclayshow').attr('onclick','');
+    $('#bgimdid').attr('onclick','');
+    $('#selectbg').attr('disabled',false);
+    $('#textareause').css('z-index','88');
+  }else{
+    $(".bannerclsimg").attr('src','');//使用颜色
+    $(".bannerclsimg").css("display","block");
+    $('.piclayshow').attr('onclick','');
+    $('#bgimdid').attr('onclick','');
+    $('#selectbg').attr('disabled','disabled');
+    $('#textareause').css('z-index','-1');
+  }
+}
+function changpic(){
+ var imgid = $("#selectbg").val();
+  if(imgid != 0 ){
+    $(".bannerclsimg").attr("src","tpl/static/person/images/"+imgid+".jpg");
+    $(".bannerclsimg").css("display","block");
+  }else{
+    $(".bannerclsimg").attr("src","");
+    $(".bannerclsimg").css("display","none");
+  }
+}
+function colorgenerate(id,severalcolor,type){
+  $("#"+id).spectrum({
+      allowEmpty:true,
+      color: severalcolor,
+      showInput: true,
+      containerClassName: "full-spectrum",
+      showInitial: true,
+      showPalette: true,
+      showSelectionPalette: true,
+      showAlpha: true,
+      maxPaletteSize: 10,
+      preferredFormat: "hex",
+      localStorageKey: "spectrum.demo",
+      move: function (color) {
+          updateBorders(color);
+          if(type==1){
+             $(".bannercls").attr("style","background-color:"+color);
+          }else{
+			 $(".ftclass").attr("style","color:"+color);
+          }
+          
+      },
+      show: function () {
+
+      },
+      beforeShow: function () {
+
+      },
+      hide: function (color) {
+          updateBorders(color);
+      },
+      palette: [
+          ["rgb(29, 202, 29)","rgb(0, 0, 0)", "rgb(67, 67, 67)", "rgb(102, 102, 102)", /*"rgb(153, 153, 153)","rgb(183, 183, 183)",*/
+          "rgb(204, 204, 204)", "rgb(217, 217, 217)", /*"rgb(239, 239, 239)", "rgb(243, 243, 243)",*/ "rgb(255, 255, 255)"],
+          ["rgb(152, 0, 0)", "rgb(255, 0, 0)", "rgb(255, 153, 0)", "rgb(255, 255, 0)", "rgb(0, 255, 0)",
+          "rgb(0, 255, 255)", "rgb(74, 134, 232)", "rgb(0, 0, 255)", "rgb(153, 0, 255)", "rgb(255, 0, 255)"],
+          ["rgb(230, 184, 175)", "rgb(244, 204, 204)", "rgb(252, 229, 205)", "rgb(255, 242, 204)", "rgb(217, 234, 211)",
+          "rgb(208, 224, 227)", "rgb(201, 218, 248)", "rgb(207, 226, 243)", "rgb(217, 210, 233)", "rgb(234, 209, 220)",
+          "rgb(221, 126, 107)", "rgb(234, 153, 153)", "rgb(249, 203, 156)", "rgb(255, 229, 153)", "rgb(182, 215, 168)",
+          "rgb(162, 196, 201)", "rgb(164, 194, 244)", "rgb(159, 197, 232)", "rgb(180, 167, 214)", "rgb(213, 166, 189)",
+          "rgb(204, 65, 37)", "rgb(224, 102, 102)", "rgb(246, 178, 107)", "rgb(255, 217, 102)", "rgb(147, 196, 125)",
+          "rgb(118, 165, 175)", "rgb(109, 158, 235)", "rgb(111, 168, 220)", "rgb(142, 124, 195)", "rgb(194, 123, 160)",
+          "rgb(166, 28, 0)", "rgb(204, 0, 0)", "rgb(230, 145, 56)", "rgb(241, 194, 50)", "rgb(106, 168, 79)",
+          "rgb(69, 129, 142)", "rgb(60, 120, 216)", "rgb(61, 133, 198)", "rgb(103, 78, 167)", "rgb(166, 77, 121)",
+          /*"rgb(133, 32, 12)", "rgb(153, 0, 0)", "rgb(180, 95, 6)", "rgb(191, 144, 0)", "rgb(56, 118, 29)",
+          "rgb(19, 79, 92)", "rgb(17, 85, 204)", "rgb(11, 83, 148)", "rgb(53, 28, 117)", "rgb(116, 27, 71)",*/
+          "rgb(91, 15, 0)", "rgb(102, 0, 0)", "rgb(120, 63, 4)", "rgb(127, 96, 0)", "rgb(39, 78, 19)",
+          "rgb(12, 52, 61)", "rgb(28, 69, 135)", "rgb(7, 55, 99)", "rgb(32, 18, 77)", "rgb(76, 17, 48)"]
+      ]
+  });
+
+
+}
+function checkpicimg(){
+  uploadifyiduse('iconupload');
+  uploadifyiduse('uploadnew');
+	$("#jietu1").show();
+  $("#jietu2").hide();
+  $("#tanceng").click();
+
+}
+function backheadimg(){
+  if(!confirm("您确认要还原头像图片吗"))return false;
+  $("#touxiang").val('');
+  $(".headimgsrc").attr("src","tpl/static/person/images/tx.png");
+}
+function backbgimg(){
+  if(!confirm("您确认要还原背景图片吗"))return false;
+  $("#bgimdid").val('');
+  $(".bannerclsimg").css("display","none");
+}
+function savecontent(){
+     $("#radiobg1").attr("onclick","");
+  var name = $("#inputname").val();
+  if($.trim(name)==""){
+  	$("#savebtn").attr("onclick","savecontent();");
+    alert("姓名不能为空");
+    return false;
+  }
+  var position = $("#inputposition").val();
+  var company = $("#inputcompany").val();
+  var url = $("#inputurl").val();
+  var mail = $("#inputmail").val();
+  var tel = $("#inputtel").val();
+  var phone = $("#inputphone").val();
+  var fax = $("#inputfax").val();
+  var address = $("#inputaddress").val();
+  var remark = $("#inputremark").val();
+
+  if(name.length>10){
+  	$("#savebtn").attr("onclick","savecontent();");
+    alert("姓名不能超过10个字");
+    return false;
+  }
+  if(position.length>16){
+  	$("#savebtn").attr("onclick","savecontent();");
+    alert("职位不能超过16个字");
+    return false;
+  }
+  if(company.length>20){
+  	$("#savebtn").attr("onclick","savecontent();");
+    alert("公司不能超过20个字");
+    return false;
+  }
+  if(url.length>400){
+  	$("#savebtn").attr("onclick","savecontent();");
+    alert("网站地址不能超过400个字");
+    return false;
+  }
+
+  var regurl = /http:\/\/.+/;
+  var regurl2 = /https:\/\/.+/;
+
+  if(!regurl.test(url) && !regurl2.test(url) && $.trim(url)!=""){
+  	$("#savebtn").attr("onclick","savecontent();");
+    alert("请输入正确格式的网址,如：'(https)http://www.xxxxx.com'");
+    return false;
+  }
+  var email = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+  if(!email.test($.trim(mail)) && $.trim(mail)!=""){
+      $("#savebtn").attr("onclick","savecontent();");
+      alert("邮箱格式不正确");
+      return false;
+  }
+  if(mail.length>50){
+  	$("#savebtn").attr("onclick","savecontent();");
+    alert("邮箱不能超过50个字");
+    return false;
+  }
+  if(tel.length>20){
+  	$("#savebtn").attr("onclick","savecontent();");
+    alert("手机不能超过20个字");
+    return false;
+  }
+  var regPartton=/^1(3|4|5|7|8)[0-9][0-9]{8}$/;
+
+  if(!regPartton.test(tel) && $.trim(tel)!="") {
+  	$("#savebtn").attr("onclick","savecontent();");
+    alert("手机号码格式不正确");
+    return false;
+  }
+  var regPhone=/\d{3}-\d{8}|\d{4}-\d{7}/;
+  if(phone.length>13){
+  	$("#savebtn").attr("onclick","savecontent();");
+    alert("座机不能超过13个字");
+    return false;
+  }
+  if(!regPhone.test($.trim(phone)) && $.trim(phone)!=""){
+      $("#savebtn").attr("onclick","savecontent();");
+      alert("座机号格式不正确");
+      return false;
+  }
+  if(fax.length>20){
+  	$("#savebtn").attr("onclick","savecontent();");
+    alert("传真不能超过20个字");
+    return false;
+  }
+  if(address.length>35){
+  	$("#savebtn").attr("onclick","savecontent();");
+    alert("地址不能超过35个字");
+    return false;
+  }
+  if(remark.length>25){
+  	$("#savebtn").attr("onclick","savecontent();");
+    alert("备注不能超过25个字");
+    return false;
+  }
+  return true;
+}
+</script>
+
+</div>
+ </div>
+
+<!--底部开始-->
+</div>
+
+<include file="Public:footer"/>

@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+	onload = function() {
+		$("#clas1").val({pigcms:$info['class1']});
+        $("#clas2").val({pigcms:$info['class2']});
+        $("#clas3").val({pigcms:$info['class3']});
+    }        
+</script>
+<include file="common:public" />
+<div class="cr"></div>
+<div id="artlist">
+	<if condition="$wxname eq null">
+		<div class="ksearch">
+		 	<div class="fl">
+		 		<span style="color:red">请设置公众号后再进行新闻管理操作。</span>
+		 	</div>
+	 		<form action="{pigcms::U('News/insert')}" method="post" style="float:left;margin-left:80px">
+	 		<input type="hidden" name="pid" class="ipt" value="{pigcms:$pid}" size="45"/>
+	 		公众号：
+		 		<input name="new" type="text" value="">
+		 		<input type="submit" value=" 确 定 ">
+	 		</form>
+	    </div>
+	<else />
+	    <div class="ksearch">
+	    	<div style="margin-left:20px"><b>当前公众号：{pigcms:$wxname}</b><span style="margin-left:40px"><a href="{pigcms::U('News/del',array('wxname'=>$wxname,'pid'=>$pid))}">退出</a></span></div>
+	    </div>
+	</if>
+</div>
+<if condition="$wxname neq null">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" id="alist">
+		<tr>
+			<td width="100">id</td>
+			<td >新闻分类1</td>
+			<td >新闻分类2</td>
+			<td >新闻分类3</td>
+			<td width="200">操作</td>
+		</tr>
+		<form action="{pigcms::U('News/upsave')}" method="post">
+			<tr>
+				<td align='center'>{pigcms:$info.id}</td>
+				<td align='center'>
+					<select style="height:25px;width:200px" id="clas1" name="class1"> 
+						<option value ="0">——请选择新闻分类——</option>
+						<volist name="class" id="vo">
+							<option value ="{pigcms:$vo.id}">{pigcms:$vo.name}</option>
+						</volist>
+					</select>
+				</td>
+				<td align='center'>
+					<select style="height:25px;width:200px" id="clas2" name="class2"> 
+						<option value ="0">——请选择新闻分类——</option>
+						<volist name="class" id="vo">
+							<option value ="{pigcms:$vo.id}">{pigcms:$vo.name}</option>
+						</volist>
+					</select>
+				</td>
+				<td align='center'>
+					<select style="height:25px;width:200px" id="clas3" name="class3"> 
+						<option value ="0">——请选择新闻分类——</option>
+						<volist name="class" id="vo">
+							<option value ="{pigcms:$vo.id}">{pigcms:$vo.name}</option>
+						</volist>
+					</select>
+				</td>
+
+				<td style="display:none">
+					<input name="tok" type="text" value="{pigcms:$tok}">
+					<input name="name" type="text" value="{pigcms:$wxname}">
+					<input type="hidden" name="pid" class="ipt" value="{pigcms:$pid}" size="45"/>
+				</td>
+				<td align='center'>
+					<input type="submit" value=" 确 定 ">
+				</td>
+			</tr>
+		</form>
+	</table>
+	<div style="color:red;margin:10px 0 0 20px;font-size:13px;">请选择文章分类,系统会选取每个分类下的5篇文章作为新闻信息。</div>
+</if>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<include file="Scene:header"/>
+<link rel="stylesheet" type="text/css" href="/tpl/static/wall/css/screen_supperzzle.css">
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+
+
+<body class="sameRound" rotate_id="58">
+<div class="Panel Top" style="top: 0px;">
+    <img class="activity_logo" src="{pigcms:$info.logo}">
+    <div class="top_title" style="font-size: 30px">
+        <div>欢迎您参加-{pigcms:$info.title}</div>    </div>
+    <if condition="$info.qrcode neq ''">
+        <img class="mp_account_codeimage" src="{pigcms:$info.qrcode}">
+    </if>
+</div>
+
+
+<div class="Panel Pairup" style="display: block; opacity: 1;">
+	<div class="pLeft">
+		<div class="pairup-title">
+			<h3>缘份对对碰</h3>
+			<span>男:<em class="m">0</em>人,女:<em class="w">0</em>人</span>
+		</div>
+		<div class="pairup-pic">
+			<span class="nan"></span>
+			<span class="nv"></span>
+		</div>
+		<div class="pairup-btn" style="display: block;">开始对对碰</div>
+        <div class="buttons">
+        	<!--
+            <div class="restart">重新报名</div>
+            <span class="replay">重新配对</span>
+            <div class="restart">开始报名</div>-->
+            <div class="button-showresult" id="replay">重新配对</div>
+            <span class="save-result" onclick="supperzzle_log({pigcms:$info.id})">中奖记录</span>
+        </div>
+	</div>
+	<div class="pRight">
+		<div class="result-title">
+			<h3>配对名单<i>(已保存)</i></h3>
+			<span>配对组数<b>0</b></span>
+		</div>
+		<div class="result-list">
+			<ul></ul>
+		</div>
+		<!-- <div class="result-btn">
+            <span class="save-result">保存结果</span>
+			<span class="replay">重新配对</span>
+		</div> -->
+	</div>
+</div>
+
+<script>
+var loadTime 	= 1000;
+var token      	= '{pigcms:$token}';   
+var sceneid   	= '{pigcms:$info.id}';
+var maleArr 	= [];
+var femaleArr 	= [];
+var maleCache 	= [];
+var femaleCache = [];
+var nanT 		= '';
+var nvT 		= '';
+var startT		= '';
+var	resultIndex = 0;
+
+function supperzzle_log(sceneid){
+    art.dialog.open('{pigcms::U('Scene/supperzzle_log',array('token'=>$token))}&id='+sceneid,{lock:false,title:'信息详情',width:1200,height:600,yesText:'关闭',background: '#000',opacity: 0.87});
+}
+</script>
+
+<script type="text/javascript" src="/tpl/static/wall/js/scene_supperzzle.js" charset="utf-8"></script>
+
+
+<include file="Scene:footer"/>

@@ -1,0 +1,109 @@
+<include file="Public:head"/>
+<link rel="stylesheet" type="text/css" href="./tpl/User/default/common/css/cymain.css" />
+<script src="/tpl/static/fushionCharts/JSClass/FusionCharts.js" type="text/javascript"></script>
+<div class="content">
+	<div class="cLineB">
+		<h4 class="left">服务窗粉丝管理</h4>
+		<div class="pageNavigator right">
+			<input type="text" id="name" class="px name" placeholder="输入昵称搜索"  name="name" value="{pigcms:$_GET['name']}" style="margin-top:10px">
+			<a href="javascript:seach()" id="seach" href="" class="btnGrayS" title="搜索">搜索</a>
+		</div>
+	</div>
+	<!--性别图谱s-->
+	<div id="chartdiv1" align="center"></div>
+	<script type="text/javascript">
+		var chart = new FusionCharts("/tpl/static/fushionCharts/Charts/Pie3D.swf", "ChartId", "600", "400", "0", "1");
+		//chart.setTransparent("false");
+		chart.setDataXML('{pigcms:$xml}');
+		//chart.setDataURL("data.html");
+		chart.render("chartdiv1");
+	</script>
+	<!--性别图谱e-->
+	<div class="msgWrap" style="border-top:1px solid #ccc;padding-top:10px;margin-top:10px;">
+		<div style="margin:10px 0">
+			<!-- <div class="pageNavigator right">
+				<input type="text" id="name" class="px name" placeholder="输入昵称搜索"  name="name" value="{pigcms:$_GET['name']}" style="margin-top:10px">
+				<a href="javascript:seach()" id="seach" href="" class="btnGrayS" title="搜索">搜索</a>
+			</div> -->
+<form method="post" action="{pigcms::U('User/FuwuUser/setGroup',array('token'=>$token))}">
+			<!-- <div style="width:70%;float:left">
+				将选中粉丝转移到分组中 <select name="fuwugroupid">
+					<option value="">未分组</option>
+					<pigcmslist array="groups" foreach="g">
+						<option value="{pigcms:$g.wechatgroupid}">{pigcms:$g.name}</option>
+					</pigcmslist>
+				</select> 
+				<input type="submit" value="转移" id="" href="" class="btnGrayS" title="转移">
+				&nbsp;&nbsp;按分组查看粉丝：<select id="wechatgroupid" onchange="location.href='?g=User&m=Wechat_group&a=index&token={pigcms:$token}&wechatgroupid='+this.value">
+					<option value="">未分组</option>
+					<pigcmslist array="groups" foreach="g">
+						<option value="{pigcms:$g.wechatgroupid}"<?php if ($_GET['wechatgroupid']==$g['wechatgroupid']){echo ' selected';}?>>{pigcms:$g.name}</option>
+					</pigcmslist>
+				</select>
+			</div> -->
+		</div>
+		<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+			<thead>
+				<tr>
+					<th class="select"><input type="checkbox" value="" id="check_box" onclick="selectall('id[]');"></th>
+					<th class="select">编号</th>
+					<th>粉丝名字</th>
+					<th>性别 </th>
+					<th>分组名</th>
+					<th>省(直辖市) </th>
+					<th>城市 </th>
+					<th>头像</th>
+					<th class="norightborder">关注时间</th>
+					<!--<th class="norightborder">操作</th>-->
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="fuwuuser_list" id="vo">
+					<tr>
+						<td><input type="checkbox" value="{pigcms:$vo.pigcms_id}" class="cbitem" name="id_{pigcms:$list.id}"></td>
+						<td>{pigcms:$vo.pigcms_id}</td>
+						<td>{pigcms:$vo.real_name}</td>
+						<td><if condition='$vo.gender eq "F"'>女<elseif condition='$vo.gender eq "M"'/>男<else />未知</if></td>
+						<td><if condition='$vo.type eq 0'>未分组</if></td>
+						<td>{pigcms:$vo.province}</td>
+						<td>{pigcms:$vo.city}</td>
+						<td><img src='{pigcms:$vo.avatar}' class="cateimg_small" width="80px"/></td>
+						<td class="norightborder">{pigcms:$vo.addtime|date='Y-m-d',###}</td>
+					</tr>
+				</volist>
+			</tbody>
+		</table>
+</form>
+	</div>
+	<div class="cLine">
+		<div class="pageNavigator right">
+			<div class="pages">{pigcms:$page}</div>
+		</div>
+		<div class="clr"></div>
+	</div>
+</div>
+<script>
+	$(document).ready(function(){});
+	function seach(){
+		var name = $(".name").val();
+		if(name != ""){
+			window.location.href="{pigcms::U('FuwuUser/index',array('token'=>$token))}&name="+name;
+		}else{
+			window.location.href="{pigcms::U('FuwuUser/index',array('token'=>$token))}";
+		}
+	}
+	function selectall(name) {
+		var checkItems=$('.cbitem');
+		if ($("#check_box").attr('checked')==false) {
+			$.each(checkItems, function(i,val){
+				val.checked=false;
+			});
+			
+		} else {
+			$.each(checkItems, function(i,val){
+				val.checked=true;
+			});
+		}
+	}
+</script>
+<include file="Public:footer"/>

@@ -1,0 +1,52 @@
+<if condition="$ischild neq 1">
+<include file="Public:head" />
+<else />
+<include file="Repast:head" />
+</if>
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<div class="content"> 
+	<div class="cLineB"> 
+		<h4>图片操作</h4> 
+		<a href="{pigcms::U('Hotels/index',array('token' => $token,'cid'=>$cid))}" class="right  btnGreen" style="margin-top:-27px">返回</a> 
+	</div>
+<if condition="$ischild neq 1">
+<div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-top:5px;">
+<span>温馨提示：</span>
+<p>1、此处只显示总店信息，连锁店的相关管理请进入相应平台进行管理，连锁店登录账号密码及登录地址请在LBS里设置查看</p>
+<p>2、本功能使用了模板消息中的“订单未支付通知”模板消息和“订单完成通知”模板消息，其模板编号分别为TM00184和OPENTM202521011。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;开通微信支付功能的公众号在使用此功能的时候可以在”基本设置——微信模板消息“中配置对应的模板消息</p>
+</div>
+<else />
+<div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-top:5px;">
+<span>温馨提示：</span>
+<p>本功能使用了模板消息中的“订单未支付通知”模板消息和“订单完成通知”模板消息，其模板编号分别为TM00184和OPENTM202521011。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;开通微信支付功能的公众号在使用此功能的时候可以在”基本设置——微信模板消息“中配置对应的模板消息</p>
+</div>
+</if>
+<form method="post" action="" id="formID">
+<input type="hidden" name="id" value="{pigcms:$tableData.id}" />
+<input type="hidden" name="cid" value="{pigcms:$cid}" />
+    <div class="msgWrap bgfc"> 
+     <table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%"> 
+      <tbody> 
+       <tr> 
+        <th>展示图片：</th>
+        <td><input type="text" name="image" value="{pigcms:$tableData.image}" class="px" id="pic" style="width:400px;" />  <script src="/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('pic',700,700,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic')">预览</a></td> 
+       </tr>
+       <tr> 
+        <th>描述：</th> 
+        <td><input type="text" name="info" value="{pigcms:$tableData.info}" class="px" id="pic" style="width:400px;" /> (不超过20个字符)</td> 
+       </tr>
+       <tr>
+       <th>&nbsp;</th>
+       <td>
+       <button type="submit" name="submit" class="btnGreen" id="save">保存</button> &nbsp; <a href="{pigcms::U('Hotels/image',array('token' => $token, 'cid' => $cid))}" class="btnGray vm">取消</a></td> 
+       </tr> 
+      </tbody> 
+     </table> 
+     </div>
+</form>
+</div> 
+
+<include file="Public:footer" />

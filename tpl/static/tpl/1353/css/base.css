@@ -1,0 +1,105 @@
+@charset "utf-8";
+
+body{ font:0.75em 'microsoft yahei'; color:#353535;}
+a{ text-decoration:none; color:#353535;}
+a:hover{ text-decoration:none;}
+
+/*bg*/
+.bg20{ background-color:#ececec;}
+
+/*container*/
+#container{ width:100%; max-width:640px; min-width:320px; margin:0 auto;}
+
+/*footer*/
+#footer{ padding:2.3% 2.65%; background-color:#3a4148;}
+#footer nav{ margin-bottom:3%; opacity:0.7;}
+#footer .copyRight{ font-family:Arial; opacity:0.57;}
+
+/*goToTop*/
+.goToTop{ display:inline-block; width:2.9em; height:2.9em; text-indent:-9999px; background:url(../images/topBg.png) no-repeat; background-size:29em 17.5em; right:1.9%; top:21%;}
+.goToTop11{ background-position:0 0;}
+.goToTop12{ background-position:-2.9em 0;}
+.goToTop13{ background-position:-5.8em 0;}
+.goToTop14{ background-position:-8.7em 0;}
+
+.goToTop21{ background-position:0 -2.9em;}
+.goToTop22{ background-position:-2.9em -2.9em;}
+.goToTop23{ background-position:-5.8em -2.9em;}
+.goToTop24{ background-position:-8.7em -2.9em;}
+
+.goToTop31{ background-position:0 -5.8em;}
+.goToTop32{ background-position:-2.9em -5.8em;}
+.goToTop33{ background-position:-5.8em -5.8em;}
+.goToTop34{ background-position:-8.7em -5.8em;}
+.goToTop35{ background-position:-11.6em -5.8em;}
+.goToTop36{ background-position:-14.5em -5.8em;}
+.goToTop37{ background-position:-17.4em -5.84em;}
+
+.goToTop41{ background-position:0 -8.7em;}
+.goToTop42{ background-position:-2.9em -8.7em;}
+.goToTop43{ background-position:-5.8em -8.7em;}
+.goToTop44{ background-position:-8.7em -8.7em;}
+.goToTop45{ background-position:-11.6em -8.7em;}
+.goToTop46{ background-position:-14.5em -8.7em;}
+.goToTop47{ background-position:-17.4em -8.7em;}
+.goToTop48{ background-position:-20.3em -8.7em;}
+.goToTop49{ background-position:-23.2em -8.7em;}
+.goToTop410{ background-position:-26.1em -8.7em;}
+
+.goToTop51{ background-position:0 -11.6em;}
+.goToTop52{ background-position:-2.9em -11.6em;}
+
+.goToTop61{ background-position:0 -14.5em;}
+.goToTop62{ background-position:-2.9em -14.5em;}
+.goToTop63{ background-position:-5.8em -14.5em;}
+
+/*index*/
+.carouselBox{ margin-bottom:3.2%; position:relative;}
+.carouselBox .carouselPics li{ float:left; text-align:center;}
+.carouselBox .carouselPics li img{ width:100%; vertical-align:middle;}
+.carouselBox .carouselBtns{ width:100%; left:0; bottom:0.7%; display:table; z-index:5; text-align:center;}
+.carouselBox .carouselBtns li{ display:inline-block; width:1.8%; height:0.5em; margin-left:1.6%; border-radius:0.25em; background:rgba(235,235,235,0.7);}
+.carouselBox .carouselBtns li.current{ background:rgba(235,235,235,1);}
+.carouselBox .carouselBtns li:first-child{ margin-left:0;}
+.carouselBox .carouselBtnsBg{ width:27.7%; height:1.5em; left:50%; margin-left:-13.8%; bottom:0; background-size:7em 1.5em;}
+
+.menu201{ margin:1.3% 1.5% 1.6%;}
+.menu201 li{ float:left; width:32.7%; margin:0 0.9% 0 0;}
+.menu201 li a{ display:block; height:4.44em; text-align:center;}
+.menu201 li img{ height:2em; margin:5% 0 5%; vertical-align:middle;}
+.menu201 li span{ display:inline-block; width:100%; height:1.4em; color:#e5e9e7; font-weight:bold; overflow:hidden;}
+.menu201 li:nth-child(1){ background-color:#71dd85;}
+.menu201 li:nth-child(2){ background-color:#b35a7c;}
+.menu201 li:nth-child(3){ background-color:#399cb8; margin-right:0;}
+
+.menu202{ margin:0 0 3.8% 0;}
+.menu202 ul{ padding-left:3.7%;}
+.menu202 ul li{ float:left; width:30%; margin:0 3% 6.4% 0;height:100px;background:rgba(235,235,235,0.7)}
+.menu202 ul li img{ width:100%; height:80%;vertical-align:middle; border-radius:0.5em;}
+.menu202 ul li h3{background:rgba(199,184,186,1);height: 20px;font-family: "微软雅黑";font-weight: bold;};
+
+.contactUs{ height:2.22em; line-height:2.22em; margin:0 3.7% 3.7% 3.7%; border-radius:0.3em; text-align:center; background-color:#497ca9;}
+.contactUs a{ display:block; color:#fff;}
+
+@media screen and (min-width:320px){
+	#container .menu202 h2{ font-size:16px;}
+	#container .contactUs{ font-size:14px;}
+}
+@media screen and (min-width:480px){
+	#container{ font-size:20px;}
+	#container .menu202 h2{ font-size:29px;}
+	#container .contactUs{ font-size:22px;}
+	#footer{ font-size:15px;}
+	#footer .copyRight{ font-size:16px;}
+}
+@media screen and (min-width:640px){
+	#container{ font-size:24px;}
+	#container .menu202 h2{ font-size:33px;}
+	#container .contactUs{ font-size:26px;}
+	#footer{ font-size:19px;}
+	#footer .copyRight{ font-size:20px;}
+}
+
+
+
+

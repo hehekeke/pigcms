@@ -1,0 +1,68 @@
+<include file="Drp:head" />
+<style type="text/css">
+    .price {
+        color: #c40000;
+    }
+    .green {
+        color: green;
+    }
+</style>
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+<div class="content">
+<div class="cLineB">
+<h4 class="left">分销佣金 - 我的提现记录</h4>
+<div class="clr"></div>
+</div>
+    <!--tab start-->
+    <div class="tab">
+        <ul>
+            <li class="tabli" id="tab0"><a href="{pigcms::U('DrpCommission/index')}">我的佣金记录</a></li>
+            <li class="current tabli" id="tab1"><a href="{pigcms::U('DrpCommission/withdraw')}">我的提现记录</a></li>
+            <li class="tabli" id="tab2"><a href="{pigcms::U('DrpCommission/withdraw_apply')}">提现申请</a></li>
+        </ul>
+    </div>
+    <!--tab end-->
+
+    <div class="cLine">
+<div class="clr"></div>
+</div>
+<div class="msgWrap">
+<form method="post" action="" id="info">
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<if condition="$commission_receipts neq array()">
+<thead>
+	<tr>
+		<th>编号</th>
+        <th style="text-align: right">金额（元）</th>
+        <th style="text-align: center">状态</th>
+        <th style="text-align: center">打款时间</th>
+        <th style="text-align: center">申请时间</th>
+	</tr>
+</thead>
+<tbody>
+<volist name="commission_receipts" id="commission_receipt">
+	<tr>
+		<td>{pigcms:$commission_receipt.id}</td>
+        <td style="text-align: right">{pigcms:$commission_receipt.amount|number_format=###, 2, '.', ''}</td>
+        <td style="text-align: center"><if condition="$commission_receipt.status eq 0">已申请</if><if condition="$commission_receipt.status eq 1">已打款</if><if condition="$commission_receipt.status eq 2">已收款</if><if condition="$commission_receipt.status eq 3">已取消</if></td>
+        <td style="text-align: center"><if condition="$commission_receipt.status eq 1">{pigcms:$commission_receipt.paidtime|date='Y-m-d', ###}</if></td>
+        <td style="text-align: center">{pigcms:$commission_receipt.time|date='Y-m-d', ###}</td>
+	</tr>
+</volist>
+</tbody>
+<else />
+    <tr><td class="red" align="center">没有记录！</td></tr>
+</if>
+</table>
+</form>
+</div>
+<div class="cLine">
+	<div class="pageNavigator right">
+		<div class="pages">{pigcms:$page}</div>
+	</div>
+	<div class="clr"></div>
+</div>
+</div>
+<include file="Public:footer"/>

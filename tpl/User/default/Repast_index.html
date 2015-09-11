@@ -1,0 +1,100 @@
+<if condition="$ischild neq 1">
+<include file="Public:head" />
+<else />
+<include file="Repast:head" />
+</if>
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<div class="content">
+<div class="cLineB">
+<h4 class="left">餐台管理</h4>
+<div class="clr"></div>
+</div>
+<div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-top:5px;">
+<span>温馨提示：</span>
+<p>1、<b>餐饮订单支持无线打印，购买无线打印机（购买请直接联系{pigcms:$f_siteName}）后便可以实现订单的自动打印</b><br>此处只显示总店信息，连锁店订单及菜品请进入相应平台进行管理，连锁店登录账号密码及登录地址请在LBS里设置查看</p>
+<p>2、本功能使用了模板消息中的“订单完成通”知模板消息，模板编号OPENTM202521011。
+          开通微信支付功能的公众号在使用此功能的时候可以在”基本设置——微信模板消息“中配置对应的模板消息</p>
+</div>
+<!--tab start-->
+<div class="tab">
+<ul>
+<li class="tabli" id="tab0"><a href="{pigcms::U('Repast/company', array('token' => $token,'cid' => $cid))}">餐厅管理</a></li>
+<li class="current tabli" id="tab1"><a href="{pigcms::U('Repast/index', array('token' => $token,'cid' => $cid))}">餐台管理</a></li>
+<li class="tabli" id="tab2"><a href="{pigcms::U('Repast/detail', array('token' => $token,'cid' => $cid))}">餐台预定情况</a></li>
+<li class="tabli" id="tab2"><a href="{pigcms::U('Repast/sort', array('token' => $token,'cid' => $cid))}">分类管理</a></li>
+<li class="tabli" id="tab3"><a href="{pigcms::U('Repast/dish', array('token' => $token,'cid' => $cid))}">菜品管理</a></li>
+<li class="tabli" id="tab4"><a href="{pigcms::U('Repast/orders', array('token' => $token,'cid' => $cid))}">订单管理</a></li>
+<li class="tabli" id="tab5"><a href="{pigcms::U('Repast/Statistics', array('token' => $token,'cid' => $cid))}">菜品统计</a></li>
+<if condition="$ischild neq 1" >
+<li class="tabli" id="tab5"><a href="{pigcms::U('Reply_info/set', array('token'=>$token,'infotype'=>'Dining'))}">订餐回复配置</a></li>
+</if>
+</ul>
+</div>
+<!--tab end-->
+<div class="cLine">
+<div class="pageNavigator left"> <a href="{pigcms::U('Repast/add',array('token' => $token,'cid'=>$cid))}" title="添加" class="btnGrayS vm bigbtn"><img src="{pigcms::RES}/images/product/add.png" width="16" class="vm">添加桌台</a></div>
+<div class="clr"></div>
+</div>
+<div class="msgWrap">
+<form method="post" action="" id="info">
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<thead>
+	<tr>
+		<th width="110">餐台名称</th>
+		<th width="60">类型</th>
+		<th width="50">容纳人数</th>
+		<th width="80">使用状态</th>
+		<th width="150">预定情况</th>
+
+		<th width="165" class="norightborder">操作</th>
+	</tr>
+</thead>
+<tbody>
+<tr></tr>
+<volist name="list" id="tablelist"> 
+	<tr>
+		<td>{pigcms:$tablelist.name}</td>
+		<td><php>if ($tablelist['isbox']) {echo "包间";} else {echo "大厅";}</php></td>
+		<td>{pigcms:$tablelist.num}</td>
+		<td><if condition="$tablelist['status'] eq 1">正在使用...<else/>未使用</if><p style="padding-top: 5px"><a class="btnGray vm" onclick="toSwitchStatus(1,{pigcms:$tablelist['id']},{pigcms:$tablelist['status']},0)">更新状态</a><p></td>
+		<td><php>if(array_key_exists($tablelist['id'],$reserve)){ echo $reserve[$tablelist['id']]['reservestr'];echo '<p style="padding-top: 5px"><span style="color:red;">'.$reserve[$tablelist["id"]]["isusestr"].'<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="btnGray vm" onclick="toSwitchStatus(2,'.$tablelist["id"].','.$reserve[$tablelist["id"]]["isuse"].','.$reserve[$tablelist["id"]]["id"].')">更新就餐状态</a><p>';}</php></td>
+		<td class="norightborder">
+			<a href="{pigcms::U('Repast/add', array('id' => $tablelist['id'], 'token' => $token,'cid' => $tablelist['cid']))}">修改</a> 
+			<a href="javascript:drop_confirm('您确定要删除吗?', '{pigcms::U('Repast/del',array('id' => $tablelist['id'], 'token' => $token,'cid' => $tablelist['cid']))}');">删除</a><if condition="$wxuser['winxintype'] eq 3"> <a onclick="showEwmDetail({pigcms:$tablelist['id']},'{pigcms:$tablelist['name']}')" class="red">查看二维码</a></if>
+		</td>
+	</tr>
+</volist>
+</tbody>
+</table>
+</form>
+</div>
+<div class="cLine">
+	<div class="pageNavigator right">
+		<div class="pages">{pigcms:$page}</div>
+	</div>
+	<div class="clr"></div>
+</div>
+</div>
+<script type="text/javascript">
+/*href="{pigcms::U('Repast/QRcode', array('token' => $token,'cid' => $cid,'tid'=>$tablelist['id'],'down'=>1))}"*/
+function toSwitchStatus(type,tid,sv,dtid){
+	var tips=type==1 ? '你确定要修改餐桌使用状态吗？': '你确定要修改预约就餐状态吗？';
+	if(confirm(tips)){
+		$.post("{pigcms::U('Repast/toSwitchStatus', array('token' => $token,'cid' => $cid))}",{typ:type,tid:tid,vv:sv,dtid:dtid},function(ret){
+			if(ret.error>0){
+			  alert(ret.msg);
+			}else{
+			  window.location.reload();
+			}
+		},"json");
+	}
+   return false;
+}
+
+function showEwmDetail(id,tname){
+	art.dialog.open('{pigcms::U('Repast/tableEwm',array('token'=>$token,'cid'=>$cid))}&tid='+id,{lock:false,title:tname+' 餐桌二维码',width:580,height:380,yesText:'关闭',background: '#000',opacity: 0.87, close: function(){location.reload();}});
+}
+</script>
+<include file="Public:footer"/>

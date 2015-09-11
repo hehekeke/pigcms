@@ -1,0 +1,75 @@
+<include file="Public:head"/>
+<include file="Business:public_menu"/>
+<!-- <script src="{pigcms::STATICS}/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="{pigcms::STATICS}/artDialog/plugins/iframeTools.js"></script> -->
+
+ <style>
+.cLine {
+    overflow: hidden;
+    padding: 5px 0;
+  color:#000000;
+}
+.alert {
+padding: 8px 35px 0 10px;
+text-shadow: none;
+-webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+-moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+background-color: #f9edbe;
+border: 1px solid #f0c36d;
+-webkit-border-radius: 2px;
+-moz-border-radius: 2px;
+border-radius: 2px;
+color: #333333;
+margin-top: 5px;
+}
+.alert p {
+margin: 0 0 10px;
+display: block;
+}
+.alert .bold{
+font-weight:bold;
+}
+ </style>
+
+
+<include file="Business:tips"/>
+
+<div class="msgWrap form">
+    <div class="content">
+        <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+          <thead>
+            <tr>
+  <th style=" width:120px;">订单号</th>
+  <th style=" width:100px;">收件人</th>
+  <th style=" width:100px;">总价格</th>
+  <th style=" width:100px;">订单时间</th>  
+  <th style=" width:100px;">支付方式</th>
+  <th style=" width:100px;">交易状态</th>
+</th>
+              <th style=" width:120px;">查看订单</th>
+            </tr>
+          </thead>
+<volist name="book" id="vo">
+          <tbody><tr>
+              <td>{pigcms:$vo.orderid}</td>
+              <td>{pigcms:$vo.true_name}</td>
+              <td>{pigcms:$vo.price}</td>
+              <td>{pigcms:$vo.book_time|date="Y-m-d H:i:s", ###}</td>
+			  <td><if condition="$fans['balance'] gt 0">会员卡付款<else />{pigcms:$vo.ptype}</if></td>
+              <td><if condition="$vo['paid'] eq 0"><if condition="$vo['paytype'] eq 'daofu' || $vo['paytype'] eq 'dianfu'">等待卖家发货<else />未付款</if><elseif condition="$vo['paid'] eq 1" />买家已付款，等待卖家发货<elseif condition="$vo['paid'] eq 2" />卖家已发货<elseif condition="$vo['paid'] eq 3" />买家已收货</if></td>
+              <td class="norightborder">
+              <a href="{pigcms::U('Seckill/order_detail',array('bid'=>$vo['book_id'],'sid'=>$vo['shop_id'], 'type'=>'seckill'))}" class="btnGreen">查看</a>
+            </tr>
+          </tbody>
+</volist> 
+            </table>
+			<div class="footactions" style="padding-left:10px">
+      <div class="pages"> {pigcms:$page}</div>
+    </div>
+    </div>
+    
+  </div>
+</div>
+
+<include file="Public:footer"/>

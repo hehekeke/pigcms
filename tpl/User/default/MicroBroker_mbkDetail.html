@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>经纪人详细数据</title>
+<meta http-equiv="MSThemeCompatible" content="Yes" />
+<link rel="stylesheet" type="text/css" href="{pigcms:$staticPath}/tpl/User/default/common/css/style_2_common.css?BPm" />
+<script src="{pigcms:$staticPath}/tpl/User/default/common/js/common.js" type="text/javascript"></script>
+<link href="{pigcms:$staticPath}/tpl/User/default/common/css/style.css" rel="stylesheet" type="text/css" />
+</script>
+<style>
+    span{font-size: 14px;color:red;}
+</style>
+</head>
+<body id="nv_member">
+<div style="line-height:200%;padding:10px 20px;">
+<ul>
+ <if condition="!empty($thisuser)">
+ <li><strong>名称：</strong><span>{pigcms:$thisuser['username']}</span></li>
+ <li><strong>电话：</strong><span>{pigcms:$thisuser['tel']}</span></li>
+ <li><strong>类型：</strong><span>{pigcms:$thisuser['description']}</span></li>
+ <li><strong>推荐人数：</strong><span>{pigcms:$thisuser['recommendnum']}</span></li>
+ <li><strong>可提取佣金：</strong><span>{pigcms:$thisuser['totalcash']}</span></li>
+ <li><strong>已提取佣金：</strong><span>{pigcms:$thisuser['extractcash']}</span></li>
+ <if condition="!empty($thisuser['company'])">
+<li><strong>公司：</strong><span>{pigcms:$thisuser['company']}</span></li>
+</if>
+ <if condition="!empty($thisuser['identitycode'])">
+<li><strong>身份证号：</strong><span>{pigcms:$thisuser['identitycode']}</span></li>
+</if>
+ <if condition="!empty($thisuser['bank_truename'])">
+<li><strong>银行开户姓名：</strong><span>{pigcms:$thisuser['bank_truename']}</span></li>
+</if>
+ <if condition="!empty($thisuser['bank_name'])">
+<li><strong>银行名：</strong><span>{pigcms:$thisuser['bank_name']}</span></li>
+</if>
+ <if condition="!empty($thisuser['bank_cardnum'])">
+<li><strong>银行卡号：</strong><span>{pigcms:$thisuser['bank_cardnum']}</span></li>
+</if>
+ </if>
+</ul>
+</div>
+
+ <input type="hidden" name="__hash__" value="c4777985610b4681565177b37676d9e2_ae444f64eff33253236e8ce4fe4073f1" />
+</body>
+</html>

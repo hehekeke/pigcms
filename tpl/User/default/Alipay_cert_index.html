@@ -1,0 +1,70 @@
+<include file="Public:head"/>
+<style>
+.userinfoArea th{width:190px}
+</style>
+<form class="form" method="post" action="{pigcms::U('Alipay_cert/localupload',array('token'=>$this->token))}"  target="_top" enctype="multipart/form-data">
+<div class="content">
+<div class="cLineB">
+  <h4>上传微信证书</h4><a href="javascript:history.go(-1);" class="right btnGrayS vm" style="margin-top:-27px">返回</a></div>
+<div class="msgWrap bgfc">
+<table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%">
+<tbody>
+<tr>
+  <th>apiclient_cert私钥文件:</th>
+  <td>
+  <input type="text" value="{pigcms:$cert.apiclient_cert}" class="px" style="width:300px;"/>
+  <input type="file" name="apiclient_cert" id="apiclient_cert" class="" style="width:175px;" > <input type="submit" onclick="this.value='上传中...'" value="上传" class="btnGreen" name="doSubmit" id="submitbtn"></td>
+</tr>
+<tr>
+  <th>apiclient_key公钥文件:</th>
+  <td>
+   <input type="text" value="{pigcms:$cert.apiclient_key}" class="px" style="width:300px;"/>
+  <input type="file" name="apiclient_key" value='{pigcms:$cert.apiclient_key}' id="apiclient_key" class="" style="width:175px;" > <input type="submit" onclick="this.value='上传中...'" value="上传" class="btnGreen" name="doSubmit" id="submitbtn"></td>
+</tr>
+<tr>
+  <th>根证书文件:</th>
+  <td>
+  <input type="text" value="{pigcms:$cert.rootca}" class="px" style="width:300px;"/>
+  <input type="file" name="rootca" value='{pigcms:$cert.rootca}' id="rootca" class="" style="width:175px;" > <input type="submit" onclick="this.value='上传中...'" value="上传" class="btnGreen" name="doSubmit" id="submitbtn"></td>
+</tr>
+  </tbody>
+ </table>
+ </div>
+ 
+</div>
+</form>
+<!--script>
+//简单的表单验证
+$(function(){
+	$("#cert_upload").click(function(){
+		var apiclient_cert = $("#apiclient_cert").val();
+		var apiclient_key = $("#apiclient_key").val();
+		var rootca = $("#rootca").val();
+		var msg = '';
+		if(apiclient_cert == ''){
+			msg += 'apiclient_key文件不能为空\n';
+		}
+		if(apiclient_key == ''){
+			msg += 'apiclient_key文件不能为空\n';
+		}
+		if(rootca == ''){
+			msg += 'rootca根证书不能为空\n';
+		}
+		if(apiclient_cert != '' && apiclient_cert.substr(-3,3) != 'pem'){
+			msg += 'apiclient_cert文件必须为pem后缀\n';
+		}
+		if(apiclient_key != '' && apiclient_key.substr(-3,3) != 'pem'){
+			msg += 'apiclient_key文件必须为pem后缀\n';
+		}
+		if(rootca != '' && rootca.substr(-3,3) != 'pem'){
+			msg += 'rootca文件必须为pem后缀\n';
+		}
+		if(msg != ''){
+			alert(msg);
+			return false;
+		}
+		$(".form").submit();
+	});
+});
+</script-->
+<include file="Public:footer"/>

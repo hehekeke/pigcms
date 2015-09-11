@@ -1,0 +1,30 @@
+@charset "utf-8";
+/* CSS Document */
+
+.banner .zhutu{width:100%;height:300px;position:absolute;left:0px;top:114px; text-align:center;}
+.content{ width:1000px; margin:0 auto; margin-top:60px; margin-bottom:60px;}
+.content .contLt{ width:240px; float:left;}
+.content .contLt li{ background-color:#EBEBEB; margin-bottom:1px; line-height:50px; text-align:center;}
+.content .contLt .greenbg{ background:#3CAF59;}
+.contLt .greenbg div{ color:#fff;}
+.contLt li div{font-size:18px; color:#1b1b1b; display:block;cursor: pointer; word-break:break-all;}
+.content .contRt{ float:right; width:740px; text-align:center;}
+.chaxun{ font-size:24px; border-bottom:1px solid #e3e3e3; padding-bottom:15px; margin-bottom:20px; color:#000000;}
+
+
+
+
+/*********右侧********************/
+
+.section ul{width:740px;}
+.section ul li{float:left;margin-right:14px;margin-bottom:25px;display:inline;width:212px;height:336px;overflow:hidden;position:relative; margin-left:14px;}
+.section ul li .photo{width:212px;height:336px;overflow:hidden;}
+.section .rsp{width:212px;height:336px;overflow:hidden;position: absolute;background:#000;top:0px;left:0px;}
+.section .text{position:absolute;width:212px;height:336px;left:-212px;top:0px;overflow:hidden;}
+.section .text p{ text-align:center;}
+.section .text .weiXin{ margin-top:80px;}
+.text .weiXin img{ margin:0 auto;}
+.section .text .chakanX{ margin-top:40px;}
+.section .text a{text-decoration:none; font-size:14px; color:#e3e3e3; border:1px solid #e3e3e3; padding:7px 20px;}
+.section .text a:hover{  background:#e3e3e3; border:none; color:#000;}
+.section .text div{text-align:center;color:#FFFFFF;font-size:18px;}

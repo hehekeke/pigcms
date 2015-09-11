@@ -1,0 +1,23 @@
+@charset "utf-8";
+
+/* CSS Public */
+.zuoce_clear{
+	zoom: 1;
+}
+
+/* CSS Document */
+.zuoce{position:fixed;top:250px;right:0px; z-index:100;}
+#Layer1{font-size:18px;float:left; padding-top:50px;} 
+#Layer2{ background-color:#f2f2f2; float:left;border:1px solid #ddd;border-top:6px solid #f66362;border-right: none;min-height: 300px;}
+#Layer2 a{color:#484848;font-size:14px;}
+#Layer2 p{ margin:0 auto;  padding: 10px;}
+#Layer2 .xiangGuan{ font-size:22px; color:#000; border-bottom:1px solid #dadada; height:50px; line-height:50px; text-align:center; margin-bottom: 15px;}
+#Layer2 .lianjie{ line-height:22px;}
+#Layer2 .lianjie a{padding-left: 25px;}
+#Layer2 .lianjie a:hover{ color:#e81f22;}
+#Layer2 .lianjie a.writing{background: url(../images/wenzhang_07.png) no-repeat 5px center;}
+#Layer2 .lianjie a.video{background: url(../images/tubiao_03.png) no-repeat 1px center;}
+#Layer2 .anNiuo a{ background-color:#eba51e; padding:13px 40px; font-size:16px; color:#fff;}
+#Layer2 .anNiuo{ padding-top:50px; padding-bottom:20px; text-align:center;}
+#Layer2 .anNiut a{ background-color:#3ad595; padding:13px 56px; font-size:16px; color:#fff;}
+#Layer2 .anNiut{ padding-top:25px; padding-bottom:40px; text-align:center;}

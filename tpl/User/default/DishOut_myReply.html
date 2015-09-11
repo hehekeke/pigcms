@@ -1,0 +1,68 @@
+<if condition="$ischild neq 1">
+<include file="Public:head" />
+<else />
+<include file="Repast:head" />
+</if>
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+<div class="content">
+
+<div class="cLineB">
+  <h4>外卖回复配置 </h4><a href="javascript:history.go(-1);" class="right btnGrayS vm" style="margin-top:-27px">返回</a>
+ </div>
+ 	<div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-top:5px;">
+	<span>温馨提示：</span><p>1、此处只显示总店信息，连锁店订单及菜品请进入相应平台进行管理，连锁店登录账号密码及登录地址请在LBS里设置查看<br/>微外卖的菜品添加请到微餐饮的菜品管理里添加修改</p>
+	<p>2、本功能使用了模板消息中的“订单完成通”知模板消息，模板编号OPENTM202521011。
+          开通微信支付功能的公众号在使用此功能的时候可以在”基本设置——微信模板消息“中配置对应的模板消息</p>
+	</div>
+  <!--tab start-->
+<div class="tab">
+<ul>
+<li class="tabli" id="tab3"><a href="{pigcms::U('DishOut/index', array('token' => $token,'cid' => $cid))}">外卖菜单</a></li>
+<li class="tabli" id="tab2"><a href="{pigcms::U('DishOut/manageTime', array('token' => $token,'cid' => $cid))}">外卖管理</a></li>
+<li class="tabli" id="tab2"><a href="{pigcms::U('DishOut/basePrice', array('token' => $token,'cid' => $cid))}">外送类型设置</a></li>
+<li class="current tabli" id="tab5"><a href="{pigcms::U('DishOut/myReply', array('token'=>$token,'cid' => $cid))}">外卖回复配置</a></li>
+<li class="tabli" id="tab4"><a href="{pigcms::U('DishOut/orders', array('token' => $token,'cid' => $cid))}">外卖订单管理</a></li>
+<li class="tabli" id="tab1"><a href="{pigcms::U('DishOut/Statistics', array('token' => $token,'cid' => $cid))}">外卖统计</a></li>
+</ul>
+</div>
+<!--tab end-->    
+    <div class="msgWrap bgfc" style="margin-top:10px;">
+	  <form class="form" method="post" action="" target="_top" enctype="multipart/form-data">
+	    <input type="hidden" name="cid" value="{pigcms:$cid}" />
+	    <input type="hidden" name="tid" value="{pigcms:$mtime['id']}" />
+		<table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%">
+			<tbody>
+				<tr>
+				  <th valign="top"><span class="red">*</span>触发关键词：</th>
+				  <td>
+				  <input type="text" name="keyword" value="{pigcms:$mtime['keyword']}" class="px" style="width:550px;"> <br/>
+					<span class="red">当用户输入该关键词时，将会触发此回复。</span></td>
+				</tr>
+				<tr>
+					<th width="120"><span class="red">*</span>回复标题：</th>
+					<td><input type="text" name="rtitle" value="{pigcms:$mtime['rtitle']}" class="px" style="width:550px;"></td>
+				</tr>
+				<tr>
+					<th width="120">内容介绍：</th>
+					<td><textarea style="width:560px;height:75px" name="rinfo" id="rinfo" class="px">{pigcms:$mtime['rinfo']}</textarea><br/>最多填写120个字</td>
+				</tr>
+				<tr>
+					<th>回复图片：</th>
+					<td><input type="text" name="picurl" value="{pigcms:$mtime['picurl']}" id="pic" class="px" style="width:550px;"> <script src="/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('pic',900,500,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic')">预览</a>   &nbsp; 大小为900x500</td>
+				</tr>
+				<th>&nbsp;</th>
+					<td>
+					<input type="hidden" name="token" value="{Pigcms:$token}" />
+						<button type="submit" name="button" class="btnGreen">保存</button>
+						<a href="javascript:history.go(-1);" class="btnGray vm">取消</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+  </div> 
+
+  </div>
+<include file="Public:footer"/>

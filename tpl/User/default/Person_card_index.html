@@ -1,0 +1,232 @@
+<include file="Public:head"/>  
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<link href="tpl/static/person/css/vcard.css" rel="stylesheet" type="text/css">
+<script src="{pigcms::RES}/js/cart/jscolor.js" type="text/javascript"></script>
+<script src="{pigcms::STATICS}/jquery.qrcode.min.js" type="text/javascript"></script>
+<div class="content">
+<div class="cLineB">
+<h4 class="left">微名片</h4>
+<div class="searchbar right">
+</div>
+<div class="clr"></div>
+</div>
+<div class="cLine">
+<div class="pageNavigator left"> <a href='/index.php?g=User&m=Person_card&a=design&token={pigcms:$token}' title='新增微名片' class='btnGrayS vm bigbtn'><img class="vm" src="./tpl/User/default/common/images/product/add.png">添加微名片</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='/index.php?g=User&m=Person_card&a=index&token={pigcms:$token}&o=1' title='我的微名片' class='btnGrayS vm bigbtn'>我的微名片</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='/index.php?g=User&m=Person_card&a=index&token={pigcms:$token}&o=2' title='用户自己创建的微名片' class='btnGrayS vm bigbtn'>用户微名片</a></div>
+<div class="clr"></div>
+</div>
+<div class="msgWrap">
+ <div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-top:5px;">请将鼠标移动到列表右侧二维码上，扫码获取相应名片</div>
+<form method="post"  action="" id="info" name="info2" >
+     <TABLE class="ListProduct" border="0" cellSpacing="0" cellPadding="0" width="100%">
+         <THEAD>
+         <if condition="$falg==2">
+             <tr>
+                 <th width="100">名片头像</th>
+                 <th width="150">姓名</th>
+                 <th width="150">手机号码</th>
+                 <th width="">公司名称</th>
+                 <th class="norightborder">二维码</th>
+             </tr>
+          <else/>
+             <tr>
+                 <th width="30"></th>
+                 <th width="80">名片头像</th>
+                 <th width="150">名片标题</th>
+                 <th width="150">姓名</th>
+                 <th width="300">转发内容&nbsp;(点击下面即可添加转发内容)</th>
+                 <th width="100">二维码</th>
+                 <th class="norightborder">操作</th>
+             </tr>
+         </if>
+         </THEAD>
+<TBODY>
+<TR></TR>
+<volist id="item" name="card">
+    <if condition="$falg==2">
+        <TR height="80">
+            <TD><if condition="$item.portrait neq ''"><img src="{pigcms:$item.portrait}" style="height:50px;width:50px;"> <else /><img src="tpl/static/person/images/tx.png" style="height:50px;width:50px;"></if></TD><!--转发时的图标-->
+            <TD><if condition="$item.username neq ''">{pigcms:$item.username}<else/></if></TD><!--转发标题-->
+            <TD><if condition="$item.mobile eq ''">尚未填写手机号码<else/> {pigcms:$item.mobile}</if></TD><!--手机号码-->
+            <TD>
+                <if condition="$item.company eq ''">尚未填写公司名称<else/> {pigcms:$item.company}</if>
+            </TD>
+            <TD>
+                <a class="ewm_view" href="javascript:;">
+                  <img src="tpl/static/person/images/6975cd6a733a1ca24313ad.png" width="40" height="40" onmouseover="moveover({pigcms:$item.id},'{cardUrl}/index.php?m=Wap&c=card&a=index&uid={pigcms:$item.uid}&id={pigcms:$item.id}
+')" onmouseout="moveout({pigcms:$item.id})">
+                    <div class="ewm_big" id="showmove{pigcms:$item.id}" style="display: none;"></div>
+                </a>
+            </TD>
+        </TR>
+    <else/>
+        <TR height="80">
+            <TD><if condition="$falg==2"><else/><input type="checkbox" name="check" value="{pigcms:$item.id}"></if></TD><!--名片id-->
+            <TD><if condition="$item.portrait neq ''"><img src="{pigcms:$item.portrait}" style="height:50px;width:50px;"> <else /><img src="tpl/static/person/images/tx.png" style="height:50px;width:50px;"></if></TD><!--转发时的图标-->
+            <TD><if condition="$item.username neq ''">{pigcms:$item.username}的名片<else/></if></TD><!--转发标题-->
+            <TD>{pigcms:$item.username}</TD><!--转发姓名-->
+            <TD>
+                <span onclick="setcontent({pigcms:$item.id});" id="content_{pigcms:$item.id}" style="cursor:pointer;word-break:break-all"><div class="deftxt"><if condition="$item.forward_content eq ''">点击添加转发内容<else/> {pigcms:$item.forward_content}</if></div></span>
+            </TD>
+            <TD>
+                <a class="ewm_view" href="javascript:;">
+                    <img src="tpl/static/person/images/6975cd6a733a1ca24313ad.png" width="40" height="40" onmouseover="moveover({pigcms:$item.id},'{cardUrl}/index.php?m=Wap&c=card&a=index&uid={pigcms:$item.uid}&id={pigcms:$item.id}
+')" onmouseout="moveout({pigcms:$item.id})">
+                    <div class="ewm_big" id="showmove{pigcms:$item.id}" style="display: none;"></div>
+                </a>
+            </TD>
+            <TD class="norightborder">
+                <a href="{pigcms::U('Person_card/design', array('token' => $token,'id'=>$item['id']))}">修改名片</a>
+                <a href="javascript:drop_confirm('您确定要删除吗?', '/index.php?g=User&m=Person_card&a=del&token={pigcms:$token}&id={pigcms:$item.id}');">删除名片</a>
+                <a href="{pigcms::U('Person_card/picer', array('token' => $token,'id'=>$item['id'],'uid'=>$item['uid']))}"   id=pic1 onclick="savepic();return false;" style="cursor:hand">下载名片</a>
+            </TD>
+        </TR>
+    </if>
+
+</volist>
+</TBODY>
+</TABLE>
+<input type="hidden" id="texthidd">
+<input type="hidden" id="texthidd2">
+</form>
+<div class="cLine">
+<div class="pageNavigator right">
+<div class="pages">
+    <div class="float-lf mg-left-10">
+       <if condition="$num eq 0 or $falg eq 2"><else/>
+       <input type="checkbox" id="qx" onclick="allcheck()"><span style="cursor: pointer;margin-left:5px;margin-top:-5px">全选</span><a href="javascript:;" onclick="deletered();" style="margin-left:10px;">批量删除</a>
+       </if>
+    </div>
+    <div style="font-size: 15px;">
+        {pigcms:$page}
+    </div>
+</div>
+
+</div>
+</div>
+<script type="text/javascript">
+//全选
+function allcheck(){
+	var objs = document.info2.check;
+		if(document.getElementById('qx').checked==true){
+		 if(objs.length == undefined){
+			document.info2.check.checked = true;
+		 }else{
+			for(var i=0;i<objs.length;i++){
+			objs[i].checked = true;
+			}
+		  }
+		}else{
+            if(objs.length == undefined){
+                document.info2.check.checked = false;
+            }else{
+                for(var i=0;i<objs.length;i++){
+                    objs[i].checked = false;
+                }
+            }
+		 }
+	 }
+
+function deletered(){
+	var check = document.getElementsByName("check");
+	var len = check.length;
+	var idAll = "";
+	for(var i = 0;i < len;i++){
+		if(check[i].checked){
+            if(idAll == ''){
+                idAll = check[i].value;
+            }else{
+                idAll += ','+check[i].value;
+            }
+		}	
+	}
+	if(idAll == ''){
+		alert('请选择要删除的数据')
+		return false;
+	}
+	if(!confirm("确定要删除此名片吗")){
+		return false;
+	}
+	$.ajax({
+		url:"/index.php?g=User&m=Person_card&a=delALL&token="+"{pigcms:$token}",
+		type:"post",
+		dataType: 'json',
+		data:{"id":idAll},
+		success: function(data){
+		if(data.status == 1){
+            showallkey();
+            alert(data.data);
+		}else{
+			alert("你没有权限删除此名片！");
+		}
+		}
+	})
+}
+function showallkey(){
+	location.href="/index.php?g=User&m=Person_card&a=index&token="+"{pigcms:$token}";
+}
+function moveover(id,url){
+    url = url.replace('{cardUrl}','{pigcms:$serverUrl}');
+    $("#showmove"+id).html('');
+    $("#showmove"+id).qrcode({
+        render: "canvas", //table方式
+        width: 120, //宽度
+        height:120, //高度
+        text: url //任意内容
+    });
+	$("#showmove"+id).show();
+}
+function moveout(id){
+	$("#showmove"+id).hide();
+}
+function setcontent(tid) {
+	if($("#content_"+tid).hasClass('is_edit')) return false;
+	
+	$("#content_"+tid).addClass('is_edit');
+	var content1 = $("#content_"+tid).text();
+	
+	content1 = replacestr(content1);
+	$("#texthidd").val(content1);
+	$("#content_"+tid).html('<input type="text" id="s_content" value="'+content1+'" onblur="chgcontent('+tid+')" style="height:25px;width:200px;" />');
+	$("#s_content").focus();
+}
+function replacestr(str){
+	str = str.replace(/</g,'');
+	str = str.replace(/>/g,'');
+	str = str.replace(/'/g,'');
+	str = str.replace(/"/g,'');
+	return str;
+}
+function chgcontent(tid) {
+	var content = $.trim($("#s_content").val());
+	content = replacestr(content);
+	if(content.length>50) {
+		alert('转发内容不能多于50个字符'); $("#s_content").focus(); return false;
+	} else {
+		$("#content_"+tid).removeClass('is_edit');
+		//alert("{pigcms:$item.id}");
+		//alert("index.php?g=User&m=Person_card&a=forward&token="+"{pigcms:$token}"+"&id="+tid);
+		if(content!=$("#texthidd").val()){
+			$.post("/index.php?g=User&m=Person_card&a=forward&token="+"{pigcms:$token}"+"&id="+tid,{content:content},function(data) {
+				if(data.status == '1') {
+					if(content=='') {
+						$("#content_"+tid).html('<div class="deftxt">点击添加转发内容</div>');
+					}else{
+						$("#content_"+tid).html(content);
+					alert(data.data);
+					}
+				}
+
+			},'json');
+		}else{
+			$("#content_"+tid).html(content);
+		}
+	}
+}
+
+</script>
+
+</div>  
+		
+</div>
+<include file="Public:footer"/>

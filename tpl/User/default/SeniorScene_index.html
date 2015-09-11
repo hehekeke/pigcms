@@ -1,0 +1,51 @@
+<include file="Public:head"/> 
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+        <div class="content">
+<div class="cLineB">
+<h4 class="left">高级微场景</h4>
+<div class="clr"></div>
+</div>
+
+<div class="cLine">
+<div class="pageNavigator left"><a href="{pigcms::U('SeniorScene/add',array('token'=>$token))}" title="添加新的场景关键词" class="btnGrayS vm bigbtn"><img src="{pigcms::RES}/images/product/add.png" width="16" class="vm">添加新的场景关键词</a></div>
+<div class="searchbar right">
+	<form method="post" action="">
+		<input type="text" id="msgSearchInput" class="txt left" placeholder="输入关键词搜索" name="search" value="">
+		<input type="submit" value="搜索" id="msgSearchBtn" href="" class="btnGrayS" title="搜索">
+	</form>
+</div>
+<div class="clr"></div>
+</div>
+<div class="msgWrap">
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<thead>
+<tr>
+<th width="160">场景名称</th>
+<th width="160">关键词</th>
+<th width="130">添加时间</th>
+<th width="250" class="norightborder">操作</th>
+</tr>
+</thead>
+<tbody>
+<tr></tr>
+<volist name="list" id="item"> 
+<tr>
+<td>{pigcms:$item.name}</td>
+<td>{pigcms:$item.keyword}</td>
+<td>{pigcms:$item.add_time|date="Y-m-d H:i:s",###}</td> 
+<td class="norightborder">
+	<a href="{pigcms::U('SeniorScene/add',array('id'=>$item['id'],'token'=>$token))}">修改</a>
+	<a href="javascript:drop_confirm('您确定要删除吗?', '{pigcms::U('SeniorScene/del',array('id'=>$item['id'],'token'=>$token))}');">删除</a></td>
+</tr>
+</volist>
+</tbody>
+</table>
+</div>
+<div class="cLine">
+<div class="pageNavigator right">
+<div class="pages">{pigcms:$page}</div>
+</div>
+<div class="clr"></div>
+</div>
+</div>
+<include file="Public:footer"/>

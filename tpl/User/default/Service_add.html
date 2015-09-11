@@ -1,0 +1,104 @@
+<include file="Public:head"/>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script>
+<script>
+$(document).ready(function(){
+	$('#add_fans').click(function(){
+		var token 	= '{pigcms:$token}';
+		var group 	= $('#group').val();
+		art.dialog.open('?g=User&m=Service&a=service_fans&token='+token+'&group='+group,{lock:true,title:'选择粉丝',width:600,height:400,yesText:'关闭',background: '#000',opacity: 0.45});
+	});
+	$('#clear_fans').click(function(){
+		$('#fans_id').val('');
+	});
+	$("form").submit(function () {
+		var openid = $("#fans_id").val();
+		var headimgurl = $("#headimgurl").val();
+		var nickname = $("#servicenickname").val();
+		if(openid == ''){
+			alert('请选择客服');
+			buterror(1,'#fans_id');
+			return false;
+		}else if(headimgurl == ''){
+			alert('请添加客服头像');
+			buterror(1,'headimgurl');
+			return false;
+		}else if(nickname == ''){
+			alert('请填写客服昵称');
+			buterror(1,'#servicenickname');
+			return false;
+		}else{
+			return true;
+		}
+	});
+});
+function buterror(type,id,id2){
+	if(type == 0){
+		$("html,body").animate({scrollTop: $(id).offset().top}, 500);
+	}else{
+		$("html,body").animate({scrollTop: $(".topbg").offset().top}, 500);
+	}
+	$(id).css("border","2px solid red");
+	$(id).focus(function(){
+		$(id).css("border","1px solid");
+		$(id).css("border-color","#848484 #E0E0E0 #E0E0E0 #848484");
+		$(id2).css("border","1px solid");
+		$(id2).css("border-color","#848484 #E0E0E0 #E0E0E0 #848484");
+	})
+	$(id2).css("border","2px solid red");
+	$(id2).focus(function(){
+		$(id2).css("border","1px solid");
+		$(id2).css("border-color","#848484 #E0E0E0 #E0E0E0 #848484");
+		$(id).css("border","1px solid");
+		$(id).css("border-color","#848484 #E0E0E0 #E0E0E0 #848484");
+	})
+}
+</script>
+<style>
+.myhide{display:none;}
+</style>
+<form class="form" method="post"   action="{pigcms::U('Service/doadd',array('token'=>$token,'type'=>'setup'))}"  target="_top" enctype="multipart/form-data">
+	<div class="content">
+		<div class="cLineB">
+			<h4 class="left">添加客服</h4>
+			<a href="{pigcms::U('Service/servicelist',array('token'=>$token,'type'=>'setup'))}" class="right btnGreen">返回</a>
+		</div>
+		<div class="msgWrap bgfc">
+			<table class="userinfoArea" style=" margin:0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+				<tr>
+					<th>选择客服openid：</th>
+					<td colspan="2">
+						<input name="openid" id="fans_id" class="px" style="width:250px;">
+						<a href="javascript:void(0);" class="a_choose" id="add_fans">选择粉丝</a>
+						<a href="javascript:void(0);" id="clear_fans">清空</a>
+					</td>
+				</tr>
+				<tr>
+					<th>客服头像：</th>
+					<td>
+						<input type="input" class="px" id="headimgurl"  name="headimgurl" value=""  style="width:250px"/>
+						<a href="###" onclick="upyunPicUpload('headimgurl',114,114,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('headimgurl')">预览</a>
+					</td>
+				</tr>
+				<tr>
+					<th>客服昵称：</th>
+					<td>
+						<input type="input" class="px" id="servicenickname"  name="nickname" value=""  style="width:250px"/>
+					</td>
+				</tr>
+				<tr>
+					<th valign="top">描述：</th>
+					<td>
+						<textarea  class="px" id="desc" name="desc"  style="width:400px; height:125px" ></textarea>
+					</td>
+				</tr>
+				<tr>
+					<th>&nbsp;</th>
+					<td><button type="submit" class="btnGreen" >保存</button></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</form>
+<include file="Public:footer"/>

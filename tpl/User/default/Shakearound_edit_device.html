@@ -1,0 +1,57 @@
+<include file="Public:head"/>
+<form class="form" method="post" action="{pigcms::U('Shakearound/edit_device')}" target="_top">
+<div class="content">
+<div class="cLineB">
+  <h4>编辑设备名称</h4><a href="javascript:history.go(-1);" class="right btnGrayS vm" style="margin-top:-27px">返回</a></div>
+<div class="msgWrap bgfc">
+<table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%">
+<tbody>
+<tr>
+  <th width="120">设备ID：</th>
+  <td><div style="width:350px;font-size:14px;">{pigcms:$device_info.device_id}</div></td>
+</tr>
+<tr>
+  <th width="120">设备名称：</th>
+  <td><input style="width:222px;" name="device_comment" value="{pigcms:$device_info.device_comment}" id="device_comment" class="px" />&nbsp;&nbsp;&nbsp;(不超过30个英文字母,一个汉字相当于3个字母)</td>
+</tr>
+<!--tr>
+  <th valign="top">门店ID：</th>
+  <td><input type="input" class="px" id="poi_id" value="" name="poi_id" style="width:150px"><br>
+  </td>
+</tr-->
+<tr>
+	<th></th>
+	<td>
+		<input type="hidden" name="id" value="{pigcms:$id}" />
+		<input type="hidden" name="token" value="{pigcms:$token}" />
+		<button type="button" name="button" id="edit_device" class="btnGreen">修改设备名称</button>　
+		<a href="" class="btnGray vm">取消</a>
+	</td>
+</tr>
+</tbody>
+</table>
+ </div>
+</div>
+</form>
+<script>
+//简单的表单验证
+$(function(){
+	$("#edit_device").click(function(){
+		var device_comment = $("#device_comment").val();
+		//var poi_id = $("#poi_id").val();
+		var msg = '';
+		if(device_comment == ''){
+			msg += '要修改的备注信息不能为空\n';
+		}
+		//if(poi_id == ''){
+			//msg += '要修改的门店ID不能为空\n';
+		//}
+		if(msg != ''){
+			alert(msg);
+			return false;
+		}
+		$(".form").submit();
+	});
+});
+</script>
+<include file="Public:footer"/>

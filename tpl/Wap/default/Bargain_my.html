@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta content="telephone=no" name="format-detection">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>我的微砍价</title>
+		<link href="{pigcms:$staticPath}/tpl/static/bargain/css/global.css" rel="stylesheet" type="text/css" />
+		<link href="{pigcms:$staticPath}/tpl/static/bargain/css/global2.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="{pigcms:$staticPath}/tpl/static/bargain/js/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="{pigcms:$staticPath}/tpl/static/bargain/js/global.js"></script>
+		<link href="{pigcms:$staticPath}/tpl/static/bargain/css/bargain.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="{pigcms:$staticPath}/tpl/static/bargain/js/bargain.js"></script>
+		<link href="{pigcms:$staticPath}/tpl/static/bargain/css/idangerous.swiper.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="{pigcms:$staticPath}/tpl/static/bargain/js/idangerous.swiper-1.9.1.min.js"></script>
+	</head>
+	<body>
+		<div id="userinfo">
+			<div class="face"><img src="{pigcms:$userinfo.portrait}"></div>
+			<div class="name">{pigcms:$userinfo.wechaname}</div>
+		</div>
+		<ul id="userlist">
+			<li class="menu_1">
+				<span>
+					<img src="{pigcms:$staticPath}/tpl/static/bargain/images/bargain/arrow_r.png">
+				</span>
+				<a style="background: url({pigcms:$staticPath}/tpl/static/bargain/images/bargain/userm_1.png) 15px center no-repeat;background-size: 25px auto;" href="{pigcms::U('Bargain/mybargain',array('token'=>$token))}">
+					我的活动
+				</a>
+			</li>
+			<li class="menu_0">
+				<span>
+					<img src="{pigcms:$staticPath}/tpl/static/bargain/images/bargain/arrow_r.png">
+				</span>
+				<a style="background: url({pigcms:$staticPath}/tpl/static/bargain/images/bargain/userm_0.png) 15px center no-repeat;background-size: 25px auto;" href="{pigcms::U('Bargain/myorder',array('token'=>$token))}">
+					我的订单
+				</a>
+			</li>
+		</ul>
+		<footer>
+			<ul>
+				<li><a href="{pigcms::U('Bargain/home',array('token'=>$token,'type'=>'0'))}">全部</a></li>
+				<li><a href="{pigcms::U('Bargain/home',array('token'=>$token,'type'=>'1'))}">最新</a></li>
+				<li><a href="{pigcms::U('Bargain/home',array('token'=>$token,'type'=>'2'))}">最热</a></li>
+				<li class="hover"><a href="{pigcms::U('Bargain/my',array('token'=>$token))}">我的</a></li>
+			</ul>
+		</footer>
+	</body>
+</html>

@@ -1,0 +1,3 @@
+每增加一个用户就把目录里的a.php文件复制一份，然后改名为 客户token值.php
+
+打印机的url填写为 您的地址/print/客户token值.php

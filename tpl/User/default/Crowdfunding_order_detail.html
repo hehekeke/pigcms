@@ -1,0 +1,123 @@
+<include file="Public:head"/>
+<link rel="stylesheet" href="/tpl/static/kindeditor/themes/default/default.css" />
+<link rel="stylesheet" href="/tpl/static/kindeditor/plugins/code/prettify.css" />
+<script src="/tpl/static/kindeditor/kindeditor.js" type="text/javascript"></script>
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<script src="{pigcms::RES}/js/date/WdatePicker.js"></script>
+<link href="{pigcms:$staticPath}/tpl/static/crowdfunding/css/index.css" rel="stylesheet" type="text/css">
+<form class="form" method="post"   action=""  target="_top" enctype="multipart/form-data" >
+<div class="content">
+<!--活动开始-->
+<div class="cLineB">
+    <h4>订单详情</h4>
+    <a href="javascript:window.history.go(-1);"  class="right btnGrayS vm" style="margin-top:-27px" >返回</a>
+</div>
+<div class="msgWrap bgfc">
+
+<TABLE class="userinfoArea" border="0" cellSpacing="0" cellPadding="0" width="100%">
+<TBODY>
+
+<TR>
+  <th valign="top">订单号：</th>
+  <TD>
+    {pigcms:$order.orderid}
+  </TD>
+</TR>
+
+<TR>
+  <th valign="top">联系人：</th>
+  <td>
+    {pigcms:$order.username}
+  </td>
+</TR>
+
+<TR>
+  <th valign="top">联系方式：</th>
+  <TD>
+    {pigcms:$order.tel}
+  </TD>
+</TR>
+
+<TR>
+  <th valign="top">收货地址：</th>
+  <td>
+    {pigcms:$order.address}
+  </td>
+</TR>
+
+<TR>
+  <th valign="top">备注：</th>
+  <TD>
+    {pigcms:$order.remark}
+  </TD>
+</TR>
+
+</TBODY>
+</TABLE>
+
+
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+  <thead>
+    <tr>
+      <th width="60">项目名称</th>
+      <th width="200">回报内容</th>
+      <th width="30">支持金额</th>
+      <th width="30">运费</th>
+    </tr>
+  </thead>
+  <tbody>
+    <if condition="$reward eq ''">
+      <tr>
+        <td colspan="4">此订单无私奉献，不求回报!</td>
+      </tr>
+    <else/>
+      <tr>
+        <td>{pigcms:$reward.name}</td>
+        <td>{pigcms:$reward.content}</td>
+        <td>￥ {pigcms:$reward.money}</td> 
+        <td>￥ {pigcms:$reward.carriage}</td>
+      </tr>
+    </if>
+      <tr>
+        <td colspan="4" style="text-align:right;">
+          付款金额：<span class="fcolor bold">￥ {pigcms:$order.price}</span>
+        </td>
+      </tr>
+  </tbody>
+</table>
+</form>
+  <div class="common_button">
+    <button type="button" class="btnGreen"  onclick="javascript:window.location='{pigcms::U('Crowdfunding/order',array('token'=>$token,'id'=>$order['pid']))}';">关闭</button>
+  </div>
+</div>
+
+
+        <div class="clr"></div>
+      </div>
+    </div>
+  </div>
+
+<!--底部-->
+</div>
+
+<script>
+var editor;
+KindEditor.ready(function(K) {
+editor = K.create('#detail', { 
+resizeType : 1,
+allowPreviewEmoticons : false,
+allowImageUpload : true,
+allowUpload : true,
+uploadJson : '/index.php?g=User&m=Upyun&a=kindedtiropic',
+items : [
+'source','undo','clearhtml','hr',
+'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+'insertunorderedlist', '|', 'emoticons', 'image' , 'link', 'unlink','baidumap','lineheight','table','anchor','preview','print','template','code','cut']
+});
+
+});
+</script>   
+
+
+<include file="Public:footer"/>

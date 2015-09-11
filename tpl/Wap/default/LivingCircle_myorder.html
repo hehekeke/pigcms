@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta content="width =device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+		<meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+		<meta content="no-cache" http-equiv="pragma">
+		<meta content="0" http-equiv="expires">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<title>我的订单</title>
+		<link href="{pigcms:$staticPath}/tpl/static/livingcircle/css/common.min.css" rel="stylesheet" type="text/css" />
+		<link href="{pigcms:$staticPath}/tpl/static/livingcircle/css/icon.min.css" rel="stylesheet" type="text/css" />
+		<link href="{pigcms:$staticPath}/tpl/static/livingcircle/css/operator.min.css" rel="stylesheet" type="text/css" />
+		<link href="{pigcms:$staticPath}/tpl/static/livingcircle/css/flexfilter.css" rel="stylesheet" type="text/css" />
+		<link href="{pigcms:$staticPath}/tpl/static/livingcircle/css/jqPaginator.css" rel="stylesheet" type="text/css" />
+		<script src="{pigcms:$staticPath}/tpl/static/livingcircle/js/jquery-2.1.3.min.js" language="javascript" type="text/javascript"></script>
+		<script src="{pigcms:$staticPath}/tpl/static/livingcircle/js/jquery.lazyload.min.js" language="javascript" type="text/javascript"></script>
+		<style>
+			.header-secondary.filter>a.checked::after{
+				border:0;
+			}
+			.header-secondary.filter>a::after{
+				border:0;
+			}
+			.order{
+				color:#444;
+			}
+		</style>
+		<script>
+			$(document).ready(function(){
+				$(".pay").click(function(){
+					var orderid = $(this).attr("orderid");
+					window.location.href="{pigcms::U('LivingCircle/doorder',array('token'=>$token))}&orderid="+orderid;
+				});
+				$(".del").click(function(){
+					var orderid = $(this).attr("orderid");
+					window.location.href="{pigcms::U('LivingCircle/delorder',array('token'=>$token))}&orderid="+orderid;
+				});
+				$(".yes").click(function(){
+					var orderid = $(this).attr("orderid");
+					window.location.href="{pigcms::U('LivingCircle/yes',array('token'=>$token))}&orderid="+orderid;
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<header>
+            <nav class="left">
+                <a class="t-icon white-back" href="javascript:history.go(-1);"></a>
+            </nav>
+            <p class="title">我的订单</p>
+        </header>
+		<nav id="filter" class="header-secondary filter">
+			<a href="{pigcms::U('LivingCircle/myorder',array('token'=>$token,'type'=>'0'))}" <if condition="$_GET['type'] eq 0">class="checked"</if>>未支付订单</a>
+			<a href="{pigcms::U('LivingCircle/myorder',array('token'=>$token,'type'=>'1'))}" <if condition="$_GET['type'] eq 1">class="checked"</if>>已支付订单</a>
+		</nav>
+		
+		<?php foreach($order_list as $vo){?>
+		<ul class="list inset lianxi">
+			<li class="divider">订单：<?php echo $vo['pigcms_id'] + 10000000;?></li>
+				<li class="order">
+					总价：<?php echo $vo['price']?>元
+				</li>
+				<?php if($vo['paid'] == 0){?>
+				<li class="order pay" orderid="<?php echo $vo['pigcms_id']?>">
+					状态：未支付（点此支付）
+				</li>
+				<?php }elseif($vo['state'] == 0){?>
+				<li class="order" orderid="<?php echo $vo['pigcms_id']?>">
+					状态：未发货
+				</li>
+				<?php }elseif($vo['state'] == 1){?>
+				<li class="order yes" orderid="<?php echo $vo['pigcms_id']?>">
+					状态：已发货（点击确认收货）
+				</li>
+				<?php }elseif($vo['state'] == 2){?>
+				<li class="order" orderid="<?php echo $vo['pigcms_id']?>">
+					状态：已确认收货
+				</li>
+				<?php }?>
+				<li class="order">
+					商品：
+					<div style="margin-left:45px;margin-top:-19px">
+					<?php 
+					foreach($cart_list[$vo['pigcms_id']] as $cart){
+					?>
+					<?php echo $cart['name'];?>-<?php echo $cart['price'];?>元<br/>
+					<?php
+					}
+					?>
+					</div>
+				</li>
+				<li class="order">
+					地址：
+					<div style="margin-left:45px;margin-top:-19px">
+					<?php echo $vo['address']?>
+					</div>
+				</li>
+				<li class="order">
+					时间：<?php echo date("Y-m-d H:i:s",$vo['addtime']);?>
+				</li>
+				<?php if($vo['paid'] == 0){?>
+				<li class="order del" orderid="<?php echo $vo['pigcms_id']?>">
+					操作：点此删除
+				</li>
+				<?php }?>
+		</ul>
+		<?php }?>
+		
+		
+		<div style="width:100%;height:51px;"></div>
+		
+		<footer>
+                <a href="{pigcms::U('LivingCircle/index',array('token'=>$token))}"> 
+                    <i class="icon home"></i>首页
+                </a>
+                <a href="{pigcms::U('LivingCircle/typelist',array('token'=>$token))}"> 
+                    <i class="icon rocket"></i>本地导航
+                </a>
+                <!-- <a href=""> 
+                    <i class="icon gift"></i>优惠券
+                </a> -->
+                <a href="{pigcms::U('LivingCircle/my',array('token'=>$token))}"> 
+                    <i class="icon user"></i>我的
+                </a>
+        </footer>
+		
+		<div id="scrollUp" class="goToTop goToTop63" style="display: none;"></div>
+		
+		<script>
+			$(function () { var $bottomTools = $('.bottom_tools'); $(window).scroll(function () { var scrollHeight = $(document).height(); var scrollTop = $(window).scrollTop(); var $windowHeight = $(window).innerHeight(); scrollTop > 50 ? $("#scrollUp").fadeIn(200).css("display", "block") : $("#scrollUp").fadeOut(200); $bottomTools.css("bottom", scrollHeight - scrollTop > $windowHeight ? 40 : $windowHeight + scrollTop + 40 - scrollHeight) }); $('#scrollUp').click(function (e) { e.preventDefault(); $('html,body').animate({ scrollTop: 0 }) }) });
+			//图片延迟加载
+			$(function () {
+				$("img.lazy").lazyload({ effect: "fadeIn" });
+			});
+		</script>
+		
+		<div id="iCenter"style="display:none;"></div>
+		
+		
+<script type="text/javascript">
+window.shareData = {  
+            "moduleName":"LivingCircle",
+            "moduleID":"0",
+            "imgUrl": "{pigcms:$staticPath}/tpl/static/unitary/images/wxnewspic.jpg", 
+            "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('LivingCircle/index',array('token'=>$token))}",
+            "tTitle": "微信生活圈",
+            "tContent": ""
+        };
+</script>
+{pigcms:$shareScript}
+	</body>
+</html>

@@ -1,0 +1,41 @@
+<include file="Public:head"/>
+<div class="msgWrap form">
+<div class="content">
+<div class="cLineC" style="line-height: 32px;"> 
+<a href="{pigcms::U('Numqueue/add_action',array('token'=>$token,'id'=>$id))}" class="btnGrayS vm bigbtn">添加微排号</a> 
+</div>
+  <div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-bottom:5px;font-size:12px;">温馨提示：本功能使用了模板消息中的"排队提醒"模板消息,模板消息编号OPENTM200869995。<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;开通微信支付功能的公众号在使用此功能的时候可以在"基本设置——微信模板消息"中配置对应的模板消息。
+</div>
+    <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+	<thead>
+	<tr>
+	  <th style="width:15%;">回复关键词</th>
+	  <th style="width:15%;">回复标题</th>
+	  <th style="width:10%;">活动状态</th>
+	</th>
+	<th>操作</th>
+	</tr>
+	</thead>
+	<if condition="$list neq ''">
+	<volist name="list" id="vo">
+	  <tbody><tr>
+		  <td>{pigcms:$vo.reply_keyword}</td>
+		  <td>{pigcms:$vo.reply_title}</td>
+		  <td><if condition="$vo.is_open eq 1">开启<else />关闭</if></td>
+		  <td class="norightborder">
+		  <a href="{pigcms::U('Numqueue/store_list',array('action_id'=>$vo['id']))}" class="btnGreen">门店列表</a>
+		  <a href="{pigcms::U('Numqueue/add_action',array('id'=>$vo['id']))}" class="btnGreen">编辑</a>
+		  <a href="{pigcms::U('Numqueue/del_action',array('id'=>$vo['id']))}" onclick="return(confirm('确定要删除吗？'))" class="btnGreen">删除</a> </td>
+		</tr>
+	  </tbody>
+	</volist> 
+	<else />
+	<tbody><tr><td colspan="5" align="center">暂无记录！</td></tr></tbody>
+	</if>
+	</table>
+	<div class="footactions" style="padding-left:10px">
+	  <div class="pages" style="text-align:right;"> {pigcms:$page}</div>
+	</div>
+    </div>
+  </div>
+<include file="Public:footer"/>

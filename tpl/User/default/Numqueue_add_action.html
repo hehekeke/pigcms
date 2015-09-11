@@ -1,0 +1,106 @@
+<include file="Public:head"/>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script>
+<div class="content">
+<div class="cLineB">
+  <h4> 
+    微排号-添加活动
+</h4>
+<a href="javascript:history.go(-1);" class="right btnGrayS vm" style="margin-top:-27px">返回</a>
+</div>
+
+<div class="msgWrap bgfc">
+<form class="form" method="post" action="{pigcms::U('Numqueue/add_action')}" target="_top" enctype="multipart/form-data">
+<if condition="$vo['id'] neq ''">
+  <input type="hidden" name="id" value="{pigcms:$vo['id']}">
+</if>
+<table class="userinfoArea" style="margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%"><tbody><tr>
+<th width="120"><span class="red">*</span>回复关键词：</th>
+<td><input type="text" name="reply_keyword" value="<if condition="$vo['reply_keyword'] eq ''">微排号<else/>{pigcms:$vo.reply_keyword}</if>" class="px" style="width:550px;"></td>
+</tr>
+<tr>
+<th width="120"><span class="red">*</span>回复标题：</th>
+<td><input type="text" name="reply_title" value="{pigcms:$vo.reply_title}" class="px" style="width:550px;"></td>
+</tr>
+<tr>
+<th width="120"><span class="red">*</span>回复内容：</th>
+<td><textarea class="px" id="reply_content" name="reply_content" style="width: 560px; height: 120px; display: ;"><?php echo html_entity_decode(htmlspecialchars_decode($vo['reply_content'])); ?></textarea></td>
+</tr>
+<tr>
+  <th><span class="red">*</span>回复图片：</th>
+  <td>
+  <if condition="$vo.reply_pic neq ''">
+	<img class="thumb_img" id="pic1_src" src="{pigcms:$vo.reply_pic}" style="max-height:100px;max-width: 200px;">
+	<else />
+	<img class="thumb_img" id="pic1_src" src="{pigcms:$staticPath}/tpl/static/numqueue/images/paidui.png" style="max-height:100px;max-width: 200px;">
+  </if>
+  <input type="text" name="reply_pic" value='<if condition="$vo[\'reply_pic\'] neq ''">{pigcms:$vo.reply_pic}<else/>{pigcms:$staticPath}/tpl/static/numqueue/images/paidui.png</if>' id="pic1" class="px" style="width:200px;" >
+  <a href="###" onclick="upyunPicUpload('pic1',365,158,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic1')">预览</a>   &nbsp; 建议图片尺寸365*158，图片大小不超过300K</td>
+</tr>
+<tr>
+  <th><span class="red">*</span>手机端图标：</th>
+  <td>
+  <input type="text" name="icon" value='{pigcms:$vo.icon}' id="pic2" class="px" style="width:200px;" >
+  <a href="###" onclick="upyunPicUpload('pic2',100,100,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic2')">预览</a>   &nbsp; 手机端等待人数处展示的图标,建议图片尺寸100*100，图片大小不超过300K</td>
+</tr>
+<tr>
+<th>是否开启热门品牌：</th>
+<td>
+  <input type="radio" name="is_hot" value="1" <if condition="$vo.is_hot eq '1' or $vo.is_hot eq ''">checked</if>>
+  开启
+  <input type="radio" name="is_hot" value="2" <if condition="$vo.is_hot eq '2'">checked</if>>关闭
+</td>
+</tr>
+<tr>
+<th>是否开启活动：</th>
+<td>
+  <input type="radio" name="is_open" value="1" <if condition="$vo.is_open eq '1' or $vo.is_open eq ''">checked</if>>
+  开启
+  <input type="radio" name="is_open" value="2" <if condition="$vo.is_open eq '2'">checked</if>>关闭
+</td>
+</tr>
+<tr>
+<th>&nbsp;</th>
+<td><button type="button" name="button" class="btnGreen sub" onclick="save_numqueue()">保存</button>
+<a href="{pigcms::U('Numqueue/add_action')}" class="btnGray vm">取消</a>
+</td>
+</tr>
+</tbody>
+</table>
+</form>
+  </div>
+</div>
+<script>
+//js验证活动建立
+function save_numqueue(){
+	var reply_keyword = $(":input[name='reply_keyword']").val();
+	var reply_title = $(":input[name='reply_title']").val();
+	var reply_content = $(":input[name='reply_content']").val();
+	var reply_pic = $(":input[name='reply_pic']").val();
+	var icon = $(":input[name='icon']").val();
+	var msg = '';
+	var re = /^[1-9]+[0-9]*]*$/;
+	if(reply_keyword == ''){
+		msg += '关键词不能为空\n';
+	}
+	if(reply_title == ''){
+		msg += '回复标题不能为空\n';
+	}
+	if(reply_content == ''){
+		msg += '回复内容不能为空\n';
+	}
+	if(reply_pic == ''){
+		msg += '回复图片不能为空\n';
+	}
+	if(icon == ''){
+		msg += '图标没上传\n';
+	}
+	if(msg){
+		alert(msg);
+		return false;
+	}
+	$('.form').submit();
+}
+</script>
+<include file="Public:footer"/>

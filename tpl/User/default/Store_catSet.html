@@ -1,0 +1,91 @@
+<if condition="$ischild neq 1">
+<include file="Public:head" />
+<else />
+<include file="Repast:head" />
+</if>
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+  <div class="content"> 
+   <div class="cLineB"> 
+    <h4>商品分类设置</h4> 
+    <a href="{pigcms::U('Store/index',array('token'=>$token, 'cid' => $cid))}" class="right  btnGreen" style="margin-top:-27px">返回</a> 
+   </div>
+	<div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-top:5px;">
+	<span>温馨提示：</span>
+	<p>本功能使用了模板消息中的“订单未支付通知”模板消息和“订单完成通知”模板消息，其模板编号分别为TM00184和OPENTM202521011。<br/>
+	          开通微信支付功能的公众号在使用此功能的时候可以在”基本设置——微信模板消息“中配置对应的模板消息</p>
+	</div> 
+   <form class="form" method="post" action="" enctype="multipart/form-data"> 
+    <input type="hidden" name="id" value="{pigcms:$set.id}" /> 
+    <input type="hidden" name="cid" value="{pigcms:$cid}" /> 
+    <input type="hidden" name="parentid" value="{pigcms:$parentid}" /> 
+     
+    <div class="msgWrap bgfc"> 
+     <table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%"> 
+      <tbody> 
+       <if condition="$parentid gt 0">
+       <tr> 
+        <th>父分类名称：</th> 
+        <td>{pigcms:$parentname}</td> 
+       </tr>
+       </if>
+       <tr> 
+        <th><span class="red">*</span>名称：</th> 
+        <td><input type="text" name="name" value="{pigcms:$set.name}" class="px" style="width:400px;" /></td> 
+       </tr> 
+       <tr> 
+        <th>Logo地址：</th> 
+        <td><input type="text" name="logourl" value="{pigcms:$set.logourl}" id="pic" class="px" style="width:400px;" />  <script src="/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('pic',700,420,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic')">预览</a></td> 
+       </tr> 
+       <tr> 
+        <th>分类规格：</th> 
+        <td><input type="text" name="norms" value="{pigcms:$set.norms}" id="norms" class="px"/>(如：鞋的规格是：鞋码。即填写【鞋码】。尺寸，尺码，体积...。没有外观可不填写。可参考淘宝写)</td> 
+       </tr>
+       <tr> 
+        <th>商品的外观：</th> 
+        <td><input type="text" name="color" value="{pigcms:$set.color}" id="color" class="px"/>(如：衣服一般有颜色,即填写【颜色】；酒水一般都是没有颜色的，没有外观可不填写)</td> 
+       </tr>
+       <tr> 
+        <th>简介：</th> 
+        <td><textarea name="des" class="px" style="width:400px;height:80px;">{pigcms:$set.des}</textarea></td> 
+       </tr>
+       <tr> 
+        <th>排序：</th> 
+        <td><input type="text" name="sort" value="{pigcms:$set.sort}" id="sort" class="px" style="width:40px;"/>数字越小排再越前（大于等于0的整数）</td> 
+       </tr>
+	   <if condition="$has_website">
+	   <TR>
+			<TH valign="top">是否同时添加到<br/>电脑网站产品分类：</TH>
+			<TD>
+				<label for="pc_show_yes"><input type="radio" class="px" id="pc_show_yes" value="1" name="pc_show" />是</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果选择是，以后删除电脑网站分类您需要到电脑网站设置处自行手动删除。<br/>
+				<label for="pc_show_no"><input type="radio" class="px" id="pc_show_no" value="0" name="pc_show" checked />否</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;且子分类下的商品不会同步到电脑网站中。
+			</TD>
+			<TD>&nbsp;</TD>
+		</TR>
+		</if>
+		<if condition="$set['pc_cat_id']">
+			<TR>
+				<TH valign="top">是否解绑电脑<br/>网站产品分类：</TH>
+				<TD>
+					<label for="pc_show_yes"><input type="radio" class="px" id="pc_show_yes" value="1" name="pc_show" />是</label>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;系统检测到此分类开启了添加到电脑网站。
+					<br/>
+					<label for="pc_show_no"><input type="radio" class="px" id="pc_show_no" value="0" name="pc_show" checked />否</label>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果选择是，此分类将不再与电脑网站产品分类挂钩，以后添加产品时不会出现“是否添加到电脑网站分类”的提示。改变后不可改回。
+				</TD>
+				<TD>&nbsp;</TD>
+			</TR>
+		</if>
+       <tr>         
+       <th>&nbsp;</th>
+       <td>
+       <button type="submit" name="button" class="btnGreen">保存</button> &nbsp; <a href="{pigcms::U('Store/index',array('token' => $token, 'cid' => $cid))}" class="btnGray vm">取消</a></td> 
+       </tr> 
+      </tbody> 
+     </table> 
+     </div>
+   </form> 
+  </div> 
+  <include file="Public:footer" />

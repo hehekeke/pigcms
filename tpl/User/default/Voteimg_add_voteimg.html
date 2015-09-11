@@ -1,0 +1,357 @@
+<include file="Public:head"/>
+<script src="{pigcms:$staticPath}/tpl/static/jquery.min.js" type="text/javascript"></script>
+<script src="{pigcms:$staticPath}/tpl/static/vote/common.js" type="text/javascript"></script>
+<script src="{pigcms:$staticPath}/tpl/static/upyun.js" type="text/javascript"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/jquery.artDialog.js?skin=default" type="text/javascript"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/plugins/iframeTools.js" type="text/javascript"></script>
+<script src="{pigcms::RES}/js/date/WdatePicker.js"></script>
+<link rel="stylesheet" href="{pigcms:$staticPath}/tpl/static/kindeditor/themes/default/default.css" />
+<link rel="stylesheet" href="{pigcms:$staticPath}/tpl/static/kindeditor/plugins/code/prettify.css" />
+<script src="{pigcms:$staticPath}/tpl/static/kindeditor/kindeditor.js" type="text/javascript"></script>
+<script src="{pigcms:$staticPath}/tpl/static/kindeditor/lang/zh_CN.js" type="text/javascript"></script>
+<script src="{pigcms:$staticPath}/tpl/static/kindeditor/plugins/code/prettify.js" type="text/javascript"></script>
+<div class="content">
+<div class="cLineB">
+  <h4> 
+    图片-投票设置 
+</h4>
+<a href="javascript:history.go(-1);" class="right btnGrayS vm" style="margin-top:-27px">返回</a>
+</div>
+ <div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-bottom:5px;font-size:12px;">温馨提示：活动简介不填写手机端点击活动介绍菜单时将只显示投票次数说明,如何参与、流程介绍、奖品设置不填,手机端点击活动介绍菜单时将不显示。
+</div>
+<div class="msgWrap bgfc">
+<form class="form" method="post" action="{pigcms::U('Voteimg/add_voteimg',array('id'=>$action_id,'token'=>$token))}" target="_top" enctype="multipart/form-data" onsubmit="return save_voteimg();">
+<if condition="$vo['id'] neq ''">
+  <input type="hidden" name="id" value="{pigcms:$vo['id']}">
+</if>
+<table class="userinfoArea" style="margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%"><tbody><tr>
+<th width="120"><span class="red">*</span>关键词：</th>
+<td><input type="text" name="keyword" value="<if condition="$vo['keyword'] eq ''">图文投票<else/>{pigcms:$vo.keyword}</if>" class="px" style="width:550px;">&nbsp;&nbsp;&nbsp;<span id="keyword_msg"></span><br><span class="red"><if condition="$type eq 'scene'">添加现场投票，关键词设置失效，无需修改<else/>只能写一个关键词,功能面板必须开启投票,不超过10个汉字</if></span></td>
+</tr>
+<tr>
+<th width="120"><span class="red">*</span>活动名称：</th>
+<td><input type="text" name="action_name" value="{pigcms:$vo.action_name}" class="px" style="width:550px;"><br><span class="ff">(不超过50个汉字)</span>&nbsp;&nbsp;&nbsp;<span id="action_name_msg"></span></td>
+</tr>
+<tr>
+<th width="120"><span class="red">*</span>回复标题：</th>
+<td><input type="text" name="reply_title" value="{pigcms:$vo.reply_title}" class="px" style="width:550px;">&nbsp;&nbsp;&nbsp;<span id="reply_title_msg"></span></td>
+</tr>
+<tr>
+<th width="120"><span class="red">*</span>回复内容：</th>
+<td><textarea class="px" id="reply_content" name="reply_content" style="width: 560px; height: 120px; display: ;"><?php echo html_entity_decode(htmlspecialchars_decode($vo['reply_content'])); ?></textarea>&nbsp;&nbsp;&nbsp;<span id="reply_content_msg"></span></td>
+</tr>
+<tr>
+  <th>&nbsp;回复图片：</th>
+  <td>
+  <if condition="$vo.reply_pic neq ''">
+	<img class="thumb_img" id="pic1_src" src="{pigcms:$vo.reply_pic}" style="max-height:100px;max-width: 200px;">
+	<else />
+	<img class="thumb_img" id="pic1_src" src="{pigcms:$staticPath}/tpl/static/voteimg/img/2.png" style="max-height:100px;max-width: 200px;">
+  </if>
+  <input type="text" name="reply_pic" value='<if condition="$vo[\'reply_pic\'] neq ''">{pigcms:$vo.reply_pic}<else/>{pigcms:$staticPath}/tpl/static/voteimg/img/2.png</if>' id="pic1" class="px" style="width:200px;" >
+  <a href="###" onclick="upyunPicUpload('pic1',365,158,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic1')">预览</a>   &nbsp; 建议图片尺寸365*158，图片大小不超过300K</td>
+</tr>
+
+<tr>
+<th width="120">活动简介：</th>
+<td><textarea class="px" id="action_desc" name="action_desc" style="width: 560px; height: 200px;">{pigcms:$vo['action_desc']}</textarea></td>
+</tr>
+<tr>
+<th width="120">如何参与：</th>
+<td><textarea class="px" id="join_desc" name="join_desc" style="width: 560px; height: 200px;">{pigcms:$vo['join_desc']}</textarea></td>
+</tr>
+<tr>
+<th width="120">流程介绍：</th>
+<td><textarea class="px" id="flow_desc" name="flow_desc" style="width: 560px; height: 200px;">{pigcms:$vo['flow_desc']}</textarea></td>
+</tr>
+<tr>
+<th width="120">奖品设置：</th>
+<td><textarea  class="px" id="award_desc" name="award_desc" style="width:560px; height: 200px;">{pigcms:$vo['award_desc']}</textarea></td>
+</tr>
+<tr>
+<th width="120">未关注默认提示语：</th>
+<td><textarea class="px" id="follow_msg" name="follow_msg" style="width: 550px; height: 50px;"><?php if(!empty($vo['follow_msg'])){ echo html_entity_decode(htmlspecialchars_decode($vo['follow_msg']));}else{ echo '请进入公众号"'.$wecha['weixin'].'",回复关键词"图文投票"参加投票活动';}?></textarea></td>
+</tr>
+<tr>
+<th width="120">引导关注按钮提示语：</th>
+<td><input type="text" name="follow_btn_msg" value="<if condition="$vo.follow_btn_msg neq ''">{pigcms:$vo.follow_btn_msg}<else />立即关注</if>" class="px" style="width:550px;"></td>
+</tr>
+<tr>
+<th width="120">快捷关注链接：</th>
+<td><input type="text" name="follow_url" value="{pigcms:$vo.follow_url}" class="px" style="width:550px;"><br>(通过配置图文消息获取快捷关注链接,该快捷链接是指在手机端弹出关注弹框时点击的链接)&nbsp;&nbsp;&nbsp;<a href="{pigcms::U('Voteimg/set_reply')}" target="_blank" style="color:red;">如何配置图文消息来获取链接地址</a>&nbsp;&nbsp; <input type="hidden" value="{pigcms:$staticPath}/tpl/static/voteimg/img/weixin_7.jpg" id="follow_url_example"><a onclick="viewImg('follow_url_example')" href="###" style="color:#1FC419;">配置后的效果图范例</a></td>
+</tr>
+<tr>
+<th width="120">需要粉丝手机号提示语：</th>
+<td><input type="text" name="register_msg" value="<if condition="$vo.register_msg neq ''">{pigcms:$vo.register_msg}<else />您好，需要您先填写个人信息才能参加活动</if>" class="px" style="width:550px;"></td>
+</tr>
+<tr>
+<th>活动时间：</th>
+<td><input type="input" class="px" id="start_time" value="{pigcms:$vo.start_time|default=strtotime('+1 month')|date='Y-m-d H:i',###}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" name="start_time">
+到
+<input type="input" class="px" id="end_time" value="{pigcms:$vo.end_time|default=strtotime('+2 month')|date="Y-m-d H:i",###}" name="end_time" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"></td>
+</tr>
+<tr>
+<th>报名时间：</th>
+<td><input type="input" class="px" id="apply_start_time" value="{pigcms:$vo.apply_start_time|default=time()|date='Y-m-d H:i',###}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" name="apply_start_time">
+到
+<input type="input" class="px" id="apply_end_time" value="{pigcms:$vo.apply_end_time|default=strtotime('+1 month')|date="Y-m-d H:i",###}" name="apply_end_time" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"> &nbsp;&nbsp;&nbsp;&nbsp;(报名截止时间请设置在活动开始时间之前)</td>
+</tr>
+<tr>
+<th> <span class="red">*</span>限制投票数：</th>
+<td>
+  <input type="text" name="limit_vote" value="<if condition="$vo.limit_vote eq ''">0<else />{pigcms:$vo.limit_vote}</if>"  class="px">&nbsp;&nbsp;&nbsp;&nbsp;(限制每个用户每个活动总的投票数，超过不让投票,<span style="color:red;">0表示不限制</span>,默认为0,请输入整数)&nbsp;&nbsp;&nbsp;<span id="limit_vote_msg"></span>
+</td>
+</tr>
+<tr>
+<th><span class="red">*</span>限制每天投票数：</th>
+<td>
+  <input type="text" name="limit_vote_day" value="<if condition="$vo.limit_vote_day eq ''">0<else />{pigcms:$vo.limit_vote_day}</if>"  class="px">&nbsp;&nbsp;&nbsp;&nbsp;(限制每个用户每个活动每天的投票数，超过不让投票,<span style="color:red;">0表示不限制</span>,默认为0,请输入整数)&nbsp;&nbsp;&nbsp;<span id="limit_vote_day_msg"></span>
+</td>
+</tr>
+<tr>
+<th><span class="red">*</span>限制选项每天票数：</th>
+<td>
+  <input type="text" name="limit_vote_item" value="<if condition="$vo.limit_vote_item eq ''">0<else />{pigcms:$vo.limit_vote_item}</if>"  class="px">&nbsp;&nbsp;&nbsp;&nbsp;(限制每个选项每天获得的票数,<span style="color:red;">0表示不限制</span>,1表示每个用户每天只能给该选项投1票,默认为0,请输入整数)&nbsp;&nbsp;&nbsp;<span id="limit_vote_item_msg"></span>
+</td>
+</tr>
+<tr>
+<th> 电话：</th>
+<td>
+  <input type="text" name="phone" value="{pigcms:$vo.phone}"  class="px">&nbsp;&nbsp;&nbsp;&nbsp;(商户联系方式,用于前台首页底部导航里的电话显示)&nbsp;&nbsp;&nbsp;<span id="phone_msg"></span>
+</td>
+</tr>
+<tr>
+<th>未关注是否可以参与：</th>
+<td>
+  <input type="radio" name="is_follow" value="1" <if condition="$vo.is_follow eq '1'">checked</if>>
+  是
+  <input type="radio" name="is_follow" value="2" <if condition="$vo.is_follow eq '2' or $vo.is_follow eq ''">checked</if>>否<span style="width:318px;">&nbsp;&nbsp;&nbsp;{pigcms:$__access_remind__}</span>
+</td>
+</tr>
+<tr>
+<th>是否需要粉丝信息：</th>
+<td>
+  <input type="radio" name="is_register" value="1" <if condition="$vo.is_register eq '1' or $vo.is_register eq ''">checked</if>>
+  是<input type="radio" name="is_register" value="0" <if condition="$vo.is_register eq '0'">checked</if>>否
+  &nbsp;&nbsp;&nbsp;&nbsp;(没有粉丝详细信息参加活动的处理方式)
+</td>
+</tr>
+<tr>
+<th>页面展示：</th>
+<td>
+  <input type="radio" name="page_type" value="page" <if condition="$vo.page_type eq 'page' or $vo.page_type eq ''">checked</if>>分页形式&nbsp;&nbsp;&nbsp;<input type="radio" name="page_type" value="waterfall" <if condition="$vo.page_type eq 'waterfall'">checked</if>>自动加载形式&nbsp;&nbsp;&nbsp;&nbsp;(手机端投票选项加载方式)
+</td>
+</tr>
+<tr>
+<th>选择模板：</th>
+<td>
+  <input type="radio" name="default_skin" value="1" <if condition="$vo.default_skin eq '1' or $vo.default_skin eq ''">checked</if>>
+  经典版 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="default_skin" value="2" <if condition="$vo.default_skin eq '2'">checked</if>>炫酷版
+</td>
+</tr>
+<tr>
+<th>是否可以给自己投票：</th>
+<td>
+  <input type="radio" name="self_id" value="1" <if condition="$vo.self_status eq '1'">checked</if>>
+  可以&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="self_id" value="0" <if condition="$vo.self_status eq '0' or $vo.self_status eq ''">checked</if>>不可以
+</td>
+</tr>
+<tr>
+<th>是否开启活动：</th>
+<td>
+  <input type="radio" name="display" value="1" <if condition="$vo.display eq '1' or $vo.display eq ''">checked</if>>
+  开启&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="display" value="0" <if condition="$vo.display eq '0'">checked</if>>关闭
+</td>
+</tr>
+<tr>
+<th>&nbsp;</th>
+<td><button type="submit" name="button" class="btnGreen sub">保存</button>
+<a href="{pigcms::U('Voteimg/index')}" class="btnGray vm">取消</a>
+</td>
+</tr>
+</tbody>
+</table>
+</form>
+  </div>
+</div>
+<script>
+//js验证活动建立
+$(function(){
+	var reg = /^[0-9]+[0-9]*]*$/;
+	var reg_phone = /^(1([0-9]){5,})$/;
+	var reg_tel =  /^([0-9]{3,4}-)?[0-9]{7,8}$/
+	$(":input[name='keyword']").blur(function(){
+		var keyword = $.trim($(":input[name='keyword']").val());
+		if(keyword.length > 10){
+			$("#keyword_msg").html('<span id="keyword_msg" style="color: red;">关键词不超过10个汉字</span>');
+		}else if(keyword.length == 0){
+			$("#keyword_msg").html('<span id="keyword_msg" style="color: red;">关键词不能为空</span>');
+		}else{
+			var follow_msg = '{pigcms:$vo.follow_msg}';
+			if(follow_msg == ""){
+				var msg = '请进入公众号"{pigcms:$wecha.weixin}",回复关键词"'+keyword+'"参加投票活动。';
+				$("#follow_msg").text(msg);
+			}
+			$("#keyword_msg").html('');
+		}
+	});
+	$(":input[name='action_name']").blur(function(){
+	var action_name = $.trim($(":input[name='action_name']").val());
+		if(action_name.length > 50){
+			$("#action_name_msg").html('<span id="action_name_msg" style="color: red;">活动名称不超过50个汉字</span>');
+		}else if(action_name.length == 0){
+			$("#action_name_msg").html('<span id="action_name_msg" style="color: red;">活动名称不能为空</span>');
+		}else{
+			$("#action_name_msg").html('');
+		}
+	});
+	$(":input[name='reply_title']").blur(function(){
+		var reply_title = $.trim($(":input[name='reply_title']").val());
+		if(reply_title.length == 0){
+			$("#reply_title_msg").html('<span id="reply_title_msg" style="color: red;">回复标题不能为空</span>');
+		}else{
+			$("#reply_title_msg").html('');
+		}
+	});
+	$(":input[name='reply_content']").blur(function(){
+		var reply_content = $.trim($(":input[name='reply_content']").val());
+		if(reply_content.length == 0){
+			$("#reply_content_msg").html('<span id="reply_content_msg" style="color: red;">回复内容不能为空</span>');
+		}else{
+			$("#reply_content_msg").html('');
+		}
+	});
+	$(":input[name='limit_vote']").blur(function(){
+		var limit_vote = $(":input[name='limit_vote']").val();
+		if(!reg.test(limit_vote) && limit_vote != ""){
+			$("#limit_vote_msg").html('<span id="limit_vote_msg" style="color: red;">限制投票数请输入整数</span>');
+		}else{
+			$("#limit_vote_msg").html('');
+		}
+	});
+	$(":input[name='limit_vote_day']").blur(function(){
+		var limit_vote_day = $(":input[name='limit_vote_day']").val();
+		if(!reg.test(limit_vote_day) && limit_vote_day != ""){
+			$("#limit_vote_day_msg").html('<span id="limit_vote_day_msg" style="color: red;">限制每天投票数请输入整数</span>');
+		}else{
+			$("#limit_vote_day_msg").html('');
+		}
+	});
+	$(":input[name='limit_vote_item']").blur(function(){
+		var limit_vote_item = $(":input[name='limit_vote_item']").val();
+		if(!reg.test(limit_vote_item) && limit_vote_item != ""){
+			$("#limit_vote_item_msg").html('<span id="limit_vote_item_msg" style="color: red;">限制选项每天票数请输入整数</span>');
+		}else{
+			$("#limit_vote_item_msg").html('');
+		}
+	});
+	$(":input[name='phone']").blur(function(){
+		var phone = $(":input[name='phone']").val();
+		if(phone != ""){
+			if(phone.indexOf("-") > 0){
+				if(!reg_tel.test(phone)){
+					$("#phone_msg").html('<span id="phone_msg" style="color: red;">电话格式不正确</span>');
+				}else{
+					$("#phone_msg").html('');
+				}
+			}else{
+				if(!reg_phone.test(phone)){
+					$("#phone_msg").html('<span id="phone_msg" style="color: red;">手机格式不正确</span>');
+				}else{
+					$("#phone_msg").html('');
+				}
+			}
+		}
+	});
+});
+function save_voteimg(){
+	var keyword = $(":input[name='keyword']").val();
+	var action_name = $(":input[name='action_name']").val();
+	var reply_title = $(":input[name='reply_title']").val();
+	var reply_content = $(":input[name='reply_content']").val();
+	var limit_vote = $(":input[name='limit_vote']").val();
+	var limit_vote_day = $(":input[name='limit_vote_day']").val();
+	var limit_vote_item = $(":input[name='limit_vote_item']").val();
+	var phone = $(":input[name='phone']").val();
+	var msg = '';
+	var reg = /^[0-9]+[0-9]*]*$/;
+	var reg_phone = /^([0-9]){6,}$/;
+	var reg_tel = /^([0-9]{3,4}-)?[0-9]{7,8}$/
+	if(keyword == ''){
+		msg += '关键词不能为空\n';
+	}
+	if(action_name == ''){
+		msg += '活动名称不能为空\n';
+	}
+	if(reply_title == ''){
+		msg += '回复标题不能为空\n';
+	}
+	if(reply_content == ''){
+		msg += '回复内容不能为空\n';
+	}
+	if(!reg.test(limit_vote) && limit_vote != ""){
+		msg += '限制投票数请输入整数\n';
+	}	
+	if(!reg.test(limit_vote_day) && limit_vote_day != ""){
+		msg += '限制每天投票数请输入整数\n';
+	}
+	if(!reg.test(limit_vote_item) && limit_vote_item != ""){
+		msg += '限制选项每天票数请输入整数\n';
+	}
+	if(phone != ""){
+		if(phone.indexOf("-") > 0){
+			if(!reg_tel.test(phone)){
+				msg += '电话格式不正确\n';
+			}
+		}else{
+			if(!reg_phone.test(phone)){
+				msg += '手机格式不正确\n';
+			}
+		}
+	}
+	if(msg){
+		alert(msg);
+		return false;
+	}
+	$('.form').submit();
+}
+</script>
+<script>
+  KindEditor.ready(function(K) {
+    window.editor = K.create('#action_desc', {
+      resizeType : 1,
+      allowPreviewEmoticons : false,
+      allowImageUpload : true,
+      uploadJson : '/index.php?g=User&m=Upyun&a=kindedtiropic',
+      items : ['source','fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold','underline','removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist','insertunorderedlist','fullscreen']
+      });
+  });
+  KindEditor.ready(function(K) {
+    window.editor = K.create('#join_desc', {
+      resizeType : 1,
+      allowPreviewEmoticons : false,
+      allowImageUpload : true,
+      uploadJson : '/index.php?g=User&m=Upyun&a=kindedtiropic',
+      items : ['source','fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'underline','removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist','insertunorderedlist','fullscreen']
+      });
+  });
+  KindEditor.ready(function(K) {
+    window.editor = K.create('#flow_desc', {
+      resizeType : 1,
+      allowPreviewEmoticons : false,
+      allowImageUpload : true,
+      uploadJson : '/index.php?g=User&m=Upyun&a=kindedtiropic',
+      items : ['source','fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold','underline','removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist','insertunorderedlist','fullscreen']
+      });
+  });
+  KindEditor.ready(function(K) {
+    window.editor = K.create('#award_desc', {
+      resizeType : 1,
+      allowPreviewEmoticons : false,
+      allowImageUpload : true,
+      uploadJson : '/index.php?g=User&m=Upyun&a=kindedtiropic',
+      items : ['source','fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'underline','removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist','insertunorderedlist','fullscreen']
+      });
+  });
+</script>
+<include file="Public:footer"/>

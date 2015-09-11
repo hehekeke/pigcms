@@ -1,0 +1,257 @@
+<if condition="$ischild neq 1">
+<include file="Public:head" />
+<else />
+<include file="Repast:head" />
+</if>
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+ <div class="content">
+<div class="cLineB">
+<h4 class="left">分销商管理</h4>
+<div class="clr"></div>
+</div>
+<!--tab start-->
+<div class="tab">
+    <ul>
+        <li class="tabli" id="tab0"><a href="{pigcms::U('Distribution/order',array('token'=>$token))}">订单管理</a></li>
+        <li class="tabli" id="tab0"><a href="{pigcms::U('Distribution/index',array('token'=>$token))}">分销商管理</a></li>
+        <li class="tabli" id="tab1"><a href="{pigcms::U('Distribution/withdraw',array('token'=>$token))}">提现申请</a></li>
+        <li class="tabli" id="tab2"><a href="{pigcms::U('Distribution/settings',array('token'=>$token))}">分销配置</a></li>
+        <li class="current tabli" id="tab3"><a href="{pigcms::U('Distribution/statistics',array('token'=>$token))}">数据统计</a></li>
+    </ul>
+</div>
+<!--tab end-->
+<div class="cLine">
+<div class="clr"></div>
+</div>
+<div class="msgWrap">
+    <b>日期：</b>
+    <select name="year" class="year" style="width:58px">
+        <option value="">年</option>
+    </select>&nbsp;&nbsp;
+    <select name="month" class="month" style="width:50px">
+        <option value="">月</option>
+    </select>&nbsp;&nbsp;
+    <select name="day" class="day" style="width:50px">
+        <option value="">日</option>
+    </select>&nbsp;&nbsp;&nbsp;
+    <button type="button" name="button" class="btnGreen statistics">统计</button>
+    <div class="cLine">
+        <div class="clr"></div>
+    </div>
+    <div id="line" style="height:400px;width:960px;float:right;"></div>
+    <div id="pie" style="height:400px;width:960px;float:right;"></div>
+</div>
+<div class="cLine">
+<div class="clr"></div>
+</div>
+</div>
+<script src="{pigcms:$staticPath}/tpl/static/myChart/js/echarts-plain.js"></script>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('line'));
+
+
+    var option = {
+        title : {
+            text: "{pigcms:$linecharttext}",
+            x:'left'
+        },
+        tooltip : {
+            trigger: 'axis'
+        },
+        legend: {
+            data:['销售额（元）','分销佣金（元）'],
+            x: 'right'
+        },
+        toolbox: {
+            show : false,
+            feature : {
+                mark : {show: false},
+                dataView : {show: false, readOnly: false},
+                magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                restore : {show: false} ,
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
+        xAxis : [
+            {
+                type : 'category',
+                boundaryGap : false,
+                data : {pigcms:$data}
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value'
+            }
+        ],
+        series : [
+            {
+                name:'销售额（元）',
+                type:'line',
+                tiled: '总量',
+                data: {pigcms:$saletotal}
+            },
+            {
+                "name":'分销佣金（元）',
+                "type":'line',
+                "tiled": '总量',
+                data:{pigcms:$commissiontotal}
+            }
+
+
+        ]
+
+    };
+
+    myChart.setOption(option);
+
+    var myChart2 = echarts.init(document.getElementById('pie'));
+
+    var option2 = {
+        title : {
+            text: '{pigcms:$piecharttext}',
+            x:'center'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        toolbox: {
+            show : false,
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
+        series : [
+            {
+                name:'{pigcms:$piecharttext}',
+                type:'pie',
+                radius : ['50%', '70%'],
+                itemStyle : {
+                    normal : {
+                        label : {
+                            show : false
+                        },
+                        labelLine : {
+                            show : false
+                        }
+                    },
+                    emphasis : {
+                        label : {
+                            show : true,
+                            position : 'center',
+                            textStyle : {
+                                fontSize : '18',
+                                fontWeight : 'bold'
+                            }
+                        }
+                    }
+                },
+                data:[
+                    {pigcms:$salecommissiondata}
+                ]
+            }
+        ]
+    };
+    myChart2.setOption(option2,true);
+
+</script>
+<script type="text/javascript">
+    $(function(){
+
+        //年月日联动 
+        var selYear=$('select[name=year]');
+        var selMonth=$('select[name=month]');
+        var selday=$('select[name=day]');
+        
+        creatDate();
+
+        $(".year").find("option[value='{pigcms:$Think.get.year}']").attr("selected",true);
+        if ('{pigcms:$Think.get.year}' != '') {
+            $(".year").trigger('change');
+        }
+        $(".month").find("option[value='{pigcms:$Think.get.month}']").attr("selected",true);
+        if ('{pigcms:$Think.get.month}' != '') {
+            $(".month").trigger('change');
+        }
+        $(".day").find("option[value='{pigcms:$Think.get.day}']").attr("selected",true);
+        
+        function creatDate(){
+            var myDate = new Date();
+            console.log(myDate.getFullYear());
+            addOpt(selYear,[myDate.getFullYear(),myDate.getFullYear()-10],'year');         
+            addOpt(selMonth,[1,12],'month');    
+            
+            selYear.change(function(e) {
+                creatDay(selYear.val(),selMonth.val(),'month');
+            });
+            
+            selMonth.change(function(e) {
+                creatDay(selYear.val(),selMonth.val(),'day');
+            }); 
+        }  
+        /** 
+         *  月份改变 
+         */  
+        function creatDay(year,month,type){//m为改变的月份值    
+            selday.empty().html('<option value="">日</option>');
+            var day; 
+            console.log('year:'+year);
+            console.log('month:'+month);
+            if(year!='年' && month!='月'){ 
+                year=parseInt(year);
+                month=parseInt(month);
+                if(month==1 || month==3 || month==5 || month==7 || month==8 || month==10 || month==12 ) day = 31;
+                else if(month==4 || month==6 || month==9 || month==11) day = 30
+                else{
+                    if ((year%4==0 && year%100!=0) || (year%400==0)) day = 29; //闰年公式，判断是否为闰年  
+                    else day=28;
+                }
+                console.log('day:'+day);
+                addOpt(selday,[1,day],type)
+            }
+        }
+        function addOpt(box,range,type){
+            if(range[1]>=range[0]){
+                for(var i=range[0]; i<=range[1]; i++){
+                    if (i < 10) {
+                        v = '0' + i;
+                    } else {
+                        v = i;
+                    }
+              
+                    var opt=$('<option></option>').attr({value:v}).text(v).appendTo(box);
+                }
+            }
+            else{
+                for(var i=range[0]; i>=range[1]; i--){
+                    var opt=$('<option></option>').attr({value:i}).text(i).appendTo(box);
+                }
+            }
+        }
+
+        $('.statistics').click(function(event) {
+            if ($('.year').val() == '') {
+                $('.year').focus();
+                return false;
+            }
+            var year = $('.year').val();
+            var month = $('.month').val();
+            var day = $('.day').val();
+            var url = "{pigcms::U('Distribution/statistics', array('token' => $_GET['token']))}" + "&year=" + year;
+            if (month != '') {
+                url += '&month=' + month;
+            }
+            if (day != '') {
+                url += '&day=' + day;
+            }
+            window.location.href = url;
+        });
+    })
+</script>
+<include file="Public:footer"/>

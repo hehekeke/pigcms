@@ -1,0 +1,30 @@
+<include file="Public:head" />
+<link rel="stylesheet" type="text/css" href="{pigcms:$staticPath}/tpl/static/yundabao/css/cymain.css" />
+<div class="content">
+	<div class="cLineB">
+		<h4 class="left">【{pigcms:$yundabao.AppName}】的最近三十天数据</h4>
+		<a href="{pigcms::U('Yundabao/applist',array('token'=>$token))}" class="right btnGreen">返回</a>
+	</div>
+	
+	<div class="msgWrap">
+		<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+			<thead>
+				<tr>
+					<th>日期</th>
+					<th>下载量</th>
+					<th>安装量</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="data" id="vo">
+					<tr>
+						<td>{pigcms:$vo.Date}</td>
+						<td>{pigcms:$vo.DownNum}</td>
+						<td>{pigcms:$vo.InstallNum}</td>
+					</tr>
+				</volist>
+			</tbody>
+		</table>
+	</div>
+</div>
+<include file="Public:footer"/>

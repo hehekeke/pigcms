@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>{pigcms:$live_info.name}</title>
+	<meta charset="utf-8">
+	<meta name="apple-touch-fullscreen" content="YES">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta http-equiv="Expires" content="-1">
+	<meta http-equiv="pragram" content="no-cache">
+	<link rel="stylesheet" type="text/css" href="./tpl/static/live/css/copyright.css">
+	<link rel="stylesheet" type="text/css" href="./tpl/static/live/css/main.css">
+	<link rel="stylesheet" type="text/css" href="./tpl/static/live/css/add2home.css">
+	<script type="text/javascript" src="{pigcms:$staticPath}/tpl/static/live/js/offline.js"></script>
+<!--移动端版本兼容 -->
+	<script type="text/javascript">
+		var resPath  = '{pigcms:$staticPath}';
+		var jsVer = 24;
+		var phoneWidth = parseInt(window.screen.width);
+		var phoneScale = phoneWidth/640;
+
+		var ua = navigator.userAgent;
+		if (/Android (\d+\.\d+)/.test(ua)){
+			var version = parseFloat(RegExp.$1);
+			// andriod 2.3
+			if(version>2.3){
+				document.write('<meta name="viewport" content="width=640, minimum-scale = '+phoneScale+', maximum-scale = '+phoneScale+', target-densitydpi=device-dpi">');
+			// andriod 2.3以上
+			}else{
+				document.write('<meta name="viewport" content="width=640, target-densitydpi=device-dpi">');
+			}
+			// 其他系统
+		} else {
+			document.write('<meta name="viewport" content="width=640, user-scalable=no, target-densitydpi=device-dpi">');
+		}
+	</script>
+	<!--移动端版本兼容 end -->
+</head>
+
+<body class="f-ofh pc perspective yes-3d" style="-webkit-user-select: none;">
+	<!--模版加载提示-->
+
+    	
+
+	<section class="u-alert">
+		<img style="display:none;" src="./tpl/static/live/images/loading_large.gif">
+		<div class="loading-animate"></div>
+		<div class="alert-loading z-move" style="display:none;">
+			<div class="cycleWrap">
+				<span class="cycle cycle-1"></span>
+				<span class="cycle cycle-2"></span>
+				<span class="cycle cycle-3"></span>
+				<span class="cycle cycle-4"></span>
+			</div>
+			<div class="lineWrap">
+				<span class="line line-1"></span>
+				<span class="line line-2"></span>
+				<span class="line line-3"></span>
+			</div>
+		</div>
+	</section>
+	<!--模版加载提示 end-->
+		
+				<!-- 声音控件 -->
+	<section class="u-audio f-hide" data-src="{pigcms:$live_info.music}">
+		<p id="coffee_flow" class="btn_audio">
+			<strong class="txt_audio z-hide">关闭</strong>
+			<span class="css_sprite01 audio_open"></span>
+		<div class="coffee-steam-box" style="height: 100px; width: 44px; left: 60px; top: -50px; position: absolute; overflow: hidden; z-index: 0;"></div></p>
+	</section>
+	<!-- 声音控件 end-->
+																																																									<!-- 箭头指示引导 -->
+	<section class="u-arrow f-hide"><p class="css_sprite01"></p></section>
+	<!-- 箭头指示引导 end-->
+
+	<!-- page页面内容 -->
+	<section class="p-ct transformNode-3d" style="height: 799px;">
+		<!-- 旋转正面 data-open: 0->关闭， 1->开启 -->
+		<div id="j-mengban" class="translate-front z-show" data-open="{pigcms:$live_info.is_masking}" style="height: 799px;">
+			<div class="mengban-warn"></div>
+		<canvas style="position: fixed; left: 50%; top: 0px; width: 640px; margin-left: -320px; height: 100%; z-index: 20; background-color: transparent;" width="1600" height="753"></canvas></div>
+		<!-- 旋转正面 end-->
+		
+		<!-- 旋转反面 -->
+		<div class="translate-back f-hide z-pos" style="height: 799px;">
+			<!-- 封页 1-->
+		
+		<!-- 擦一擦 -->
+				<!-- 蒙板背景图 -->
+			<div class="m-page m-fengye" data-page-type="info_pic3" data-statics="info_pic3" style="height: 799px;">
+				<div class="page-con lazy-img" data-src="{pigcms:$live_info.open_pic}" data-position="50% 50%" data-size="cover" style="background-image: url({pigcms:$live_info.open_pic}); background-size: cover; background-position: 50% 50%;"></div>
+			</div>
+			<!-- 封页 end-->
+				
+
+
+	<volist name="content" id="content" key="key">	
+		<if condition="$content.type eq 1">
+			<!-- 大图文 3-->
+			<div class="m-page m-bigTxt f-hide" data-page-type="bigTxt" data-statics="info_list" style="height: 799px;">
+				<div class="page-con j-txtWrap lazy-img" data-src="{pigcms:$content.bg_pic}" data-position="50% 50%" data-size="cover" style="background-image: url(./tpl/static/live/images/loading_large.gif); ">
+				</div>
+			</div>
+			<!-- 大图文 end-->
+		<elseif condition="$content.type eq 2"/>
+			<!-- 视频 11-->
+			<div class="m-page m-video f-hide" data-page-type="video" data-statics="video_list" style="height: 799px;">
+				<div class="page-con">
+					<div class="video-title lazy-img" data-src="{pigcms:$content.bg_pic}" data-position="50% 50%" data-size="cover" style="background-image: url(./tpl/static/live/images/loading_large.gif);">
+						<h3 class="f-tc"></h3>
+					</div>
+	
+					<div class="video-con j-video" data-video-type="bendi" data-video-src="{pigcms:$content.movie_link}">
+						<div class="img lazy-img" data-src="{pigcms:$content.movie_pic}" data-position="50% 50%" data-size="cover" style="background-image: url(./tpl/static/live/images/loading_large.gif); ">
+							<span class="css_sprite01"></span>
+						</div>
+						<div class="video f-hide">
+							<div class="videoClose"></div>
+							<div class="videoWrap">
+								<!-- <video src=""></video> -->
+								<!-- <div></div> -->
+								<!-- <div></div> -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 视频end -->
+		</if>
+	</volist>
+	
+	<if condition="$live_info.show_company eq '1'">
+	<volist name="company" id="company" key="key">	
+		<!-- 预定 -->
+			<div class="m-page m-book f-hide" data-page-type="book" data-statics="multi_contact" style="height: 799px;">
+				<div class="page-con lazy-img" data-src="{pigcms:$company.bg_pic}" data-position="50% 50%" data-size="cover" style="background-image: url(./tpl/static/live/images/loading_large.gif);">
+					<div class="book-bd f-tc">
+						
+						<div class="bd-map" >
+							<img class="lazy-img" data-src="{pigcms:$company.top_pic}" src="./tpl/static/live/images/loading_large.gif">
+							<if condition="$company.show_map eq '1'">
+								<span class="css_sprite01 j-map" data-mapindex="42625" data-detal="{&quot;sign_name&quot;:&quot;{pigcms:$company.name}&quot;,&quot;contact_tel&quot;:&quot;{pigcms:$company.tel}&quot;,&quot;address&quot;:&quot;{pigcms:$company.address}&quot;}" data-longitude="{pigcms:$company.longitude}" data-latitude="{pigcms:$company.latitude}"></span>
+								<p class="map-animate"><strong></strong><strong></strong></p>
+							</if>
+						</div> 
+						
+						<div class="bd-tit">
+							<h3 class="f-tc"></h3>
+						</div>
+						<div class="bd-form">
+							<p class="tel">
+								<span class="css_sprite01"></span>
+								<a href="tel:{pigcms:$company.tel}">{pigcms:$company.tel}</a>
+							</p>							
+							<p class="email">
+								<span class="css_sprite01"></span>
+								<a href="tel:{pigcms:$company.mp}">{pigcms:$company.mp}</a>
+							</p>							
+							<p class="wx">
+								<span class="css_sprite01"></span>
+								<a href="javascript:void(0)">{pigcms:$company.weixin}</a>
+							</p>													
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 预定 end-->
+		</volist>
+		</if>
+
+
+		
+			<!-- 分享 -->
+			<div class="m-page m-bigTxt f-hide" data-page-type="bigTxt" data-statics="info_list" style="height: 799px;">
+				<div class="page-con j-txtWrap lazy-img" data-src="{pigcms:$live_info.share_bg}" data-position="50% 50%" data-size="cover" style="background-image: url(./tpl/static/live/images/loading_large.gif);">
+				</div>
+				<!-- 微信 -->
+				<div class="bigTxt-btn bigTxt-btn-wx lazy-img" data-src="{pigcms:$live_info.share_button}" data-position="50% 50%" data-size="auto" style="background-image: url(./tpl/static/live/images/loading_large.gif);"><a href="javascript:void(0)"></a></div>
+				<div class="bigTxt-weixin"><img src="./tpl/static/live/default/share-guide.png"></div>
+				<!-- 微信 end-->
+			</div>
+			<!-- 分享 -->
+		
+			
+		</div>
+		<!-- 旋转反面 end-->
+	</section>
+	<!-- 正文介绍 end-->
+
+	<!--meeting map-->
+	<div class="ylmap bigOpen">
+		<!--地图插件元素-->
+		<div class="bk"><span class="css_sprite01"></span></div>
+	</div>
+	<!--meeting map end-->
+
+	<!--pageLoading-->
+	<section class="u-pageLoading">
+		<img src="./tpl/static/live/default/load.gif" alt="loading">
+	</section>
+	<!--pageLoading end-->
+	
+	<!-- 资源传递 -->
+	<!-- 模版ID -->	
+	<!-- 微信分享信息 -->
+	<!-- 微信分享信息 -->
+	<!-- 微信分享信息 -->
+	<!-- 微信分享信息 -->
+	<!-- 微信分享信息 -->
+	<!-- 资源传递 end-->
+<input id="ca-tips" type="hidden" value="{pigcms:$live_info.warn}"><input id="r-cover" type="hidden" value="{pigcms:$live_info.masking_pic}">
+
+
+<script type="text/javascript">
+window.shareData = {  
+            "moduleName":"Live",
+            "moduleID":"0",
+            "imgUrl": "{pigcms:$live_info.open_pic}", 
+            "timeLineLink": "{pigcms:$f_siteUrl}{pigcms::U('Live/index',array('token'=>$token,'id'=>$live_info['id']))}",
+            "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('Live/index',array('token'=>$token,'id'=>$live_info['id']))}",
+            "weiboLink": "{pigcms:$f_siteUrl}{pigcms::U('Live/index',array('token'=>$token,'id'=>$live_info['id']))}",
+            "tTitle": "{pigcms:$live_info.name}",
+            "tContent": "{pigcms:$live_info.intro}"
+};
+</script>
+{pigcms:$shareScript}
+
+
+<!--脚本加载-->
+<script src="{pigcms:$staticPath}/tpl/static/live/js/init_mobile.js" type="text/javascript" charset="utf-8"></script>
+<script language="javascript" src="http://webapi.amap.com/maps?v=1.3&key=b6c2c19cf45cd3d2b82541bc857eed7c"></script>
+<!--脚本加载 end-->
+</body>
+</html>

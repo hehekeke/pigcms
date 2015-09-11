@@ -1,0 +1,74 @@
+<include file="Public:head"/>
+<include file="Business:public_menu"/>
+<!-- <script src="{pigcms::STATICS}/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="{pigcms::STATICS}/artDialog/plugins/iframeTools.js"></script> -->
+
+ <style>
+.cLine {
+    overflow: hidden;
+    padding: 5px 0;
+  color:#000000;
+}
+.alert {
+padding: 8px 35px 0 10px;
+text-shadow: none;
+-webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+-moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+background-color: #f9edbe;
+border: 1px solid #f0c36d;
+-webkit-border-radius: 2px;
+-moz-border-radius: 2px;
+border-radius: 2px;
+color: #333333;
+margin-top: 5px;
+}
+.alert p {
+margin: 0 0 10px;
+display: block;
+}
+.alert .bold{
+font-weight:bold;
+}
+ </style>
+
+
+<include file="Business:tips"/>
+
+
+<div class="msgWrap form">
+	
+    <div class="content">
+		<div class="cLineB">
+		  <h4><a href="{pigcms::U('Seckill/shop_add',array('token'=>$token,'type'=>$type, 'aid' => $_GET['aid']))}" class="btnGrayS vm bigbtn">添加活动商品</a></h4><a href="javascript:history.go(-1);" class="right btnGrayS vm" style="margin-top:-27px">返回</a>
+		</div>
+        <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+          <thead>
+            <tr>
+  <th style=" width:100px;">商品名称</th>
+  <th style=" width:100px;">商品价格</th>
+  <th style=" width:100px;">商品库存</th>
+</th>
+              <th style=" width:120px;">操作</th>
+            </tr>
+          </thead>
+<volist name="action" id="vo">
+          <tbody><tr>
+              <td>{pigcms:$vo.shop_name}</td>
+              <td>{pigcms:$vo.shop_price}</td>
+              <td>{pigcms:$vo.shop_num}</td>
+              <td class="norightborder">
+              <a href="{pigcms::U('Seckill/shop_add',array('aid'=>$_GET['aid'],'sid'=>$vo['shop_id'], 'type'=>'seckill'))}" class="btnGreen">编辑</a>
+              <a href="{pigcms::U('Seckill/shop_del',array('aid'=>$_GET['aid'],'sid'=>$vo['shop_id'],'type'=>'del', 'type'=>'seckill'))}" onclick="return(confirm('确定要删除吗？'))" class="btnGreen">删除</a> </td>
+            </tr>
+          </tbody>
+</volist> 
+            </table>
+		<div class="footactions" style="padding-left:10px">
+      <div class="pages"> {pigcms:$page}</div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<include file="Public:footer"/>

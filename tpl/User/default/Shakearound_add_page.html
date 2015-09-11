@@ -1,0 +1,86 @@
+<include file="Public:head"/>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script>
+<form class="form" method="post" action="{pigcms::U('Shakearound/add_page',array('token'=>$token))}" target="_top">
+<div class="content">
+<div class="cLineB">
+<h4>添加页面</h4><a href="javascript:history.go(-1);" class="right btnGrayS vm" style="margin-top:-27px">返回</a></div>
+ <div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-bottom:5px;font-size:12px;">温馨提示：添加的页面用于绑定设备,这样摇周边就会出现你绑定的页面。添加页面需要时间请勿关闭浏览器耐心等待几秒。
+</div>
+<div class="msgWrap bgfc">
+<table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%">
+<tbody>
+  <th valign="top"><span class="red">*</span>主标题：</th>
+  <td><input type="input" class="px" id="title" value="" name="title" style="width:150px" />&nbsp;&nbsp;&nbsp;(不超过12个英文字母,一个汉字相当于3个字母)</td> 	
+</tr>
+<tr>
+  <th valign="top"><span class="red">*</span>副标题：</th>
+  <td><input type="text" class="px" name="description" id="description" style="width:350px"/>&nbsp;&nbsp;&nbsp;(不超过14个字母,一个汉字相当于3个字母)<br>
+  </td>
+</tr>
+<tr>
+  <th valign="top"><span class="red">*</span>跳转URL</th>
+  <td><input type="input" class="px" id="page_url" value="" name="page_url" style="width:350px" />&nbsp;&nbsp;&nbsp;<if condition="session('isQcloud') neq true"><a href="###" onclick="addLink('page_url',0)" class="a_choose">从功能库添加</a></if>(摇一摇展示出的页面的跳转地址)
+  </td>
+</tr>
+<tr>
+  <th valign="top"><span class="red">*</span>图标URL</th>
+  <td><input type="input" class="px" id="icon_url" value="" name="icon_url" style="width:350px">
+ <a href="###" onclick="upyunPicUpload('icon_url',0,0,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('icon_url')">预览</a> (格式jpg,jpeg,png,gif,图片大小建议120px*120px,<span style="color:red;">限制不超过200px*200px,图片需为正方形</span>)</td>
+</tr>
+<tr>
+  <th width="120">&nbsp;页面备注信息：</th>
+  <td><input type="text" name="page_comment" id="page_comment" class="px" style="width:350px"/>&nbsp;&nbsp;&nbsp;(不超过30个英文字母,一个汉字相当于3个字母)</td>
+</tr>
+<tr>
+	<th></th>
+	<td>
+		<button type="button" name="button" id="add_page" class="btnGreen">添加页面</button>　
+		<a href="" class="btnGray vm">取消</a>
+	</td>
+</tr>
+</tbody>
+</table>
+ </div>
+</div>
+</form>
+<script>
+//简单的表单验证
+$(function(){
+	$("#add_page").click(function(){
+		var title = $("#quantity").val();
+		var description = $("#description").val();
+		var page_url = $("#page_url").val();
+		var icon_url = $("#icon_url").val();
+		var msg = '';
+		if(title == ''){
+			msg += '页面标题不能为空\n';
+		}
+		if(description == ''){
+			msg += '页面副标题不能为空\n';
+		}
+		if(page_url == ''){
+			msg += '跳转地址不能为空\n';
+		}
+		if(icon_url == ''){
+			msg += '页面图标不能为空\n';
+		}
+		if(msg != ''){
+			alert(msg);
+			return false;
+		}
+		$(".form").submit();
+	});
+	
+	//左侧高亮
+	$(".ckit").find("li").each(function(){
+	if($.trim($(this).text()) == '页面管理'){
+		$(this).prev().removeClass('selected');
+		$(this).removeClass('subCatalogList');
+		$(this).addClass('selected');
+	}
+});
+});
+</script>
+<include file="Public:footer"/>

@@ -1,0 +1,305 @@
+<include file="Public:head"/>
+<script src="{pigcms::STATICS}/jquery.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="{pigcms::STATICS}/kindeditor/themes/default/default.css" />
+<link rel="stylesheet" href="{pigcms::STATICS}/kindeditor/plugins/code/prettify.css" />
+<!--link rel="stylesheet" href="{pigcms::STATICS}/vote/style.css" /-->
+<style type="text/css">.ListProduct{text-align: center;}</style>
+<script src="{pigcms::STATICS}/kindeditor/kindeditor.js" type="text/javascript"></script>
+<script src="{pigcms::STATICS}/kindeditor/lang/zh_CN.js" type="text/javascript"></script>
+<script src="{pigcms::STATICS}/kindeditor/plugins/code/prettify.js" type="text/javascript"></script>
+<script src="{pigcms::RES}/js/date/WdatePicker.js" type="text/javascript"></script>
+<script src="{pigcms::STATICS}/vote/common.js" type="text/javascript"></script>
+<script src="{pigcms::STATICS}/artDialog/jquery.artDialog.js?skin=default" type="text/javascript"></script>
+<script src="{pigcms::STATICS}/artDialog/plugins/iframeTools.js" type="text/javascript"></script>
+<script src="{pigcms::STATICS}/upyun.js"></script>
+<script type="text/javascript">
+
+var editor;
+KindEditor.ready(function(K) {
+editor = K.create('#ruledesc', {
+resizeType : 1,
+allowPreviewEmoticons : false,
+allowImageUpload : true,
+uploadJson : '/index.php?g=User&m=Upyun&a=kindedtiropic',
+items : [
+'source','undo','plainpaste','wordpaste','clearhtml','quickformat','selectall','fullscreen','fontname', 'fontsize','subscript','superscript','indent','outdent','|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline','hr']
+});
+
+editor = K.create('#registration', {
+resizeType : 1,
+allowPreviewEmoticons : false,
+allowImageUpload : true,
+uploadJson : '/index.php?g=User&m=Upyun&a=kindedtiropic',
+items : [
+'source','undo','plainpaste','wordpaste','clearhtml','quickformat','selectall','fullscreen','fontname', 'fontsize','subscript','superscript','indent','outdent','|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline','hr']
+});
+
+});
+</script>
+<div class="content">
+
+<div class="cLineB">
+  <h4>全民经纪人设置</h4>
+
+<a href="javascript:history.go(-1);" class="right btnGrayS vm" style="margin-top:-27px">返回</a>
+</div>
+
+ <div class="msgWrap bgfc">
+<form class="form" method="post" action="" target="_top" enctype="multipart/form-data">
+
+  <input type="hidden" name="id" value="{pigcms:$mbkid}">
+
+<table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%"><tbody><tr>
+<th width="120">图文消息标题：</th>
+<td><input type="text" name="title" style="width:200px;" class="px" value="<if condition="$mbk['title'] eq ''">快来代理赚钱啊<else/>{pigcms:$mbk.title}</if>"></td>
+</tr>
+<th width="120">触发关键词：</th>
+<td><input type="text" name="keyword" value="<if condition="$mbk['keyword'] eq ''">全民经纪人<else/>{pigcms:$mbk.keyword}</if>" class="px"><br><span class="red"></span></td>
+</tr>
+<tr>
+<th valign="top">图文消息封面：</th>
+<td>
+<if condition="$mbk['imgreply'] neq ''">
+<img class="thumb_img" id="imgreply_src" src="{pigcms:$mbk['imgreply']}" style="max-height:100px;max-width: 150px;">
+</if>
+<input type="input" class="px" id="imgreply" value="{pigcms:$mbk['imgreply']}" name="imgreply" data-validation-engine="validate[required,custom[url]]"
+data-errormessage-value-missing="请上传图文消息封面图片"  data-errormessage-custom-error="如果是手动填写,正确的网址,如: http://www.baidu.com/images/demo.png">
+
+<a href="###" onclick="upyunPicUpload('imgreply',900,500,'{pigcms:$token}')" class="a_upload">上传</a>
+<a href="###" onclick="viewImg('imgreply')">预览</a> [900*500] </td>
+<td></td>
+</tr>
+<tr>
+
+<th width="120">图文消息简介：</th>
+	<td><textarea style="width:490px;height:100px" name="rinfo" id="rinfo" class="px">{pigcms:$mbk['rinfo']}</textarea><br/>最多填写120个字</td>
+</tr>
+
+<tr>
+<th valign="top">活动封面图：</th>
+<td>
+<if condition="$mbk['picurl'] neq ''">
+<img class="thumb_img" id="picurl_src" src="{pigcms:$mbk['picurl']}" style="max-height:100px;max-width: 150px;">
+</if>
+<input type="input" class="px" id="picurl" value="{pigcms:$mbk['picurl']}" name="picurl" data-validation-engine="validate[required,custom[url]]"
+data-errormessage-value-missing="活动封面图图片"  data-errormessage-custom-error="如果是手动填写,正确的网址,如: http://www.baidu.com/images/demo.png">
+<a href="###" onclick="upyunPicUpload('picurl',640,960,'{pigcms:$token}')" class="a_upload">上传</a>
+<a href="###" onclick="viewImg('picurl')">预览</a> [640*960] </td>
+<td></td>
+</tr>
+<tr>
+<th valign="top">活动背景图片：</th>
+<td>
+<if condition="$mbk['bgimg'] neq ''">
+<img class="thumb_img" id="bgimg_src" src="{pigcms:$mbk['bgimg']}" style="max-height:100px;max-width: 150px;">
+</if>
+<input type="input" class="px" id="bg_img" value="{pigcms:$mbk['bgimg']}" name="bgimg" data-validation-engine="validate[required,custom[url]]"
+data-errormessage-value-missing="请上传背景图片"  data-errormessage-custom-error="如果是手动填写,正确的网址,如: http://www.baidu.com/images/demo.png">
+<a href="###" onclick="upyunPicUpload('bg_img',1080,630,'{pigcms:$token}')" class="a_upload">上传</a>
+<a href="###" onclick="viewImg('bg_img')">预览</a> [1080*630] </td>
+<td></td>
+</tr>
+
+<th width="120">产品顾问邀请码：</th>
+<td><input type="text" name="invitecode" value="{pigcms:$invitecode}" class="px"><br><span class="red">16位以内英文数字字符</span></td>
+</tr>
+<tr>
+<th>截至时间：</th>
+<td><input type="input" class="px" id="statdate" value="<if condition="$mbk['statdate'] neq ''">{pigcms:$mbk.statdate|date="Y-m-d",###}</if>" onClick="WdatePicker()" name="statdate">
+到
+<input type="input" class="px" id="enddate" value="<if condition="$mbk['enddate'] neq ''">{pigcms:$mbk.enddate|date="Y-m-d",###}</if>" name="enddate" onClick="WdatePicker()"></td>
+</tr>
+<tr>
+<th valign="top">活动细则：</th>
+<td valign="top"><textarea class="px" id="ruledesc" name="ruledesc" style="width: 605px; height: 350px;" ><?php echo html_entity_decode(htmlspecialchars_decode($mbk['ruledesc']),ENT_QUOTES,"UTF-8"); ?></textarea></td>
+</tr>
+<tr>
+<th valign="top">注册协议：</th>
+<td valign="top"><textarea class="px" id="registration" name="registration" style="width: 605px; height: 350px;" ><?php echo html_entity_decode(htmlspecialchars_decode($mbk['registration']),ENT_QUOTES,"UTF-8"); ?></textarea></td>
+</tr>
+
+<tr>
+<th valign="top">产品项目选项：</th>
+<td valign="top"><div class="bdrcontent">
+<div id="div_ptype">
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<tbody>
+<tr>
+    <td width="150">项目名称</td>
+    <td width="115">佣金方式</td>
+    <td width="120">佣金额度</td>
+    <td width="300">项目图片</td>
+    <td width="170">项目跳转地址</td>
+
+    <td class="norightborder"></td>
+</tr>
+</tbody>
+<if condition="!empty($items) AND is_array($items)">
+<volist name="items" id="val" key="key">
+<tbody class="item{pigcms:$val.id}" name="div_add_del">
+<tr>
+    <td width="130"><input type="text" name="add[xmname][]" value="{pigcms:$val.xmname}" class="px" style="width:120px;"></td>
+	<if condition="$val.xmtype != 2">
+     <td style="text-align: left;"> <input type="checkbox" name="add[xmtype][]" value="1" checked="checked" class="moneytype">&nbsp;固定金额<br/><input type="checkbox" name="add[xmtype][]" value="2" class="moneytype">&nbsp;百分比
+     </td>
+     <td class="xmnum">
+       <input type="text" name="add[xmnum][]" value="{pigcms:$val.xmnum}" style="width:65px;" class="px"><span class="moneytype1">&nbsp;元</span><span class="moneytype2" style="display:none;">&nbsp;%</span>
+      </td>
+	<else/>
+	<td style="text-align: left;"><input type="checkbox" name="add[xmtype][]" value="1" class="moneytype">&nbsp;固定金额<br/><input type="checkbox" checked="checked" name="add[xmtype][]" value="2" class="moneytype">&nbsp;&nbsp;百分比
+     </td>
+     <td class="xmnum">
+       <input type="text" name="add[xmnum][]" value="{pigcms:$val.xmnum}" style="width:65px;" class="px"><span class="moneytype1" style="display:none;">&nbsp;元</span><span class="moneytype2">&nbsp;%</span>
+	</if>
+
+     <td width="200">
+         <input type="text" name="add[xmimg][]" value="{pigcms:$val.xmimg}" class="px"  id="xmimg_{pigcms:$val.id}" style="width:130px;">
+         <a href="###" onclick="upyunPicUpload('xmimg_{pigcms:$val.id}',500,200,'{pigcms:$token}')" class="a_upload">上传</a>
+		 <a href="###" onclick="viewImg('xmimg_{pigcms:$val.id}')">预览</a>
+      </td>
+    <td width="100"><input type="text" name="add[tourl][]"  value="{pigcms:$val.tourl}" class="px" style="width:100px;" id="tourl_u{pigcms:$val.id}"><br/><a href="###" onclick="addLink('tourl_u{pigcms:$val.id}',0)" class="a_choose" style="margin-top: 7px">从功能库添加</a></td>
+	<input type="hidden" name="add[id][]" readonly="readonly" value="{pigcms:$val.id}">
+	<if condition="($key gt 1)">
+    <td width="80" class="norightborder"><a href="javascript:void(0);" itemid="{pigcms:$val.id}" class="del">删除</a></td>
+	<else/>
+	  <td width="80" class="norightborder">此项不可删除,只可修改</td>
+	</if>
+</tr>
+ </tbody>
+</volist>
+<else/>
+
+<tbody class="item">
+    <tr>
+     <input type="hidden" name="add[id][]" readonly="readonly"  value="0">
+        <td width="130">
+            <input type="text" name="add[xmname][]" value="" placeholder="请填写项目名称" class="px" style="width:120px;">
+        </td>
+        <td style="text-align: left;">
+            <input type="checkbox" name="add[xmtype][]" value="1" checked="checked" class="moneytype">&nbsp;固定金额<br/><input type="checkbox" name="add[xmtype][]" value="2" class="moneytype">&nbsp;百分比
+        </td>
+         <td class="xmnum">
+            <input type="text" name="add[xmnum][]" value="" placeholder="请填写额度" style="width:65px;" class="px"><span class="moneytype1">&nbsp;元</span><span class="moneytype2" style="display:none;">&nbsp;%</span>
+        </td>
+        <td width="200">
+          <input type="text" name="add[xmimg][]" value="" class="px"  id="xmimg_1" style="width:130px;">
+          <a href="###" onclick="upyunPicUpload('xmimg_1',500,200,'{pigcms:$token}')" class="a_upload">上传</a>
+		  <a href="###" onclick="viewImg('xmimg_1')">预览</a>
+        </td>
+        <td width="100"><input type="text" name="add[tourl][]"  value="" class="px" style="width:100px;" id="tourl_1"><br/><a href="###" onclick="addLink('tourl_1',0)" class="a_choose" style="margin-top: 7px">从功能库添加</a></td>
+       
+         <td width="80" class="norightborder">此项不可删除,只可修改</td>
+    </tr>
+</tbody>
+
+<tbody class="item">
+    <tr>
+     <input type="hidden" name="add[id][]" readonly="readonly" value="0">
+        <td width="130">
+            <input type="text" name="add[xmname][]" value="" placeholder="请填写项目名称" class="px" style="width:120px;">
+        </td>
+        <td style="text-align: left;">
+            <input type="checkbox" name="add[xmtype][]" value="1" checked="checked" class="moneytype">&nbsp;固定金额<br/><input type="checkbox" name="add[xmtype][]" value="2" class="moneytype">&nbsp;百分比
+        </td>
+         <td class="xmnum">
+            <input type="text" name="add[xmnum][]" value="" placeholder="请填写额度" style="width:65px;" class="px"><span class="moneytype1">&nbsp;元</span><span class="moneytype2" style="display:none;">&nbsp;%</span>
+        </td>
+        <td width="200">
+          <input type="text" name="add[xmimg][]" value="" class="px"  id="xmimg_2" style="width:130px;">
+          <a href="###" onclick="upyunPicUpload('xmimg_2',500,200,'{pigcms:$token}')" class="a_upload">上传</a>
+          <a href="###" onclick="viewImg('xmimg_2')">预览</a>
+        </td>
+        <td width="100"><input type="text" name="add[tourl][]"  value="" class="px" style="width:100px;" id="tourl_2"><br/><a href="###" onclick="addLink('tourl_2',0)" class="a_choose" style="margin-top: 7px">从功能库添加</a></td>
+       
+         <td width="80" class="norightborder"><a href="javascript:void(0);" itemid="0" class="del">删除</a>
+        </td>
+    </tr>
+</tbody>
+</if>
+</table>
+<tbody>
+        <tr>
+            <td></td>
+            <td colspan="4" class="norightborder">
+              <a href="javascript:void(0);" class="btnGray right" id="addItem">添加选项</a>
+            </td>
+        </tr>
+
+  </tbody>
+</div>
+</div>
+
+</td>
+</tr>
+
+<tr>
+<th>&nbsp;</th>
+<td><button type="submit" class="btnGreen">保存</button>
+<a href="{pigcms::U('MicroBroker/index',array('token'=>$token))}" class="btnGray vm">取消</a>
+</td>
+</tr>
+</tbody>
+</table>
+
+
+</form>
+  </div>
+ </div>
+<script>
+var bkid="{pigcms:$mbkid}";
+bkid=parseInt(bkid);
+  $(function(){
+    $('#addItem').click(function(){
+       
+        var len   = $('.ListProduct').children('tbody').length;
+        var str   = "";
+          str  += '<tbody class="item"><tr ><input type="hidden" name="add[id][]" readonly="readonly" value="0"><td width="130"><input type="text" name="add[xmname][]" value="" placeholder="请填写项目名称" class="px" style="width:120px;"></td><td style="text-align: left;"><input type="checkbox" name="add[xmtype][]" value="1" checked="checked" class="moneytype">&nbsp;固定金额<br/><input type="checkbox" name="add[xmtype][]" value="2" class="moneytype">&nbsp;百分比</td><td class="xmnum"><input type="text" name="add[xmnum][]" value="" placeholder="请填写额度" style="width:65px;" class="px"><span class="moneytype1">&nbsp;元</span><span class="moneytype2" style="display:none;">&nbsp;%</span></td>';
+
+          str  += '<td width="200"><input type="text" name="add[xmimg][]" value="" class="px" id="xmimg_x'+len+'" style="width:130px;"><a href="###" onclick="upyunPicUpload(\'xmimg_x'+len+'\',500,200,\'{pigcms:$token}\')" class="a_upload">上传</a><a href="###" onclick="viewImg(\'xmimg_x'+len+'\')"> 预览</a></td><td width="100"><input type="text" name="add[tourl][]"  value="" class="px" style="width:100px;" id="tourl_a'+len+'"><br/><a href="###" onclick="addLink(\'tourl_a'+len+'\',0)" class="a_choose" style="margin-top: 7px">从功能库添加</a></td><td width="50" class="norightborder"><a href="javascript:void(0);" itemid="0" class="del">删除</a></td></tr></tbody>';
+       
+
+          $('.ListProduct').append(str);
+    });
+
+    $(".ListProduct").on('click','.del',function(e){
+      var itemid = $(this).attr('itemid');
+      if(itemid == 0){
+        $(this).parents('.item').remove();
+      }else{
+		
+        if(confirm('确定要删除吗？')){   
+            var obj = {id:itemid,bid:bkid}
+            $.post("{pigcms::U('MicroBroker/delitem')}", obj,
+                function(data) {
+                  $('.del').parents('.item'+itemid).remove();
+                },
+            "json");
+        }
+      }
+    });
+
+  $(".ListProduct").on('click',".moneytype",function(e){
+		$(this).prop('checked', true);
+        var mtype=$.trim($(this).val());
+		$(this).siblings('.moneytype').prop('checked', false);
+
+		var mobj=$(this).parent('td').next('.xmnum');
+		mobj.find('span').hide();
+		mobj.find('.moneytype'+mtype).show();
+  });
+
+});
+ if(!(bkid>0)){
+  dateformat('statdate', 0);
+  dateformat('enddate', 30);
+ }
+function dateformat(id, day){
+ var date = new Date();
+ date.setDate(date.getDate()+day);
+ //var deadline = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
+ var deadline = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
+ $("#" + id).val(deadline);
+}
+</script>
+
+<include file="Public:footer"/>

@@ -1,0 +1,129 @@
+<include file="Public:head"/>
+<script src="{pigcms:$staticPath}/tpl/static/jquery.min.js" type="text/javascript"></script>
+<script src="{pigcms:$staticPath}/tpl/static/vote/common.js" type="text/javascript"></script>
+<script src="{pigcms:$staticPath}/tpl/static/upyun.js" type="text/javascript"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/jquery.artDialog.js?skin=default" type="text/javascript"></script>
+<link rel="stylesheet" href="{pigcms:$staticPath}/tpl/static/kindeditor/themes/default/default.css" />
+<link rel="stylesheet" href="{pigcms:$staticPath}/tpl/static/kindeditor/plugins/code/prettify.css" />
+<script src="{pigcms:$staticPath}/tpl/static/kindeditor/kindeditor.js" type="text/javascript"></script>
+<script src="{pigcms:$staticPath}/tpl/static/kindeditor/lang/zh_CN.js" type="text/javascript"></script>
+<script src="{pigcms:$staticPath}/tpl/static/kindeditor/plugins/code/prettify.js" type="text/javascript"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/plugins/iframeTools.js" type="text/javascript"></script>
+<script src="{pigcms::RES}/js/date/WdatePicker.js" type="text/javascript"></script>
+<div class="content">
+<div class="cLineB">
+  <h4> 
+    图文投票---添加选项
+</h4>
+<a href="{pigcms::U('Voteimg/item_list',array('vote_id'=>$vote_id,'token'=>$token))}" class="right btnGrayS vm" style="margin-top:-27px">返回选项列表</a>
+</div>
+<div class="msgWrap bgfc">
+<form class="form" method="post" action="{pigcms::U('Voteimg/add_item',array('id'=>$id,'token'=>$token))}" target="_top">
+<table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%"><tbody>
+<tr>
+<th width="120"><span class="red">*</span>选项标题：</th>
+<td><input type="text" name="vote_title" id="vote_title" value="" class="px" style="width:350px;">&nbsp;&nbsp;&nbsp;<span id="vote_title_msg">(不超过8个汉字)</span></td>
+
+</tr>
+<tr>
+<th width="120"><span class="red">*</span>图片地址</th>
+<td><input type="text" name="vote_img" value='' id="pic1" class="px" style="width:350px;" >
+  <a href="###" onclick="upyunPicUpload('pic1',0,0,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic1')">预览</a>&nbsp;&nbsp;&nbsp;(图片最佳尺寸700px*500px)&nbsp;&nbsp;&nbsp;<span id="vote_img_msg"></span></td>
+</tr>
+<tr>
+<th width="120">图片跳转地址：</th>
+<td><input type="text" name="jump_url" id="jump_url" value="" class="px" style="width:350px;"><if condition="session('isQcloud') neq true"><a href="###" onclick="addLink('jump_url',0)" class="a_choose">从功能库添加</a></if>&nbsp;&nbsp;&nbsp;(如果填写,首页点击选项图片会跳转到该地址,如果不填则跳转到选项详细页)</td>
+</tr>
+<tr>
+  	<th valign="top"><span class="red">*</span>拉票宣言：</th>
+  	<td><textarea class="px" id="manifesto" name="manifesto" style="width:643px; height: 100px;"></textarea>&nbsp;&nbsp;&nbsp;<span id="manifesto_msg"></span>
+	</td>
+</tr>
+<tr>
+  	<th valign="top"><span class="red">*</span>自我介绍：</th>
+  	<td><textarea class="px" id="introduction" name="introduction" style="height: 350px;"></textarea>&nbsp;&nbsp;&nbsp;<span id="introduction_msg"></span>
+	</td>
+</tr>
+<tr>
+<th width="120">票数：</th>
+<td><input type="text" name="vote_count" id="vote_count" value="" class="px" style="width:120px;">&nbsp;&nbsp;&nbsp;(可以手动设置选项获得的票数)&nbsp;&nbsp;&nbsp;<span id="vote_count_msg"></span></td>
+</tr>
+<tr>
+<th width="120">联系方式：</th>
+<td><input type="text" name="contact" id="contact" value="" class="px" style="width:120px;">&nbsp;&nbsp;&nbsp;(可以用于通知得奖者)&nbsp;&nbsp;&nbsp;<span id="contact_msg"></span></td>
+</tr>
+<tr>
+<th>&nbsp;</th>
+<input type="hidden" name="vote_id" value="{pigcms:$vote_id}">
+<input type="hidden" name="token" value="{pigcms:$token}">
+<td><button type="submit" name="button" class="btnGreen sub">保存</button>
+<a href="{pigcms::U('Voteimg/add_item',array('vote_id'=>$vote_id,'token'=>$token))}" class="btnGray vm">取消</a>
+</td>
+</tr>
+</tbody>
+</table>
+</form>
+  </div>
+</div>
+<script>
+  KindEditor.ready(function(K) {
+
+    window.editor = K.create('#introduction', {
+      resizeType : 1,
+      allowPreviewEmoticons : false,
+      allowImageUpload : true,
+      uploadJson : '/index.php?g=User&m=Upyun&a=kindedtiropic',
+      items : [
+      'source','undo','plainpaste','wordpaste','clearhtml','quickformat','selectall','fullscreen','fontname', 'fontsize','subscript','superscript','indent','outdent','|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline','hr', '|', 'image']
+      });
+  });
+  
+$(function(){
+	var reg = /^[0-9]+[0-9]*]*$/;
+	var reg_phone = /^([0-9]){6,}$/;
+	$('#vote_title').blur(function(){
+		var vote_title = $.trim($("#vote_title").val());
+		if(vote_title.length > 8){
+			$("#vote_title_msg").html('<span id="vote_title_msg" style="color: red;">您输入的字符过长,不要超过8个汉字。</span>');
+		}else if(vote_title.length == 0){
+			$("#vote_title_msg").html('<span id="vote_title_msg" style="color: red;">选项标题不能为空。</span>');
+		}else{
+			$("#vote_title_msg").html('');
+		}
+	});
+	$('#pic1').blur(function(){
+		var vote_img = $("#pic1").val();
+	//	alert($.trim(vote_img).length);
+		if($.trim(vote_img).length == 0){
+			$("#vote_img_msg").html('<span id="vote_img_msg" style="color: red;">图片地址不能为空。</span>');
+		}else{
+			$("#vote_img_msg").html('');
+		}
+	});
+	$('#manifesto').blur(function(){
+		var manifesto = $("#manifesto").val();
+		if($.trim(manifesto).length == 0){
+			$("#manifesto_msg").html('<span id="manifesto_msg" style="color: red;">拉票宣言不能为空。</span>');
+		}else{
+			$("#manifesto_msg").html('');
+		}
+	});
+	$('#vote_count').blur(function(){
+		var vote_count = $("#vote_count").val();
+		if(!reg.test(vote_count) && vote_count != ""){
+			$("#vote_count_msg").html('<span id="vote_count_msg" style="color: red;">票数请输入整数。</span>');
+		}else{
+			$("#vote_count_msg").html('');
+		}
+	});
+	$('#contact').blur(function(){
+		var contact = $("#contact").val();
+		if(!reg_phone.test(contact) && contact != ""){
+			$("#contact_msg").html('<span id="contact_msg" style="color: red;">手机号格式不正确。</span>');
+		}else{
+			$("#contact_msg").html('');
+		}
+	});
+});
+</script>
+<include file="Public:footer"/>

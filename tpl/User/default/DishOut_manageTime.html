@@ -1,0 +1,123 @@
+<if condition="$ischild neq 1">
+<include file="Public:head" />
+<else />
+<include file="Repast:head" />
+</if>
+<script src="./tpl/User/default/common/js/date/WdatePicker.js"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script>
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+<div class="content"> 
+	<div class="cLineB"> 
+		<h4>外卖管理</h4> 
+		<a href="{pigcms::U('DishOut/index',array('token' => $token,'cid'=>$cid))}" class="right  btnGreen" style="margin-top:-27px">返回</a> 
+	</div> 
+	<div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-top:5px;">
+	<span>温馨提示：</span>
+	<p>1、此处只显示总店信息，连锁店订单及菜品请进入相应平台进行管理，连锁店登录账号密码及登录地址请在LBS里设置查看<br/>微外卖的菜品添加请到微餐饮的菜品管理里添加修改</p>
+	<p>2、本功能使用了模板消息中的“订单完成通”知模板消息，模板编号OPENTM202521011。
+          开通微信支付功能的公众号在使用此功能的时候可以在”基本设置——微信模板消息“中配置对应的模板消息</p>
+	</div>
+<!--tab start-->
+<div class="tab">
+<ul>
+<li class="tabli" id="tab3"><a href="{pigcms::U('DishOut/index', array('token' => $token,'cid' => $cid))}">外卖菜单</a></li>
+<li class="current tabli" id="tab2"><a href="{pigcms::U('DishOut/manageTime', array('token' => $token,'cid' => $cid))}">外卖管理</a></li>
+<li class="tabli" id="tab2"><a href="{pigcms::U('DishOut/basePrice', array('token' => $token,'cid' => $cid))}">外送类型设置</a></li>
+<li class="tabli" id="tab5"><a href="{pigcms::U('DishOut/myReply', array('token'=>$token,'cid' => $cid))}">外卖回复配置</a></li>
+<li class="tabli" id="tab4"><a href="{pigcms::U('DishOut/orders', array('token' => $token,'cid' => $cid))}">外卖订单管理</a></li>
+<li class="tabli" id="tab1"><a href="{pigcms::U('DishOut/Statistics', array('token' => $token,'cid' => $cid))}">外卖统计</a></li>
+</ul>
+</div>
+<!--tab end-->
+<form method="post" action="" id="formID">
+<input type="hidden" name="cid" value="{pigcms:$cid}" />
+<input type="hidden" name="tid" value="{pigcms:$mtime['id']}" />
+    <div class="msgWrap bgfc"> 
+     <table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%"> 
+      <tbody>
+       <tr> 
+        <th>营业时间：</th> 
+		<td style="width:480px"><div>时间段一从 <input type="input" class="px" name="zc_sdate" id="zc_sdate" value="<if condition="$mtime['zc_sdate'] gt 0">{pigcms:$mtime['zc_sdate']|date="H:i",###}</if>" onClick="WdatePicker({dateFmt:'H:mm'})"> 开始
+		&nbsp;到&nbsp; 
+		<input type="input" class="px" name="zc_edate" id="zc_edate" value="<if condition="$mtime['zc_edate'] gt 0">{pigcms:$mtime['zc_edate']|date="H:i",###}</if>"  onClick="WdatePicker({dateFmt:'H:mm'})"> 结束</div>
+		<br/>
+		<div>
+		时间段二从 <input type="input" class="px" name="wc_sdate" id="wc_sdate" value="<if condition="$mtime['wc_sdate'] gt 0">{pigcms:$mtime['wc_sdate']|date="H:i",###}</if>" onClick="WdatePicker({dateFmt:'H:mm',minDate:'5:00'})"> 开始
+		&nbsp;到&nbsp; 
+		<input type="input" class="px" name="wc_edate" id="wc_edate" value="<if condition="$mtime['wc_edate'] gt 0">{pigcms:$mtime['wc_edate']|date="H:i",###}</if>"  onClick="WdatePicker({dateFmt:'H:mm',minDate:'5:00'})"> 结束</div>
+		</td>
+		<td rowspan="2"><span class="red">如果您的经营时间是19:00-凌晨02:00，你可以第一段开始时间留空不填 结束时间02:00,第二段开始时间19:00 结束时间留空不填。全不填默认为全天24小时营业</span></td>
+       </tr>
+	   <!---
+       <tr> 
+        <th>晚餐送餐时间段：</th> 
+		<td style="width:480px"><input type="input" class="px" name="wc_sdate" id="wc_sdate" value="<if condition="$mtime['wc_sdate'] gt 0">{pigcms:$mtime['wc_sdate']|date="H:i",###}</if>" onClick="WdatePicker({dateFmt:'H:mm',minDate:'5:00'})">
+		到
+		<input type="input" class="px" name="wc_edate" id="wc_edate" value="<if condition="$mtime['wc_edate'] gt 0">{pigcms:$mtime['wc_edate']|date="H:i",###}</if>" onClick="WdatePicker({dateFmt:'H:mm',minDate:'5:00'})"> 结束</td>
+		<td></td>
+       </tr>
+	   --->
+       <tr> 
+        <th>供客户选择时间：</th> 
+        <td style="width:370px">当前时间每隔&nbsp;
+        <input type="text" name="permin" id="permin" class="px" style="width:25px;" value="<if condition="$mtime['permin'] gt 0">{pigcms:$mtime['permin']}<else/>15</if>"/>&nbsp;分钟显示一个时间供客户选择外卖送达时间
+		<br/><span class="red">此项默认为每隔15分钟显示一个外卖送达时间，此值设置范围在5-60之间</span>
+        </td>
+       </tr>
+       <tr> 
+        <th>服务半径：</th> 
+        <td style="width:370px">
+        <input type="text" name="removing" id="removing" class="px" style="width:285px;" value="<if condition="$mtime['removing'] gt 0">{pigcms:$mtime['removing']}<else/>5</if>"/>&nbsp;公里
+		<br/><span class="red">说明商家外送服务距离（不要超过250）</span>
+        </td>
+       </tr>
+	   <tr>
+	    <th>配送区域：</th> 
+        <td style="width:370px">
+        <input type="text" name="area" id="area" class="px" style="width:285px;" value="<if condition="$mtime['area']">{pigcms:$mtime['area']|htmlspecialchars_decode=ENT_QUOTES}</if>"/>
+		<br/><span class="red">说明商家外送的区域范围</span>
+        </td>
+       </tr>
+	   	<tr>
+	    <th>送达时间：</th> 
+        <td style="width:370px">
+        <input type="text" name="sendtime" id="sendtime" class="px" style="width:285px;" value="<if condition="$mtime['sendtime'] gt 0">{pigcms:$mtime['sendtime']}</if>"/>&nbsp;分钟
+		<br/><span class="red">说明商家外送到客户的大概时间（不要超过250）</span>
+        </td>
+       </tr>
+
+	    <tr> 
+        <th>门店幻灯图片1：</th>
+        <td><input type="text" name="simage[]" value="{pigcms:$simage['img']['0']}" class="px" id="img0shop" style="width:380px;" /> <a href="###" onclick="upyunPicUpload('img0shop',640,270,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('img0shop')"> &nbsp;预览</a>图片建议尺寸[640*270]</td>
+		<td>&nbsp;&nbsp;<input type="text" name="tourl[]"  value="{pigcms:$simage['tourl']['0']}" placeholder="跳转地址" class="px" style="width:130px;" id="tourl_0"><a href="###" onclick="addLink('tourl_0',0)" class="a_choose" >从功能库添加</a></td>
+       </tr>
+	    <tr> 
+        <th>门店幻灯图片2：</th>
+        <td><input type="text" name="simage[]" value="{pigcms:$simage['img']['1']}" class="px" id="img1shop" style="width:380px;" />  <a href="###" onclick="upyunPicUpload('img1shop',640,270,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('img1shop')"> &nbsp;预览</a>图片建议尺寸[640*270]</td> 
+		<td>&nbsp;&nbsp;<input type="text" name="tourl[]"  value="{pigcms:$simage['tourl']['1']}" placeholder="跳转地址" class="px" style="width:130px;" id="tourl_1"><a href="###" onclick="addLink('tourl_1',0)" class="a_choose" >从功能库添加</a></td>
+       </tr>
+	    <tr> 
+        <th>门店幻灯图片3：</th>
+        <td><input type="text" name="simage[]" value="{pigcms:$simage['img']['2']}" class="px" id="img2shop" style="width:380px;" /><a href="###" onclick="upyunPicUpload('img2shop',640,270,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('img2shop')"> &nbsp;预览</a>图片建议尺寸[640*270]</td>
+		<td>&nbsp;&nbsp;<input type="text" name="tourl[]"  value="{pigcms:$simage['tourl']['2']}" placeholder="跳转地址" class="px" style="width:130px;" id="tourl_2"><a href="###" onclick="addLink('tourl_2',0)" class="a_choose" >从功能库添加</a></td>
+       </tr>
+	    <tr> 
+        <th>门店幻灯图片4：</th>
+        <td><input type="text" name="simage[]" value="{pigcms:$simage['img']['3']}" class="px" id="img3shop" style="width:380px;" /><a href="###" onclick="upyunPicUpload('img3shop',640,270,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('img3shop')"> &nbsp;预览</a>图片建议尺寸[640*270]</td> 
+		<td>&nbsp;&nbsp;<input type="text" name="tourl[]"  value="{pigcms:$simage['tourl']['3']}"  placeholder="跳转地址" class="px" style="width:130px;" id="tourl_3"><a href="###" onclick="addLink('tourl_3',0)" class="a_choose" >从功能库添加</a></td>
+       </tr>
+
+       <tr>
+       <th>&nbsp;</th>
+       <td>
+       <button type="submit" name="submit" class="btnGreen" id="save">保存</button> &nbsp; <a href="{pigcms::U('DishOut/index',array('token' => $token, 'cid' => $cid))}" class="btnGray vm">取消</a></td> 
+       </tr> 
+      </tbody> 
+     </table> 
+     </div>
+</form>
+</div> 
+
+<include file="Public:footer" />

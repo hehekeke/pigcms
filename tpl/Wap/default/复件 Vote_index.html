@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{pigcms:$vote.title}</title>
+  <meta charset="utf-8">
+  <meta content="width=device-width" name="viewport">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+  <link href="{pigcms::STATICS}/vote/wap/skins/all.css?v=0.9.1" rel="stylesheet">
+    <link href="{pigcms::STATICS}/vote/wap/vote.css" rel="stylesheet">
+  <script src="{pigcms::STATICS}/vote/wap/js/jquery.js"></script>
+  <script src="{pigcms::STATICS}/vote/wap/jquery.icheck.min.js?v=0.9.1"></script>
+</head>
+<body>
+  <div class="layout clear">
+      <div class="skin skin-line">          
+		 
+            <div class="skin-section">
+              <h4>{pigcms:$vote.title}</h4>
+			  <span class="date">{pigcms:$vote.statdate|date="Y-m-d",###} / {pigcms:$vote.enddate|date="Y-m-d",###}</span>
+			   <p class="modus">{pigcms:$vote.info}</p><p>
+			   <if condition="($vote['picurl'] neq '') AND ($vote['showpic'] eq 1) ">
+			   <p><img src="{pigcms:$vote.picurl}"  width="100%" /></p>
+			   </if>
+			  
+			   
+			 <p class="modus"> <if condition="$vote['cknums'] eq 1"> 单选<else/>多选</if>投票，<span class="number">共有{pigcms:$count}人参与投票</span></p>
+              <ul class="list">
+			  <volist name="vote_item" id="li"> 
+			  <if condition="$vote['cknums'] eq 1">
+          <if condition="$vote['type'] eq 'text'">
+              <li>
+                <input tabindex="{pigcms:$i}" type="radio" name="vid" value="{pigcms:$li.id}" id="line-radio-{pigcms:$i}">
+                <label for="line-radio-{pigcms:$i}">{pigcms:$li.item}</label>
+                 
+                <span><img src="{pigcms::STATICS}/vote/wap/100.jpg" height="5" width="<if condition="$li['per'] eq 0">1<else/>{pigcms:$li.per}</if>" /> {pigcms:$li.per}%</span>             
+             </li>
+          <else/> <!--img-->
+                <li>
+                <span><img src="{pigcms:$li.startpicurl}" width="270" height="103"></span>
+                <input tabindex="{pigcms:$i}" type="radio" name="vid" value="{pigcms:$li.id}" id="line-radio-{pigcms:$i}">
+                <label for="line-radio-{pigcms:$i}">{pigcms:$li.item}</label>
+                 
+                <span><img src="{pigcms::STATICS}/vote/wap/100.jpg" height="5" width="<if condition="$li['per'] eq 0">1<else/>{pigcms:$li.per}</if>" /> {pigcms:$li.per}%</span>                 
+              </li>
+          </if>
+  				 
+
+			  <else/>
+				    <if condition="$vote['type'] eq 'text'">
+              <li>
+                <input tabindex="{pigcms:$i}" type="radio" name="vid" value="{pigcms:$li.id}" id="line-radio-{pigcms:$i}">
+                <label for="line-radio-{pigcms:$i}">{pigcms:$li.item}</label>
+                 
+                <span><img src="{pigcms::STATICS}/vote/wap/100.jpg" height="5" width="<if condition="$li['per'] eq 0">1<else/>{pigcms:$li.per}</if>" /> {pigcms:$li.per}%</span>             
+             </li>
+          <else/> <!--img-->
+                <li>
+                <span><img src="{pigcms:$li.startpicurl}" width="270" height="103"></span>
+                <input tabindex="{pigcms:$i}" type="radio" name="vid" value="{pigcms:$li.id}" id="line-radio-{pigcms:$i}">
+                <label for="line-radio-{pigcms:$i}">{pigcms:$li.item}</label>
+                 
+                <span><img src="{pigcms::STATICS}/vote/wap/100.jpg" height="5" width="<if condition="$li['per'] eq 0">1<else/>{pigcms:$li.per}</if>" /> {pigcms:$li.per}%</span>                 
+              </li>
+          </if>
+			  </if>
+				</volist>                  
+        </ul>             
+			   <input class="pxbtn" name="sub" id="sub" value="提交选票" type="submit">
+            </div>
+	
+
+<script>
+  $(document).ready(function(){
+     $('.skin-line input').each(function(){
+       var self = $(this),
+        label = self.next(),
+        label_text = label.text();
+        
+       label.remove();
+       self.iCheck({
+         checkboxClass: 'icheckbox_line-orange',
+         radioClass: 'iradio_line-orange',
+         insert: '<div class="icheck_line-icon"></div>' + label_text
+       });       
+        
+    });
+
+
+
+  $(".pxbtn").bind("click",function(){
+     var self = $(this);
+    var chk = document.getElementsByName('vid');
+    var objarray = chk.length;
+    var chid = ""; 
+    var wecha_id = "{pigcms:$Think.get.wecha_id}";
+    var token  = "{pigcms:$Think.get.token}";
+    var tid = "{pigcms:$Think.get.id}";   
+    for (i=0;i<objarray;i++)
+    {
+      if(chk[i].checked == true)
+      {
+         chid+=chk[i].value+",";
+      }
+    }
+	if(wecha_id == ''){
+		alert("请重新打开此页面。");
+		return;
+	}
+    if(chid == ""){
+      alert("您还没选择哦。");
+	  return;
+    }else{     
+        var submitData={
+            wecha_id:wecha_id,
+            tid      : tid,
+            chid     :chid,
+            token    :token,
+            action   : "add_vote"
+        };
+        $.post('index.php?g=Wap&m=Vote&a=add_vote&token={pigcms:$Think.get.token}&wecha_id={pigcms:$Think.get.wecha_id}', submitData, function(bakcdata) {
+          var obj=eval('('+bakcdata+')');
+          if(obj.success == 1){
+
+           //alert('success='+obj.success+'token='+obj.token+' wcha_id='+obj.wecha_id+'  tid='+obj.tid+' chid='+obj.chid+' 投票成功'+'arrpre='+obj.arrpre);
+           //self.type="button"; 
+           alert('您已投票成功');         
+            setTimeout("window.location.href='index.php?g=Wap&m=Vote&a=index&token={pigcms:$Think.get.token}&wecha_id={pigcms:$Think.get.wecha_id}&id={pigcms:$Think.get.id}'",2000);
+              return
+          }else{
+            alert('您已经投票过了');
+            return
+          }
+          
+        });  
+       
+    }
+    
+  });
+        
+});
+</script>  
+</div> 
+</div>     
+</body>
+</html>

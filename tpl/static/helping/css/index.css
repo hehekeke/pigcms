@@ -1,0 +1,329 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+  background: #f4f4f4; /* for the tint */
+  font: 14px/1.5 Microsoft YaHei,Helvitica,Verdana,Arial,san-serif;
+}
+
+a{color:#666;}
+.all-elements{
+	overflow-x:hidden;	
+}
+p{
+	font-size: 14px;
+}
+.page-content{
+	z-index:10;
+	display:block;
+	min-height:580px;		
+}
+i{
+	font-style: normal;
+}
+.page-content-wrapper{
+	display:block;
+	margin-top:0px;
+	margin-bottom:0px;
+	padding:20px;
+	padding-bottom:15px;
+}
+
+/*Content Controls*/
+
+.homepage-slider{
+	z-index:9;
+	margin-top:-50px;
+}
+
+
+.content-controls{
+	z-index:15;
+	height:63px;
+}
+
+
+.solid-color{
+	background-color:#fff;
+	padding:10px;
+}
+
+.fixed-header{
+	bottom:0px;
+	z-index:999999;
+	position:fixed;
+	width:100%;           
+	border-top: 1px solid #d5d5d5;
+	-webkit-box-shadow: 0px 1px 17px #999;
+	box-shadow: 0px 1px 17px #999;	
+}
+.table{
+	margin:0;
+}
+.fixed-header-clear{
+	height:70px;
+}
+
+
+/*Adjustments for tablets*/
+
+@media screen and (orientation:landscape) {
+    .content-section .responsive-image{
+		margin-top:-70px;	
+	}
+}
+
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width:  1024px)
+and (orientation : landscape) { 
+	.column-responsive{
+		width:30%;
+		float:left;
+		margin-right:5%;
+	}
+	
+    .content-section .responsive-image{
+		margin-top:-210px;	
+	}	
+}
+
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width:  1024px)
+and (orientation : portrait) { 
+	.column-responsive{
+		width:30%;
+		float:left;
+		margin-right:3%;
+	}
+
+    .content-section .responsive-image{
+		margin-top:-130px;	
+	}	
+}
+
+@media only screen 
+and (width : 798px){ 
+	.column-responsive{
+		width:30%;
+		float:left;
+		margin-right:3%;
+	}
+
+    .content-section .responsive-image{
+		margin-top:-130px;	
+	}	
+}
+
+@media (min-width:760px) { 
+	.wide-image{
+		max-height:150px;
+	}
+	
+	.wide-item-titles{
+		top:55px;
+		margin-bottom:-45px;
+	}
+}
+
+
+.content{
+	margin:2px;
+
+}
+
+.container{
+	border:1px solid #d5d5d5;
+	margin:0;
+	background: #fff;
+	border-radius: 4px;
+}
+
+.button-big{
+	border-radius: 3px;
+	width:100%;
+	padding:10px;
+}
+
+.share_bg {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	background: rgba(0,0,0,0.7);
+	z-index:99;
+}
+
+.share_bg img {
+	max-width: 100%;
+}
+
+.button-turqoise,.static-notification-red{
+	background: #FF442C;
+}
+#swipebox-action #swipebox-close {
+    left: 10px;
+}
+#swipebox-action #swipebox-prev {
+    right: 80px;
+}
+#swipebox-action #swipebox-next {
+    right: 10px;
+}
+
+.blank{
+	clear: both;
+	margin: 5px;
+}
+.content .top_pic img{
+	width:100%;
+}
+.content .title{
+	height:30px;
+	line-height: 30px;
+	font-weight: bold;
+	color: #000;
+	font-size: 18px;
+	padding:0 20px;
+	text-align: center;
+}
+
+.content  .times{
+	text-align: center;
+	height:25px;
+	line-height: 25px;
+}
+
+.content  .times .time-ico{
+	padding-left: 20px;
+	height:20px;
+	line-height: 20px;
+	background-image: url(../images/time.png);
+	background-size: 15px 15px;
+	background-position: 0 0;
+	background-repeat: no-repeat;
+}
+
+.content .rule{
+	padding:10px 20px;
+	color:#000;
+}
+.content .rule p{
+	margin:auto;
+}
+
+.countdownHolder{
+	font-size: 18px;
+	width: auto;
+}
+
+.countDiv{
+	vertical-align:bottom;
+}
+.countDiv:before{
+	float: left;
+	font-weight: bold;
+	font-size: 12px;
+}
+.countDiv0:before{
+	content: '天';
+}
+.countDiv1:before{
+	content: '时';
+}
+.countDiv2:before{
+	content: '分';
+}
+
+.countdownHolder{
+	font: 18px/1.5 Microsoft YaHei,Helvitica,Verdana,Arial,san-serif;
+}
+
+
+.status{
+	margin:0 10px;
+	border: 1px solid #d5d5d5;
+	padding:5px;
+	line-height: 30px;
+	background: #f5ffda;
+}
+
+.status span{
+	float: left;
+	width: 50%;
+	text-align: center;
+	font-size: 14px;
+	color:#000;
+}
+.cl-red{
+	color: #e4393c;
+}
+.cl-green{
+	color: #118431;
+	font-weight: bold;
+}
+.rank_title{
+	line-height: 25px;
+}
+.rank_title .top{
+	float: left;
+	color: #fff;
+	font-weight: bold;
+	height:25px;
+	width: 95px;
+	font-size:16px;
+	padding-left: 10px;
+	background-image: url(../images/qizhi.png);
+	background-repeat: no-repeat;
+	background-size: 90px 25px;
+}
+
+.rank_title .cot{
+	float: right;
+	text-align: right;
+	padding-right: 10px;
+	color: #000;
+	font-size:14px;
+	line-height: 25px;
+}
+.table th{
+	background:#ebfab4;
+	color: #000;
+}
+.table tr{
+	padding-left: 0;
+}
+.table tr:hover td{
+	background: none;
+}
+.table th:first-child,.table td:first-child{
+	padding-left:5px;
+	text-align: center;
+}
+.table th,.table td{
+	padding:5px;
+	border-bottom: 1px solid #d5d5d5;
+	border-top: 0;
+}
+
+.con-last{
+	margin-bottom: 75px;
+}
+
+td{background: none;color:#000;}
+
+.table tr:nth-child(odd){         /*.article:nth-child(2n)*/
+    background: #fdfdfd;
+ }
+ .table tr:nth-child(even) {      /*.article:nth-child(2n+1)*/
+    background: #e2e2e2;
+ }
+.window .title{
+	background: #FF442C;
+}
+
+ .button-turqoise:active{background: #FF442C;}

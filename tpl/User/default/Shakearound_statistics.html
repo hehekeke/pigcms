@@ -1,0 +1,113 @@
+<include file="Public:head"/>
+<script src="{pigcms:$staticPath}/tpl/static/myChart/js/echarts-plain.js"></script>
+<div class="content">
+<div class="clr" style="height:30px;"></div>
+<div class="shuju">
+	<h2 style="font-size:20px;margin-bottom:10px;">数据统计<span style="font-size:12px;">(今日的操作,次日才会被统计)</span></h2>
+<div class="clr"></div>
+<div style="float:right;margin-right:45px;margin-top:-40px;">
+选择月份:
+<select name="month" id="month">
+<for start="1" end="12">
+<option value="{pigcms:$i}" <if condition="$i eq $current_month"> selected = selected </if>>{pigcms:$i}月</option>
+</for>
+</select>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+选择设备：
+<select name="device_id" id="device_id">
+<if condition="$devices eq ''">
+<option value="0">---请先添加并激活设备--</option>
+<else />
+<volist name="devices" id="vo">
+<option value="{pigcms:$vo.device_id}">{pigcms:$vo.device_comment}</option>
+</volist>
+</if>
+</select>
+</div>
+<div id="shakearound_index" style="height:400px;width:960px;text-align:center; margin-bottom: 50px;"></div>
+<div style="float:right;margin-right:45px;margin-top:-40px;">
+选择月份:
+<select name="pagemonth" id="pagemonth">
+<for start="1" end="12">
+<option value="{pigcms:$i}" <if condition="$i eq $current_month"> selected = selected </if>>{pigcms:$i}月</option>
+</for>
+</select>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+选择页面：
+<select name="page_id" id="page_id">
+<if condition="$devices eq ''">
+<option value="0">---请先添加页面--</option>
+<else />
+<volist name="pages" id="vo">
+<option value="{pigcms:$vo.page_id}">{pigcms:$vo.title}</option>
+</volist>
+</if>
+</select>
+</div>
+<div id="shakearound_page" style="height:400px;width:960px;text-align:center;"></div>
+</div>
+</div>
+	<div class="clr"></div>
+  </div>
+</div>
+</div>
+<!--底部-->
+</div>
+<script type="text/javascript">
+  $(function(){
+	var month = $("#month").val();
+	var device_id = $("#device_id").val();
+	$("#shakearound_index").html("<img src='{pigcms:$staticPath}/tpl/static/seckill/images/loading.gif'/>");
+	$("#shakearound_index").load("/index.php?g=User&m=Shakearound&a=statistics_by_device&device_id="+device_id+"&token={pigcms:$token}&month="+month);
+	
+	var pagemonth = $("#pagemonth").val();
+	var page_id = $("#page_id").val();
+	$("#shakearound_page").html("<img src='{pigcms:$staticPath}/tpl/static/seckill/images/loading.gif'/>");
+	$("#shakearound_page").load("/index.php?g=User&m=Shakearound&a=statistics_by_page&page_id="+page_id+"&token={pigcms:$token}&pagemonth="+pagemonth);
+	
+	//设备统计变更月份
+	$("#month").change(function(){
+		var month = $("#month").val();
+		var device_id = $("#device_id").val();
+		$("#shakearound_index").html("<img src='{pigcms:$staticPath}/tpl/static/seckill/images/loading.gif'/>");
+		$("#shakearound_index").load("/index.php?g=User&m=Shakearound&a=statistics_by_device&device_id="+device_id+"&token={pigcms:$token}&month="+month);
+	});
+	
+	//设备统计变更设备
+	$("#device_id").change(function(){
+		var month = $("#month").val();
+		var device_id = $("#device_id").val();
+		$("#shakearound_index").html("<img src='{pigcms:$staticPath}/tpl/static/seckill/images/loading.gif'/>");
+		$("#shakearound_index").load("/index.php?g=User&m=Shakearound&a=statistics_by_device&device_id="+device_id+"&token={pigcms:$token}&month="+month);
+	});
+	
+	//页面统计变更月份
+	$("#pagemonth").change(function(){
+		var pagemonth = $("#pagemonth").val();
+		var page_id = $("#page_id").val();
+		$("#shakearound_page").html("<img src='{pigcms:$staticPath}/tpl/static/seckill/images/loading.gif'/>");
+		$("#shakearound_page").load("/index.php?g=User&m=Shakearound&a=statistics_by_page&page_id="+page_id+"&token={pigcms:$token}&pagemonth="+pagemonth);
+	});
+	//页面统计变更页面
+	$("#page_id").change(function(){
+		var pagemonth = $("#pagemonth").val();
+		var page_id = $("#page_id").val();
+		$("#shakearound_page").html("<img src='{pigcms:$staticPath}/tpl/static/seckill/images/loading.gif'/>");
+		$("#shakearound_page").load("/index.php?g=User&m=Shakearound&a=statistics_by_page&page_id="+page_id+"&token={pigcms:$token}&pagemonth="+pagemonth);
+	});
+  });
+</script>
+<script>
+//左侧导航高亮 (因为在同一个model里面,暂时处理)
+$(function(){
+$(".ckit").find("li").each(function(){
+	if($.trim($(this).text()) == '统计信息'){
+		$(this).prev().removeClass('selected');
+		$(this).prev().prev().removeClass('selected');
+		$(this).removeClass('subCatalogList');
+		$(this).addClass('selected');
+	}
+});
+});
+</script>
+<include file="Public:footer"/> 

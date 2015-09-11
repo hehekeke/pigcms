@@ -1,0 +1,62 @@
+<include file="Public:head"/>
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+<div class="content">
+
+<div class="cLineB">
+  <h4>微店回复配置 </h4><a href="javascript:history.go(-1);" class="right btnGrayS vm" style="margin-top:-27px">返回</a>
+ </div>
+      
+    <div class="msgWrap bgfc" style="margin-top:10px;">
+	  <form class="form" method="post" action="" enctype="multipart/form-data">	 
+		<table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%">
+			<tbody>
+				<tr>
+				  <th valign="top"><span class="red">*</span>关键词：</th>
+				  <td>
+					<span class="red"><input class="px" type="text" name="keyword" value="{pigcms:$set.keyword|default='微店'}" /></span></td>
+				</tr>
+				<tr>
+					<th width="120"><span class="red">*</span>回复标题：</th>
+					<td><input type="text" name="title" value="{pigcms:$set.title|default='微店'}" class="px" style="width:550px;"></td>
+				</tr>
+				<tr>
+					<th width="120">内容介绍：</th>
+					<td><textarea style="width:560px;height:75px" name="description" id="description" class="px">{pigcms:$set.description|default='微店正式上线了'}</textarea><br/>最多填写120个字</td>
+				</tr>
+				<tr>
+					<th>回复图片：</th>
+					<td><input type="text" name="img" value="{pigcms:$set.img}" id="pic" class="px" style="width:550px;"> <script src="/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('pic',700,420,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic')">预览</a></td>
+				</tr>
+				<tr>
+					<th>选择店铺：</th>
+					<td>
+						<select name="sid" style="width:220px">
+							<eq name="get_store_list" value="">
+								<option disabled="disable" value="0">暂未创建店铺，请创建后再选择</option>
+							<else />
+								<volist name="get_store_list" id="get_store_list">
+									<option <if condition="$set['sid'] == $get_store_list['store_id']">selected</if> value="{pigcms:$get_store_list.store_id}">{pigcms:$get_store_list.name}</option>
+								</volist>
+							</eq>
+
+
+						</select> <span style="color:red">请选择一个店铺，如果您还没有店铺，请创建后再回来这里选择，保存。</span>
+					</td>
+				</tr>
+
+				<th>&nbsp;</th>
+					<td>
+						<button type="submit" name="button" class="btnGreen">保存</button>
+						<a href="javascript:history.go(-1);" class="btnGray vm">取消</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+  </div> 
+ 
+  
+        </div>
+<include file="Public:footer"/>

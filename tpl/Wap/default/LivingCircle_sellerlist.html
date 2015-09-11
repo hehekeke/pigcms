@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta content="width =device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+		<meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+		<meta content="no-cache" http-equiv="pragma">
+		<meta content="0" http-equiv="expires">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<title>商家列表</title>
+		<link href="{pigcms:$staticPath}/tpl/static/livingcircle/css/common.min.css" rel="stylesheet" type="text/css" />
+		<link href="{pigcms:$staticPath}/tpl/static/livingcircle/css/icon.min.css" rel="stylesheet" type="text/css" />
+		<link href="{pigcms:$staticPath}/tpl/static/livingcircle/css/operator.min.css" rel="stylesheet" type="text/css" />
+		<link href="{pigcms:$staticPath}/tpl/static/livingcircle/css/flexfilter.css" rel="stylesheet" type="text/css" />
+		<link href="{pigcms:$staticPath}/tpl/static/livingcircle/css/jqPaginator.css" rel="stylesheet" type="text/css" />
+		<script src="{pigcms:$staticPath}/tpl/static/livingcircle/js/jquery-2.1.3.min.js" language="javascript" type="text/javascript"></script>
+		<script src="{pigcms:$staticPath}/tpl/static/livingcircle/js/jquery.lazyload.min.js" language="javascript" type="text/javascript"></script>
+		<style>
+			.lm{display:none;}
+		</style>
+		<script>
+			$(document).ready(function(){
+				
+				$("#keyword").width($(window).width()-100);
+				
+				//分类导航
+				$("#type").click(function(){
+					$("#sellcircle").removeClass("checked");
+					$("#sort").removeClass("checked");
+					$("#sellcirclelist").hide();
+					$("#sortlist").hide();
+					$(".lm").hide();
+					$("#typelist").toggle();
+					if($('#typelist').css("display") == 'none'){
+						$(this).removeClass("checked");
+					}else{
+						$(this).addClass("checked");
+					}
+					$("#typelist li").removeClass("isactive");
+					$("#typelist li").removeClass("selected");
+					$("#typeselect<?php echo (int)($_GET['typeid']);?>").addClass("selected");
+					<?php if((int)($_GET['typeid']) != 0){?>
+						var typeheight = $("#typelist").height();
+						var zitypeheight = $("#type<?php echo (int)($_GET['typeid']);?>").height();
+						if(typeheight > zitypeheight){
+							$("#type<?php echo (int)($_GET['typeid']);?>").height(typeheight);
+						}else{
+							$("#typelist").height(zitypeheight);
+						}
+						
+						if($('#typelist').css("display") == 'none'){
+							$("#type<?php echo (int)($_GET['typeid']);?>").hide();
+						}else{
+							$("#type<?php echo (int)($_GET['typeid']);?>").show();
+						}
+						$("#typelist li").addClass("isactive");
+					<?php }?>
+				});
+				$("#typelist li").click(function(){
+					var typeid = $(this).attr("typeid");
+					$("#typelist li").removeClass("selected");
+					<?php if((int)($_GET['typeid']) == 0){?>
+					$("#typelist li").addClass("isactive");
+					<?php }?>
+					$(this).addClass("selected");
+					$(".lm").hide();
+					var typeheight = $("#typelist").height();
+					var zitypeheight = $("#type"+typeid).height();
+					if(typeheight > zitypeheight){
+						$("#type"+typeid).height(typeheight);
+					}else{
+						$("#typelist").height(zitypeheight);
+					}
+					$("#type"+typeid).show();
+				});
+				$("#typelist li:eq(0)").click(function(){
+					$("#typelist li").removeClass("isactive");
+					window.location.href="{pigcms::U('LivingCircle/sellerlist',array('token'=>$token,'typeid'=>0,'zitypeid'=>0,'sellcircleid'=>(int)($_GET['sellcircleid']),'zisellcircleid'=>(int)($_GET['zisellcircleid']),'sort'=>(int)($_GET['sort']),'keyword'=>$_GET['keyword']))}";
+				});
+				
+				//商圈导航
+				$("#sellcircle").click(function(){
+					$("#type").removeClass("checked");
+					$("#sort").removeClass("checked");
+					$("#typelist").hide();
+					$("#sortlist").hide();
+					$(".lm").hide();
+					$("#sellcirclelist").toggle();
+					if($('#sellcirclelist').css("display") == 'none'){
+						$(this).removeClass("checked");
+					}else{
+						$(this).addClass("checked");
+					}
+					$("#sellcirclelist li").removeClass("isactive");
+					$("#sellcirclelist li").removeClass("selected");
+					$("#sellcircleselect<?php echo (int)($_GET['sellcircleid']);?>").addClass("selected");
+					<?php if((int)($_GET['sellcircleid']) != 0){?>
+						var sellcircleheight = $("#sellcirclelist").height();
+						var zisellcircleheight = $("#sellcircle<?php echo (int)($_GET['sellcircleid']);?>").height();
+						if(sellcircleheight > zisellcircleheight){
+							$("#sellcircle<?php echo (int)($_GET['sellcircleid']);?>").height(sellcircleheight);
+						}else{
+							$("#sellcirclelist").height(zisellcircleheight);
+						}
+						
+						if($('#sellcirclelist').css("display") == 'none'){
+							$("#sellcircle<?php echo (int)($_GET['sellcircleid']);?>").hide();
+						}else{
+							$("#sellcircle<?php echo (int)($_GET['sellcircleid']);?>").show();
+						}
+						$("#sellcirclelist li").addClass("isactive");
+					<?php }?>
+				});
+				$("#sellcirclelist li").click(function(){
+					var sellcircleid = $(this).attr("sellcircleid");
+					$("#sellcirclelist li").removeClass("selected");
+					<?php if((int)($_GET['sellcircleid']) == 0){?>
+					$("#sellcirclelist li").addClass("isactive");
+					<?php }?>
+					$(this).addClass("selected");
+					$(".lm").hide();
+					var sellcircleheight = $("#sellcirclelist").height();
+					var zisellcircleheight = $("#sellcircle"+sellcircleid).height();
+					if(sellcircleheight > zisellcircleheight){
+						$("#sellcircle"+sellcircleid).height(sellcircleheight);
+					}else{
+						$("#sellcirclelist").height(zisellcircleheight);
+					}
+					$("#sellcircle"+sellcircleid).show();
+				});
+				$("#sellcirclelist li:eq(0)").click(function(){
+					$("#sellcirclelist li").removeClass("isactive");
+					window.location.href="{pigcms::U('LivingCircle/sellerlist',array('token'=>$token,'typeid'=>(int)($_GET['typeid']),'zitypeid'=>(int)($_GET['zitypeid']),'sellcircleid'=>0,'zisellcircleid'=>0,'sort'=>(int)($_GET['sort']),'keyword'=>$_GET['keyword']))}";
+				});
+				
+				//排序导航
+				$("#sort").click(function(){
+					$("#type").removeClass("checked");
+					$("#sellcircle").removeClass("checked");
+					$("#typelist").hide();
+					$("#sellcirclelist").hide();
+					$(".lm").hide();
+					$("#sortlist").toggle();
+					if($('#sortlist').css("display") == 'none'){
+						$(this).removeClass("checked");
+					}else{
+						$(this).addClass("checked");
+					}
+				});
+				$('#sortlist li').click(function(){
+					$('#sortlist li').removeClass("selected");
+					$(this).addClass("selected");
+					var sort = $(this).attr("sort");
+					window.location.href="{pigcms::U('LivingCircle/sellerlist',array('token'=>$token))}&typeid=<?php echo $_GET['typeid'];?>&zitypeid=<?php echo $_GET['zitypeid'];?>&sellcircleid=<?php echo $_GET['sellcircleid'];?>&zisellcircleid=<?php echo $_GET['zisellcircleid'];?>&sort="+sort+"&keyword=<?php echo $_GET['keyword'];?>";
+				});
+				
+				$(".lm li").click(function(){
+					var typeid = $(this).attr("typeid");
+					var zitypeid = $(this).attr("zitypeid");
+					var sellcircleid = $(this).attr("sellcircleid");
+					var zisellcircleid = $(this).attr("zisellcircleid");
+					var sort = $(this).attr("sort");
+					window.location.href="{pigcms::U('LivingCircle/sellerlist',array('token'=>$token))}&typeid="+typeid+"&zitypeid="+zitypeid+"&sellcircleid="+sellcircleid+"&zisellcircleid="+zisellcircleid+"&sort="+sort+"&keyword=<?php echo $_GET['keyword']?>";
+				});
+			});
+			function search(){
+				var keyword = $("#keyword").val();
+				window.location.href="{pigcms::U('LivingCircle/sellerlist',array('token'=>$token))}&typeid=0&zitypeid=0&sellcircleid=0&zisellcircleid=0&sort=1&keyword="+keyword;
+			}
+		</script>
+	</head>
+	<body>
+		<header id="searchbox">
+			<nav>
+				<a class="t-icon white-back" href="javascript:history.go(-1);"></a>
+				<a style="padding:0px;"><input type="search" id="keyword" name="keyword" placeholder="输入商家名称或地址搜索" value="<?php echo $_GET['keyword']?>" style="width: 260px;"></a>
+				<a class="t-icon white-search" href="javascript:search();" id="btn_search"></a>
+			</nav>
+		</header>
+		<nav id="filter" class="header-secondary filter">
+			<a href="javascript:;" id="type"><?php echo $type_name;?></a>
+			<a href="javascript:;" id="sellcircle" ><?php echo $sellcircle_name;?></a>
+			<a href="javascript:;" id="sort" ><?php echo $sort;?></a>
+		</nav>
+		<div id="typelist" class="flexfilter_popup">
+			<ul class="query-list level1">
+				<li class="<?php if($_GET['typeid'] != 0){?>isactive<?php }?>" typeid="0" id="typeselect">不限</li>
+				<?php foreach($type_list as $vo){?>
+				<li class="hasSubs <?php if($_GET['typeid'] != 0){?>isactive<?php }?> <?php if($_GET['typeid'] == $vo['pigcms_id']){?>selected<?php }?>"  typeid="<?php echo $vo['pigcms_id'];?>" id="typeselect<?php echo $vo['pigcms_id'];?>"><?php echo $vo['name']?></li>
+				<?php }?>
+			</ul>
+		</div>
+		<div id="sellcirclelist" class="flexfilter_popup">
+			<ul class="query-list level1">
+				<li class="<?php if($_GET['sellcircleid'] != 0){?>isactive<?php }?>" sellcircleid="0" id="sellcircleselect">不限</li>
+				<?php foreach($sellcircle_list as $vo){?>
+				<li class="hasSubs <?php if($_GET['sellcircleid'] != 0){?>isactive<?php }?> <?php if($_GET['sellcircleid'] == $vo['pigcms_id']){?>selected<?php }?>"  sellcircleid="<?php echo $vo['pigcms_id'];?>" id="sellcircleselect<?php echo $vo['pigcms_id'];?>"><?php echo $vo['name']?></li>
+				<?php }?>
+			</ul>
+		</div>
+		<div id="sortlist" class="flexfilter_popup">
+			<ul class="query-list level1">
+				<li sort="0">不限</li>
+				<li sort="1" class="<?php if((int)($_GET['sort']) == 1){echo 'selected';}?>">离我最近</li>
+				<li sort="2" class="<?php if((int)($_GET['sort']) == 2){echo 'selected';}?>">最新入驻</li>
+				<li sort="3" class="<?php if((int)($_GET['sort']) == 3){echo 'selected';}?>">浏览最多</li>
+			</ul>
+		</div>
+		<?php foreach($type_list as $vo){?>
+		<div class="lm lmtype" id="type<?php echo $vo['pigcms_id'];?>">
+			<ul class="query-list level2">
+				<li typeid="<?php echo $vo['pigcms_id'];?>" zitypeid="0" sellcircleid="<?php echo $_GET['sellcircleid'];?>" zisellcircleid="<?php echo $_GET['zisellcircleid'];?>" sort="<?php echo $_GET['sort'];?>">全部<?php echo $vo['name']?></li>
+				<?php foreach($zitype_list[$vo['pigcms_id']] as $zi){?>
+				<li typeid="<?php echo $vo['pigcms_id'];?>" zitypeid="<?php echo $zi['pigcms_id'];?>" sellcircleid="<?php echo $_GET['sellcircleid'];?>" zisellcircleid="<?php echo $_GET['zisellcircleid'];?>" sort="<?php echo $_GET['sort'];?>"><?php echo $zi['name'];?></li>
+				<?php }?>
+			</ul>
+		</div>
+		<?php }?>
+		<?php foreach($sellcircle_list as $vo){?>
+		<div class="lm lmsellcircle" id="sellcircle<?php echo $vo['pigcms_id'];?>">
+			<ul class="query-list level2">
+				<li typeid="<?php echo $_GET['typeid'];?>" zitypeid="<?php echo $_GET['zitypeid']?>" sellcircleid="<?php echo $vo['pigcms_id'];?>" zisellcircleid="0" sort="<?php echo $_GET['sort'];?>">全部<?php echo $vo['name']?></li>
+				<?php foreach($zisellcircle_list[$vo['pigcms_id']] as $zi){?>
+				<li typeid="<?php echo $_GET['typeid'];?>" zitypeid="<?php echo $_GET['zitypeid'];?>" sellcircleid="<?php echo $vo['pigcms_id'];?>" zisellcircleid="<?php echo $zi['pigcms_id'];?>" sort="<?php echo $_GET['sort'];?>"><?php echo $zi['name'];?></li>
+				<?php }?>
+			</ul>
+		</div>
+		<?php }?>
+		
+		<div class="list-container">
+			<ul id="list" class="list pic">
+				<volist name="sellerlist" id="vo">
+				<li style="min-height:90px;">
+					<a href="{pigcms::U('LivingCircle/seller',array('token'=>$token,'sellerid'=>$vo['sellerid']))}">
+						<img class="lazy" src="{pigcms:$vo.logourl}" style="display: block;">
+						<p class="strong">
+							{pigcms:$vo.name}
+						</p>
+						<p>
+							<span class="grade">
+								<?php if($vo['star'] > 0){?>
+								<i class="icon star-2"></i>
+								<i class="icon <?php if($vo['star'] > 1){?>star-2<?php }else{echo "star";}?>"></i>
+								<i class="icon <?php if($vo['star'] > 2){?>star-2<?php }else{echo "star";}?>"></i>
+								<i class="icon <?php if($vo['star'] > 3){?>star-2<?php }else{echo "star";}?>"></i>
+								<i class="icon <?php if($vo['star'] > 4){?>star-2<?php }else{echo "star";}?>"></i>
+								<?php }else{?>
+								<i class="icon star-2"></i><i class="icon star-2"></i><i class="icon star-2"></i><i class="icon star-2"></i><i class="icon star-2"></i>
+								<?php }?>
+							</span>
+							<span class="distance">
+								<i class="icon location"></i>
+								{pigcms:$vo.distance}
+							</span>
+						</p>
+						<p>{pigcms:$vo.address}</p>
+					</a>
+					<if condition="$vo.recommend eq 1">
+					<div class="recommend"></div>
+					</if>
+					<a href="tel:{pigcms:$vo.phone}" class="green-lianxi"></a>
+				</li>
+				</volist>
+			</ul>
+		</div>
+		
+		<div style="width:100%;height:51px;"></div>
+		
+		<footer>
+                <a href="{pigcms::U('LivingCircle/index',array('token'=>$token))}"> 
+                    <i class="icon home"></i>首页
+                </a>
+                <a href="{pigcms::U('LivingCircle/typelist',array('token'=>$token))}"> 
+                    <i class="icon rocket"></i>本地导航
+                </a>
+                <!-- <a href=""> 
+                    <i class="icon gift"></i>优惠券
+                </a> -->
+                <a href="{pigcms::U('LivingCircle/my',array('token'=>$token))}"> 
+                    <i class="icon user"></i>我的
+                </a>
+        </footer>
+		
+		
+		<div id="scrollUp" class="goToTop goToTop63" style="display: none;"></div>
+		
+		<script>
+			$(function () { var $bottomTools = $('.bottom_tools'); $(window).scroll(function () { var scrollHeight = $(document).height(); var scrollTop = $(window).scrollTop(); var $windowHeight = $(window).innerHeight(); scrollTop > 50 ? $("#scrollUp").fadeIn(200).css("display", "block") : $("#scrollUp").fadeOut(200); $bottomTools.css("bottom", scrollHeight - scrollTop > $windowHeight ? 40 : $windowHeight + scrollTop + 40 - scrollHeight) }); $('#scrollUp').click(function (e) { e.preventDefault(); $('html,body').animate({ scrollTop: 0 }) }) });
+			//图片延迟加载
+			$(function () {
+				$("img.lazy").lazyload({ effect: "fadeIn" });
+			});
+		</script>
+		
+		<div id="iCenter"style="display:none;"></div>
+		
+		
+<script type="text/javascript">
+window.shareData = {  
+            "moduleName":"LivingCircle",
+            "moduleID":"0",
+            "imgUrl": "{pigcms:$staticPath}/tpl/static/unitary/images/wxnewspic.jpg", 
+            "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('LivingCircle/index',array('token'=>$token))}",
+            "tTitle": "微信生活圈",
+            "tContent": ""
+        };
+</script>
+{pigcms:$shareScript}
+	</body>
+</html>

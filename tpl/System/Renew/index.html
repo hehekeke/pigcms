@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>权限管理</title>
+<include file="common:public" />
+<div class="cr"></div>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" id="alist">
+	  <tr>
+		<td width="70">ID</td>
+		<td width="70">标题</td>
+		<td width="200">url</td>
+		<td >宣传图</td>
+		<td width="130">选中时图片</td>
+		<td width="130">未选中时图片</td>
+		<td width="150">发布时间</td>
+		<td width="70">状态</td>
+		<td width="100">管理操作</td>
+	  </tr>
+	    <volist name="info" id="vo">
+			<tr>
+				<td align='center'>{pigcms:$vo.id}</td>
+				<td align='center'>{pigcms:$vo.name}</td>
+				<td >{pigcms:$vo.url}</td>
+				<td ><img src="{pigcms:$vo.imgs}" style="height:150px"></td>
+				<td ><img src="{pigcms:$vo.img_x}"/></td>
+				<td ><img src="{pigcms:$vo.img_w}"/></td>
+				<td align='center'>{pigcms:$vo.time}</td>
+				<td align='center'><eq name="vo.status" value="1"><font color="red">√</font><else/><font color="blue">×</font></eq> 
+				</td>
+				<td align='center'>
+					<a href="{pigcms::U('Renew/edit/',array('id'=>$vo['id'],'pid'=>$pid))}">修改</a>
+					| <a href="javascript:void(0)" onclick="return confirmurl('{pigcms::U('Renew/del/',array('id'=>$vo['id'],'pid'=>$pid))}','确定删除该信息吗?')">删除</a>
+				</td>
+			</tr>
+	    </volist>
+     <tr bgcolor="#FFFFFF"> 
+      <td colspan="9"><div class="listpage">{pigcms:$page}</div></td>
+    </tr>
+   
+</table>
+
+
+</body>
+</html>

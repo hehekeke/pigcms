@@ -1,0 +1,71 @@
+<include file="Public:head"/>
+<form class="form" method="post" action="{pigcms::U('Shakearound/bindpage')}" target="_top">
+<div class="content">
+<div class="cLineB">
+  <h4>绑定页面</h4><a href="javascript:history.go(-1);" class="right btnGrayS vm" style="margin-top:-27px">返回</a></div>
+   <div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-bottom:5px;font-size:12px;">温馨提示：配置完成后，在此设备的信号范围内，即可摇出关联的页面信息。若设备配置多个页面，则随机出现页面信息。<span style="color:red">一个设备最多可配置30个关联页面</span>,绑定需要时间请勿关闭浏览器耐心等待几秒。
+</div>
+<div class="msgWrap bgfc">
+<table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%">
+<tbody>
+<tr>
+  <th width="120">&nbsp;设备ID：</th>
+  <td><div style="width:280px;font-size:14px">{pigcms:$set.device_id}</div></td>
+</tr>
+<tr>
+  <th width="120">&nbsp;设备名称：</th>
+  <td><div style="width:280px">{pigcms:$set.device_comment}</div></td>
+</tr>
+<tr>
+  <th valign="top">关联页面：</th>
+    <td>
+	<div style="width:548px;line-height:30px;">
+  <volist name="page_list" id="vo">
+<input type="checkbox" class="px" style="width:30px;"id="page_id_{pigcms:$vo.id}" value="{pigcms:$vo.page_id}" name="page_id[]" <in name="vo.page_id" value="$page_ids"> checked </in>>{pigcms:$vo.title}&nbsp;&nbsp;&nbsp;
+  </volist> &nbsp;&nbsp;&nbsp;&nbsp;<a href="{pigcms::U('Shakearound/add_page',array('token'=>$token))}" style="color:#4a98e0">添加页面</a>
+  </div>
+  </td>  
+</tr>
+<!--tr>
+	<th>添加类型</th>
+	<td>
+		<input type="radio" name="append" value="1" checked>新增&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="radio" name="append" value="0">覆盖
+	</td>
+</tr-->
+<tr>
+	<th></th>
+	<td>
+		<input type="hidden" name="device_id" value="{pigcms:$set.device_id}" />
+		<input type="hidden" name="token" value="{pigcms:$token}" />
+		<button type="button" name="button" id="edit_device" class="btnGreen">关联页面</button>　
+		<a href="" class="btnGray vm">取消</a>
+	</td>
+</tr>
+</tbody>
+</table>
+ </div>
+</div>
+</form>
+<script>
+//简单的表单验证
+$(function(){
+	$("#edit_device").click(function(){
+		var device_comment = $("#device_comment").val();
+		var poi_id = $("#poi_id").val();
+		var msg = '';
+		if(device_comment == ''){
+			msg += '要修改的备注信息不能为空\n';
+		}
+		if(poi_id == ''){
+			msg += '要修改的门店ID不能为空\n';
+		}
+		if(msg != ''){
+			alert(msg);
+			return false;
+		}
+		$(".form").submit();
+	});
+});
+</script>
+<include file="Public:footer"/>

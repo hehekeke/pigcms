@@ -1,0 +1,99 @@
+<include file="Public:head"/>
+<link rel="stylesheet" type="text/css" href="./tpl/User/default/common/css/cymain.css" />
+<script src="/tpl/static/fushionCharts/JSClass/FusionCharts.js" type="text/javascript"></script>   
+
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+
+<div class="content">
+          <div class="cLineB"><h4>网页授权获取用户基本信息</h4></div>
+<include file="Auth:header"/>
+<style>
+.a_red {	
+	background-image:none !important;
+	border:none !important;
+	text-shadow:none !important;
+	margin-left: 5px;
+	padding: 2px 8px !important;
+	cursor: pointer !important;
+	display: inline-block !important;
+	overflow: visible !important;
+	border-radius: 2px !important;
+	-moz-border-radius: 2px !important;
+	-webkit-border-radius: 2px !important;
+	background-color: #f60 !important;
+	color: #fff !important;
+	font-size: 14px !important;
+	/*line-height: 1.5 !important;*/
+
+}
+</style>
+
+<script>
+function showWxhelp(){
+	art.dialog.open('{pigcms:$helpParm}',{lock:true,title:'授权帮助',width:800,height:600,yesText:'Y',background: '#000',opacity: 0.45});
+}
+function showWxhelpQa(){
+	art.dialog.open('{pigcms:$helpQaParm}',{lock:true,title:'授权帮助',width:800,height:600,yesText:'Y',background: '#000',opacity: 0.45});
+}
+function showWxShare(){
+	art.dialog.open('{pigcms:$helpShareParm}',{lock:true,title:'分享配置帮助',width:800,height:600,yesText:'Y',background: '#000',opacity: 0.45});
+}
+</script>
+ <div class="ftip" style="margin:25px auto 5px auto;">网页授权获取用户基本信息功能只有认证服务号才有接口，使用我们的系统无论什么类型公众号都可以获取粉丝信息</div>
+ 
+ <div class="msgWrap">
+<form class="form" method="post" enctype="multipart/form-data" >
+<TABLE class="userinfoArea" style=" margin:20px 0 0 0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+  <TBODY>
+
+<TR>
+  <TH valign="top" align="right" style="text-align:right">开启该功能：</TH>
+  <TD><label for="radio3"><input id="radio3" class="radio" type="radio" name="oauth" value="1"  <eq name="info.oauth" value="1">checked="checked"</eq> /> 开启</label>&nbsp;&nbsp;<label for="radio4"><input class="radio" id="radio4" type="radio" name="oauth" value="0" <eq name="info.oauth" value="0">checked="checked"</eq> /> 关闭</label></TD>
+</TR>
+<TR>
+  <TH valign="top" align="right" style="text-align:right">获取用户信息：</TH>
+  <TD><label for="radio5"><input id="radio5" class="radio" type="radio" name="oauthinfo" value="1"  <eq name="info.oauthinfo" value="1">checked="checked"</eq> /> 获取昵称头像等所有信息</label>&nbsp;&nbsp;<label for="radio6"><input class="radio" id="radio6" type="radio" name="oauthinfo" value="0" <eq name="info.oauthinfo" value="0">checked="checked"</eq> /> 只获取openid不获取昵称等信息</label></TD>
+</TR>
+
+<TR>
+  <TH valign="top" align="right" style="text-align:right">未关注默认提示语：</TH>
+  <TD>
+  	<textarea style="width:400px;height:75px" name="sub_notice" id="sub_notice" class="px">{pigcms:$wxuser['sub_notice']|default='您好，您还没有权限参加活动。'}</textarea>
+  </TD>
+</TR>
+
+<TR>
+  <TH valign="top" align="right" style="text-align:right">引导关注按钮提示语：</TH>
+  <TD>
+  	<input style="width:400px;" name="sub_notice_btn" id="sub_notice_btn" value="{pigcms:$wxuser['sub_notice_btn']|default='立即获得权限'}" class="px" />
+  </TD>
+</TR>
+
+<TR>
+  <TH valign="top" align="right" style="text-align:right">需要粉丝手机号提示语：</TH>
+  <TD>
+  	<textarea style="width:400px;height:75px" name="need_phone_notice" id="need_phone_notice" class="px">{pigcms:$wxuser['need_phone_notice']|default='您好，需要您先填写个人信息才能参加活动。'}</textarea>
+  </TD>
+</TR>
+
+<TR>
+  <TH></TH>
+  <TD><button type="submit"  name="button"  class="btnGreen left" >保存</button>　&nbsp;&nbsp;<a href="###" onclick="showWxhelp()" class="a_red">点击查看如何设置授权</a>&nbsp;&nbsp;<a href="###" onclick="showWxhelpQa()" class="a_red">常见问题</a>&nbsp;&nbsp;<a href="###" onclick="showWxShare()" class="a_red">查看如何做微信分享配置</a>
+  	</TD>
+  </TR>
+  
+  
+  
+  </TBODY>
+</TABLE>
+  </form>
+
+
+
+  </div> 
+  
+ 
+          
+        </div>
+<include file="Public:footer"/>

@@ -1,0 +1,84 @@
+/*大标题样式*/
+.tlebar {display:block; width:100%;height:39px;border-left:3px #ff9417 solid; border-bottom:1px #ccc solid;}
+.tlebar-lf {display:block; float:left; position:absolute; height:40px; font-size:24px; background:#fff;}
+.tlebar-lf .sup {display:block;line-height:10px; font-size:14px; color:#939393;}
+.tlebar-rt {display:block; float:right;}
+
+.tlebar-rf {display:inline-block; float:right; width:150px;_margin-bottom:-1px; position:relative; height:40px; font-size:14px; background:#fff; vertical-align:middle;}
+.signature_name{display:inline-block;float:right; margin-right:12px; line-height:46px;}
+.signature_off{display:inline-block;float:right;width:84px; height:30px; border:none; background:url(../images/signature.png) no-repeat 0px 0px; margin-top:10px;cursor:pointer;}/*关闭*/
+.signature_on{display:inline-block;float:right;width:84px; height:30px; border:none; background:url(../images/signature.png) no-repeat 0px -30px;margin-top:10px;cursor:pointer;}/*开启*/
+
+/*小标题样式*/
+.title_w {background: none repeat scroll 0 0 #FAFAFA;border: 1px solid #F6F5F5; min-width: 800px;width: 100%;}
+.title_p {display: block;line-height: 30px;text-indent: 15px;width: 100%;}
+
+/*搜索*/
+.srh { display:block; float:right; width:195px;padding-left:5px; z-index:10;}
+.sbt {display:block; float:right; position:absolute; z-index:99; margin-left:172px; width:24px; height:30px; background:url(../images/search.jpg) no-repeat center; cursor:pointer;}
+
+/*表格*/
+.table_list{width:100%;}
+.table_list td {font-size:14px; padding-left:10px;}
+.table_list tr {border-top:1px solid #dedede;}
+.table_list tr:hover {background:#fafafa;}
+.inp_01 {border: 2px solid #E0E0E0;height: 24px;line-height: 24px;padding: 3px;}
+input[type=checkbox]{*font-size: 100%; border:none; line-height:auto;height:auto;}
+.date{background: url(../images/date.jpg) no-repeat scroll right center #fff; border: 2px solid #ECECEC;border-radius: 3px;display: block;line-height: 28px;}
+
+/*操作*/
+.qr{ display:block; float:right; width:20px; height:18px;background:url(../images/micro_cate/qr.png) no-repeat 0px 0px;}
+.qr:hover{ display:block; float:right; width:20px; height:18px;background:url(../images/micro_cate/qra.png) no-repeat 0px 0px;}/*确认*/
+.bz{ display:block; float:right; width:20px; height:18px;background:url(../images/micro_cate/bz.png) no-repeat 0px 0px;}
+.bz:hover{ display:block; float:right; width:20px; height:18px;background:url(../images/micro_cate/bza.png) no-repeat 0px 0px;}/*备注*/
+.ybz{ display:block; float:right; width:20px; height:20px;background:url(../images/micro_cate/ybz.png) no-repeat 0px 0px;}/*已备注*/
+
+.ck{ display:block; float:right; width:18px; height:18px;background:url(../images/fan_card/ck.png) no-repeat 0px 0px;}
+.ck:hover{ display:block; float:right; width:18px; height:18px;background:url(../images/fan_card/cka.png) no-repeat 0px 0px;}/*查看*/
+.edit{display:block; float:right; width:18px; height:18px;background:url(../images/input02.png) no-repeat -36px -12px;}
+.edit:hover{display:block; float:right; width:18px; height:18px;background:url(../images/input02.png) no-repeat 0px -12px;}/*编辑*/
+.close{display:block; float:right; width:18px; height:18px;margin-left:10px;  background:url(../images/input.png) no-repeat -69px -2px;}
+.close:hover{display:block; float:right; width:18px; height:18px;margin-left:10px; background:url(../images/input.png) no-repeat -24px -2px;}/*删除*/
+/*图表*/
+.chart_ico{display:block; float:right; width:18px; height:18px;background:url(../images/input02.png) no-repeat -75px -22px;}
+.chart_ico:hover{display:block; float:right; width:18px; height:18px;background:url(../images/input02.png) no-repeat -75px -41px;}
+/*复制*/
+.copy_ico{display:block; float:right; width:18px; height:18px;background:url(../images/copy_ico.png) no-repeat 0px 0px;}
+.copy_ico:hover{background:url(../images/copy_ico.png) no-repeat -18px 0px;}
+/*撤销*/
+.undo{display:inline-block;width:22px;height:22px;background:url(../images/ui2_ico.png) repeat -638px -66px;}
+.undo:hover{background:url(../images/ui2_ico.png) repeat -664px -66px;}
+/*加号*/
+.add{display:inline-block;width:18px;height:18px;background:url(../images/ui2_ico.png) repeat -317px -35px;}
+.add:hover{background:url(../images/ui2_ico.png) repeat -317px -73px;}
+/*查看*/
+.view_ico{display:inline-block;width:21px;height:21px;background:url(../images/ui2_ico.png) repeat -801px -64px;}
+.view_ico:hover{background:url(../images/ui2_ico.png) repeat -834px -64px;}
+/*播放*/
+.play_ico{display:inline-block;width:18px;height:18px;background:url(../images/ui2_ico.png) repeat -754px -159px;}
+.play_ico:hover{background:url(../images/ui2_ico.png) repeat -782px -159px;}
+/*暂停*/
+.pause_ico{display:inline-block;width:18px;height:18px;background:url(../images/ui2_ico.png) repeat -827px -159px;}
+.pause_ico:hover{background:url(../images/ui2_ico.png) repeat -855px -159px;}
+/*数据*/
+.data_ico{display:inline-block; width:18px; height:18px; background:url(../images/input.png) no-repeat -230px -7px;}
+.data_ico:hover{background:url(../images/input.png) no-repeat -248px -7px;}
+
+
+/*按钮*/
+.orangebtn {display:inline-block;  width:90px;height:30px; line-height:30px; font-size:14px; color:#fff; text-align:center; background:url(../images/btn_all02.jpg) no-repeat 0px 0px;}
+.orangebtn a{color:#fff;}
+.orangebtn:hover {background:url(../images/btn_all02.jpg) repeat 0px -30px;}
+.txt-btn_t{ display:block; float:left; width:100%; border-top:1px solid #dedede;}
+.orangebtn2 {display:inline-block;  width:110px;height:30px; line-height:30px; font-size:14px; color:#fff !important; text-align:center; background:url(../images/btn_all02.jpg) no-repeat -300px 0px;}
+.orangebtn2:hover {background:url(../images/btn_all02.jpg) repeat -300px -30px;}
+
+
+
+/*标签样式*/
+.tag {display:block; height:50px; border-bottom:1px solid #e5e5e5;}
+.barfocus {display:block; float:left; height:49px; line-height:49px;border-top:1px solid #e5e5e5;border-bottom:1px solid #fff;border-left:1px solid #e5e5e5;border-right:1px solid #e5e5e5;margin-right:10px; background:#fff; font-size:14px; color:#666; padding-left:20px; padding-right:20px;_padding-top:6px;}
+.bardefault {display:block; float:left; height:50px; line-height:50px;background:#f9f9f9; margin-right:10px;font-size:14px;color:#666;padding-left:20px; padding-right:20px;_padding-top:6px;}
+.bardefault:hover {color:#ff8f0b;}
+.bardefault a{color:#666;}
+.icon_s{display:inline-block;width:26px; height:28px;padding:2px 0px;margin:0 10px;line-height:20px;}

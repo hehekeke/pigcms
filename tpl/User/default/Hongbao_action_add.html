@@ -1,0 +1,204 @@
+<include file="Public:head"/>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<script src="{pigcms::RES}/js/date/WdatePicker.js"></script>
+<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script>
+<form class="form" method="post" action="{pigcms::U('Hongbao/action_add',array('token'=>$this->token))}"  target="_top">
+<div class="content">
+<!--活动开始-->
+<div class="cLineB">
+  <h4>设置活动信息</h4><a href="javascript:history.go(-1);" class="right btnGrayS vm" style="margin-top:-27px">返回</a></div>
+<div class="msgWrap bgfc">
+
+<table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%">
+<tbody>
+  <th valign="top"><span class="red">*</span>活动名称：</th>
+  <td><input type="input" class="px" id="action_name" value="{pigcms:$set.action_name}" name="action_name" style="width:400px" data-validation-engine="validate[required,minSize[1],maxSize[40]]" data-errormessage-value-missing="必填项">
+  	<br>
+  	最多填写32个字母(一个汉字相当于3个字母),微信会屏蔽标题含有红包的分享,所以活动名称不要含有'红包'二字。
+  	</td> 	
+</tr>
+<tr>
+  <th valign="top"><span class="red">*</span>回复标题：</th>
+  <td><input type="input" class="px" id="reply_title" value="{pigcms:$set.reply_title}" name="reply_title" style="width:400px"><br>最多填写32个字母(一个汉字相当于3个字母)!
+  </td>
+</tr>
+<tr>
+  <th width="120"><span class="red">*</span>回复内容：</th>
+  <td><textarea style="width:560px;height:75px" name="reply_content" id="reply_content" class="px">{pigcms:$set.reply_content}</textarea><br/>最多填写128个字母(一个汉字相当于3个字母)</td>
+</tr>
+
+<tr>
+  <th>&nbsp;回复图片：</th>
+  <td>
+  <if condition="$set.reply_pic neq ''">
+	<img class="thumb_img" id="picurl_src1" src="{pigcms:$set.reply_pic}" style="max-height:100px;max-width: 200px;">
+	<else />
+	<img class="thumb_img" id="picurl_src1" src="{pigcms:$f_siteUrl}/tpl/static/hongbao/images/weixinheti.png" style="max-height:100px;max-width: 200px;">
+  </if>
+  <input type="text" name="reply_pic" value='<if condition="$set[\'reply_pic\'] neq ''">{pigcms:$set.reply_pic}<else/>{pigcms:$f_siteUrl}/tpl/static/hongbao/images/weixinheti.png</if>' id="pic1" class="px" style="width:200px;" >
+  <a href="###" onclick="upyunPicUpload('pic1',365,158,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic1')">预览</a>   &nbsp; 建议图片尺寸365*158，图片大小不超过300K</td>
+</tr>
+<tr>
+  <th valign="top"><span class="red">*</span>关键词：</th>
+  <td><input type="input" class="px" id="keyword" value="{pigcms:$set.keyword}" name="keyword" style="width:400px"><br>
+  	<span class="red">只能写一个关键词</span>，用户输入此关键词将会触发此活动。</td>
+</tr>
+<tr>
+  <th valign="top"><span class="red">*</span>自定义提示语和链接:</th>
+  <td><input type="input" class="px" id="remind_word" value="{pigcms:$set.remind_word}" name="remind_word" style="width:200px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;链接<input type="input" class="px" id="remind_link" value="{pigcms:$set.remind_link}" name="remind_link" style="width:200px"> <if condition="session('isQcloud') neq true"><a href="###" onclick="addLink('remind_link',0)" class="a_choose">从功能库添加</a></if></td>
+</tr>
+<tr>
+  	<th valign="top"><span class="red">*</span>活动介绍：</th>
+  	<td><textarea class="px" id="action_desc" name="action_desc" style="width:400px; height: 200px;">{pigcms:$set.action_desc}</textarea>最多填写256个字母(一个汉字相当于3个字母)!
+	</td>
+</tr>
+<tr>
+	<th><span class="red">*</span>活动时间：</th>
+	<td><input type="input" class="px" id="start_time" value="{pigcms:$set.start_time|default=time()|date='Y-m-d H:i',###}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" name="start_time" />
+		到
+		<input type="input" class="px" id="end_time" value="{pigcms:$set.end_time|default= strtotime('+1 month')|date='Y-m-d H:i',###}" name="end_time" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"  />
+	</td>
+</tr>
+</tbody>
+</table>
+  	<table class="userinfoArea" style=" margin: 0;" border="0" cellspacing="0" cellpadding="0" width="100%">
+  		<tbody>			
+			<tr>
+  				<th>未关注是否可以参与：</th>
+  				<td>
+	  				<input type="radio" name="need_follow" value="1" <if condition="$set.need_follow eq 1 || $set.need_follow eq ''"> checked </if>>否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  				<input type="radio" name="need_follow" value="2" <if condition="$set.need_follow eq 2"> checked </if>>是&nbsp;&nbsp;&nbsp;&nbsp;<span>{pigcms:$__access_remind__}</span>
+  				</td>
+  			</tr>
+			 <tr>
+  				<th>是否需要粉丝信息：</th>
+  				<td>
+	  				<input type="radio" name="need_phone" value="1" <if condition="$set.need_phone eq 1 || $set.need_phone eq ''"> checked </if>>是&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  				<input type="radio" name="need_phone" value="2" <if condition="$set.need_phone eq 2"> checked </if>>否
+					 &nbsp;&nbsp;&nbsp;&nbsp;(没有粉丝详细信息参加活动的处理方式)
+  				</td>
+  			</tr>
+        
+        <tr>
+          <th valign="top"><span class="red">*</span>随机金额范围：</th>
+          <td>
+            <input type="input" class="px" id="min_money" name="min_money"  value="{pigcms:$set.min_money}" />  到
+			
+			 <input type="input" class="px" id="max_money" name="max_money"  value="{pigcms:$set.max_money}" /> /元 &nbsp;&nbsp;&nbsp;最大值和最小值之间的数,结果保留2位小数
+          </td>
+          </tr>
+		<tr>
+          <th valign="top"><span class="red">*</span>红包总金额：</th>
+          <td>
+            <input type="input" class="px" id="total_money" name="total_money"   value="{pigcms:$set.total_money}" />/元
+          </td>
+          </tr>
+		<tr>
+          <th valign="top"><span class="red">*</span>分享人数：</th>
+          <td>
+            <input type="input" class="px" id="sharetimes" name="sharetimes"   value="{pigcms:$set.sharetimes}" />
+          </td>
+          </tr>
+		   <tr>
+  				<th>领取方式：</th>
+  				<td>
+	  				<input type="radio" name="getway" value="1" <if condition="$set.getway eq 1 || $set.getway eq ''"> checked </if>>微信红包&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  				<input type="radio" name="getway" value="2" <if condition="$set.getway eq 2"> checked </if>>会员卡充值
+  				</td>
+  			</tr>
+		   <tr>
+  				<th>分享朋友圈按钮：</th>
+  				<td>
+	  				<input type="radio" name="timeline_hide" value="0" <if condition="$set.timeline_hide eq 0 || $set.timeline_hide eq ''"> checked </if>>显示&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  				<input type="radio" name="timeline_hide" value="1" <if condition="$set.timeline_hide eq 1"> checked </if>>隐藏 &nbsp;&nbsp;&nbsp;<span style="color:red">红包涉及金钱的交易，由于微信的限制，如果被大量分享到朋友圈可能存在被封号的风险</span>
+  				</td>
+  			</tr>
+  			<tr>
+  				<th>是否开启活动：</th>
+  				<td>
+	  				<input type="radio" name="status" value="1" <if condition="$set.status eq 1 || $set.status eq ''"> checked </if>>开启&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  				<input type="radio" name="status" value="2" <if condition="$set.status eq 2"> checked </if>>关闭
+  				</td>
+  			</tr>
+  			<tr>
+  				<th></th>
+  				<td>
+					<input type="hidden" name="id" value="{pigcms:$set.id}">
+					<button type="button" name="button" id="hongbao_add" class="btnGreen">保存</button>　
+					<a href="" class="btnGray vm">取消</a>
+				</td>
+  			</tr>
+  			</tbody>
+  		</table>
+ </div>
+ 
+</div>
+</form>
+<script>
+//简单的表单验证
+$(function(){
+	$("#hongbao_add").click(function(){
+		var action_name = $("#action_name").val();
+		var keyword = $("#keyword").val();
+		var reply_title = $("#reply_title").val();
+		var reply_content = $("#reply_content").val();
+		var action_desc = $("#action_desc").val();
+		var start_time = $("#start_time").val();
+		var end_time = $("#end_time").val();
+		var min_money = $("#min_money").val();
+		var max_money = $("#max_money").val();
+		var total_money = $("#total_money").val();
+		var sharetimes = $("#sharetimes").val();
+		var remind_link = $("#remind_link").val();
+		var remind_word = $("#remind_word").val();
+		var msg = '';
+		if(action_name == ''){
+			msg += '活动名称不能为空\n';
+		}
+		if(keyword == ''){
+			msg += '关键词不能为空\n';
+		}
+		if(reply_title == ''){
+			msg += '回复标题不能为空\n';
+		}
+		if(reply_content == ''){
+			msg += '回复内容不能为空\n';
+		}
+		if(action_desc == ''){
+			msg += '活动规则不能为空\n';
+		}
+		if(start_time == ''){
+			msg += '活动开始时间不能为空\n';
+		}
+		if(end_time == ''){
+			msg += '活动结束时间不能为空\n';
+		}
+		if(min_money == ''){
+			msg += '最小金额不能为空\n';
+		}
+		if(max_money == ''){
+			msg += '最大金额不能为空\n';
+		}
+		if(total_money == ''){
+			msg += '总金额不能为空\n';
+		}
+		if(sharetimes == ''){
+			msg += '分享次数不能为空\n';
+		}
+		if(remind_link == ''){
+			msg += '提示连接不能为空\n';
+		}
+		if(remind_word == ''){
+			msg += '提示语不能我空';
+		}
+		if(msg != ''){
+			alert(msg);
+			return false;
+		}
+		$(".form").submit();
+	});
+
+});
+</script>
+<include file="Public:footer"/>

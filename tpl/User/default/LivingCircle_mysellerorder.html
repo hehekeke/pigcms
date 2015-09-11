@@ -1,0 +1,110 @@
+<include file="LivingCircle:head" />
+<link rel="stylesheet" type="text/css" href="{pigcms:$staticPath}/tpl/static/livingcircle/css/cymain.css" />
+<div class="content">
+	<div class="cLineB">
+		<h4 class="left">微信生活圈</h4>
+		<div class="clr"></div>
+	</div>
+	
+	<div class="tab">
+		<ul>
+			<li class="tabli" id="tab2"><a href="{pigcms::U('LivingCircle/myseller',array('token'=>$token))}">商家信息</a></li>
+			<li class="tabli" id="tab2"><a href="{pigcms::U('LivingCircle/mysellergoods',array('token'=>$token))}">商品管理</a></li>
+			<li class="current tabli" id="tab2"><a href="{pigcms::U('LivingCircle/mysellerorder',array('token'=>$token))}">订单管理</a></li>
+		</ul>
+	</div>
+	
+	<div class="cLineB">
+		<h4 class="left">订单</h4>
+		<div class="clr"></div>
+	</div>
+	<style>
+	.green{color:green !important;}
+	</style>
+	<div class="cLine">
+		<div class="pageNavigator left">
+			<a href="{pigcms::U('LivingCircle/mysellerorder',array('token'=>$token,'type'=>1))}" title="未支付" class="btnGrayS vm bigbtn <?php if($_GET['type'] == 1){?>green<?php }?>">未支付</a>
+			<a href="{pigcms::U('LivingCircle/mysellerorder',array('token'=>$token,'type'=>2))}" title="未发货" class="btnGrayS vm bigbtn <?php if($_GET['type'] == 2){?>green<?php }?>">未发货</a>
+			<a href="{pigcms::U('LivingCircle/mysellerorder',array('token'=>$token,'type'=>3))}" title="已发货" class="btnGrayS vm bigbtn <?php if($_GET['type'] == 3){?>green<?php }?>">已发货</a>
+			<a href="{pigcms::U('LivingCircle/mysellerorder',array('token'=>$token,'type'=>4))}" title="已完成" class="btnGrayS vm bigbtn <?php if($_GET['type'] == 4){?>green<?php }?>">已完成</a>
+			<a href="{pigcms::U('LivingCircle/mysellerorder',array('token'=>$token))}" title="全部" class="btnGrayS vm bigbtn <?php if($_GET['type'] == ''){?>green<?php }?>">全部</a>
+		</div>
+		<div class="pageNavigator right">
+			<input type="text" id="name" class="px name" placeholder="输入订单号"  name="name" value="{pigcms:$_GET['name']}" style="margin-top:10px">
+			<a href="javascript:seach()" id="seach" href="" class="btnGrayS" title="搜索">搜索</a>
+		</div>
+	</div>
+	<div class="msgWrap">
+		<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+			<thead>
+				<tr>
+					<th width="60px">订单号</th>
+					<th width="90px">价格</th>
+					<th width="150px">商品</th>
+					<th width="70px">姓名</th>
+					<th width="80px">电话</th>
+					<th width="200px">地址</th>
+					<th width="50px">状态</th>
+					<th width="60px">操作</th>
+					<th class="norightborder">添加时间</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach($order_list as $vo){?>
+					<tr>
+						<td><?php echo 10000000 + $vo['pigcms_id'];?></td>
+						<td>￥<?php echo $vo['price'];?>元</td>
+						<td>
+							<?php
+							$i = 1;
+							foreach($cart_list[$vo['pigcms_id']] as $cart){?>
+								<?php echo $i;?>、<?php echo $cart['name'];?>：<?php echo $cart['price'];?>元<br/>
+							<?php
+							$i++;
+							}?>
+						</td>
+						<td><?php echo $vo['name'];?></td>
+						<td><?php echo $vo['phone'];?></td>
+						<td><?php echo $vo['address'];?></td>
+						<td>
+							<?php
+								if($vo['paid'] == 0){
+									echo "未支付";
+								}elseif($vo['state'] == 0){
+									echo "未发货";
+								}elseif($vo['state'] == 1){
+									echo "已发货";
+								}elseif($vo['state'] == 2){
+									echo "已完成";
+								}
+							?>
+						</td>
+						<td class="norightborder" style="border-right:1px solid #eee">
+							<?php if($vo['paid'] == 1 && $vo['state'] == 0){?>
+							<a href="{pigcms::U('LivingCircle/mysellerorderstup',array('token'=>$token,'orderid'=>$vo['pigcms_id'],'type'=>'fahuo'))}">发货</a>
+							<?php }else{echo "无操作";}?>
+						</td>
+						<td  style="border-right:0"><?php echo date("Y-m-d H:i:s",$vo['addtime']);?></td>
+					</tr>
+				<?php }?>
+			</tbody>
+		</table>
+	</div>
+	<div class="cLine">
+		<div class="pageNavigator right">
+			<div class="pages">{pigcms:$page}</div>
+		</div>
+		<div class="clr"></div>
+	</div>
+	<script>
+		function seach(){
+			var name = $("#name").val();
+			if(name != ""){
+				window.location.href="{pigcms::U('LivingCircle/mysellerorder',array('token'=>$token))}&name="+name;
+			}else{
+				window.location.href="{pigcms::U('LivingCircle/mysellerorder',array('token'=>$token))}";
+			}
+		}
+	</script>
+</div>
+<include file="Public:footer"/>

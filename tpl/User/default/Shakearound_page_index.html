@@ -1,0 +1,71 @@
+<include file="Public:head"/>
+<div class="content" >  
+<div class="cLineB">
+  <h4>摇一摇.周边<span class="FAQ"></span></h4>
+ </div>
+<div class="cLineC" style="line-height: 32px;">
+ <a href="{pigcms::U('Shakearound/add_page',array('token'=>$token))}" class="btnGrayS vm bigbtn" >添加页面</a>　 
+</div>  <div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-bottom:5px;font-size:12px;">温馨提示：图标、主标题、副标题都会在摇出的页面中展示,跳转地址为点击摇出页面跳转的地址。
+</div>
+ <div class="msgWrap form">
+<div class="bdrcontent">
+<div id="div_ptype">
+<table class="ListProduct" border="0" cellSpacing="0" cellPadding="0" width="100%">
+<thead>
+<tr>
+<th style=" width:6%;">页面ID</th>
+<th style=" width:8%;">主标题</th>    
+<th style=" width:10%;">副标题</th>    
+<th style=" width:15%;">图标</th>    
+<th style=" width:15%;">跳转地址</th>   
+<th style=" width:15%;">页面备注</th>         
+<th class="norightborder">操作</th>
+</tr>
+</thead>
+<volist name="page_list" id="li">
+<tr>
+<td>{pigcms:$li.page_id}</td>
+<td>{pigcms:$li.title}</td>
+<td>{pigcms:$li.description}</td>
+<td><img src="{pigcms:$li.icon_url}" width="50px" height="50px"/></td>
+<td>{pigcms:$li.page_url}</td>
+<td>{pigcms:$li.page_comment}</td>
+<td class="norightborder">
+ <a href="{pigcms::U('Shakearound/edit_page',array('id'=>$li['id'],'token'=>$li['token']))}" >编辑页面</a>  
+    |
+<a href="javascript:drop_confirm('您确定要删除吗?', '{pigcms::U('Shakearound/del_page',array('token'=>$token,'id'=>$li['id']))}');">删除页面</a>
+</td>
+</volist>
+</tr>
+</table>
+</div>
+</div>
+<div class="cLine">
+  <div class="pageNavigator right">
+    <div class="pages">{pigcms:$page}</div>
+  </div>
+  <div class="clr"></div>
+</div>
+
+          </div>
+        </div>
+   
+        <div class="clr"></div>
+      </div>
+    </div>
+  </div> 
+  <!--底部-->
+  	</div>
+<script>
+//左侧导航高亮 (因为在同一个model里面,暂时处理)
+$(function(){
+$(".ckit").find("li").each(function(){
+	if($.trim($(this).text()) == '页面管理'){
+		$(this).prev().removeClass('selected');
+		$(this).removeClass('subCatalogList');
+		$(this).addClass('selected');
+	}
+});
+});
+</script>
+<include file="Public:footer"/>

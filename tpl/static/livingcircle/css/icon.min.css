@@ -1,0 +1,58 @@
+﻿.t-icon {
+    height:28px;
+    width:28px;
+    display: block;
+    background-size:28px 28px;
+    line-height: inherit;
+    vertical-align: baseline;
+    background-repeat:no-repeat;
+    background-position:center center;
+}
+
+a.t-icon {
+   padding:10px 20px;
+}
+
+.t-icon.white-back {
+    background-image:url(../images/back.png);
+}
+
+.t-icon.white-search {
+    background-image:url(../images/search.png);
+}
+
+.t-icon.white-fold {
+    background-image:url(../images/fold.png);
+}
+
+.t-icon.white-right {
+    background-image:url(../images/right.png);
+}
+
+.t-icon.white-unfold {
+    background-image:url(../images/unfold.png);
+}
+
+.t-icon.green-phone {
+    background-image:url(../images/phone.png);
+}
+
+.t-icon.green-lianxi {
+    background-image:url(../images/lianxi.png);
+}
+
+.t-icon.orange-ding {
+    background-image:url(../images/ding.png);
+}
+
+.t-icon.yellow-favorfill {
+    background-image:url(../images/favorfill.png);
+}
+
+.t-icon.yellow-favor {
+    background-image:url(../images/favor.png);
+}
+
+.t-icon.red-search {
+    background-image:url(../images/searchred.png);
+}

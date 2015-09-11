@@ -1,0 +1,113 @@
+<include file="Public:head"/>
+<include file="Business:public_menu"/>
+<!-- <script src="{pigcms::STATICS}/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="{pigcms::STATICS}/artDialog/plugins/iframeTools.js"></script> -->
+
+ <style>
+.cLine {
+    overflow: hidden;
+    padding: 5px 0;
+  color:#000000;
+}
+.alert {
+padding: 8px 35px 0 10px;
+text-shadow: none;
+-webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+-moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+background-color: #f9edbe;
+border: 1px solid #f0c36d;
+-webkit-border-radius: 2px;
+-moz-border-radius: 2px;
+border-radius: 2px;
+color: #333333;
+margin-top: 5px;
+}
+.alert p {
+margin: 0 0 10px;
+display: block;
+}
+.alert .bold{
+font-weight:bold;
+}
+ </style>
+
+
+<include file="Business:tips"/>
+
+<div class="msgWrap form">
+    <div class="content">
+ <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" style="width=80%">
+          <tr>
+            <td>订单号：</td>
+            <td>{pigcms:$orderid}</td>
+          </tr>
+
+          <tr>
+            <td>商品名称：</td>
+            <td>{pigcms:$shop_name}</td>
+          </tr>
+          <tr>
+            <td>商品价格：</td>
+            <td>{pigcms:$shop_price}</td>
+          </tr>
+          <tr>
+            <td>商品运费：</td>
+            <td>{pigcms:$shop_tran}</td>
+          </tr>
+          <tr>
+            <td>订单时间：</td>
+            <td>{pigcms:$book_time|date="Y-m-d H:i:s",###}</td>
+          </tr>
+          <tr>
+            <td>收件人：</td>
+            <td>{pigcms:$true_name}</td>
+          </tr>
+          <tr>
+            <td>收货地址：</td>
+            <td>{pigcms:$deli_addr}</td>
+          </tr>
+          <tr>
+            <td>联系电话：</td>
+            <td>{pigcms:$tel}</td>
+          </tr>
+          <tr>
+            <td>手机：</td>
+            <td>{pigcms:$cel}</td>
+          </tr>
+          <tr>
+            <td>支付方式：</td>
+            <td><if condition="$fans['balance'] gt 0">会员卡支付<else />{pigcms:$type}</if></td>
+          </tr>
+          <tr>
+            <td>订单状态：</td>
+            <td>
+			<if condition="$paytype eq 'daofu' || $paytype eq 'dianfu'">
+				<label for="ye1"><input name="paid" id="ye1" type="radio" <if condition='$paid eq 0'>checked</if> value="0"/> &nbsp;&nbsp;等待卖家发货 &nbsp;&nbsp;</label>
+			  <else />
+              <label for="ye1"><input name="paid" id="ye1" type="radio" <if condition='$paid eq 0'>checked</if> value="0"/> &nbsp;&nbsp;未付款 &nbsp;&nbsp;</label>
+              <label for="ye2"><input name="paid" id="ye2" type="radio" <if condition='$paid eq 1'>checked</if> value="1"> &nbsp;&nbsp;买家已付款，等待卖家发货&nbsp;&nbsp;</label>
+			  </if>
+              <label for="ye3"><input name="paid" id="ye3" type="radio" <if condition='$paid eq 2'>checked</if> value="2"> &nbsp;&nbsp;卖家已发货&nbsp;&nbsp;</label>
+              <label for="ye4"><input name="paid" id="ye4" type="radio" <if condition='$paid eq 3'>checked</if> value="3">&nbsp;&nbsp; 买家已收货   </label>
+            </td>
+          </tr>
+        </table>
+    </div>
+    
+  </div>
+<script type="text/javascript">
+  $("input[name='paid']").click(function() {
+    var value = $(this).val() ;
+    var id = "{pigcms:$book_id}" ;
+    $.post("{pigcms::U('Seckill/paid', array('token'=>$_GET['token'],'type'=>'seckill'))}", {"paid": value, "book_id": id}, function (data) {
+      var info = JSON.parse(data) ;
+      if(info.status == 1) {
+        alert("修改订单状态成功！") ;
+      } else {
+        alert("修改订单状态失败！") ;
+      }
+    }) ;
+  }) 
+</script>
+<include file="Public:footer"/>

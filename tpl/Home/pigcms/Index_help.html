@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>帮助中心－ 微信帮手 微信公众账号</title>
+    </head>
+    
+    <body>
+    	<!--startof header-->
+    	<include file="Public:header00"/>
+            <!--banner-->
+            <div class="banner clr" >
+            	<p  style="background:#e9cbbf;" class="zhutu clr">
+                	<if condition="$images['help'] eq null">
+                        <img src="{pigcms:$staticPath}/tpl/Home/pigcms/common/images/images/6.png" />
+                    <else />
+                        <img src="{pigcms:$images['help']}" style="width:100%;height:300px;">
+                    </if>
+                </p>
+            </div>
+            <!--end banner-->
+        <!--ENDOF header-->
+        
+        <!--startof content-->
+		<div class="content clr">
+        	<div class="congtS clr">
+            	<div class="shangLt clr">当前位置</div>
+                <div class="shangRt clr">
+                	<p class="oneth clr"> <a href="{pigcms:$f_siteUrl}">{pigcms:$f_siteName}多用户微信营销系统</a></p>
+                    <p>»</p>
+                    <p class="twoth clr"><a href="#">帮助中心</a></p>
+                </div>
+            </div>
+            <div class="congtX clr">
+            	<p class="title clr">如何为微信公众号配置接口？</p>
+                <p class="atation clr">请务必认真阅读以下2步内容，才能更有效的完成配置工作，有疑问的请联系QQ：{pigcms:$f_qq}提问。
+                <br/>
+                <div style="display:<if condition="$_GET['token'] neq ''">block;<else/>none;</if>">
+                    你的接口URL是：<font color="red">{pigcms:$f_siteUrl}/index.php?g=Home&m=Weixin&a=index&token={pigcms:$wxuser.token}{pigcms:$wxuser.urlsubfix}</font>
+                    <br>您的token是：<font color="red">
+                    <php>if($wxuser['pigsecret']){echo $wxuser['pigsecret'];}else{echo $_GET['token'];}</php></font>
+                    <br>EncodingAESKey：<font color="red">{pigcms:$wxuser.aeskey}</font>
+                    <br>消息加解密方式：<font color="red">{pigcms:$wxuser.encodetype}</font>
+                </div>
+                </p>
+                <p class="first clr">第一步、在{pigcms:$f_siteName}多用户微信营销系统绑定你的微信公众号。</p>
+                <ul>
+                	<li class="suojin clr">1、注册并登录<a href="{pigcms::U('Index/login')}">{pigcms:$f_siteName}多用户微信营销系统接口平台</a></li>
+                    <li class="suojin clr">2、添加公众号 → 功能管理 → 勾选要开启的功能</li>
+                    <li><img src="{pigcms:$staticPath}/tpl/Home/pigcms/common/images/images/shiliphoto_17.png" /></li>
+                    <li><img src="{pigcms:$staticPath}/tpl/Home/pigcms/common/images/images/shiliphoto_20.png" style="margin-bottom:40px;" /></li>
+                </ul>
+                <p class="first clr">第二步、到微信公众平台设置接口。</p>
+                <ul>
+                	<li class="suojin clr">1、登录 <a href="http://mp.weixin.qq.com/">微信公众平台</a>（<a href="http://mp.weixin.qq.com/">http://mp.weixin.qq.com/</a>），登录之后点击左侧菜单的“开发者中心”，下图红框中所示。</li>
+                    <li><img src="{pigcms:$staticPath}/tpl/Home/pigcms/common/images/1.jpg" /></li>
+                    <li class="suojin clr">2、进入开发者中心之后，点击下图中绿色的“启用”按钮（<span>如果按钮是红色的就忽略这个直接进入下一步</span>），然后在弹出的页面里点击确定，然后点击下图中的“修改配置”（<span>订阅号的开发者中心可能没有开发者ID、AppId和AppSecret，这属于正常的</span>）</li>
+                    <li><img src="{pigcms:$staticPath}/tpl/Home/pigcms/common/images/2.jpg" /></li>
+                    <li class="suojin clr">3、按照下面要求填写接口配置信息，填写后提交即可<br />
+                <if condition="$_GET['token'] eq ''">
+                    <p style="font-size:14px">比如你{pigcms:$f_siteName}平台上的地址是{pigcms:$f_siteUrl}/index.php/api/demo</p>
+                    <p style="font-size:14px">那么URL就是{pigcms:$f_siteUrl}/INDEX.PHP/api/demo</p>
+                <else/>
+                    <p style="font-size:14px">你的URL是 <font color="red">{pigcms:$f_siteUrl}/index.php?g=Home&m=Weixin&a=index&token={pigcms:$wxuser.token}{pigcms:$wxuser.urlsubfix}</font></p>
+                </if>
+                <p style="font-size:14px">Token填写 <font color="red"><php>if($wxuser['pigsecret']){echo $wxuser['pigsecret'];}else{echo $_GET['token'];}</php></font></p>
+                <p style="font-size:14px">EncodingAESKey <font color="red">{pigcms:$wxuser.aeskey}</font></p><p style="font-size:14px">消息加解密方式 <font color="red">{pigcms:$wxuser.encodetype}</font></p>
+					<li><img src="{pigcms:$staticPath}/tpl/Home/pigcms/common/images/5.jpg" /></li>
+                </ul>
+            </div>
+        </div>        	
+        <!--endof content-->
+         <!--footer-->
+        <include file="Public:footer00"/>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

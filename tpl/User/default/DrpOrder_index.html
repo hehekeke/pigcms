@@ -1,0 +1,51 @@
+<include file="Drp:head" />
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+<div class="content">
+<div class="cLineB">
+<h4 class="left">订单管理</h4>
+<div class="clr"></div>
+</div>
+<div class="cLine">
+<div class="clr"></div>
+</div>
+<div class="msgWrap">
+<form method="post" action="" id="info">
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<thead>
+	<tr>
+		<th width="160">订单号</th>
+		<th style="text-align: right">金额（元）</th>
+		<th width="170">会员</th>
+        <th style="text-align: center">支付状态</th>
+        <th style="text-align: center">发货状态</th>
+        <th style="text-align: center">下单时间</th>
+		<th class="norightborder" style="text-align: center">操作</th>
+	</tr>
+</thead>
+<tbody>
+<tr></tr>
+<volist name="orders" id="order">
+	<tr>
+		<td><a href="{pigcms::U('DrpOrder/info', array('id' => $order['id']))}">{pigcms:$order.order_no}</a></td>
+		<td align="right">{pigcms:$order.total}</td>
+		<td>{pigcms:$order.member}</td>
+        <td style="text-align: center"><if condition="$order.paid eq 1"><span class="green">已支付</span><else /><span class="red">未支付</span></if></td>
+        <td style="text-align: center"><if condition="$order.shipped eq 1"><span class="green">已发货</span><else /><span class="red">未发货</span></if></td>
+        <td style="text-align: center">{pigcms:$order.time|date='Y-m-d H:i:s', ###}</td>
+		<td class="norightborder" style="text-align: center">
+			<a href="{pigcms::U('DrpOrder/info', array('id' => $order['id']))}">详细</a>
+		</td>
+	</tr>
+</volist>
+</tbody>
+</table>
+</form>
+</div>
+<div class="cLine">
+	<div class="pageNavigator right">
+		<div class="pages">{pigcms:$page}</div>
+	</div>
+	<div class="clr"></div>
+</div>
+</div>
+<include file="Public:footer"/>

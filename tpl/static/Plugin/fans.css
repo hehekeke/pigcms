@@ -1,0 +1,109 @@
+/********************* 关注 *********************/
+@keyframes flyNotice
+{
+from {top:-200px;left:0px;}
+to {top:0px;left:0px;display: block}
+}
+
+@-moz-keyframes flyNotice /* Firefox */
+{
+from {top:-200px;left:0px;}
+to {top:0px;left:0px;display: block}
+}
+
+@-webkit-keyframes flyNotice /* Safari and Chrome */
+{
+from {top:-200px;left:0px;}
+to {top:0px;left:0px;display: block}
+}
+
+@-o-keyframes flyNotice /* Opera */
+{
+from {top:-200px;left:0px;}
+to {top:0px;left:0px;display: block}
+}
+
+._fly {
+	padding-top:20px;
+	display: block;
+	color:#fff;
+	font-size:16px;
+	background:rgba(0,0,0,0.7);
+	filter:alpha(opacity=70);
+	position: absolute;
+	top:0px;
+	width:100%;
+	z-index:9999;
+	animation:flyNotice 1.5s;
+	-moz-animation:flyNotice 1.5s;
+	/* Firefox */
+	-webkit-animation:flyNotice 1.5s;
+	/* Safari and Chrome */
+	-o-animation:flyNotice 1.5s;
+	/* Opera */;
+}
+._fly a{
+	color:#fff;
+	text-decoration:none;
+}
+
+._fly img{
+	width: 100%;
+	margin-top:10px;
+
+}
+._fly p {
+	font-size: 18px;
+	text-align: center;
+	color:#fff;
+	padding:20px;
+}
+._fly .wxname {
+	background: #44b549;
+	color:#fff;
+	padding:10px 0px;
+	margin-top:10px;
+	text-align: center;
+	font-size: 18px;
+	margin:10px 20px;
+}
+
+._fly .close{
+	background: #222;
+	margin:10px 20px;
+}
+
+
+
+
+
+/***************** 注册 ***********/
+
+
+
+#TopTipHolder{
+	height:0;
+	width:100%;
+	overflow:hidden;
+	position:absolute;
+	top:0;
+	left:0;
+	z-index: 999;
+}
+#TopTip{
+	height:35px;
+	line-height:35px;
+	text-align:center;
+	background:#FFF5C5;
+}
+#TopTip a{
+	color:#D01C1C;
+}
+#TopTipClose{
+	width:20px;
+	height:20px;
+	background:url(../forum/images/close.png) no-repeat;
+	position:absolute;
+	right:10px;
+	top:5px;
+}

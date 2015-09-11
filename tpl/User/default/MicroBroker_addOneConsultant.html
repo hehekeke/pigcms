@@ -1,0 +1,64 @@
+<include file="Public:head"/>
+<script src="{pigcms::STATICS}/jquery.min.js" type="text/javascript"></script>
+
+<div class="content">
+
+<div class="cLineB">
+  <h4>添加一个产品顾问</h4>
+
+<a href="javascript:history.go(-1);" class="right btnGrayS vm" style="margin-top:-27px">返回</a>
+</div>
+
+ <div class="msgWrap bgfc">
+<form class="form" method="post" action="" target="_top" name="myform">
+	<input type="hidden" name="bid" value="{pigcms:$id}">
+	<table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%">
+	    <tbody>
+			<tr>
+			<th width="120">产品顾问名称：</th>
+			<td><input type="text" name="username" style="width:200px;" class="px" value="<if condition="$mbkuser['username'] eq ''">{pigcms:$mbkuser['username']}</if>"><br><span class="red">(必填)</span></td>
+			</tr>
+
+			<tr>
+			<th width="120">产品顾问手机号：</th>
+			<td><input type="text" name="tel" style="width:200px;" value="<if condition="$mbkuser['tel'] eq ''">{pigcms:$mbkuser['tel']}</if>" class="px"><br><span class="red">也是前台登录用户名 (必填)</span></td>
+			</tr>
+
+			<tr>
+			<th width="120">前台登录密码：</th>
+			<td><input type="password" name="password" id="password" value="" style="width:200px;" class="px" placeholder="密码必须为6到8个数字"><br><span class="red">保存后不可更改，请务必记牢 (必填)</span></td>
+			</tr>
+
+			<tr>
+			<th width="120">公司名称：</th>
+			<td><input type="text" name="company" value="" style="width:200px;" class="px"><br><span class="red"></span></td>
+			</tr>
+
+			<tr>
+			<th>&nbsp;</th>
+			<td><a class="btnGreen" id="toSaveTish">保存</a>
+			<a href="{pigcms::U('MicroBroker/index',array('token'=>$token))}" class="btnGray vm">取消</a>
+			</td>
+			</tr>
+
+		</tbody>
+	</table>
+</form>
+  </div>
+ </div>
+ <script type="text/javascript">
+ var pswREG=/^\d+$/;
+$('#toSaveTish').click(function(){
+   var psw=$.trim($('#password').val());
+   if(psw==''){
+     alert('密码不能为空！');
+	 return false;
+   }else if(psw.length<6 ||  psw.length>8 || !pswREG.test(psw)){
+       alert('密码必须为6到8个数字！');
+       return false;
+   }else{
+     document.myform.submit();
+   }
+});
+</script>
+<include file="Public:footer"/>

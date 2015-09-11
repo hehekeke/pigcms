@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>案例展示－{pigcms:$f_siteTitle}</title>
+        <script type="text/javascript">
+        	onload = function(){
+        		var lli=document.getElementById("menu").getElementsByTagName("li");
+        		var lid = lli[0].id;
+        		var nli=document.getElementById("main").getElementsByTagName("li");
+        		for(var i=0;i<nli.length;i++){
+                    nli[i].style.display=nli[i].id==lid?"block":"none";                    
+                }
+        		lli[0].className="greenbg";
+        	}
+        </script>
+        <script type="text/javascript">
+            function setTab(m,n){
+                var tli=document.getElementById("menu").getElementsByTagName("li");
+                var mli=document.getElementById("main").getElementsByTagName("li");
+                for(var i=0;i<tli.length;i++){
+                    tli[i].className=tli[i].id==n?"greenbg":"";
+                }
+                for(var i=0;i<mli.length;i++){
+                    mli[i].style.display=mli[i].id==n?"block":"none";
+                }
+            }
+
+        </script>
+    </head>
+    
+    <body>
+    	<!--startof header-->
+        <include file="Public:header00"/>
+        
+            <!--banner-->
+            <div class="banner clr" >
+            	<p  style="background:url({pigcms:$staticPath}/tpl/Home/pigcms/common/images/images/fourbg_02.png) repeat-x;" class="zhutu clr">
+                	<if condition="$images['common'] eq null">
+                        <img src="{pigcms:$staticPath}/tpl/Home/pigcms/common/images/images/4.png" />
+                    <else />
+                        <img src="{pigcms:$images['common']}" style="width:100%;height:300px;">
+                    </if>
+                </p>
+            </div>
+            <!--end banner-->
+        
+        <div class="content clr">
+        	<div class="contLt clr">
+                <ul id="menu">
+                	<if condition="$class eq ''">
+						<li id="0"><div onClick="setTab(0,0)">案例展示</li>
+						<li id="99999"><div onClick="setTab(0,99999)">案例展示</li>
+                	<else />
+	                    <volist name="class" id="vo">
+	                	   <li id="{pigcms:$vo.id}"><div onClick="setTab(0,{pigcms:$vo.id})">{pigcms:$vo.name}</div></li>
+	                    </volist>
+	                </if>
+                </ul>
+            </div>
+            <div class="contRt clr">
+            	<!---->
+                    <div class="contNei clr" style="min-height:421px;" >
+                    	<p class="chaxun clr">案例展示</p>
+                        <!---->
+                      <div class="section">
+                            <ul class="clearfix" id="main">
+                            	<if condition="$cases eq ''">
+									<li id="0" style="display:none;">
+										<div class="photo"><img  src="{pigcms:$staticPath}/tpl/Home/pigcms/common/images/1_03.png"></div>
+	                                    <div class="rsp"></div>
+	                                    <div class="text">
+	                                        <p class="weiXin clr"><img src="{pigcms::C('site_twm')}" /></p>
+	                                        <p class="chakanX clr"><a href="javascript:void(0)">案例展示</a></p>
+	                                    </div>
+									</li>
+									<li id="0" style="display:none;">
+                                        <div class="photo"><img  src="{pigcms:$staticPath}/tpl/Home/pigcms/common/images/1_03.png"></div>
+                                        <div class="rsp"></div>
+                                        <div class="text">
+                                            <p class="weiXin clr"><img src="{pigcms::C('site_twm')}" /></p>
+                                            <p class="chakanX clr"><a href="javascript:void(0)">案例展示</a></p>
+                                        </div>
+									</li>
+									<li id="99999" style="display:none;">
+										<div class="photo"><img  src="{pigcms:$staticPath}/tpl/Home/pigcms/common/images/3_03.png"></div>
+	                                    <div class="rsp"></div>
+	                                    <div class="text">
+	                                        <p class="weiXin clr"><img src="{pigcms::C('site_twm')}" /></p>
+	                                        <p class="chakanX clr"><a href="javascript:void(0)">案例展示</a></p>
+	                                    </div>
+									</li>
+                            	<else />
+	                                <volist name="cases" id="vo">
+                                        <if condition="C('server_topdomain') eq 'pigcms.cn'">
+                                            <li id="{pigcms:$vo.classid}" style="display:none;">
+                                                <div class="photo"><img  src="{pigcms:$vo.writer}"></div>
+                                                <div class="rsp"></div>
+                                                <div class="text">
+                                                    <p class="weiXin clr"><img src="{pigcms:$vo.pic}"  style="height:102px"/></p>
+                                                    <p class="chakanX clr"><a href="<if condition="$vo.url eq ''">javascript:void(0)<else />{pigcms:$vo.url}</if>">微信扫一扫</a></p>
+                                                </div>
+                                            </li>
+                                        <else />
+    		                                <li id="{pigcms:$vo.class}" style="display:none;">
+    		                                    <div class="photo"><img  src="{pigcms:$vo.img}"></div>
+    		                                    <div class="rsp"></div>
+    		                                    <div class="text">
+    		                                        <p class="weiXin clr"><img src="{pigcms:$vo.timg}"  style="height:102px"/></p>
+    		                                        <p class="chakanX clr"><a href="<if condition="$vo.url eq ''">javascript:void(0)<else />{pigcms:$vo.url}</if>"><if condition="$vo.name eq ''">微信扫一扫<else/>{pigcms:$vo.name}</if></a></p>
+    		                                    </div>
+    		                                </li>	
+                                        </if>
+                                	</volist>
+                                </if>
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                        <!---->
+                    </div>
+                <!---->
+              	<script type="text/javascript">
+                        $(document).ready(function(){	
+                            $(".section ul li .rsp").hide();	
+                            $(".section	 ul li").hover(function(){
+                                $(this).find(".rsp").stop().fadeTo(500,0.7)
+                                $(this).find(".text").stop().animate({left:'0'}, {duration: 500})
+                            },
+                            function(){
+                                $(this).find(".rsp").stop().fadeTo(500,0)
+                                $(this).find(".text").stop().animate({left:'300'}, {duration: "fast"})
+                                $(this).find(".text").animate({left:'-300'}, {duration: 0})
+                            });
+                        });
+                </script>  
+            </div>
+        </div>
+        <!--endof content-->
+        
+        <!--startof footer-->
+        <include file="Public:footer00"/>
+    </body>
+</html>

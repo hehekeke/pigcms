@@ -1,0 +1,180 @@
+<include file="Public:head" />
+<link rel="stylesheet" type="text/css" href="{pigcms:$staticPath}/tpl/static/cutprice/css/cymain.css" />
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<div class="content">
+	<div class="cLineB">
+		<h4 class="left">降价拍</h4>
+		<div class="clr"></div>
+	</div>
+	
+	<div class="tab">
+		<ul>
+			<li class="tabli" id="tab1"><a href="{pigcms::U('Cutprice/index',array('token'=>$token))}">商品</a></li>
+			<li class="current tabli" id="tab2"><a href="{pigcms::U('Cutprice/order',array('token'=>$token))}">订单</a></li>
+		</ul>
+	</div>
+	
+	<div class="cLineB">
+		<h4 class="left">拍卖订单列表</h4>
+		<div class="clr"></div>
+	</div>
+	
+	<div class="cLine">
+		<div class="pageNavigator left">
+			&nbsp;&nbsp;&nbsp;&nbsp;订单号：<input type="text" id="orderid" class="px name" placeholder="输入订单号"  name="orderid" value="{pigcms:$_GET['orderid']}" style="margin-top:10px">
+			<a href="javascript:seach()" id="seach" href="" class="btnGrayS" title="搜索">搜索</a>
+		</div>
+		<script>
+			
+		</script>
+		<div class="clr"></div>
+	</div>
+	
+	<div class="msgWrap">
+		<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+			<thead>
+				<tr>
+					<th width="80px">订单号</th>
+					<th width="80px">用户名</th>
+					<th width="100px">手机</th>
+					<th width="120px">地址</th>
+					<th width="80px">商品名称</th>
+					<th width="80px">价格</th>
+					<th width="140px">状态</th>
+					<th width="">操作</th>
+					<th width="120px" class="norightborder">添加时间</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach($order_list as $vo){?>
+					<tr>
+						<td><?php echo $vo['orderid'];?></td>
+						<td><?php echo $vo['wechaname'];?></td>
+						<td><?php echo $vo['tel'];?></td>
+						<td><?php echo $vo['address'];?></td>
+						<td><?php echo $vo['cutprice_name'];?></td>
+						<td>
+							￥<?php echo $vo['nowprice'];?> x <?php echo $vo['num'];?>
+						</td>
+						<?php if($vo['paid'] == 1){?>
+							<?php if($vo['fahuo'] == 0){?>
+							<td>未发货</td>
+							<?php }elseif($vo['fahuo'] == 1){?>
+							<td>
+								已发货
+								<br/>
+								快递：<?php echo $vo['fahuoname'];?>
+								<br/>
+								单号：<?php echo $vo['fahuoid'];?>
+							</td>
+							<?php }else{?>
+							<td>
+								已完成
+								<br/>
+								快递：<?php echo $vo['fahuoname'];?>
+								<br/>
+								单号：<?php echo $vo['fahuoid'];?>
+							</td>
+							<?php }?>
+						<?php }else{?>
+						<td>未付款</td>
+						<?php }?>
+						<td class="norightborder" style="border-right:1px solid #eee">
+						<?php if($vo['paid'] == 1){?>
+							<?php if($vo['fahuo'] == 1){?>
+							<a href="<?php echo U('Cutprice/operate',array('token'=>$token,'type'=>'qxfahuo','orderid'=>$vo['pigcms_id']));?>">取消发货</a><br/>
+							<?php }elseif($vo['fahuo'] == 0){?>
+							<a href="javascript:fahuo({pigcms:$vo.pigcms_id})">发货</a><br/>
+							<?php }?>
+						<?php }?>
+							<a href="javascript:drop_confirm('您确定要删除订单【{pigcms:$vo.orderid}】吗?\n警告！如果删除此订单，网友手机端将看不到此订单！', '{pigcms::U('Cutprice/operate',array('token'=>$token,'orderid'=>$vo['pigcms_id'],'type'=>'delorder','cid'=>$_GET['id']))}')">删除</a><br/>
+							<a href="<?php echo U("Cutprice/updateorder",array('token'=>$token,'orderid'=>$vo['pigcms_id'],'cid'=>$_GET['id']));?>">修改</a>
+						</td>
+						<td  style="border-right:0"><?php echo date("Y-m-d H:i:s",$vo['addtime']);?></td>
+					</tr>
+				<?php }?>
+			</tbody>
+		</table>
+	</div>
+	<div class="cLine">
+		<div class="pageNavigator right">
+			<div class="pages">{pigcms:$page}</div>
+		</div>
+		<div class="clr"></div>
+	</div>
+</div>
+<!-- <div id="fahuo">
+	<div style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:9999"></div>
+	<div style="position:fixed;top:50%;left:50%;z-index:10000;width:300px;height:200px;margin-top:-110px;margin-left:-160px;background:#fff;padding:20px">
+		
+	</div>
+</div> -->
+<script>
+	$(document).ready(function(){
+		
+	});
+	function fahuo(orderid){
+		var dialog = art.dialog({
+			content: '<p>快递公司</p>'
+				+ '<input id="fahuoname'+orderid+'" class="px" style="width:15em; padding:4px" />'
+				+ '<p>快递单号</p>'
+				+ '<input id="fahuoid'+orderid+'" class="px" style="width:15em; padding:4px" />',
+			fixed: true,
+			id: 'fahuo'+orderid,
+			icon: 'question',
+			okVal: '提交',
+			ok: function () {
+				var fahuoname = $("#fahuoname"+orderid).val();
+				var fahuoid = $("#fahuoid"+orderid).val();
+				if(fahuoname == ''){
+					alert('请填写快递公司');
+					return false;
+				}else if(fahuoid == ''){
+					alert('请填写快递单号');
+					return false;
+				}else{
+					$.ajax({
+						type:"POST",
+						url:"{pigcms::U('Cutprice/ajax',array('token'=>$token))}",
+						dataType:"json",
+						data:{
+							type:"fahuo",
+							token:"{pigcms:$token}",
+							fahuoname:fahuoname,
+							fahuoid:fahuoid,
+							orderid:orderid
+						},
+						success:function(data){
+							if(data.error == 0){
+								art.dialog({
+									content: '提交成功！',
+									icon: 'succeed',
+									fixed: true,
+									lock: true,
+									time: 1.5
+								});
+								setTimeout(function(){
+									location.reload();
+								},1500);
+							}else{
+								return false;
+							}
+						}
+					});
+				}
+			},
+			cancel: true
+		});
+
+	}
+	function seach(){
+		var orderid = $("#orderid").val();
+		if(orderid != ""){
+			window.location.href="{pigcms::U('Cutprice/order',array('token'=>$token))}&orderid="+orderid;
+		}else{
+			window.location.href="{pigcms::U('Cutprice/order',array('token'=>$token))}";
+		}
+	}
+</script>
+<include file="Public:footer"/>

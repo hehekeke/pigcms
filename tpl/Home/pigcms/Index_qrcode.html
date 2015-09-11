@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<title>扫描二维码获取使用权 －{pigcms::C('site_title')}</title>
+<meta name="keywords" content="PIGCMS 微信帮手 微信公众账号 微信公众平台 微信公众账号开发 微信二次开发 微信接口开发 微信托管服务 微信营销 微信公众平台接口开发"/>
+<meta name="description" content="微信公众平台接口开发、托管、营销活动、二次开发"/>
+<include file="Public:header"/>
+<style type="text/css">
+.main{
+padding: 10px 0 0 10px;;
+border: 1px solid #c7cdd6;
+background: #f5f6f7;
+box-shadow: 0px 1px 3px #ccc;
+}
+.submit{ background: #348FD4; color: #fff; font-size: 20px; height: 50px; line-height: 40px; padding: 0 24px; vertical-align: middle; border: 0; cursor: pointer; }
+.submit:hover{ background-color: #2F81BF; }
+</style>
+<script>
+function setTab(m,n){
+var tli=document.getElementById("menu"+m).getElementsByTagName("div");
+var mli=document.getElementById("main"+m).getElementsByTagName("div");
+for(i=0;i<tli.length;i++){
+   tli[i].className=i==n?"hover":"";
+   mli[i].style.display=i==n?"block":"none";
+}
+}
+</script>
+
+<div class="main" style="margin-top:20px;margin-bottom:20px;">
+   
+<div class="qtcontent">
+        <div class="intro" style="">
+            <div class="normalTitle"><h2 style="text-align:center;margin-top:30px;">扫描关注公众号“pigcms”并发送“审核{pigcms:$thisUser.username}”，可以自动获取{pigcms:$reg_validDays}天的最高级别使用权限</h2></div>
+            <div class="normalContent" style="width:430px;margin:20px auto">
+<div class="section">
+                    <div id="table" style="overflow:hidden;width:100%">
+                    <div class="menubg">
+                        <div class="menu0" id="menu0">
+                    <img src="/tpl/static/qrc.jpg" />
+                        </div>
+                    </div>
+                  
+                    </div>
+                	<p class="clr"></p>
+            	</div>
+            	
+            <div style="text-align:center;margin:20px auto;display:none" id="toex"><input class="submit" onclick="location.href='{pigcms::U('Index/qrcodeLogin')}'" type="button" value="自动审核成功，点击这里就可以体验了"></div>
+        	</div>
+    	</div>
+    </div>
+<!--底部-->	</div>
+<!--底部-->	</div>
+</div>
+<input type="hidden" id="openid" value="{pigcms:$thisUser.openid}" />
+<script>
+	function rs(){
+		if(!$('#openid').value){
+		$.ajax({
+			type: "post",
+			url : "{pigcms::U('Index/isfollow')}",
+			dataType:'json',
+			data: 'id={pigcms:$thisUser.id}',
+			success: function(json){
+				if(json.openid){
+					$('#toex').fadeIn('slow');
+				}
+			}
+		});
+		}
+		
+	}
+	setInterval(rs,2000);
+</script>
+<include file="Public:footer"/>

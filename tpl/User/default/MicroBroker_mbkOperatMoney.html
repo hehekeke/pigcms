@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>产品顾问列表</title>
+<meta http-equiv="MSThemeCompatible" content="Yes" />
+<link rel="stylesheet" type="text/css" href="{pigcms:$staticPath}/tpl/User/default/common/css/style_2_common.css?BPm" />
+<script src="{pigcms:$staticPath}/tpl/User/default/common/js/common.js" type="text/javascript"></script>
+<link href="{pigcms:$staticPath}/tpl/User/default/common/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="msgWrap bgfc" style="padding:40px;">
+	<form action="" name="myform" method="post">
+     <table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%">
+      <tbody>
+	   <tr>
+       <th>经纪人：</th>
+       <td>
+		{pigcms:$thisuser['username']}
+	   </td>
+       </tr>
+	   <tr>
+       <th>经纪人电话：</th>
+       <td>
+		{pigcms:$thisuser['tel']}
+	   </td>
+       </tr>
+	  	<tr>
+        <th>可提取佣金：</th>
+        <td>
+		{pigcms:$thisuser['totalcash']} 元
+        </td>
+       </tr>
+	   <tr>
+        <th>已提取佣金：</th>
+        <td>
+		{pigcms:$thisuser['extractcash']} 元
+        </td>
+       </tr>
+
+       <tr>
+        <th><span class="red">*</span>请选择操作：</th>
+        <td>
+        <select id="opttype" name="opttype" class="input-medium" style="width:160px">
+			 <option value="1">佣金充值</option>
+			 <option value="2">佣金提取</option>
+        </select>
+        </td>
+       </tr>
+	   <tr>
+        <th>充值/提取佣金额度：</th>
+        <td>
+		<input type="text" name="tomoney" id="tomoney" class="px"> 元
+        </td>
+       </tr>
+       <tr>
+       <th>&nbsp;</th>
+       <td>
+      <input type="hidden" name="bid" value="{pigcms:$bid}" />
+      <input type="hidden" name="u_id" value="{pigcms:$u_id}" />
+	  <input type="hidden" name="cmmid" value="{pigcms:$cmmid}" />
+	  <input type="hidden" name="totalcash" value="{pigcms:$thisuser['totalcash']}" />
+      <button type="submit" name="button" class="btnGreen">提交</button> </td>
+       </tr>
+      </tbody>
+     </table>
+	  <input type="hidden" name="__hash__" value="c4777985610b4681565177b37676d9e2_ae444f64eff33253236e8ce4fe4073f1" />
+	  </form>
+     </div>
+ 
+</body>
+</html>

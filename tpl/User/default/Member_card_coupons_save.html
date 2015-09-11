@@ -1,0 +1,445 @@
+<include file="Public:head"/>
+<link rel="stylesheet" href="./tpl/static/kindeditor/themes/default/default.css"/>
+<link rel="stylesheet" href="./tpl/static/kindeditor/plugins/code/prettify.css"/>
+<script src="./tpl/static/kindeditor/kindeditor.js" type="text/javascript"></script>
+<script src="./tpl/static/kindeditor/lang/zh_CN.js" type="text/javascript"></script>
+<script src="./tpl/static/kindeditor/plugins/code/prettify.js" type="text/javascript"></script>
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<script src="/tpl/static/jquery.min.js"></script>
+<link rel="stylesheet" href="{pigcms:$staticPath}/tpl/static/card/css/card_coupons.css"/>
+<script src="{pigcms::RES}/js/date/WdatePicker.js"></script>
+<div class="content">
+<div class="cLineB">
+	<h4>卡券设置</h4>
+	<a href="javascript:history.go(-1);" class="right btnGrayS vm" style="margin-top:-27px">返回</a>
+</div>
+<div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-top:5px;">
+	温馨提示：微信卡券修改后需要经过微信官方审核，审核通过后卡券才能正常使用。
+</div>
+<div class="main_bd" id="js_main_content">
+	<div class="group">
+		<div class="media_preview_area" id="js_preview_area">
+			<div class="msg_card">
+				<div class="msg_card_inner">
+					<p class="msg_title">
+						<if condition="$vip.type eq '1'">
+							优惠券
+						<elseif condition="$vip.type eq '2'"/>
+							礼品券
+						<else/>
+							代金券
+						</if>
+					</p>
+					<div class="js_preview msg_card_section shop disabled">
+						<div class="shop_panel" id="img_preview">
+							<img src="<if condition="$vip.pic eq '' or $vip.type eq '1'">{pigcms:$staticPath}/tpl/static/card/images/youhui.png<elseif condition="$vip.pic eq ''  and $vip.type eq '0'"/>{pigcms:$staticPath}/tpl/static/card/images/daijin.png{pigcms:$vip.pic}<elseif condition="$vip.pic eq ''  and $vip.type eq '2'"/>{pigcms:$staticPath}/tpl/static/card/images/lipin.png<else/>{pigcms:$vip.pic}</if>" id="pic_src" style="max-width:100%;max-height:100%;">
+						</div>
+						<div class="shop_panel" id="color_preview" style="display:none;">	
+							<div class="logo_area group">
+								<span class="logo left">
+									<img src="{pigcms:$vip.logourl}" id="logourl_src">
+								</span>
+								<p id="js_brand_name_preview">
+									{pigcms:$company[0]['name']}
+								</p>
+							</div>
+							<div class="msg_area">
+								<div class="tick_msg">
+									<p>
+										<b id="title_preview">{pigcms:$vip.title}</b>
+									</p>
+									<span id="sub_title_preview"></span>
+								</div>
+								<p class="time">
+									<span id="validtime_preview">
+										有效期：
+										<span class="start"><if condition="$vip['statdate'] neq ''">{pigcms:$vip.statdate|date="Y-m-d",###}<else/>{pigcms:$statdate|date="Y-m-d",###}</if></span>
+										至
+										<span class="end"><if condition="$vip['enddate'] neq ''">{pigcms:$vip.enddate|date="Y-m-d",###}<else/>{pigcms:$enddate|date="Y-m-d",###}</if></span>
+									</span>
+								</p>
+							</div>
+
+						</div>
+						<!-- <div class="msg_card_mask">
+							<span class="vm_box"></span>
+							<a href="javascript:;" data-actionid="0" class="js_edit_icon edit_oper"><i class="icon18_common edit_gray"></i></a>
+						</div> -->
+						<div class="deco"></div>
+					</div>
+					<div class="js_preview msg_card_section dispose disabled">
+						<div class="unset" id="js_destroy_title">
+							<p>
+								基本设置
+							</p>
+						</div>
+						<div class="" id="js_destroy_type_preview">
+							<p class="sub_msg tc" id="js_notice_preview"></p>
+						</div>
+						<div class="msg_card_mask">
+							<span class="vm_box"></span>
+							<a href="javascript:;" data-actionid="0" class="js_edit_icon edit_oper"><i class="icon18_common edit_gray"></i></a>
+						</div>
+					</div>
+					<div class="shop_detail">
+						<ul class="list">
+							<li class="msg_card_section js_preview">
+							<div class="li_panel" href="">
+								<div class="li_content">
+									<p>
+										优惠券详情
+									</p>
+								</div>
+								<span class="ic ic_go"></span>
+							</div>
+							<div class="msg_card_mask">
+								<span class="vm_box"></span>
+								<a href="javascript:;" data-actionid="1" class="js_edit_icon edit_oper"><i class="icon18_common edit_gray"></i></a>
+							</div>
+							</li>
+							<li class="msg_card_section js_preview last_li">
+							<div class="li_panel" href="">
+								<div class="li_content">
+									<p>
+										微信卡券
+									</p>
+								</div>
+								<span class="ic ic_go"></span>
+							</div>
+							<div class="msg_card_mask">
+								<span class="vm_box"></span>
+								<a href="javascript:;" data-actionid="2" class="js_edit_icon edit_oper"><i class="icon18_common edit_gray"></i></a>
+							</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<form class="media_edit" id="js_editform" method="post" action="">
+			<div class="media_edit_area" id="js_edit_area" style="margin-top: 0px;">
+				<div class="js_edit_content portable_editor to_left appmsg_editor" style="display: block; zoom: 1;">
+					<div class="inner">
+						<div class="editor_section">
+							<h3 class="title">
+								基本信息			
+							</h3>
+							<div class="appmsg_edit_item frm_normal">
+								<label for="" class="frm_label">
+								<strong class="title">优惠券标题</strong>
+								</label>
+								<span class="frm_input_box">
+								<input type="input" id="title" value="{pigcms:$vip.title}" name="title" target="#js_title_tip" data-maxlength="9" class="frm_input js_can_preview js_maxlength" placeholder="">
+								</span>
+								<p class="frm_tips">
+									最长不超过9个字符，建议填写优惠券提供的服务或商品名称
+								</p>
+							</div>
+							<div class="appmsg_edit_item">
+								<label for="" class="frm_label">
+								<strong class="title">所属会员卡<br>
+								<span class="tips">(选填)</span></strong>
+								</label>
+								<span class="frm_input_box">
+									<select name="cardid" class="frm_input" style="border:0;background:none;width:100%;">
+										<option value="">选择所属会员卡</option>
+										<volist name="allcard" id="allcard">
+											<option value="{pigcms:$allcard.id}" <if condition="$allcard['id'] eq $vip['cardid']">selected</if>>{pigcms:$allcard.cardname}</option>
+										</volist>
+									</select>
+								</span>
+							</div>
+							<div class="appmsg_edit_item frm_normal upload_item">
+								<label for="" class="frm_label">
+									<strong class="title">使用门店</strong>
+								</label>
+								<span class="frm_input_box">
+									<select name="company_id" class="frm_input"  style="border:0;background:none;width:100%;">
+										<option value="0">所有门店</option>
+										<volist name="company" id="item">
+										<option value="{pigcms:$item.id}" <if condition="$item['id'] eq $vip['company_id']">selected</if>>{pigcms:$item.name}</option>
+										</volist>
+									</select>
+								</span>
+							</div>
+<!-- 							<div class="appmsg_edit_item frm_normal">
+	<label for="" class="frm_label">
+	<strong class="title">卡券类型</strong>
+	</label>
+	<div class="frm_controls frm_vertical_lh">
+		<div class="radio_control_group group" style="line-height: 32px;">
+			<label class="frm_radio_label frm_radio_input selected" for="checkbox1">
+				<i class="icon_radio"></i>
+				<input type="radio" disabled="true"  <if condition="$vip['type'] eq '1' or $vip['type'] eq ''">checked="checked"</if> name="type" class="type" value="1">
+				<span class="lbl_content">优惠券</span>&nbsp;&nbsp;
+				<input type="radio" disabled="true"  <if condition="$vip['type'] eq '2'  and $vip['type'] neq ''">checked="checked"</if>  name="type" class="type" value="2">
+				<span class="lbl_content">礼品券</span>&nbsp;&nbsp;
+				<input type="radio" disabled="true" <if condition="$vip['type'] eq '0'  and $vip['type'] neq ''">checked="checked"</if>  name="type"  class="type" value="0">
+				<span class="lbl_content">代金券</span>&nbsp;&nbsp;
+			</label>
+		</div>
+	</div>
+	<p class="frm_tips">微信卡券类型不支持修改</p>
+</div> -->
+							<div class="appmsg_edit_item">
+								<label for="" class="frm_label">
+								<strong class="title">卡券圖片</strong>
+								</label>
+								<span class="frm_input_box" style="width:175px;">
+									<input type="input" name="pic" id="pic" value="<if condition="$vip.pic eq '' or  $vip.type eq '1'">{pigcms:$staticPath}/tpl/static/card/images/youhui.png<elseif condition="$vip.pic eq '' and $vip.type eq '0'"/>{pigcms:$staticPath}/tpl/static/card/images/daijin.png<elseif condition="$vip.pic eq '' and $vip.type eq '2'"/>{pigcms:$staticPath}/tpl/static/card/images/lipin.png<else/>{pigcms:$vip.pic}</if>" class="frm_input js_can_preview js_maxlength valid">
+								</span>
+								<script src="/tpl/static/upyun.js"></script>
+								<a href="###" onclick="upyunPicUpload('pic',720,400,'{pigcms:$token}')" class="a_upload">上传</a>
+								<span class="tips">[720*400]</span>
+							</div>
+
+							<div class="appmsg_edit_item frm_normal gift" <if condition="$vip['type'] eq '2'"><else/>style="display:none"</if>>
+								<label for="" class="frm_label">
+									<strong class="title">礼品名称</strong>
+								</label>
+								<span class="frm_input_box no_border">
+									<input type="input" value="{pigcms:$vip.gift_name}" name="gift_name" class="frm_input js_can_preview js_maxlength valid">
+								</span>
+								<p class="frm_tips"></p>
+							</div>
+
+							<div class="appmsg_edit_item frm_normal gift" <if condition="$vip['type'] eq '2'"><else/>style="display:none"</if>>
+								<label for="" class="frm_label">
+									<strong class="title">兑换积分</strong>
+								</label>
+
+								<span class="frm_input_box">
+									<input type="input" value="{pigcms:$vip.integral}" name="integral" class="frm_input js_can_preview js_maxlength valid">
+								</span>
+								<p class="frm_tips">设置领取此券的积分</p>
+	
+							</div>
+
+							<div class="appmsg_edit_item frm_normal cktime" <if condition="$vip['type'] eq '0'"><else/>style="display:none"</if>>
+								<label for="" class="frm_label">
+									<strong class="title">启用金额</strong>
+								</label>
+								<span class="frm_input_box no_border">
+									<input type="input" value="{pigcms:$vip.least_cost}" name="least_cost" class="frm_input js_can_preview js_maxlength valid">
+								</span>
+								<p class="frm_tips"></p>
+							</div>	
+							<div class="appmsg_edit_item frm_normal cktime" <if condition="$vip['type'] eq '0'"><else/>style="display:none"</if>>
+								<label for="" class="frm_label">
+									<strong class="title">减免金额</strong>
+								</label>
+								<span class="frm_input_box no_border">
+									<input type="input" value="{pigcms:$vip.reduce_cost}" name="reduce_cost" class="frm_input js_can_preview js_maxlength valid">
+								</span>
+								<span class="tips"></span>
+								<p class="frm_tips"></p>
+							</div>	
+							
+						</div>
+					</div>
+					<i class="arrow arrow_out" style="margin-top: 0px;"></i>
+					<i class="arrow arrow_in" style="margin-top: 0px;"></i>
+				</div>
+				<div class="js_edit_content portable_editor to_left appmsg_editor" style="display: none;">
+					<div class="inner">
+						<div class="editor_section">
+							<h3 class="title group">优惠券详情</h3>
+							<div class="appmsg_edit_item">
+								<label for="" class="frm_label">
+								<strong class="title">库存</strong>
+								</label>
+								<div class="input_submsg">
+									<span class="frm_input_box no_border">
+										<input type="input" id="total" value="<if condition="$vip['total'] eq ''">100<else/>{pigcms:$vip.total}</if>" name="total" class="frm_input js_can_preview js_maxlength valid"  disabled="true">
+									</span>
+									<span class="input_sub_msg">份</span>
+									<p class="frm_tips">微信卡券“库存”不支持修改，请返回列表处修改</p>
+								</div>
+							</div>
+							<div class="appmsg_edit_item appmsg_edit_item_label_mult appmsg_input_submsg_item group">
+								<label for="" class="frm_label l">
+								<strong class="title">领券限制<br>
+								<span class="tips">(选填)</span></strong>
+								</label>
+								<div class="input_submsg l">
+									<span class="frm_input_box no_border">
+										<input type="input"  id="people" value="<if condition="$vip['people'] eq ''">1<else/>{pigcms:$vip.people}</if>" name="people"  class="frm_input js_can_preview js_maxlength valid">
+									</span>
+									<span class="input_sub_msg">张</span>
+								</div>
+								<p class="frm_tips"></p>
+							</div>
+	
+							<div class="appmsg_edit_item radio_item">
+								<div class="frm_control_group radio_row">
+									<label for="" class="frm_label"><strong class="title">有效期</strong></label>
+									<div id="js_colorpicker" class="color_picker dropdown_menu">
+										<span class="frm_input_box" style="width:125px;">
+											<input type="input" id="statdate" value="<if condition="$vip['statdate'] neq ''">{pigcms:$vip.statdate|date="Y-m-d",###}<else/>{pigcms:$statdate|date="Y-m-d",###}</if>" onclick="WdatePicker()" name="statdate" class="frm_input js_can_preview js_maxlength valid"> 
+										</span>
+										-
+										<span class="frm_input_box" style="width:125px;">
+											<input type="input" id="enddate" value="<if condition="$vip['enddate'] neq ''">{pigcms:$vip.enddate|date="Y-m-d",###}<else/>{pigcms:$enddate|date="Y-m-d",###}</if>" name="enddate" onclick="WdatePicker()" class="frm_input js_can_preview js_maxlength valid">
+										</span>
+									</div>
+									<p class="frm_tips">有效期时间包含当天</p>
+								</div>
+							</div>
+							<div class="appmsg_edit_item textarea_item">
+								<label for="" class="frm_label">
+								<strong class="title">使用说明</strong>
+								</label>
+								<div class="frm_controls">
+									<div class="frm_textarea_box">
+										<textarea name="info" class="frm_textarea" class="frm_textarea">{pigcms:$vip.info}</textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<i class="arrow arrow_out" style="margin-top: 0px;"></i>
+					<i class="arrow arrow_in" style="margin-top: 0px;"></i>
+				</div>
+				<div class="js_edit_content portable_editor to_left appmsg_editor" style="display: none;">
+					<div class="inner">
+						<div class="editor_section">
+							<h3 class="title">
+								微信卡券属性			
+							</h3>
+
+							<div class="appmsg_edit_item">
+								<label for="" class="frm_label">
+								<strong class="title">商家名称</strong>
+								</label>
+								<span class="frm_input_box no_border">
+									<input type="input" value="{pigcms:$vip['brand_name']}" name="brand_name" id="brand_name" class="frm_input js_can_preview js_maxlength valid" disabled="true">
+								</span>
+								<p class="frm_tips">微信卡券“商家名称”不支持修改</p>
+							</div>
+							<div class="appmsg_edit_item frm_normal upload_item">
+								<label for="" class="frm_label">
+								<strong class="title">商家Logo</strong>
+								</label>
+								<p class="frm_tips">
+									<span class="frm_input_box">
+										<input type="text" name="logourl" id="logourl" value="{pigcms:$vip['logourl']}"  class="frm_input js_can_preview js_maxlength valid" >
+									</span>
+
+									<script src="/tpl/static/upyun.js"></script>
+									<span class="input_sub_msg">
+										<a href="###" onclick="upyunPicUpload('logourl',400,400,'{pigcms:$token}')" class="a_upload">上传</a>
+										<a href="###" onclick="viewImg('logourl')">预览</a>[400*400]
+									</span>
+								</p>
+							</div>
+							<div class="appmsg_edit_item">
+								<label for="" class="frm_label">
+								<strong class="title">卡券颜色</strong>
+								</label>
+								<div id="js_colorpicker" class="color_picker dropdown_menu">
+									<select name="color" style="width:180px;" class="color">
+										<volist name="color" id="color">
+										<option value="{pigcms:$color.name}" <if condition="$color['name'] eq $vip['color']">selected</if>>{pigcms:$color.value}
+										</option>
+										</volist>
+									</select>
+									<div class="show" style="width:22px;height:22px;float:left;border:1px solid #ccc;margin-right:3px;"></div>
+								</div>
+								<p class="frm_tips">选择微信卡券颜色</p>
+							</div>
+
+						</div>
+
+					</div>
+					<i class="arrow arrow_out" style="margin-top: 0px;"></i>
+					<i class="arrow arrow_in" style="margin-top: 0px;"></i>
+				</div>
+			</div>
+
+	</div>
+</div>
+		
+
+	<div style="clear:both;margin:5px;"></div>
+	<div class="tool_bar border tc">
+		<input type="hidden" name="type" value="{pigcms:$vip.type}">
+		<input type="hidden" name="id" value="{pigcms:$vip.id}">
+		<input type="hidden" name="token" value="{pigcms:$vip.token}">
+		<input type="hidden" name="card_id" value="{pigcms:$vip.card_id}">
+		<button type="submit" name="button" class="btnGreen">保存</button>　
+	</div>
+
+</form>
+	
+
+	
+</div>
+<script>
+	$(function(){
+
+	$('.edit_oper').click(function(){
+		var actId 	= $(this).attr('data-actionid');
+		//media_edit_area
+		$('.media_edit_area').children('.js_edit_content').eq(actId).css('display','block').siblings().css('display','none');
+
+		if(actId == 1){
+			$('.media_edit_area').children('.js_edit_content').eq(actId).children('.arrow_in,.arrow_out').css('top','320px');
+		}else if(actId == 2){
+			$('.media_edit_area').children('.js_edit_content').eq(actId).children('.arrow_in,.arrow_out').css('top','365px');
+			$('#color_preview').css('display','block');
+			$('#img_preview').css('display','none');
+		}else{
+			$('#color_preview').css('display','none');
+			$('#img_preview').css('display','block');
+		}
+	});
+
+	$('#statdate').on('blur',function(){
+		$('.start').html($(this).val());
+	});
+	
+	$('#enddate').on('blur',function(){
+		$('.end').html($(this).val());
+	});
+	
+	var color = $('.color').find('option:selected').text();
+	$('.show,#color_preview').css('background',color);
+
+	 $('.color').change(function(){
+	 	var color = $(this).find('option:selected').text();
+	 	$('.show,#color_preview').css('background',color);
+	 });	
+
+
+	$('#brand_name').on('keyup', function() {  
+		var name 	= $(this).val();
+		$('#js_brand_name_preview').html(name);
+	});
+
+	$('#title').on('keyup', function() {  
+		var name 	= $(this).val();
+		$('#title_preview').html(name);
+	});
+	 
+	$('.type').change(function(){
+		 if($(this).val() == 1){ 
+			 $('#pic_src').attr('src','{pigcms:$staticPath}/tpl/static/card/images/youhui.png');
+			 $('#pic').val('{pigcms:$staticPath}/tpl/static/card/images/youhui.png');
+			 $('.cktime').css('display','none');
+			 $('.gift').css('display','none');
+		 }else if ($(this).val() == 2){
+			 $('#pic_src').attr('src','{pigcms:$staticPath}/tpl/static/card/images/lipin.png');
+			 $('#pic').val('{pigcms:$staticPath}/tpl/static/card/images/lipin.png');
+			 $('.gift').css('display','');
+			 $('.cktime').css('display','none');
+		 }else{
+			 $('#pic_src').attr('src','{pigcms:$staticPath}/tpl/static/card/images/daijin.png');
+			 $('#pic').val('{pigcms:$staticPath}/tpl/static/card/images/daijin.png');
+			 $('.cktime').css('display','');
+			 $('.gift').css('display','none');
+		 }
+	 });
+	});
+</script>
+<include file="Public:footer"/>

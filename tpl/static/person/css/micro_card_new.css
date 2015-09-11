@@ -1,0 +1,145 @@
+/*
+*项目名称:新微投票pc端
+*创建人：zhangyumei
+*创建时间：2015-03-03
+*/
+.mblist{display:inline-block;}
+.mblist li{float:left;}
+.mblist input[type=radio]{height:auto; line-height:auto;}
+.mblist span{padding:0 6px 0 4px;}
+.mblist li i{background: url(/tpl/static/person/images/input02.png) repeat scroll -90px 0;display: block;float: left;height: 16px;width: 16px;}
+.mblist li.now i{background: url(/tpl/static/person/images/input02.png) repeat scroll -74px 0;display: block;float: left;height: 16px;width: 16px;}
+.ilbox{display:none;}
+
+.undo{display:inline-block;width:22px;height:22px;background:url(/tpl/static/person/images/ui2_ico.png) repeat -638px -66px;}/*撤销*/
+.undo:hover{background:url(/tpl/static/person/images/ui2_ico.png) repeat -664px -66px;}
+
+.rt-bg dl.goods_list, .goods_list{margin-top:10px;overflow:hidden;width:800px;}
+.rt-bg dl.goods_list dt{float:left;overflow:hidden;width:66px;font-size:14px;line-height:29px;color:#333;text-align:right;}
+.rt-bg dl.goods_list dd{padding-left:10px;overflow:hidden;width:332px;font-size:14px;}
+.rt-bg dl.goods_list1 dt{float:left;overflow:hidden;height:38px;font-size:14px;line-height:29px;color:#333;}
+.rt-bg dl.goods_list1 dd{padding-left:10px;overflow:hidden;width:702px;font-size:14px;}
+
+.coupons_box {padding:30px 20px;display:block;background:#fafafa;border:1px solid #F6F5F5;overflow:hidden;}
+.lf-bg {float:left;display:block;overflow:hidden;width:340px;background:url(/tpl/static/person/images/phone.jpg) no-repeat left top;}
+.rt-bg {float:left;display:block;width:550px;}
+.phone {margin:73px 0 90px 15px;/*padding-bottom:15px;*/display:block;overflow:hidden;width:303px;height:430px;}
+.phone:hover {overflow-y:scroll;}
+
+/*左侧手机内*/
+.vcard_content{float:left;width:290px;/*height:426px;*/position: relative;}
+.ewm{display:block; position:absolute; top:10px; right:10px;width:28px; height: 28px; z-index: 998;}
+
+/*模板一*/
+.banner01{display:block;width:100%;height:180px;position:relative; margin-bottom:2px;background-color: #1dca1d;}
+.banner01 img{display:block;width:100%;position:relative;}
+
+.mod_main{display:block;width:100%;position:absolute; margin:0 auto;top:30px; border:0;}
+.mod_main .tab_top01{position:relative;border-collapse:collapse; width:100%;}
+.mod_main .tab_top01 td, .mod_main .tab_top01 td p{ text-align: center; vertical-align: middle; color:#fff;}
+
+.icon_top_w{margin:0 auto;display:block; overflow: hidden; width:40px; height: 40px; background-color: rgba(255,255,255,0.3);-webkit-border-radius: 100%; -moz-border-radius: 100%;border-radius: 100%;}
+.icon_top_w img{margin:0 auto;display:block; position:relative;top:10px;width:20px;height:20px;}
+.photo_w{margin:0 auto;width:96px; height: 96px; border:1px solid rgba(255,255,255,0.5); -webkit-border-radius:100%; -moz-border-radius: 100%;border-radius: 100%;}
+.photo_w img{margin:7px auto 0;width:82px; height: 82px;-webkit-border-radius: 100%; -moz-border-radius: 100%;border-radius: 100%;}
+.name{font-size:18px; line-height: 1;}
+.zhiwei{font-size:12px;line-height:1.5;}
+
+.mainbox01{display:block; position: relative;width: 88%; margin: 5px auto 0; padding: 0 0 10px;}
+.tit01{display:block;padding: 1% 0;}
+.tit01 span{display:inline-block;height:16px; line-height:1;color:#666; font-size:12px;}
+.i_01a{ background-image: url(/tpl/static/person/images/i_home01.png);}
+.i_02a{ background-image: url(/tpl/static/person/images/i_call01.png);}
+.i_03a{ background-image: url(/tpl/static/person/images/i_phone01.png);}
+.i_04a{ background-image: url(/tpl/static/person/images/i_fax01.png);}
+.i_05a{ background-image: url(/tpl/static/person/images/i_mail01.png);}
+.i_06a{ background-image: url(/tpl/static/person/images/i_address01.png);}
+.i_07a{ background-image: url(/tpl/static/person/images/i_bz01.png);}
+.i_08a{ background-image: url(/tpl/static/person/images/i_web01.png);}
+.tit01 i{display:inline-block;position: relative;top:3px;width:16px; height: 16px; margin-right: 4px;background-repeat: no-repeat;background-position: 50%; background-size: 100%;}
+
+.mainbox01 p{padding-bottom:8px;display:block;color:#666; font-size:14px;line-height: 1.2; border-bottom:1px solid #e9e9e9;}
+.textarea_bz{width:100%; min-height:48px;border-bottom:none !important;color:#666;font-size: 14px; line-height: 1.2;font-family: "\5FAE\8F6F\96C5\9ED1", "\9ED1\4F53", arial, sans-serif;border:0;resize:none;}
+
+/*模板二*/
+.banner02{background-color:#1dca1d;}
+
+.mod_main02{display:block;width:100%;position:relative; margin:0 auto; padding-top:30px;border:0;}
+.mod_main02 .tab_top01{position:relative;border-collapse:collapse; width:100%;}
+.mod_main02 .tab_top01 td, .mod_main02 .tab_top01 td p{ vertical-align: middle; color:#fff;}
+
+.photo_w02{margin:0 auto;overflow: hidden;width:96px; height:96px;-webkit-border-radius: 100%; -moz-border-radius: 100%;border-radius: 100%;}
+.photo_w02 img{margin:7px auto 0;width:82px; height: 82px;-webkit-border-radius: 100%; -moz-border-radius: 100%;border-radius: 100%;}
+.name02{font-size:18px; line-height: 1.5;}
+.zhiwei02{font-size:12px;line-height:1.3;}
+
+.mainbox02{display:block; position: relative;width: 88%; margin: 5px auto 0; padding: 0;}
+.tit02{display:block; position:relative;padding:8px 20px 8px 12px;background-color: #fff; /*background:url(/tpl/static/person/images/tit02.jpg) repeat;/*background:rgba(255, 255, 255, 0.35); background-repeat:no-repeat; background-position:98% 12px;background-size:8px;*/}
+.tit02-1{border-radius: 5px 5px 0px 0px; margin-bottom: 2px;/*background-image:url(/tpl/static/person/images/vcard_new/arrow_r.png);*/}
+.tit02-2{border-radius: 0px; margin-bottom: 2px;/*background-image:url(/tpl/static/person/images/vcard_new/arrow_r.png);*/}
+.tit02-3{border-radius: 0px 0px 5px 5px;/*background-image:url(/tpl/static/person/images/vcard_new/arrow_r.png);*/}
+.tit02-4{border-radius: 5px; margin: 10px 0;}
+.tit02 span{display:block; position:relative;line-height:1.5;color:#000; font-size:14px; padding-left: 24px;word-break:break-all;}
+.i_01b{ background-image: url(/tpl/static/person/images/i_home01c.png);}
+.i_02b{ background-image: url(/tpl/static/person/images/i_call01c.png);}
+.i_03b{ background-image: url(/tpl/static/person/images/i_phone01c.png);}
+.i_04b{ background-image: url(/tpl/static/person/images/i_fax01c.png);}
+.i_05b{ background-image: url(/tpl/static/person/images/i_mail01c.png);}
+.i_06b{ background-image: url(/tpl/static/person/images/i_address01c.png);}
+.i_07b{ background-image: url(/tpl/static/person/images/i_bz01c.png);}
+.i_08b{ background-image: url(/tpl/static/person/images/i_web01c.png);}
+.tit02 i{display:inline-block;position:absolute;top:11px; left:12px;width:16px; height: 16px; margin-right: 4px;background-repeat: no-repeat;background-position: 50%; background-size: 100%;}
+.tit02 b{display:block;position:absolute; right:10px; top:11px;width:8px;height:13px;background:url(/tpl/static/person/images/vcard_new/arrow_r.png) no-repeat 0 0;}
+
+/*模板三*/
+.banner03{display:block;width:100%;height: 83px; background-color: #1dca1d; position:relative; margin-bottom:2px;}
+.banner03 img{display:block;width:100%;position:relative;}
+
+.mod_main03{display:block;width:100%;position:absolute; margin:0 auto;top:24px;}
+.mod_main03 .tab_top01{position:relative;border-collapse:collapse; width:100%;}
+.mod_main03 .tab_top01 td, .mod_main03 .tab_top01 td p{ vertical-align:top; color:#fff;}
+
+.photo_w03{overflow: hidden;width:68px; height: 68px;}
+.photo_w03 img{margin:2px auto 0;width:64px; height: 64px; border:2px solid rgba(255,255,255,0.5);-moz-border-radius:2px; -webkit-border-radius:2px;border-radius:2px;}
+.name03{font-size:18px; line-height: 1.5;}
+.zhiwei03{font-size:12px;line-height:1.3;}
+
+.mainbox03{display:block; position: relative; width: 88%; margin: 5px 0 0 12%; padding: 5% 0 10px;}
+.tit03{display:block;padding: 10px 4px 6px 36px;position: relative;border-bottom:1px solid #e9e9e9;}
+.tit03-left{display:inline-block;position:absolute;left: -20px; top:13px;}
+.tit03-left span{display:inline-block;height:16px; line-height:1;color:#666; font-size:14px;vertical-align:top;}
+.i_01c{ background-image: url(/tpl/static/person/images/i_home01c.png);}
+.i_02c{ background-image: url(/tpl/static/person/images/i_call01c.png);}
+.i_03c{ background-image: url(/tpl/static/person/images/i_phone01c.png);}
+.i_04c{ background-image: url(/tpl/static/person/images/i_fax01c.png);}
+.i_05c{ background-image: url(/tpl/static/person/images/i_mail01c.png);}
+.i_06c{ background-image: url(/tpl/static/person/images/i_address01c.png);}
+.i_07c{ background-image: url(/tpl/static/person/images/i_bz01c.png);}
+.i_08c{ background-image: url(/tpl/static/person/images/i_web01c.png);}
+.tit03-left i{display:inline-block;position: relative;top:-2px;width:16px; height: 16px; margin-right: 5px;background-repeat: no-repeat;background-position: 50%; background-size: 100%;}
+
+.i_w{display:block; position:absolute;right:10px; top:4px;}
+.i_w a{dispaly:inline-block;}
+.i_callc, .i_smsc{display:inline-block;position:relative;width:24px;height:24px;background-repeat:no-repeat;background-position: 50%; background-size:24px;}
+.i_callc{background-image: url(/tpl/static/person/images/call01.png);}
+.i_smsc{background-image: url(/tpl/static/person/images/sms01c.png);}
+
+.mainbox03 p{display:inline-block;color:#666; font-size:14px;line-height: 1.5;vertical-align:top; }
+.mainbox03 a{color:#666;}
+.border-b-no{border-bottom:none !important;}
+
+
+.pd-top-8{padding-top:8px;}
+.w310{width:320px;}
+input[type=radio]{border:0;}
+.orangebtn150 {display:inline-block;  width:150px;height:30px; line-height:30px; font-size:14px; color:#fff; text-align:center; background:url(/tpl/static/person/images/btn_all02.jpg) no-repeat -671px 0px;}
+.orangebtn150:hover {background:url(/tpl/static/person/images/btn_all02.jpg) repeat -671px -30px;}
+
+.myradio .radiobg{background:url(/tpl/static/person/images/input02.png) repeat scroll -90px 0;display:inline-block;float:none;height:16px;width:16px;position:relative;top:3px;cursor:pointer;}
+.myradio .radio-fouce{background:url(/tpl/static/person/images/input02.png) repeat scroll -74px 0;display:inline-block;float:none;height:16px;width:16px;position:relative;top:3px;cursor:pointer;}
+.scbtn_l{display:inline-block;width:77px; height:30px; background:url(/tpl/static/person/images/scbtn.png) no-repeat 0 0;}
+.scbtn_l:hover{background-position:0 -30px;}
+.scbtn_r{display:inline-block;width:32px; height:30px; background:url(/tpl/static/person/images/scbtn.png) no-repeat -77px 0;}
+.scbtn_r:hover{background-position:-77px -30px;}
+.sel_box{height:32px; line-height:32px;}
+.w140{width:140px;}

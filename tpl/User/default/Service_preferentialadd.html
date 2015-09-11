@@ -1,0 +1,95 @@
+<include file="Public:head"/>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script>
+<script>
+$(document).ready(function(){
+	$("form").submit(function () {
+		var name = $("#name").val();
+		var img = $("#img").val();
+		var url = $("#url").val();
+		var info = $("#info").val();
+		if(name == ''){
+			alert('请填写优惠标题');
+			buterror(1,'#name');
+			return false;
+		}else if(img == ''){
+			alert('请添加优惠图片');
+			buterror(1,'#img');
+			return false;
+		}else if(url == ''){
+			alert('请填写优惠链接');
+			buterror(1,'#url');
+			return false;
+		}else{
+			return true;
+		}
+	});
+});
+function buterror(type,id,id2){
+	if(type == 0){
+		$("html,body").animate({scrollTop: $(id).offset().top}, 500);
+	}else{
+		$("html,body").animate({scrollTop: $(".topbg").offset().top}, 500);
+	}
+	$(id).css("border","2px solid red");
+	$(id).focus(function(){
+		$(id).css("border","1px solid");
+		$(id).css("border-color","#848484 #E0E0E0 #E0E0E0 #848484");
+		$(id2).css("border","1px solid");
+		$(id2).css("border-color","#848484 #E0E0E0 #E0E0E0 #848484");
+	})
+	$(id2).css("border","2px solid red");
+	$(id2).focus(function(){
+		$(id2).css("border","1px solid");
+		$(id2).css("border-color","#848484 #E0E0E0 #E0E0E0 #848484");
+		$(id).css("border","1px solid");
+		$(id).css("border-color","#848484 #E0E0E0 #E0E0E0 #848484");
+	})
+}
+</script>
+<form class="form" method="post"   action="{pigcms::U('Service/preferentialdoadd',array('token'=>$token,'type'=>'preferential'))}"  target="_top" enctype="multipart/form-data">
+	<div class="content">
+		<div class="cLineB">
+			<h4 class="left">添加优惠</h4>
+			<a href="{pigcms::U('Service/preferentiallist',array('token'=>$token,'type'=>'preferential'))}" class="right btnGreen">返回</a>
+		</div>
+		
+		<div class="msgWrap bgfc">
+			<table class="userinfoArea" style=" margin:0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+				<tbody>
+					<tr>
+						<th>标题：</th>
+						<td>
+							<input type="input" class="px" id="name" value="" name="name" style="width:400px" />
+						</td>
+					</tr>
+					<tr>
+					<th>LOGO：</th>
+						<td>
+							<input type="input" class="px" id="img"  name="img" value=""  style="width:250px"/>
+							<a href="###" onclick="upyunPicUpload('img',114,114,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('img')">预览</a>
+						</td>
+					</tr>
+					<tr>
+						<th>链接：</th>
+						<td>
+							<input type="input" class="px" id="url" value="" name="url" style="width:250px" /><a href="###" onclick="addLink('url',0)" class="a_choose">从功能库添加</a>
+						</td>
+					</tr>
+					<tr>
+						<th valign="top">描述：</th>
+						<td>
+							<textarea  class="px" id="info" name="info"  style="width:400px; height:125px" ></textarea>
+						</td>
+					</tr>
+					<tr>
+						<th>&nbsp;</th>
+						<td><button type="submit" class="btnGreen" >保存</button>　<a href="{pigcms::U('Service/preferentiallist',array('token'=>$token,'type'=>'preferential'))}"  class="btnGray vm">取消</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</form>
+<include file="Public:footer"/>

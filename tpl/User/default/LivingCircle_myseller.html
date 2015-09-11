@@ -1,0 +1,391 @@
+<include file="LivingCircle:head" />
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<link rel="stylesheet" type="text/css" href="{pigcms:$staticPath}/tpl/static/livingcircle/css/cymain.css" />
+<link rel="stylesheet" href="{pigcms::STATICS}/kindeditor/themes/default/default.css" />
+<link rel="stylesheet" href="{pigcms::STATICS}/kindeditor/plugins/code/prettify.css" />
+<script src="{pigcms::STATICS}/kindeditor/kindeditor.js" type="text/javascript"></script>
+<script src="{pigcms::STATICS}/kindeditor/lang/zh_CN.js" type="text/javascript"></script>
+<script src="{pigcms::STATICS}/kindeditor/plugins/code/prettify.js" type="text/javascript"></script>
+<script type="text/javascript" src="{pigcms::RES}/js/formCheck/formcheck.js"></script>
+<script>
+var editor;
+KindEditor.ready(function(K) {
+	editor = K.create('#intro', {	
+		debug : true,
+		resizeType : 1,
+		allowPreviewEmoticons : false,
+		allowImageUpload : true,
+		allowUpload : true,
+		postParams:{'PHPSESSID':"<?php echo session_id();?>"},
+		uploadJson : "{pigcms::U('Upyun/kindedtiropic')}",
+		items : [
+		'source','undo','clearhtml','hr',
+		'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+		'insertunorderedlist', '|', 'emoticons', 'image' ,'multiimage', 'link', 'unlink','baidumap','lineheight','table','anchor','preview','print','template','code','cut']
+	});
+});
+function selectall(name) {
+	var checkItems=$('.cbitem');
+	if ($("#check_box").attr('checked')==false) {
+		$.each(checkItems, function(i,val){
+			val.checked=false;
+		});
+		
+	} else {
+		$.each(checkItems, function(i,val){
+			val.checked=true;
+		});
+	}
+}
+function setlatlng(longitude,latitude){
+	art.dialog.data('longitude', longitude);
+	art.dialog.data('latitude', latitude);
+	// 此时 iframeA.html 页面可以使用 art.dialog.data('test') 获取到数据，如：
+	// document.getElementById('aInput').value = art.dialog.data('test');
+	art.dialog.open('{pigcms::U('Map/setLatLng',array('token'=>$token,'id'=>$id))}',{lock:false,title:'设置经纬度',width:600,height:400,yesText:'关闭',background: '#000',opacity: 0.87});
+}
+</script>
+<div class="content">
+	<div class="cLineB">
+		<h4 class="left">微信生活圈</h4>
+		<div class="clr"></div>
+	</div>
+	
+	<div class="tab">
+		<ul>
+			<li class="current tabli" id="tab2"><a href="{pigcms::U('LivingCircle/myseller',array('token'=>$token))}">商家信息</a></li>
+			<li class="tabli" id="tab2"><a href="{pigcms::U('LivingCircle/mysellergoods',array('token'=>$token))}">商品管理</a></li>
+			<li class="tabli" id="tab2"><a href="{pigcms::U('LivingCircle/mysellerorder',array('token'=>$token))}">订单管理</a></li>
+		</ul>
+	</div>
+	
+	<div class="cLineB">
+		<h4 class="left">我的商家信息</h4>
+	</div>
+	
+	<div class="msgWrap">
+		<form class="form" method="post" id="form" name="form" action="{pigcms::U('LivingCircle/domysellerupdate',array('token'=>$token))}">
+			<div class="msgWrap bgfc">
+				<table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%">
+					<tbody>
+						
+						<tr>
+							<th><span class="red">*</span>名称：</th>
+							<td><input type="text" id="name" name="name" value="{pigcms:$company.name}" class="px require" style="width:400px;" /></td>
+						</tr>
+						
+						<tr>
+							<th><span class="red">*</span>简称：</th>
+							<td><input type="text" id="shortname" name="shortname" value="{pigcms:$company.shortname}" class="px require" style="width:400px;" /></td>
+						</tr>
+						
+						<tr>
+							<th><span class="red">*</span>电话：</th>
+							<td><input type="text" id="tel" name="tel" value="{pigcms:$company.tel}" class="px require" style="width:400px;" /></td>
+						</tr>
+						
+						<tr>
+							<th><span class="red">*</span>手机：</th>
+							<td><input type="text" id="mp" name="mp" value="{pigcms:$company.mp}" class="px require" style="width:400px;" /></td>
+						</tr>
+						
+						<tr>
+							<th><span class="red">*</span>地址：</th>
+							<td><input type="text" id="address" name="address" value="{pigcms:$company.address}" class="px require" style="width:400px;" /></td>
+						</tr>
+						
+						<tr>
+							<th><span class="red">*</span>Logo：</th>
+							<td>
+								<input type="text" id="logourl" name="logourl" value="{pigcms:$company.logourl}" class="px require" style="width:400px;" />
+								<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script>
+								<a href="###" onclick="upyunPicUpload('logourl',400,400,'{pigcms:$token}')" class="a_upload">上传</a>
+								<a href="###" onclick="viewImg('logourl')">预览</a>
+								&nbsp;
+								推荐尺寸：400*400
+							</td>
+						</tr>
+						
+						<tr>
+							<th valign="top"><span class="red">*</span>商家展示图片1：</th>
+							<td>
+								<input type="input" class="px" id="fistpic"  name="fistpic" value="{pigcms:$seller.fistpic}"  style="width:400px"/>
+								<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('fistpic',900,500,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('fistpic')">预览</a>
+								&nbsp;
+								推荐尺寸：900*500
+							</td>
+						</tr>
+						
+						<tr>
+							<th valign="top">商家展示图片2：</th>
+							<td>
+								<input type="input" class="px" id="secondpic"  name="secondpic" value="{pigcms:$seller.secondpic}"  style="width:400px"/>
+								<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('secondpic',900,500,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('secondpic')">预览</a>
+							</td>
+						</tr>
+						
+						<tr>
+							<th valign="top">商家展示图片3：</th>
+							<td>
+								<input type="input" class="px" id="thirdpic"  name="thirdpic" value="{pigcms:$seller.thirdpic}"  style="width:400px"/>
+								<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('thirdpic',900,500,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('thirdpic')">预览</a>
+							</td>
+						</tr>
+						
+						<tr>
+							<th valign="top">商家展示图片4：</th>
+							<td>
+								<input type="input" class="px" id="fourpic"  name="fourpic" value="{pigcms:$seller.fourpic}"  style="width:400px"/>
+								<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('fourpic',900,500,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('fourpic')">预览</a>
+							</td>
+						</tr>
+						
+						<tr>
+							<th valign="top">商家展示图片5：</th>
+							<td>
+								<input type="input" class="px" id="fivepic"  name="fivepic" value="{pigcms:$seller.fivepic}"  style="width:400px"/>
+								<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('fivepic',900,500,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('fivepic')">预览</a>
+							</td>
+						</tr>
+						
+						<tr>
+							<th valign="top">商家展示图片6：</th>
+							<td>
+								<input type="input" class="px" id="sixpic"  name="sixpic" value="{pigcms:$seller.sixpic}"  style="width:400px"/>
+								<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('sixpic',900,500,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('sixpic')">预览</a>
+							</td>
+						</tr>
+						
+						<tr>
+							<th valign="top">商家微信二维码：</th>
+							<td>
+								<input type="input" class="px" id="qrcode"  name="qrcode" value="{pigcms:$seller.qrcode}"  style="width:400px"/>
+								<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('qrcode',900,900,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('qrcode')">预览</a>
+							</td>
+						</tr>
+						
+						<tr>
+							<th valign="top">商家微网站网址：</th>
+							<td>
+								<input type="input" class="px" id="weurl"  name="weurl" value="{pigcms:$seller.weurl}"  style="width:400px"/>
+							</td>
+						</tr>
+						
+						<tr>
+							<th><span class="red">*</span>经纬度：</th>
+							<td>
+								经度&nbsp;<input type="text" id="longitude" name="longitude" size="14" class="px" value="{pigcms:$company.longitude}" />
+								&nbsp;
+								纬度&nbsp;<input type="text" id="latitude" name="latitude" size="14" class="px" value="{pigcms:$company.latitude}" />
+								&nbsp;
+								<a href="###" onclick="setlatlng($('#longitude').val(),$('#latitude').val())">在地图中查看/设置</a>
+							</td>
+						</tr>
+						
+						<tr>
+							<th><span class="red">*</span>分类：</th>
+							<td>
+								<select id="type" name="type" value="" style="width:130px">
+									<option value="">--请选择分类--</option>
+									<volist name="type_list" id="vo">
+										<option value="{pigcms:$vo.pigcms_id}" <if condition="$vo['pigcms_id'] eq $seller['typeid']">selected</if> >{pigcms:$vo.name}</option>
+									</volist>
+								</select>
+								&nbsp;&nbsp;
+								<if condition="$zitype_list neq ''">
+								<select id="zitype" name="zitype" value="" style="width:130px;">
+									<option value="">--请选择子分类--</option>
+									<volist name="zitype_list" id="vo">
+										<option value="{pigcms:$vo.pigcms_id}" <if condition="$vo['pigcms_id'] eq $seller['zitypeid']">selected</if> >{pigcms:$vo.name}</option>
+									</volist>
+								</select>
+								<else />
+								<select id="zitype" name="zitype" value="" style="width:130px;display:none">
+								
+								</select>
+								</if>
+							</td>
+						</tr>
+						
+						<tr>
+							<th><span class="red">*</span>商圈：</th>
+							<td>
+								<select id="sellcircle" name="sellcircle" value="" style="width:130px">
+									<option value="">--请选择商圈--</option>
+									<volist name="sellcircle_list" id="vo">
+										<option value="{pigcms:$vo.pigcms_id}" <if condition="$vo['pigcms_id'] eq $seller['sellcircleid']">selected</if> >{pigcms:$vo.name}</option>
+									</volist>
+								</select>
+								&nbsp;&nbsp;
+								<if condition="$zisellcircle_list neq ''">
+								<select id="zisellcircle" name="zisellcircle" value="" style="width:130px;">
+									<option value="">--请选择子商圈--</option>
+									<volist name="zisellcircle_list" id="vo">
+										<option value="{pigcms:$vo.pigcms_id}" <if condition="$vo['pigcms_id'] eq $seller['zisellcircleid']">selected</if> >{pigcms:$vo.name}</option>
+									</volist>
+								</select>
+								<else />
+								<select id="zisellcircle" name="zisellcircle" value="" style="width:130px;display:none">
+								</select>
+								</if>
+							</td>
+						</tr>
+						
+						<tr>
+							<th valign="top"><label for="info">图文详细页内容：</label></th>
+							<td><textarea name="intro" id="intro"  rows="5" style="width:590px;height:360px">{pigcms:$company.intro}</textarea></td>
+						</tr>
+						
+						<tr>
+							<th>&nbsp;</th>
+							<td>
+								<button type="submit" name="button" class="btnGreen">保存</button>
+							</td>
+						</tr>
+						
+					</tbody>
+				</table>
+			</div>
+		</form>
+	</div>
+</div>
+<script>
+$(document).ready(function(){
+	
+	$("#type").change(function(){
+		zitype();
+	});
+	$("#sellcircle").change(function(){
+		zisellcircle();
+	});
+	$("form").submit(function () {
+		var name = $("#name").val();
+		var shortname = $("#shortname").val();
+		var tel = $("#tel").val();
+		var mp = $("#mp").val();
+		var address = $("#address").val();
+		var logourl = $("#logourl").val();
+		var fistpic = $("#fistpic").val();
+		var longitude = $("#longitude").val();
+		var latitude = $("#latitude").val();
+		var type = $("#type").val();
+		var sellcircle = $("#sellcircle").val();
+		if(name == ""){
+			alert('请填写名称');
+			buterror("#name");
+			return false;
+		}else if(shortname == ""){
+			alert('请填写简称');
+			buterror("#shortname");
+			return false;
+		}else if(tel == "" && mp == ""){
+			alert('请填至少一个联系方式');
+			buterror("#tel","#mp");
+			return false;
+		}else if(address == ""){
+			alert('请填写地址');
+			buterror("#address");
+			return false;
+		}else if(logourl == ""){
+			alert('请添加logo');
+			buterror("#logourl");
+			return false;
+		}else if(fistpic == ""){
+			alert('请添加一个商家展示图片');
+			buterror("#fistpic");
+			return false;
+		}else if(longitude == ""){
+			alert('请填写经度');
+			buterror("#longitude");
+			return false;
+		}else if(latitude == ""){
+			alert('请填写纬度');
+			buterror("#latitude");
+			return false;
+		}else if(type == ""){
+			alert('请选择分类');
+			buterror("#type");
+			return false;
+		}else if(sellcircle == ""){
+			alert('请选择商圈');
+			buterror("#sellcircle");
+			return false;
+		}else{
+			return true;
+		}
+	});
+});
+function zitype(){
+	var typeid = $("#type").val();
+	if(typeid != ''){
+		$.ajax({
+			type:"POST",
+			url:"{pigcms::U('LivingCircle/sellerajax',array('token'=>$token))}",
+			dataType:"json",
+			data:{
+				type:"zitype",
+				typeid:typeid,
+				token:"{pigcms:$token}"
+			},
+			success:function(data){
+				if(data.error == 1){
+					$("#zitype").html(data.list);
+					$("#zitype").show();
+				}else{
+					$("#zitype").hide();
+					$("#zitype").val(null);
+				}
+			}
+		});
+	}else{
+		$("#zitype").hide();
+		$("#zitype").val(null);
+	}
+}
+function zisellcircle(){
+	var sellcircleid = $("#sellcircle").val();
+	if(sellcircleid != ''){
+		$.ajax({
+			type:"POST",
+			url:"{pigcms::U('LivingCircle/sellerajax',array('token'=>$token))}",
+			dataType:"json",
+			data:{
+				type:"zisellcircle",
+				sellcircleid:sellcircleid,
+				token:"{pigcms:$token}"
+			},
+			success:function(data){
+				if(data.error == 1){
+					$("#zisellcircle").html(data.list);
+					$("#zisellcircle").show();
+				}else{
+					$("#zisellcircle").hide();
+					$("#zisellcircle").val(null);
+				}
+			}
+		});
+	}else{
+		$("#zisellcircle").hide();
+		$("#zisellcircle").val(null);
+	}
+}
+function buterror(id,id2){
+	$("html,body").animate({scrollTop: $(id).offset().top}, 500);
+	$(id).css("border","2px solid red");
+	$(id).focus(function(){
+		$(id).css("border","1px solid");
+		$(id).css("border-color","#848484 #E0E0E0 #E0E0E0 #848484");
+		$(id2).css("border","1px solid");
+		$(id2).css("border-color","#848484 #E0E0E0 #E0E0E0 #848484");
+	})
+	$(id2).css("border","2px solid red");
+	$(id2).focus(function(){
+		$(id2).css("border","1px solid");
+		$(id2).css("border-color","#848484 #E0E0E0 #E0E0E0 #848484");
+		$(id).css("border","1px solid");
+		$(id).css("border-color","#848484 #E0E0E0 #E0E0E0 #848484");
+	})
+}
+</script>
+<include file="Public:footer"/>

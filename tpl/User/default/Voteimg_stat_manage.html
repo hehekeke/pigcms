@@ -1,0 +1,47 @@
+<include file="Public:head"/>
+<script src="{pigcms:$staticPath}/tpl/static/jquery.min.js" type="text/javascript"></script>
+<div class="content">
+<div class="cLineB">
+<a href="{pigcms::U('Voteimg/banner_manage',array('token'=>$token,'vote_id'=>$vote_id))}" class="btnGrayS vm bigbtn">横幅管理</a> <a href="{pigcms::U('Voteimg/stat_list',array('token'=>$token,'vote_id'=>$vote_id))}" class="btnGrayS vm bigbtn">统计栏管理</a> <a href="{pigcms::U('Voteimg/banner_manage',array('token'=>$token,'vote_id'=>$vote_id))}" class="btnGrayS vm bigbtn">菜单管理</a> <a href="{pigcms::U('Voteimg/banner_manage',array('token'=>$token,'vote_id'=>$vote_id))}" class="btnGrayS vm bigbtn">底部管理</a>
+<a href="{pigcms::U('Voteimg/apply_list',array('token'=>$token,'vote_id'=>$vote_id))}" class="btnGrayS vm bigbtn">报名管理</a>
+<a href="javascript:history.go(-1);" class="right btnGrayS vm" style="margin-top:1px">返回</a>
+</div>
+  <h2> 
+    图文投票-统计管理
+</h2>
+<div class="msgWrap bgfc">
+<form class="form" method="post" action="{pigcms::U('Voteimg/stat_manage')}" target="_top">
+<table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%">
+<tbody>
+<tr>
+<th width="55" style="width:55px;">名称：</th>
+<td width="200">
+  <input type="text" style="width:150px;" id="img_1" class="px" value="{pigcms:$stat.stat_name}" name="stat_name">
+</td>
+</tr>
+<tr>
+<th width="55" style="width:55px;">排序：</th>
+<td width="200">
+  <input type="text" style="width:150px;" id="stat_rank" class="px" value="{pigcms:$stat.stat_rank}" name="stat_rank">
+</td>
+</tr>
+<tr>
+	<th>是否隐藏：</th>
+	<td>
+		<input type="radio" name="stat_hide" value="1" <if condition="$stat.stat_hide eq 1 || $stat.stat_hide eq ''"> checked </if>>否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="radio" name="stat_hide" value="2" <if condition="$stat.stat_hide eq 2"> checked </if>>是
+	</td>
+</tr>
+<input type="hidden" name="id" value="{pigcms:$id}">
+<input type="hidden" name="token" value="{pigcms:$token}">
+<tr>
+<th></th>
+<td><button type="submit" name="button" class="btnGreen sub">保存</button>
+</td>
+</tr>
+</tbody>
+</table>
+</form>
+  </div>
+</div>
+<include file="Public:footer"/>

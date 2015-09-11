@@ -1,0 +1,52 @@
+<include file="Public:head"/>
+<script src="{pigcms::RES}/js/date/WdatePicker.js"></script>
+<div class="msgWrap form">
+<div class="content">
+<div class="cLineC" style="line-height: 32px;"> 
+<!--a href="{pigcms::U('Numqueue/add_store',array('action_id'=>$action_id))}" class="btnGrayS vm bigbtn">添加门店</a--> 
+<div class="pageNavigator left">
+	开始时间：<input type="text" id="start_time" class="px name" placeholder="输入开始时间"  name="start_time" value="{pigcms:$_GET['start_time']}" style="margin-top:10px" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})">
+	结束时间：<input type="text" id="end_time" class="px name" placeholder="输入结束时间"  name="end_time" value="{pigcms:$_GET['end_time']}" style="margin-top:10px" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})">
+	<a href="javascript:seach()" id="seach" href="javascript:;" class="btnGrayS" title="查询号单">查询号单</a>
+	<a href="{pigcms::U('Numqueue/store_list',array('token'=>$token,'action_id'=>$_GET['id']))}" class="btnGrayS vm bigbtn" style="margin-top:-5px;margin-left:380px;">返回门店列表</a>
+</div>
+</div>
+    <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+	<thead>
+	<tr>
+	  <th style="width:10%;">排队号</th>
+	  <th style="width:8%;">光顾人数</th>
+	  <th style="width:15%;">手机号</th>
+	  <th style="width:10%;">排号状态</th>
+	  <th style="width:15%;">排号时间</th>
+	</th>
+	<th>操作</th>
+	</tr>
+	</thead>
+	<volist name="receive_list" id="vo">
+	  <tbody><tr>
+		  <td>{pigcms:$vo.queue_number}</td>
+		  <td>{pigcms:$vo.numbers}</td>
+		  <td>{pigcms:$vo.phone}</td>
+		 <td><if condition="$vo.status eq 2"><span style="color:red;">已过号</span><elseif condition="$vo.status eq 3" /><span style="color:red;">已取消</span><else />排队中</if></td>
+		 <td>{pigcms:$vo.add_time|date='Y-m-d H:i:s',###}</td>
+		  <td class="norightborder">
+		 <if condition="$vo.status eq 1"> <a href="{pigcms::U('Numqueue/over_number',array('id'=>$vo['id']))}" class="btnGreen">设为过号</a></if>
+		  <a href="{pigcms::U('Numqueue/del_receive',array('id'=>$vo['id']))}" onclick="return(confirm('确定要删除吗？'))" class="btnGreen">删除</a></td>
+		</tr>
+	  </tbody>
+	</volist> 
+	</table>
+	<div class="footactions" style="padding-left:10px">
+	  <div class="pages" style="text-align:right;"> {pigcms:$page}</div>
+	</div>
+    </div>
+  </div>
+<include file="Public:footer"/>
+<script>
+function seach(){
+	var start_time = $("#start_time").val();
+	var end_time = $("#end_time").val();
+	window.location.href = "/index.php?g=User&m=Numqueue&a=receive_list&store_id={pigcms:$_GET['store_id']}&token={pigcms:$token}&id={pigcms:$_GET['id']}&start_time="+start_time+"&end_time="+end_time;
+}
+</script>

@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta content="width =device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+		<meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+		<meta content="no-cache" http-equiv="pragma">
+		<meta content="0" http-equiv="expires">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<title>{pigcms:$seller.name}</title>
+		<link href="{pigcms:$staticPath}/tpl/static/livingcircle/css/common.min.css" rel="stylesheet" type="text/css" />
+		<link href="{pigcms:$staticPath}/tpl/static/livingcircle/css/01.min.css" rel="stylesheet" type="text/css" />
+		<link href="{pigcms:$staticPath}/tpl/static/livingcircle/css/icon.min.css" rel="stylesheet" type="text/css" />
+		<link href="{pigcms:$staticPath}/tpl/static/livingcircle/css/operator.min.css" rel="stylesheet" type="text/css" />
+		<script src="{pigcms:$staticPath}/tpl/static/livingcircle/js/jquery-2.1.3.min.js" language="javascript" type="text/javascript"></script>
+		<script src="{pigcms:$staticPath}/tpl/static/livingcircle/js/swipe.min.js" language="javascript" type="text/javascript"></script>
+		<script src="{pigcms:$staticPath}/tpl/static/livingcircle/js/jquery.lazyload.min.js" language="javascript" type="text/javascript"></script>
+		<style>
+		/* .squaredOne */
+		.squaredOne {
+		  width: 18px;
+		  height: 18px;
+		  position: relative;
+		  float:left;
+		  background: #fcfff4;
+		  background: -moz-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+		  background: -webkit-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+		  background: linear-gradient(to bottom, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+		  -moz-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
+		  -webkit-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
+		  box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
+		}
+		.squaredOne label {
+		  width: 12px;
+		  height: 12px;
+		  position: absolute;
+		  top: 3px;
+		  left: 3px;
+		  cursor: pointer;
+		  background: -moz-linear-gradient(top, #222222 0%, #45484d 100%);
+		  background: -webkit-linear-gradient(top, #222222 0%, #45484d 100%);
+		  background: linear-gradient(to bottom, #222222 0%, #45484d 100%);
+		  -moz-box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px white;
+		  -webkit-box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px white;
+		  box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px white;
+		}
+		.squaredOne label:after {
+		  content: '';
+		  width: 8px;
+		  height: 8px;
+		  position: absolute;
+		  top: 2px;
+		  left: 2px;
+		  background: #00bf00;
+		  background: -moz-linear-gradient(top, #00bf00 0%, #009400 100%);
+		  background: -webkit-linear-gradient(top, #00bf00 0%, #009400 100%);
+		  background: linear-gradient(to bottom, #00bf00 0%, #009400 100%);
+		  -moz-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
+		  -webkit-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
+		  box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
+		  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+		  opacity: 0;
+		}
+		.squaredOne label:hover::after {
+		  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);
+		  opacity: 0.3;
+		}
+		.squaredOne input[type=checkbox] {
+		  visibility: hidden;
+		}
+		.squaredOne input[type=checkbox]:checked + label:after {
+		  filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+		  opacity: 1;
+		}
+
+		/* end .squaredOne */
+		.gname{
+			
+			margin-left:30px;
+		}
+		.price{
+			position: absolute;
+			right:10px;
+			top:8px;
+		}
+		#comment{
+			width: 100%;
+			line-height: 30px;
+			font-size: 14px;
+			background: #f7f7f7;
+			position: fixed;
+			bottom: 0;
+			z-index:9;
+			display:none;
+		}
+		#comment dt{
+			background: #fafafa;
+			border-top: 1px solid #ccc;
+			padding: 0 10px;
+			color: #666;
+		}
+		#comment dd{
+			background: #f7f7f7;
+			border-top: 1px solid #ccc;
+			padding: 0 10px;
+			color: #666;
+		}
+		#comment dt span{
+			margin-right: 10px;
+		}
+		#comment dt em{
+			margin: 0 3px;
+			color: #377bee;
+			font-style: normal;
+		}
+		#comment a{
+			width: 100%;
+			float:left;
+			font-size: 16px;
+			height: 35px;
+			line-height: 35px;
+			text-align: center;
+			border-radius: 5px;
+			margin: 8px 0;
+			background: #377bee;
+			color: #fff;
+			cursor: auto;
+		}
+		#buy{
+			width: 100%;
+			line-height: 30px;
+			font-size: 14px;
+			background: #f7f7f7;
+			position: fixed;
+			bottom: 0;
+			z-index:9;
+			display:none;
+		}
+		#buy dt{
+			background: #fafafa;
+			border-top: 1px solid #ccc;
+			padding: 0 10px;
+			color: #666;
+		}
+		#buy dd{
+			background: #f7f7f7;
+			border-top: 1px solid #ccc;
+			padding: 0 10px;
+			color: #666;
+		}
+		#buy dt span{
+			margin-right: 10px;
+		}
+		#buy dt em{
+			margin: 0 3px;
+			color: red;
+			font-style: normal;
+		}
+		#buy a{
+			width: 100%;
+			float:left;
+			font-size: 16px;
+			height: 35px;
+			line-height: 35px;
+			text-align: center;
+			border-radius: 5px;
+			margin: 8px 0;
+			background: red;
+			color: #fff;
+			cursor: auto;
+		}
+		</style>
+		<script>
+			var bian = 0;
+			var iconcount = 5;
+			var i = 0;
+			$(document).ready(function(){
+				$.ajax({
+					type:'POST',
+					url:"{pigcms::U('LivingCircle/ajax',array('token'=>$token))}",
+					dataType:"json",
+					data:{
+						type:'commentlist',
+						sellerid:<?php echo $_GET['sellerid'];?>
+					},
+					success:function(data){
+						if(data.error == 0){
+							$(".commentlist .divider").after(data.commentlist);
+							if(data.more != ''){
+								if(data.more < data.count){
+									$(".more").show();
+								}else{
+									$(".more").hide();
+								}
+								i = data.more;
+							}else{
+								$(".more").hide();
+							}
+						}
+					}
+				});
+				$.ajax({
+					type:"POST",
+					url:"{pigcms::U('LivingCircle/ajax',array('token'=>$token))}",
+					dataType:"json",
+					data:{
+						type:"goodsdel",
+						sellerid:<?php echo $_GET['sellerid'];?>
+					},
+					success:function(data){
+						if(data.error == 0){
+							$(".goods").attr("checked",false);
+						}
+					}
+				});
+				$(".goods").click(function(){
+					//$("#foot").slideUp();
+					if($(this).attr("checked")){
+						//取消
+						$(this).attr("checked",false);
+						$(this).removeClass("checked");
+					}else{
+						//选中
+						$(this).attr("checked",true);
+						$(this).addClass("checked");
+					}
+					var count = $(".checked").length;
+					if(count > 0){
+						$("#foot").slideUp();
+						$("#comment").slideUp();
+						$("#buy").slideDown();
+						bian = 0;
+						$("#bottom_height").css('height','85px');
+					}else{
+						$("#foot").slideDown();
+						$("#comment").slideUp();
+						$("#buy").slideUp();
+						bian = 0;
+						$("#bottom_height").css('height','85px');
+					}
+					var goodsid = $(this).attr('goodsid');
+					$.ajax({
+						type:"POST",
+						url:"{pigcms::U('LivingCircle/ajax',array('token'=>$token))}",
+						dataType:"json",
+						data:{
+							type:"sellerbuy",
+							goodsid:goodsid,
+							sellerid:<?php echo $_GET['sellerid'];?>
+						},
+						success:function(data){
+							if(data.error == 0){
+								$("#sum").html(data.sum);
+								$("#total").html(data.total);
+							}
+						}
+					});
+				});
+				
+				$("#comment .icon").click(function(){
+					var state = $(this).attr('state');
+					var num = $(this).attr('num');
+					if(num == 1){
+						$("#comment .icon").removeClass('star-2');
+						$("#comment .icon").addClass('star');
+						$("#comment .icon").eq(0).removeClass('star');
+						$("#comment .icon").eq(0).addClass('star-2');
+					}else if(num == 2){
+						$("#comment .icon").removeClass('star-2');
+						$("#comment .icon").addClass('star');
+						$("#comment .icon").eq(0).removeClass('star');
+						$("#comment .icon").eq(0).addClass('star-2');
+						$("#comment .icon").eq(1).removeClass('star');
+						$("#comment .icon").eq(1).addClass('star-2');
+					}else if(num == 3){
+						$("#comment .icon").removeClass('star');
+						$("#comment .icon").addClass('star-2');
+						$("#comment .icon").eq(3).removeClass('star-2');
+						$("#comment .icon").eq(3).addClass('star');
+						$("#comment .icon").eq(4).removeClass('star-2');
+						$("#comment .icon").eq(4).addClass('star');
+					}else if(num == 4){
+						$("#comment .icon").removeClass('star');
+						$("#comment .icon").addClass('star-2');
+						$("#comment .icon").eq(4).removeClass('star-2');
+						$("#comment .icon").eq(4).addClass('star');
+					}else if(num == 5){
+						$("#comment .icon").removeClass('star');
+						$("#comment .icon").addClass('star-2');
+					}
+					iconcount = $("#comment .star-2").length;
+				});
+			});
+			function morecomment(){
+				$.ajax({
+					type:'POST',
+					url:"{pigcms::U('LivingCircle/ajax',array('token'=>$token))}",
+					dataType:"json",
+					data:{
+						type:'morecomment',
+						i:i,
+						sellerid:<?php echo $_GET['sellerid'];?>
+					},
+					success:function(data){
+						if(data.error == 0){
+							$(".comment:last").after(data.commentlist);
+							if(data.more != ''){
+								if(data.more < data.count){
+									$(".more").show();
+								}else{
+									$(".more").hide();
+								}
+								i = data.more;
+							}
+						}
+					}
+				});
+			}
+			function docomment(){
+				var commentinfo = $("#commentinfo").val();
+				//iconcount
+				if(commentinfo == ''){
+					alert('请填写您的评论');
+				}else{
+					$.ajax({
+						type:'POST',
+						url:"{pigcms::U('LivingCircle/ajax',array('token'=>$token))}",
+						dataType:"json",
+						data:{
+							type:'addcomment',
+							commentinfo:commentinfo,
+							iconcount:iconcount,
+							sellerid:<?php echo $_GET['sellerid'];?>
+						},
+						success:function(data){
+							if(data.error == 0){
+								alert('评论成功');
+								location.reload();
+							}
+						}
+					});
+				}
+			}
+			function favorite(){
+				$.ajax({
+					type:"POST",
+					url:"{pigcms::U('LivingCircle/ajax',array('token'=>$token))}",
+					dataType:"json",
+					data:{
+						type:"favorite",
+						sellerid:<?php echo $_GET['sellerid'];?>
+					},
+					success:function(data){
+						if(data.error == 0){
+							$("#favoriteA").removeClass("yellow-favor");
+							$("#favoriteA").addClass("yellow-favorfill");
+						}else{
+							$("#favoriteA").addClass("yellow-favor");
+							$("#favoriteA").removeClass("yellow-favorfill");
+						}
+					}
+				});
+			}
+			
+			function comment(){
+				if(bian == 0){
+					$("#foot").slideUp();
+					$("#buy").slideUp();
+					$("#comment").slideDown();
+					bian = 1;
+					$("#bottom_height").css('height','185px');
+				}else if(bian == 1){
+					$("#buy").slideUp();
+					$("#comment").slideUp();
+					$("#foot").slideDown();
+					bian = 0;
+					$("#bottom_height").css('height','85px');
+				}
+			}
+			function closecomment(){
+				$("#buy").slideUp();
+				$("#comment").slideUp();
+				$("#foot").slideDown();
+				bian = 0;
+				$("#bottom_height").css('height','85px');
+			}
+		</script>
+	</head>
+	<body>
+		<header>
+			<nav class="left">
+				<a class="t-icon white-back" href="javascript:history.go(-1);"></a>
+			</nav>
+			<p class="title">{pigcms:$seller.name}</p>
+			<nav class="right">
+				<if condition="$favorite eq 'no'">
+					<a href="javascript:favorite();" id="favoriteA" class="t-icon yellow-favor"></a>
+				<else />
+					<a href="javascript:favorite();" id="favoriteA" class="t-icon yellow-favorfill"></a>
+				</if>
+			</nav>
+		</header>
+		
+		<div class="countInfo">
+			<span>
+				<span>
+					<span>浏览量：</span>
+					<span id="span_PageView" style="color:#F1C40F !important">{pigcms:$seller.pv}</span>
+				</span>
+			</span>
+		</div>
+		
+		<div>
+			<div id="banner_box" class="box_swipe" style="visibility: visible;">
+				<ul id="swipe-box">
+					<volist name="headpic" id="pic">
+						<li>
+							<a href="javascript:;">
+								<img src="{pigcms:$pic}" style="width: 100%;">
+							</a>
+						</li>
+					</volist>
+				</ul>
+				<ol>
+					<volist name="headpic" id="pic">
+						<li class="<if condition='$i eq 1'>on</if>">
+						</li>
+					</volist>
+				</ol>
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			$(function () { new Swipe(document.getElementById('banner_box'), { speed: 500, auto: 3000, callback: function () { var lis = $(this.element).next("ol").children(); lis.removeClass("on").eq(this.index).addClass("on") } }) });
+		</script>
+		
+		<if condition="$seller.weurl neq ''">
+		<ul class="list inset nav">
+			<li><a href="">进入商家微站</a><i class="icon home left"></i><i class="icon next"></i></li>
+		</ul>
+		</if>
+		
+		<ul class="list inset lianxi">
+			<li class="divider">联系信息</li>
+				<li>
+					<a href="tel:{pigcms:$seller.phone}">电话：{pigcms:$seller.phone}</a>
+					<i class="icon phone-hang-up"></i>
+				</li>
+				<li>
+					<a href="{pigcms::U('LivingCircle/map',array('token'=>$token,'sellerid'=>$seller['pigcms_id']))}">地址：{pigcms:$seller.address}</a>
+				<i class="icon location"></i>
+			</li>
+		</ul>
+		
+		<if condition="$mysellergoods neq ''">
+		<ul class="list inset">
+			<li class="divider">优惠商品</li>
+				<volist name="mysellergoods" id="vo">
+				<li>
+					<div class="squaredOne">
+						<input type="checkbox" class="goods" goodsid="{pigcms:$vo.pigcms_id}" id="goods{pigcms:$vo.pigcms_id}" name="goods{pigcms:$vo.pigcms_id}" />
+						<label for="goods{pigcms:$vo.pigcms_id}"></label>
+					</div>
+					<label for="goods{pigcms:$vo.pigcms_id}"><div class="gname">{pigcms:$vo.name}</div></label>
+					<label for="goods{pigcms:$vo.pigcms_id}"><div class="price">{pigcms:$vo.price}</div></label>
+				</li>
+				</volist>
+		</ul>
+		</if>
+		
+		<if condition="$seller.intro neq ''">
+		<div class="panel">
+			<div class="title">商家介绍</div>
+			<div class="content">
+			{pigcms:$seller.intro|htmlspecialchars_decode}
+			</div>
+		</div>
+		</if>
+		
+		<if condition="$seller.qrcode neq ''">
+		<div class="panel">
+			<div class="title">二维码</div>
+			<div class="content">
+				<img src="{pigcms:$seller.qrcode}" style="width:100%;">
+
+			</div>
+		</div>
+		</if>
+		
+		<style>
+		.grade>.icon {
+		  margin: 0;
+		  color: orange;
+		  font-size: 14px;
+		}
+		.commentlist .huise{
+			color: #7a7a7a;
+			font-size: .75em;
+			padding-top: 5px;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			white-space: nowrap;
+		}
+		</style>
+		
+		<ul class="list inset commentlist">
+			<li class="divider">
+				评价({pigcms:$count})
+				<span class="grade" style="float:right;">
+					<?php if($star > 0){?>
+					<i class="icon star-2"></i>
+					<i class="icon <?php if($star > 1){?>star-2<?php }else{echo "star";}?>"></i>
+					<i class="icon <?php if($star > 2){?>star-2<?php }else{echo "star";}?>"></i>
+					<i class="icon <?php if($star > 3){?>star-2<?php }else{echo "star";}?>"></i>
+					<i class="icon <?php if($star > 4){?>star-2<?php }else{echo "star";}?>"></i>
+					<?php }else{?>
+					<i class="icon star-2"></i><i class="icon star-2"></i><i class="icon star-2"></i><i class="icon star-2"></i><i class="icon star-2"></i>
+					<?php }?>
+				</span>
+			</li>
+			
+			<li class="more" style="display:none;"><a href='javascript:morecomment();'><center><span class='huise'>点击加载更多</span></center></a></li>
+			<li>
+				<a href="javascript:comment();" style="font-weight:900"><center>点此评价</center></a>
+			</li>
+			
+				
+		</ul>
+		
+		<div style="width:100%;height:85px;" id="bottom_height"></div>
+		
+		<footer id="foot">
+                <a href="{pigcms::U('LivingCircle/index',array('token'=>$token))}"> 
+                    <i class="icon home"></i>首页
+                </a>
+                <a href="{pigcms::U('LivingCircle/typelist',array('token'=>$token))}"> 
+                    <i class="icon rocket"></i>本地导航
+                </a>
+                <!-- <a href=""> 
+                    <i class="icon gift"></i>优惠券
+                </a> -->
+                <a href="{pigcms::U('LivingCircle/my',array('token'=>$token))}"> 
+                    <i class="icon user"></i>我的
+                </a>
+        </footer>
+		
+		<div id="buy">
+			<dl>
+				<dt>
+					
+					<span>共<em class="" id="sum">1</em>个商品</span>
+					合计<em class="" id="total">1.00</em>元
+					
+				</dt>
+				<dd>
+					<a href="{pigcms::U('LivingCircle/domyinfo',array('token'=>$token,'sellerid'=>$_GET['sellerid']))}" class="">去结算</a>
+				</dd>
+			</dl>
+		</div>
+		
+		<div id="comment">
+			<dl>
+				<dt>
+					评分：
+					<span class="grade">
+						<i class="icon star-2" state="star-2" num="1"></i>
+						<i class="icon star-2" state="star-2" num="2"></i>
+						<i class="icon star-2" state="star-2" num="3"></i>
+						<i class="icon star-2" state="star-2" num="4"></i>
+						<i class="icon star-2" state="star-2" num="5"></i>
+					</span>
+					
+					<textarea style="width:100%;height:80px;resize:none;" id="commentinfo"></textarea>
+				</dt>
+				<dd>
+					<a href="javascript:docomment();" class="" style="width:49%">提 交</a>
+					<a href="javascript:closecomment();" class="" style="width:49%;background:#aaa;float:right">取 消</a>
+				</dd>
+			</dl>
+		</div>
+		
+		<div id="scrollUp" class="goToTop goToTop63" style="display: none;z-index:12"></div>
+		
+		<script>
+			$(function () { var $bottomTools = $('.bottom_tools'); $(window).scroll(function () { var scrollHeight = $(document).height(); var scrollTop = $(window).scrollTop(); var $windowHeight = $(window).innerHeight(); scrollTop > 50 ? $("#scrollUp").fadeIn(200).css("display", "block") : $("#scrollUp").fadeOut(200); $bottomTools.css("bottom", scrollHeight - scrollTop > $windowHeight ? 40 : $windowHeight + scrollTop + 40 - scrollHeight) }); $('#scrollUp').click(function (e) { e.preventDefault(); $('html,body').animate({ scrollTop: 0 }) }) });
+			//图片延迟加载
+			$(function () {
+				$("img.lazy").lazyload({ effect: "fadeIn" });
+			});
+		</script>
+		
+		
+<script type="text/javascript">
+window.shareData = {  
+            "moduleName":"LivingCircle",
+            "moduleID":"0",
+            "imgUrl": "{pigcms:$staticPath}/tpl/static/unitary/images/wxnewspic.jpg", 
+            "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('LivingCircle/index',array('token'=>$token))}",
+            "tTitle": "微信生活圈",
+            "tContent": ""
+        };
+</script>
+{pigcms:$shareScript}
+	</body>
+</html>

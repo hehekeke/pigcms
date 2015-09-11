@@ -1,0 +1,61 @@
+<include file="Public:head"/>
+<div class="msgWrap form">
+<div class="content">
+<div class="cLineC" style="line-height: 32px;"> 
+<a href="{pigcms::U('Numqueue/add_store',array('action_id'=>$action_id))}" class="btnGrayS vm bigbtn">添加门店</a> 
+<div class="pageNavigator right" style="margin-top: -5px;">
+<input type="text" id="name" class="px name" placeholder="输入门店名称"  name="name" value="{pigcms:$_GET['name']}" style="margin-top:10px">
+	<a href="javascript:seach()" id="seach" href="javascript:;" class="btnGrayS" title="查询门店">查询门店</a>
+<a href="{pigcms::U('Numqueue/index',array('token'=>$token))}" class="right btnGrayS vm">返回活动列表</a>
+</div>
+</div>
+  <div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-bottom:5px;font-size:12px;">
+  温馨提示：点击"店员登陆"按钮,页面会出现一个二维码,用微信扫描二维码即可进入排号管理登陆页,输入登陆密码就可以对该门店下的号单进行管理。<br />
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果是管理员可以将二维码另存为然后发给所属店员让其扫描登陆。
+</div>
+    <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+	<thead>
+	<tr>
+	   <th style="width:5%;">排序</th>
+	  <th style="width:10%;">门店名称</th>
+	  <th style="width:8%;">门店类型</th>
+	  <th style="width:10%;">营业时间</th>
+	  <th style="width:12%;">经度</th>
+	  <th style="width:12%;">纬度</th>
+	  <th style="width:12%;">地址</th>
+	  <th style="width:5%;">状态</th>
+	</th>
+	<th>操作</th>
+	</tr>
+	</thead>
+	<volist name="list" id="vo">
+	  <tbody><tr>
+	  		 <td>{pigcms:$vo.rank}</td>
+		  <td>{pigcms:$vo.name}</td>
+		  <td><if condition="$vo.store_type eq 1">餐饮<elseif condition="$vo.store_type eq 2" />足浴<else />理发</if></td>
+		  <td>{pigcms:$vo.opentime}:00到{pigcms:$vo.closetime}:00</td>
+		 <td>经度：{pigcms:$vo.latitude}</td>
+		 <td>纬度：{pigcms:$vo.longitude}</td>
+		 <td>{pigcms:$vo.address}</td>
+		 <td><if condition="$vo.status eq 1">开启<else />关闭</if></td>
+		  <td class="norightborder">
+		  <a href="{pigcms::U('Numqueue/receive_list',array('store_id'=>$vo['id'],'id'=>$action_id,'token'=>$token))}" class="btnGreen">排号列表</a>
+		  <a href="{pigcms::U('Numqueue/create_quickmark',array('store_id'=>$vo['id'],'id'=>$action_id,'token'=>$token))}" class="btnGreen" target="_blank">店员登陆</a>
+		  <a href="{pigcms::U('Numqueue/add_store',array('id'=>$vo['id'],'action_id'=>$action_id))}" class="btnGreen">编辑</a>
+		  <a href="{pigcms::U('Numqueue/del_store',array('id'=>$vo['id']))}" onclick="return(confirm('确定要删除吗？'))" class="btnGreen">删除</a> </td>
+		</tr>
+	  </tbody>
+	</volist> 
+	</table>
+	<div class="footactions" style="padding-left:10px">
+	  <div class="pages" style="text-align:right;"> {pigcms:$page}</div>
+	</div>
+    </div>
+  </div>
+  <script>
+  function seach(){
+	var name = $("#name").val();
+	window.location.href = "/index.php?g=User&m=Numqueue&a=store_list&action_id={pigcms:$action_id}&token={pigcms:$token}&name="+name;
+  }
+  </script>
+<include file="Public:footer"/>

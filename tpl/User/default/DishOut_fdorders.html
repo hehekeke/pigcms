@@ -1,0 +1,135 @@
+<if condition="$ischild neq 1">
+<include file="Public:head" />
+<else />
+<include file="Repast:head" />
+</if>
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+        <div class="content">
+<div class="cLineB">
+<h4 class="left">分店外卖订单管理({pigcms:$page}) </h4>
+<div class="searchbar right">
+
+</div>
+<div class="clr"></div>
+</div>
+	<div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-top:5px;">
+	<span>温馨提示：</span><p>1、此处只显示总店信息，连锁店订单及菜品请进入相应平台进行管理，连锁店登录账号密码及登录地址请在LBS里设置查看<br/>微外卖的菜品添加请到微餐饮的菜品管理里添加修改</p>
+	<p>2、本功能使用了模板消息中的“订单完成通”知模板消息，模板编号OPENTM202521011。
+          开通微信支付功能的公众号在使用此功能的时候可以在”基本设置——微信模板消息“中配置对应的模板消息</p>
+	</div>
+<!--tab start-->
+<div class="tab">
+<ul>
+<li class="tabli" id="tab3"><a href="{pigcms::U('DishOut/index', array('token' => $token,'cid' => $cid))}">外卖菜单</a></li>
+<li class="tabli" id="tab2"><a href="{pigcms::U('DishOut/manageTime', array('token' => $token,'cid' => $cid))}">外卖管理</a></li>
+<li class="tabli" id="tab2"><a href="{pigcms::U('DishOut/basePrice', array('token' => $token,'cid' => $cid))}">外送类型设置</a></li>
+<li class="tabli" id="tab5"><a href="{pigcms::U('DishOut/myReply', array('token'=>$token,'cid' => $cid))}">外卖回复配置</a></li>
+<li class="current tabli" id="tab4"><a href="{pigcms::U('DishOut/orders', array('token' => $token,'cid' => $cid))}">外卖订单管理</a></li>
+<li class="tabli" id="tab1"><a href="{pigcms::U('DishOut/Statistics', array('token' => $token,'cid' => $cid))}">外卖统计</a></li>
+</ul>
+</div>
+<!--tab end-->
+<div class="msgWrap">
+<form method="post" action="" id="info">
+<div class="cLine">
+选择订单状态：
+<select onchange="change(this,1);">
+	<option value="0" <php>if ($status == 0) {echo "selected";}</php>>全部状态</option>
+	<option value="1" <php>if ($status == 1) {echo "selected";}</php>>未付款</option>
+	<option value="2" <php>if ($status == 2) {echo "selected";}</php>>已付款</option>
+</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+选择发货：
+<select onchange="change(this,2);">
+	<option value="0" <php>if ($fstatus == 0) {echo "selected";}</php>>全部状态</option>
+	<option value="1" <php>if ($fstatus == 1) {echo "selected";}</php>>未发货</option>
+	<option value="2" <php>if ($fstatus == 2) {echo "selected";}</php>>已发货</option>
+</select>
+<a class="btnGrayS vm bigbtn" style="float:right;margin-right: 15px;" title="返回" href="{pigcms::U('DishOut/orders',array('token' => $token,'cid'=>$cid))}">返回</a>
+<div class="clr"></div>
+</div>
+
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<thead>
+<tr>
+<!--<th class="select"><input type="checkbox" value="" id="check_box" onclick="selectall('id[]');"></th>-->
+<th width="90">分店名称</th>
+<th width="75">姓名</th>
+<th width="90">电话</th>
+<th width="50">点菜数量</th>
+<th width="50">总价（元）</th>
+<th width="90">状态</th>
+<th width="127">订餐时间</th>
+<th width="127">送餐时间</th>
+<th width="180">送餐地址</th>
+<th width="60" class="norightborder">操作</th>
+</tr>
+</thead>
+<tbody>
+<tr></tr>
+<volist name="orders" id="o"> 
+<php>
+$statustr='';
+if($o['paid']==1){
+  $statustr='<span style="color:green">已付款</span>';
+}else{
+  $statustr='<span style="color:red">未付款</span>';
+}
+if($o['isuse']==1){
+  $statustr.='<span style="color:green">/已发货</span>';
+}else{
+  $statustr.='<span style="color:red">/未发货</span>';
+}
+</php>
+<tr>
+<td>{pigcms:$companys[$o['cid']]['name']}</td>
+<td>{pigcms:$o.name|htmlspecialchars_decode=ENT_QUOTES}</td>
+<td>{pigcms:$o.tel|htmlspecialchars_decode=ENT_QUOTES}</td>
+<td>{pigcms:$o.total}/份</td>
+<td>{pigcms:$o.price}</td>
+<td>{pigcms:$statustr}<if condition="$o['isdel'] eq 1">&nbsp;&nbsp;&nbsp;（已删除）</if></td>
+<td>{pigcms:$o.time|date="Y-m-d H:i:s",###}</td>
+<td><if condition="$o['reservetime'] gt 0">{pigcms:$o.reservetime|date="Y-m-d H:i:s",###}<else/>尽快送达</if></td>
+<td>{pigcms:$o.address|htmlspecialchars_decode=ENT_QUOTES}</td>
+<td class="norightborder"><a href="###" onclick="showIntroDetail({pigcms:$o.id},{pigcms:$o.cid})">详细</a></td>
+</tr>
+</volist>
+</tbody>
+</table>
+<input type="hidden" name="token" value="{pigcms:$_GET['token']}" />
+</form>
+
+<script>
+function showIntroDetail(id,cid){
+	art.dialog.open('{pigcms::U('DishOut/orderInfo',array('token'=>$token))}&fd=on&id='+id+'&cidd='+cid,{lock:false,title:'订单详情',width:1000,height:620,yesText:'关闭',background: '#000',opacity: 0.87, close: function(){location.reload();}});
+}
+</script>
+</div>
+<div class="cLine">
+<div class="pageNavigator right">
+<div class="pages">{pigcms:$page}</div>
+</div>
+<div class="clr"></div>
+</div>
+</div>
+
+<script>
+function selectall(name) {
+	var checkItems=$('.cbitem');
+	if ($("#check_box").attr('checked')==false) {
+		$.each(checkItems, function(i,val){
+			val.checked=false;
+		});
+		
+	} else {
+		$.each(checkItems, function(i,val){
+			val.checked=true;
+		});
+	}
+}
+function change(obj,t) {
+	window.location.href = "{pigcms::U('DishOut/orders',array('token' => $token, 'cid' => $cid))}&fd=on&t="+t+"&status=" + $(obj).val();
+}
+</script>
+<include file="Public:footer"/>

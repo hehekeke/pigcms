@@ -1,0 +1,162 @@
+<include file="Public:head"/>
+<div class="content" <if condition="session('isQcloud') eq true">style="float:center;"</if>>
+
+<div class="cLineB">
+
+  <h4>自定义输入项 <span class="FAQ">（会员资料是否需要显示或填写）</span></h4>
+
+ </div>
+         
+
+ 
+ <div class="msgWrap form">
+
+	<form class="form" method="post" action="{pigcms::U('Member_card/customSave')}">	 
+		<table class="ListProduct" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%">
+			<tbody>
+				
+				<tr>
+					<td width="120">微信昵称</td>
+					<td>
+						<input type="radio" name="wechaname" id="wechaname" <if condition="$conf['wechaname'] nheq 0">checked</if> value="1" /> <label for="wechaname">显示 &nbsp; &nbsp; &nbsp;</label>
+						<input type="radio" name="wechaname" id="nowechaname" <if condition="$conf['wechaname'] heq 0">checked</if> value="0" /> <label for="nowechaname">不显示 &nbsp; &nbsp; &nbsp;</label>
+						<input type="radio" name="is_wechaname" id="is_wechaname" <?php if($conf == ''){echo 'checked';}elseif($conf['is_wechaname'] == 1){echo 'checked';}?> value="1" /> <label for="is_wechaname">必填 &nbsp; &nbsp; &nbsp;</label>
+						<input type="radio" name="is_wechaname" id="is_nowechaname" <?php if($conf == ''){echo '';}elseif($conf['is_wechaname'] == 0){echo 'checked';}?> value="0" /> <label for="is_nowechaname">不必填</label>
+					</td>
+				</tr>
+								
+				<tr>
+					<td width="120">手机号</td>
+					<td>
+						<input type="radio" name="tel" id="tel" <if condition="$conf['tel'] nheq 0">checked</if> value="1" /> <label for="tel">显示 &nbsp; &nbsp; &nbsp;</label>
+						<input type="radio" name="tel" id="notel" <if condition="$conf['tel'] heq 0">checked</if> value="0" /> <label for="notel">不显示 &nbsp; &nbsp; &nbsp;</label>
+						<input type="radio" name="is_tel" id="is_tel" <?php if($conf == ''){echo 'checked';}elseif($conf['is_tel'] == 1){echo 'checked';}?> value="1" /> <label for="is_tel">必填 &nbsp; &nbsp; &nbsp;</label>
+						<input type="radio" name="is_tel" id="is_notel" <?php if($conf == ''){echo '';}elseif($conf['is_tel'] == 0){echo 'checked';}?> value="0" /> <label for="is_notel">不必填</label>
+					</td>
+				</tr>
+								
+				<tr>
+					<td width="120">真实姓名</td>
+					<td>
+						<input type="radio" name="truename" id="truename" <if condition="$conf['truename'] nheq 0">checked</if> value="1" /> <label for="truename">显示 &nbsp; &nbsp; &nbsp;</label>
+						<input type="radio" name="truename" id="notruename" <if condition="$conf['truename'] heq 0">checked</if> value="0" /> <label for="notruename">不显示 &nbsp; &nbsp; &nbsp;</label>
+						<input type="radio" name="is_truename" id="is_truename" <?php if($conf == ''){echo '';}elseif($conf['is_truename'] == 1){echo 'checked';}?> value="1" /> <label for="is_truename">必填 &nbsp; &nbsp; &nbsp;</label>
+						<input type="radio" name="is_truename" id="is_notruename" <?php if($conf == ''){echo 'checked';}elseif($conf['is_truename'] == 0){echo 'checked';}?> value="0" /> <label for="is_notruename">不必填</label>
+					</td>
+				</tr>
+								
+				<tr>
+					<td width="120">QQ号码</td>
+					<td>
+						<input type="radio" name="qq" id="qq" <if condition="$conf['qq'] nheq 0">checked</if> value="1" /> <label for="qq">显示 &nbsp; &nbsp; &nbsp;</label>
+						<input type="radio" name="qq" id="noqq" <if condition="$conf['qq'] heq 0">checked</if> value="0" /> <label for="noqq">不显示 &nbsp; &nbsp; &nbsp;</label>
+						<input type="radio" name="is_qq" id="is_qq" <?php if($conf == ''){echo '';}elseif($conf['is_qq'] == 1){echo 'checked';}?> value="1" /> <label for="is_qq">必填 &nbsp; &nbsp; &nbsp;</label>
+						<input type="radio" name="is_qq" id="is_noqq" <?php if($conf == ''){echo 'checked';}elseif($conf['is_qq'] == 0){echo 'checked';}?> value="0" /> <label for="is_noqq">不必填</label>
+					</td>
+				</tr>
+								
+				<tr>
+					<td width="120">支付密码</td>
+					<td>
+						<input type="radio" name="paypass" id="paypass" <if condition="$conf['paypass'] nheq 0">checked</if> value="1" /> <label for="paypass">显示 &nbsp; &nbsp; &nbsp;</label>
+						<input type="radio" name="paypass" id="nopaypass" <if condition="$conf['paypass'] heq 0">checked</if> value="0" /> <label for="nopaypass">不显示 &nbsp; &nbsp; &nbsp;</label>
+						<input type="radio" name="is_paypass" id="is_paypass" <?php if($conf == ''){echo '';}elseif($conf['is_paypass'] == 1){echo 'checked';}?> value="1" /> <label for="is_paypass">必填 &nbsp; &nbsp; &nbsp;</label>
+						<input type="radio" name="is_paypass" id="is_nopaypass" <?php if($conf == ''){echo 'checked';}elseif($conf['is_paypass'] == 0){echo 'checked';}?> value="0" /> <label for="is_nopaypass">不必填</label>
+					</td>
+				</tr>
+								
+				<tr>
+					<td width="120">头像</td>
+					<td>
+						<input type="radio" name="portrait" id="portrait" <if condition="$conf['portrait'] nheq 0">checked</if> value="1" /> <label for="portrait">显示 &nbsp; &nbsp; &nbsp;</label>
+						<input type="radio" name="portrait" id="noportrait" <if condition="$conf['portrait'] heq 0">checked</if> value="0" /> <label for="noportrait">不显示 &nbsp; &nbsp; &nbsp;</label>
+						<input type="radio" name="is_portrait" id="is_portrait" <?php if($conf == ''){echo '';}elseif($conf['is_portrait'] == 1){echo 'checked';}?> value="1" /> <label for="is_portrait">必填 &nbsp; &nbsp; &nbsp;</label>
+						<input type="radio" name="is_portrait" id="is_noportrait" <?php if($conf == ''){echo 'checked';}elseif($conf['is_portrait'] == 0){echo 'checked';}?> value="0" /> <label for="is_noportrait">不必填</label>
+					</td>
+				</tr>
+								
+				<tr>
+					<td width="120">性别</td>
+					<td>
+						<input type="radio" name="sex" id="sex" <if condition="$conf['sex'] nheq 0">checked</if> value="1" /> <label for="sex">显示 &nbsp; &nbsp; &nbsp;</label>
+						<input type="radio" name="sex" id="nosex" <if condition="$conf['sex'] heq 0">checked</if> value="0" /> <label for="nosex">不显示 &nbsp; &nbsp; &nbsp;</label>
+						<input type="radio" name="is_sex" id="is_sex" <?php if($conf == ''){echo '';}elseif($conf['is_sex'] == 1){echo 'checked';}?> value="1" /> <label for="is_sex">必填 &nbsp; &nbsp; &nbsp;</label>
+						<input type="radio" name="is_sex" id="is_nosex" <?php if($conf == ''){echo 'checked';}elseif($conf['is_sex'] == 0){echo 'checked';}?> value="0" /> <label for="is_nosex">不必填</label>
+					</td>
+				</tr>
+								
+				<tr>
+					<td width="120">出生年</td>
+					<td>
+						<input type="radio" name="bornyear" id="bornyear" <if condition="$conf['bornyear'] nheq 0">checked</if> value="1" /> <label for="bornyear">显示 &nbsp; &nbsp; &nbsp;</label>
+						<input type="radio" name="bornyear" id="nobornyear" <if condition="$conf['bornyear'] heq 0">checked</if> value="0" /> <label for="nobornyear">不显示 &nbsp; &nbsp; &nbsp;</label>
+						<input type="radio" name="is_bornyear" id="is_bornyear" <?php if($conf == ''){echo '';}elseif($conf['is_bornyear'] == 1){echo 'checked';}?> value="1" /> <label for="is_bornyear">必填 &nbsp; &nbsp; &nbsp;</label>
+						<input type="radio" name="is_bornyear" id="is_nobornyear" <?php if($conf == ''){echo 'checked';}elseif($conf['is_bornyear'] == 0){echo 'checked';}?> value="0" /> <label for="is_nobornyear">不必填</label>
+					</td>
+				</tr>
+				
+								
+				<tr>
+					<td width="120">出生月</td>
+					<td>
+						<input type="radio" name="bornmonth" id="bornmonth" <if condition="$conf['bornmonth'] nheq 0">checked</if> value="1" /> <label for="bornmonth">显示 &nbsp; &nbsp; &nbsp;</label>
+						<input type="radio" name="bornmonth" id="nobornmonth" <if condition="$conf['bornmonth'] heq 0">checked</if> value="0" /> <label for="nobornmonth">不显示 &nbsp; &nbsp; &nbsp;</label>
+						<input type="radio" name="is_bornmonth" id="is_bornmonth" <?php if($conf == ''){echo '';}elseif($conf['is_bornmonth'] == 1){echo 'checked';}?> value="1" /> <label for="is_bornmonth">必填 &nbsp; &nbsp; &nbsp;</label>
+						<input type="radio" name="is_bornmonth" id="is_nobornmonth" <?php if($conf == ''){echo 'checked';}elseif($conf['is_bornmonth'] == 0){echo 'checked';}?> value="0" /> <label for="is_nobornmonth">不必填</label>
+					</td>
+				</tr>
+				
+								
+				<tr>
+					<td width="120">出生日</td>
+					<td>
+						<input type="radio" name="bornday" id="bornday" <if condition="$conf['bornday'] nheq 0">checked</if> value="1" /> <label for="bornday">显示 &nbsp; &nbsp; &nbsp;</label>
+						<input type="radio" name="bornday" id="nobornday" <if condition="$conf['bornday'] heq 0">checked</if> value="0" /> <label for="nobornday">不显示 &nbsp; &nbsp; &nbsp;</label>
+						<input type="radio" name="is_bornday" id="is_bornday" <?php if($conf == ''){echo '';}elseif($conf['is_bornday'] == 1){echo 'checked';}?> value="1" /> <label for="is_bornday">必填 &nbsp; &nbsp; &nbsp;</label>
+						<input type="radio" name="is_bornday" id="is_nobornday" <?php if($conf == ''){echo 'checked';}elseif($conf['is_bornday'] == 0){echo 'checked';}?> value="0" /> <label for="is_nobornday">不必填</label>
+					</td>
+				</tr>
+				
+
+					
+
+				
+				
+				
+				<td>&nbsp;</td>
+					<td>
+						<input type="hidden" name="token" value="{pigcms:$_GET['token']}" />
+						<button type="submit" class="btnGreen">保存</button>
+						<a href="javascript:history.go(-1);" class="btnGray vm">取消</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>  
+  
+  
+  
+        </div>
+   
+        <div class="clr"></div>
+      </div>
+    </div>
+  </div> 
+  <!--底部-->
+  	</div>
+
+<if condition="session('isQcloud') neq true">
+<include file="Public:footer"/>
+</if>

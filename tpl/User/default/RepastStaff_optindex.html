@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+<title></title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" />
+<meta name="format-detection" content="telephone=no,address=no,email=no" />
+<meta name="mobileOptimized" content="width" />
+<meta name="handheldFriendly" content="true" />
+<meta http-equiv="Cache-Control" content="max-age=0" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<link rel="stylesheet" type="text/css" href="{pigcms:$staticPath}/tpl/User/default/common/css/mstyle.css" />
+<script src="{pigcms::STATICS}/jquery-1.4.2.min.js" type="text/javascript"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css" >
+.RefreshPage{color: green;
+position: absolute;
+left: 255px;
+top: 15px;}
+#commonpage{background-color:#FFF;width:90%; padding-bottom: 5px;border: 1px solid #bfbfbf;height: 52px;margin: 20px; text-align: center;}
+	#commonpage .pages{display:inline-block;}
+	#commonpage .pages a,#commonpage .pages span{display: inline-block;height: 30px;width: 30px;line-height: 30px;border: 1px solid #CCC;margin-left: 5px;}
+	#commonpage .pages a.prev{background:url(./tpl/static/repastnew/image/shop_07.png) no-repeat;}
+	#commonpage .pages a.next{background:url(./tpl/static/repastnew/image/shop_09.png) no-repeat;}
+	#commonpage .pn_page{position: relative;top: 12px;}
+	#commonpage .pages .current{background-color: #fe5842;color: #fff;}
+</style>
+</head>
+<body>
+<section class="main animated fadeInDown">
+	<div class="main-box">
+        <p class="rb-row bank-card fn-clear">{pigcms:$Staff_name}，你好！</p>
+		<span onclick="RefreshPage()" class="RefreshPage">刷 新</span>
+		<div class="commission-detail">
+			<h6 style="margin-left: 30px;">餐桌管理</h6>
+		<div class="client my-client-title">
+			<ul class="rb-row fn-clear">
+				<li class="li1">餐台名称</li>
+				<li class="li2">类型</li>
+				<li class="li4">使用状态</li>
+				<li class="li5">预定情况</li>
+			</ul>
+		</div>
+		<div class="client my-client-list">
+			 <volist name="list" id="tablelist">
+			<a class="rb-row my-client">
+			<ul class="fn-clear">
+				<li class="ali1">{pigcms:$tablelist.name}</li>
+				<li class="ali2"><php>if($tablelist['isbox']){echo"包间";}else{echo"大厅";}</php><br/>( {pigcms:$tablelist.num}座 )</li>
+				<li class="ali4"><if condition="$tablelist['status'] eq 1">正在使用...<else/>未使用</if>
+                <br/><br/><input class="btnGray" type="button" onclick="toSwitchStatus(1,{pigcms:$tablelist['id']},{pigcms:$tablelist['status']},0)" value="更新状态"></li>
+				<li class="ali5"><php>if(array_key_exists($tablelist['id'],$reserve)){echo $reserve[$tablelist['id']]['reservestr'];echo'<span style="color:red;">'.$reserve[$tablelist["id"]]["isusestr"].'</span><br/><input class="btnGray" type="button" onclick="toSwitchStatus(2,'.$tablelist["id"].','.$reserve[$tablelist["id"]]["isuse"].','.$reserve[$tablelist["id"]]["id"].')" value="更新就餐状态">';}</php></li>
+			</ul>
+			</a>
+		</volist>
+		</div>
+		</div>
+	</div>
+			{pigcms:$page}
+</section>
+<script type="text/javascript">
+
+function toSwitchStatus(type,tid,sv,dtid){
+	var tips=type==1 ? '你确定要修改餐桌使用状态吗？': '你确定要修改预约就餐状态吗？';
+	if(confirm(tips)){
+		$.post("{pigcms::U('RepastStaff/toSwitchStatus', array('token' => $token,'cid' => $cid))}",{typ:type,tid:tid,vv:sv,dtid:dtid},function(ret){
+			if(ret.error>0){
+			  alert(ret.msg);
+			}else{
+			  window.location.reload();
+			}
+		},"json");
+	}
+   return false;
+}
+function RefreshPage(){ 
+   window.location.reload();
+}
+window.setInterval("window.location.reload();",90000);
+</script>
+</body>
+</html>

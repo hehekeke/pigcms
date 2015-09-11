@@ -1,0 +1,113 @@
+<style>
+.none {
+    display: none!important;
+}
+.mod-menu {
+    background:rgba(34,34,34,0.9);
+    border-top:3px solid #c30000;
+    position:fixed;
+    bottom:0;
+    z-index:100;
+    width:100%;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+.mod-menu a.menu-handle:hover, .mod-menu a.menu-handle:focus {
+    color: #fff;
+}
+.menu-handle {
+    width:66px;
+    height:33px;
+    background:url({pigcms:$staticPath}/tpl/Wap/default/common/images/menu.png) no-repeat 0 0;
+    -webkit-background-size:320px auto;
+    background-size:320px auto;
+    color:#fff;
+    font-size:16px;
+    line-height:32px;
+    text-align:center;
+    position:absolute;
+    top:-36px;
+    left:5px;
+}
+.menu-list li {
+    list-style-type:none;
+    float:left;
+    width:25%;
+    height:50px;
+    box-sizing:border-box;
+    border-right:1px solid #080808;
+    border-bottom :1px solid #080808;
+    position:relative;
+    text-align:center;
+    overflow:hidden;
+}
+.menu-list li:nth-child(2),.menu-list li:nth-child(3),.menu-list li:nth-child(4) {
+    border-left:1px solid #575757;
+}
+.menu-list li:nth-child(5) {
+    border-top:1px solid #575757;
+}
+.menu-list li:nth-child(6),.menu-list li:nth-child(7),.menu-list li:nth-child(8) {
+    border-top:1px solid #575757;
+    border-left:1px solid #575757;
+}
+.menu-list li[class^="menu-icon"] a:before {
+    content:"";
+    display:block;
+    width:35px;
+    height:35px;
+    background-image:url({pigcms:$staticPath}/tpl/Wap/default/common/images/menu.png);
+    background-repeat:no-repeat;
+    -webkit-background-size:320px auto;
+    background-size:320px auto;
+    position:absolute;
+    top:10px;
+    left:0;
+    right:0;
+    margin:0 auto;
+}
+.menu-list .menu-icon-home a:before {
+    background-position:-80px 0;
+}
+.menu-list .menu-icon-pri a:before {
+    background-position:-120px 0;
+}
+.menu-list .menu-icon-growth a:before {
+    background-position:-160px 0;
+}
+.menu-list .menu-icon-profile a:before {
+    background-position:-200px 0;
+}
+.menu-list .menu-icon-svip a:before {
+    background-position:-240px 0;
+}
+.menu-list li a {
+    display:block;
+    height:50px;
+    color:#fff;
+    line-height:50px;
+}
+</style>
+<nav class="mod-menu" id="ccad">
+    <a id="navigator" class="menu-handle" href="javascript:;">导航</a>
+    <div id="navigator_ul" class="menu-list clearfix none">
+        <volist name="catemenu" id="vo">
+          <li class="themeStyle out" style=""> <a href="{pigcms:$vo.url}"><label class="themeStyle">{pigcms:$vo.name}</label></a></li>
+        </volist>
+        <div style="clear:both;"></div>
+    </div>
+</nav>
+<script>
+window.writeNavigator = function() {
+    $('#navigator').on("click", function() {
+        $("#navigator_ul").toggleClass("none");
+    });
+}
+$(function() {
+    writeNavigator();
+});
+</script>

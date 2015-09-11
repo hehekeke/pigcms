@@ -1,0 +1,144 @@
+<if condition="$ischild neq 1">
+<include file="Public:head" />
+<else />
+<include file="Repast:head" />
+</if>
+<script src="{pigcms::RES}/js/date/WdatePicker.js"></script>
+<style type="text/css">
+    #search-condition {
+        padding: 5px;
+        line-height: 30px;
+    }
+</style>
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+ <div class="content">
+<div class="cLineB">
+<h4 class="left">分销商管理</h4>
+<div class="clr"></div>
+</div>
+<!--tab start-->
+<div class="tab">
+    <ul>
+        <li class="tabli current" id="tab0"><a href="{pigcms::U('Distribution/order',array('token'=>$token))}">订单管理</a></li>
+        <li class="tabli" id="tab1"><a href="{pigcms::U('Distribution/index',array('token'=>$token))}">分销商管理</a></li>
+        <li class="tabli" id="tab2"><a href="{pigcms::U('Distribution/withdraw',array('token'=>$token))}">提现申请</a></li>
+        <li class="tabli" id="tab3"><a href="{pigcms::U('Distribution/settings',array('token'=>$token))}">分销配置</a></li>
+        <li class="tabli" id="tab4"><a href="{pigcms::U('Distribution/statistics',array('token'=>$token))}">数据统计</a></li>
+    </ul>
+</div>
+<!--tab end-->
+<div class="cLine">
+<div class="clr"></div>
+</div>
+<div class="msgWrap">
+<form method="post" action="{pigcms::U('Distribution/order', array('token' => $_GET['token']))}" id="search">
+<div id="search-condition">
+    <b>订单号：</b><input type="text" name="orderno" class="px orderno" value="{pigcms:$Think.get.orderno}" />&nbsp;&nbsp;    
+    <b>分销商：</b><select name="did" class="did">
+        <option value="">请选择</option>
+        <volist name="distributors" id="distributor">
+        <option value="{pigcms:$distributor.id}" <if condition="$distributor.id eq $_GET['did']">selected="true"</if>>{pigcms:$distributor.name}</option>
+        </volist>
+    </select>&nbsp;&nbsp;    
+    <b>支付状态：</b><select name="paid" class="paid">
+        <option value="">请选择</option>
+        <option value="1" <if condition="$Think.get.paid eq 1">selected="true"</if>>未支付</option>
+        <option value="2" <if condition="$Think.get.paid eq 2">selected="true"</if>>已支付</option>
+    </select>&nbsp;&nbsp;
+    <b>发货状态：</b><select name="sent" class="sent">
+        <option value="">请选择</option>
+        <option value="1" <if condition="$Think.get.sent eq 1">selected="true"</if>>未发货</option>
+        <option value="2" <if condition="$Think.get.sent eq 2">selected="true"</if>>已发货</option>
+    </select>&nbsp;&nbsp;
+    <b>日期：</b><input type="text" style="width:80px" class="px startdate" onClick="WdatePicker()" value="{pigcms:$Think.get.startdate}" readOnly="true" /> - <input type="text" style="width:80px" class="px stopdate" onClick="WdatePicker()" value="{pigcms:$Think.get.stopdate}" readOnly="true" />
+    <button type="button" name="button" class="btnGreen search-submit" style="margin-bottom:3px">保存</button>
+</div>
+</form>
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<thead>
+<tr>
+<th>订单号</th>
+<th style="text-align: right">金额（元）</th>
+<th style="text-align: center">支付状态</th>
+<th style="text-align: center">支付方式</th>
+<th style="text-align: center">发货状态</th>
+<th style="text-align: left">会员</th>
+<th style="text-align: left">分销商</th>
+<th style="text-align: center">时间</th>
+<th class="norightborder" style="text-align: center">操作</th>
+</tr>
+</thead>
+<tbody>
+<tr></tr>
+<volist name="orders" id="order">
+<tr>
+<td><a href="{pigcms::U('Distribution/order_info', array('id' => $order['id'], 'token' => $token))}">{pigcms:$order.orderid}</a></td>
+<td align="right">{pigcms:$order.price}</td>
+<td align="center">{pigcms:$order.paid}</td>
+<td align="center">
+    <if condition="empty($order['paytype']) neq true">
+        <if condition="$order['paytype'] eq 'alipay'"><span style="color:green">支付宝</span>
+        <elseif condition="$order['paytype'] eq 'weixin'" /><span style="color:green">微信支付</span>
+        <elseif condition="$order['paytype'] eq 'tenpay'" /><span style="color:green">财付通[wap手机]</span>
+        <elseif condition="$order['paytype'] eq 'tenpayComputer'" /><span style="color:green">财付通[即时到帐]</span>
+        <elseif condition="$order['paytype'] eq 'yeepay'" /><span style="color:green">易宝支付</span>
+        <elseif condition="$order['paytype'] eq 'allinpay'" /><span style="color:green">通联支付</span>
+        <elseif condition="$order['paytype'] eq 'daofu'" /><span style="color:green">货到付款</span>
+        <elseif condition="$order['paytype'] eq 'dianfu'" /><span style="color:green">到店付款</span>
+        <elseif condition="$order['paytype'] eq 'chinabank'" /><span style="color:green">网银在线</span></if>
+    
+    <else />
+        <if condition="$order['paymode'] eq 0"><span style="color:green">其他方式</span>
+        <elseif condition="$order['paymode'] eq 1" /><span style="color:green">在线支付</span>
+        <elseif condition="$order['paymode'] eq 4" /><span style="color:green">会员卡支付</span>
+        <elseif condition="$order['paymode'] eq 5" /><span style="color:green">积分兑换</span>
+        <else /><span style="color:green">货到付款</span></if>
+    </if>
+</td>
+<td align="center">{pigcms:$order.sent}</td>
+<td align="left">{pigcms:$order.member}</td>
+<td align="left">{pigcms:$order.distributor}</td>
+<td align="center">{pigcms:$order.time|date="Y-m-d H:i:s", ###}</td>
+<td class="norightborder" style="text-align: center">
+    <span><a href="{pigcms::U('Distribution/order_info',array('id' => $order['id'],'token'=>$token))}" style="color:#f00">详细</a></span>
+</td>
+</tr>
+</volist>
+</tbody>
+</table>
+</div>
+<div class="cLine">
+<div class="pageNavigator right">
+<div class="pages">{pigcms:$page}</div>
+</div>
+<div class="clr"></div>
+</div>
+</div>
+<script type="text/javascript">
+
+    //搜索
+    $('.search-submit').click(function(event) {
+        var url  = "{pigcms::U('Distribution/order', array('token' => $_GET['token']))}";
+        if ($('.orderno').val() != '') {
+            url += '&orderno=' + $('.orderno').val();
+        }
+        if ($('.did').val() != '') {
+            url += '&did=' + $('.did').val();
+        }
+        if ($('.paid').val() != '') {
+            url += '&paid=' + $('.paid').val();
+        }
+        if ($('.sent').val() != '') {
+            url += '&sent=' + $('.sent').val();
+        }
+        if ($('.startdate').val() != '') {
+            url += '&startdate=' + $('.startdate').val();
+        }
+        if ($('.stopdate').val() != '') {
+            url += '&stopdate=' + $('.stopdate').val();
+        }
+
+        window.location.href = url;
+    });
+</script>
+<include file="Public:footer"/>

@@ -1,0 +1,112 @@
+<include file="Public:head"/>
+<script src="{pigcms:$staticPath}/tpl/static/jquery.min.js" type="text/javascript"></script>
+<script src="{pigcms:$staticPath}/tpl/static/vote/common.js" type="text/javascript"></script>
+<script src="{pigcms:$staticPath}/tpl/static/upyun.js" type="text/javascript"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/jquery.artDialog.js?skin=default" type="text/javascript"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<div class="msgWrap form">
+<div class="content">
+<div class="cLineC" style="line-height: 22px;"> 
+<a href="{pigcms::U('Voteimg/vote_log',array('token'=>$token,'vote_id'=>$vote_id,'type'=>'voter'))}" class="btnGrayS vm <php>if($type == 'voter' || $type == ''){ echo 'addclore';}</php>">投票者统计信息</a>  <a href="{pigcms::U('Voteimg/vote_log',array('token'=>$token,'vote_id'=>$vote_id,'type'=>'baobao'))}" class="btnGrayS vm <php>if($type == 'baobao'){ echo 'addclore';}</php>">投票选项统计信息</a>  
+<if condition="$type eq 'baobao'">
+<a class="right btnGrayS vm" href="/index.php?g=User&m=Voteimg&a=exExcel_item&token={pigcms:$token}&vote_id={pigcms:$vote_id}">导出投票选项统计数据</a>
+<else />
+<a class="right btnGrayS vm" href="/index.php?g=User&m=Voteimg&a=exExcel&token={pigcms:$token}&vote_id={pigcms:$vote_id}">导出投票者统计数据</a>
+</if>
+<a href="javascript:history.go(-1);" class="right btnGrayS vm" style="margin-top:1px">返回</a>
+<div class="searchbar right">
+<if condition="$type eq 'baobao'">
+<form method="GET" action="/index.php">
+<input type="text" style="height:24px;" id="msgSearchInput" class="txt left" placeholder="输入编号或名字或描述" name="key_word" value="{pigcms:$key_word}">
+<input type="hidden" name="g" value="User" />
+<input type="hidden" name="m" value="Voteimg" />
+<input type="hidden" name="a" value="vote_log" />
+<input type="hidden" name="vote_id" value="{pigcms:$vote_id}" />
+<input type="hidden" name="token" value="{pigcms:$token}" />
+<input type="hidden" name="type" value="baobao" />
+<input type="submit" value="搜索" id="msgSearchBtn" href="" class="btnGrayS" title="搜索">
+</form>
+</if>
+</div>
+</div>
+<style type="text/css" >
+	.addclore{
+		background-color: #E6E7EC !important;
+	}
+</style>
+<if condition="$type eq 'baobao'">
+    <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+	<thead>
+	<tr>
+	<th style="width:5%;">编号</th>
+	  <th style="width:10%;">名字或描述</th>
+	  <th style="width:20%;">自我介绍</th>
+	  <th style="width:20%;">缩略图</th>
+	  <th style="width:10%;">手机号</th>
+	  <th style="width:9%;">获得票数</th>
+	</th>
+	<th>操作</th>
+	</tr>
+	</thead>
+	<volist name="vote_logs" id="vo">
+	  <tbody><tr>
+	   <td>{pigcms:$vo.baby_id}</td>
+		  <td>{pigcms:$vo.vote_title}</td>
+		  <td><if condition="$vo.introduction neq ''">{pigcms:$vo.introduction|html_entity_decode|strip_tags|mb_substr=0,80,'utf-8'}<else />---</if> &nbsp;&nbsp;&nbsp;&nbsp; <a onclick="art.dialog.open('{pigcms::U('Voteimg/introduction_view',array('id'=>$vo['id']))}',{lock:false,title:'自我介绍预览',width:800,height:600,yesText:'关闭',background: '#000',opacity: 0.87});" href="###" style="color:#1FC419;">预览</a></td>
+		  <td> <img src="{pigcms:$vo.vote_img}" style="width:50px;height:50px"/>   <input type="hidden" value="{pigcms:$vo.vote_img}" id="img_{pigcms:$vo.id}">&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="viewImg('img_{pigcms:$vo.id}')" href="###">预览</a></td>
+		  <td><if condition="$vo.contact eq ''">暂无<else />{pigcms:$vo.contact}</if></td>
+		  <td>{pigcms:$vo.vote_count}</td>
+		  <td class="norightborder">
+		  <a href="{pigcms::U('Voteimg/clear_votecount',array('id'=>$vo['id'],'vote_id'=>$vo['vote_id'],'token'=>$vo['token']))}" onclick="return(confirm('确定要清空该选项票数吗？'))" class="btnGreen">清空票数</a> </td>
+		</tr>
+	  </tbody>
+	</volist> 
+	</table>
+	<else />
+	    <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+	<thead>
+	<tr>
+	  <th style="width:20%;">活动名称</th>
+	  <!--th style="width:10%;">被投票者ID</th-->
+	  <th style="width:15%;">投票者</th>
+	  <th style="width:15%;">手机号</th>
+	  <th style="width:13%;">已投票数</th>
+	  <th style="width:13%;">今日投票数</th>
+	  <th style="width:15%;">最后投票时间</th>
+	</th>
+	<th>操作</th>
+	</tr>
+	</thead>
+	<volist name="vote_logs" id="lo">
+	  <tbody><tr>
+		  <td>{pigcms:$lo.action_name}
+		  </td>
+		  <!--td><if condition="$vo.item_id neq ''">{pigcms:$vo.item_id}<else />未投票</if></td-->
+		  <td>
+		  <if condition="$lo.nick_name eq 'anonymous' || $lo.nick_name eq 'no'">
+				匿名用户
+			  <else/>
+			  {pigcms:$lo.nick_name}
+		  </if>
+		  <td><if condition="$lo.phone eq '' || $lo.phone eq 'no'">
+				暂无
+			  <else/>
+			  {pigcms:$lo.phone}
+		  </if></td>
+		  </td>
+		  <td>{pigcms:$lo.votenum} <if condition="$lo['votenum'] gt 0">&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="art.dialog.open('{pigcms::U('Voteimg/vote_details',array('user_id'=>$lo['user_id'],'type_view'=>'all','action_name'=>$lo['action_name']))}',{lock:false,title:'查看已投票的详情',width:800,height:600,yesText:'关闭',background: '#000',opacity: 0.87});" href="###" style="color:#1FC419;">查看详情</a></if></td>
+		  <td>{pigcms:$lo.votenum_day} <if condition="$lo['votenum_day'] gt 0">&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="art.dialog.open('{pigcms::U('Voteimg/vote_details',array('user_id'=>$lo['user_id'],'type_view'=>'today','action_name'=>$lo['action_name']))}',{lock:false,title:'查看今日投票的详情',width:800,height:600,yesText:'关闭',background: '#000',opacity: 0.87});" href="###" style="color:#1FC419;">查看详情</a></if></td>
+		  <td>{pigcms:$lo.vote_time|date='Y-m-d H:i:s',###}</td>
+		  <td class="norightborder">
+		  <a href="{pigcms::U('Voteimg/clear_votelog',array('id'=>$lo['user_id'],'vote_id'=>$lo['vote_id'],'token'=>$lo['token']))}" onclick="return(confirm('确定要删除吗？'))" class="btnGreen">删除</a> </td>
+		</tr>
+	  </tbody>
+	</volist> 
+	</table>
+	</if>
+	<div class="footactions" style="padding-left:10px">
+	  <div class="pages" style="text-align:right;"> {pigcms:$page}</div>
+	</div>
+    </div>
+  </div>
+<include file="Public:footer"/>

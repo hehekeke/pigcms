@@ -1,0 +1,110 @@
+<include file="Public:head" />
+<link rel="stylesheet" type="text/css" href="{pigcms:$staticPath}/tpl/static/livingcircle/css/cymain.css" />
+<div class="content">
+	<div class="cLineB">
+		<h4 class="left">微信生活圈</h4>
+		<div class="clr"></div>
+	</div>
+	
+	<div class="tab">
+		<ul>
+			<li class="tabli" id="tab1"><a href="{pigcms::U('LivingCircle/index',array('token'=>$token))}">基础信息</a></li>
+			<li class="current tabli" id="tab1"><a href="{pigcms::U('LivingCircle/type',array('token'=>$token))}">分类管理</a></li>
+			<li class="tabli" id="tab2"><a href="{pigcms::U('LivingCircle/sellcircle',array('token'=>$token))}">商圈管理</a></li>
+			<li class="tabli" id="tab2"><a href="{pigcms::U('LivingCircle/seller',array('token'=>$token))}">商家管理</a></li>
+		</ul>
+	</div>
+	
+	<div class="cLineB">
+		<h4 class="left">分类</h4>
+		<div class="clr"></div>
+	</div>
+	
+	<div class="cLine">
+		<div class="pageNavigator left">
+			<a href="{pigcms::U('LivingCircle/typeadd',array('token'=>$token))}" title="添加分类" class="btnGrayS vm bigbtn">添加分类</a>
+		</div>
+		<div class="pageNavigator right">
+			<input type="text" id="name" class="px name" placeholder="输入分类名称"  name="name" value="{pigcms:$_GET['name']}" style="margin-top:10px">
+			<a href="javascript:seach()" id="seach" href="" class="btnGrayS" title="搜索">搜索</a>
+		</div>
+		<script>
+			
+		</script>
+		<div class="clr"></div>
+	</div>
+	
+	<div class="msgWrap">
+		<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+			<thead>
+				<tr>
+					<th width="60px">显示顺序</th>
+					<th width="120px">分类名称</th>
+					<th width="60px">分类图片</th>
+					<th width="60px">是否显示</th>
+					<th>操作</th>
+					<th width="120px" class="norightborder">添加时间</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="type_list" id="vo">
+				<tr>
+					<td>{pigcms:$vo.num}</td>
+					<td>{pigcms:$vo.name}</td>
+					<td><div class="cateimg" style="margin-left:13px"><img src="{pigcms:$vo.pic}" class="cateimg_small"  /><img src="{pigcms:$vo.pic}" class="cateimg_big"  /></div></td>
+					<if condition="$vo.display eq 1">
+					<td><a href="javascript:display({pigcms:$vo.pigcms_id})"><img id="display{pigcms:$vo.pigcms_id}" src="{pigcms:$staticPath}/tpl/static/livingcircle/images/start.png" width="100%"/></a></td>
+					<else />
+					<td><a href="javascript:display({pigcms:$vo.pigcms_id})"><img id="display{pigcms:$vo.pigcms_id}" src="{pigcms:$staticPath}/tpl/static/livingcircle/images/stop.png" width="100%"/></a></td>
+					</if>
+					<td class="norightborder" style="border-right:1px solid #eee">
+						<a href="{pigcms::U('LivingCircle/zitype',array('token'=>$token,'typeid'=>$vo['pigcms_id']))}">子分类</a>
+						<a href="{pigcms::U('LivingCircle/typeupdate',array('token'=>$token,'typeid'=>$vo['pigcms_id']))}">修改</a>
+						<a href="javascript:drop_confirm('您确定要删除【{pigcms:$vo.name}】吗?', '{pigcms::U('LivingCircle/operate',array('token'=>$token,'typeid'=>$vo['pigcms_id'],'type'=>'typedel'))}')">删除</a>
+					</td>
+					<td  style="border-right:0">{pigcms:$vo.addtime|date="Y-m-d H:i:s",###}</td>
+				</tr>
+				</volist>
+			</tbody>
+		</table>
+	</div>
+	<div class="cLine">
+		<div class="pageNavigator right">
+			<div class="pages">{pigcms:$page}</div>
+		</div>
+		<div class="clr"></div>
+	</div>
+</div>
+<script>
+	$(document).ready(function(){
+		
+	});
+	function display(id){
+		$.ajax({
+			type:"POST",
+			url:"{pigcms::U('LivingCircle/ajax',array('token'=>$token))}",
+			dataType:"json",
+			data:{
+				type:"typedisplay",
+				id:id,
+				token:"{pigcms:$token}"
+			},
+			success:function(data){
+				if(data.error == 0){
+					$("#display"+id).attr("src","{pigcms:$staticPath}/tpl/static/livingcircle/images/stop.png");
+				}else if(data.error == 1){
+					$("#display"+id).attr("src","{pigcms:$staticPath}/tpl/static/livingcircle/images/start.png");
+				}
+			}
+		});
+	}
+	function seach(){
+		var name = $("#name").val();
+		if(name != ""){
+			window.location.href="{pigcms::U('LivingCircle/type',array('token'=>$token))}&name="+name;
+		}else{
+			window.location.href="{pigcms::U('LivingCircle/type',array('token'=>$token))}";
+		}
+	}
+</script>
+<include file="Public:footer"/>

@@ -1,0 +1,300 @@
+<include file="Public:head"/>
+<link rel="stylesheet" href="{pigcms::STATICS}/kindeditor/themes/default/default.css" />
+<link rel="stylesheet" href="{pigcms::STATICS}/kindeditor/plugins/code/prettify.css" />
+<script src="{pigcms::STATICS}/kindeditor/kindeditor.js" type="text/javascript"></script>
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<script src="{pigcms::RES}/js/date/WdatePicker.js"></script>
+<form class="form" method="post"   action=""  target="_top" enctype="multipart/form-data" >
+        <div class="content">
+<!--活动开始-->
+<div class="cLineB">
+    <h4>活动设置</h4><a href="javascript:history.go(-1);"  class="right btnGrayS vm" style="margin-top:-27px" >返回</a>
+</div>
+<div class="msgWrap bgfc">
+<TABLE class="userinfoArea" style=" margin:0;" border="0" cellSpacing="0" cellPadding="0" width="100%"><TBODY>
+<TR>
+  <th valign="top"><span class="red">*</span>关键词：</th>
+  <TD>
+	<input type="input" class="px" id="keyword" value="<if condition="$set.keyword eq ''">人气冲榜<else/>{pigcms:$set.keyword}</if>" name="keyword" style="width:400px" ><br />
+  	<span class="red">只能写一个关键词</span>，用户输入此关键词将会触发此活动。
+  </TD>
+  <TD rowspan="5" valign="top">
+	  <div style="margin-left:20px">
+		<img id="pic1_src" src="<if condition="$set['pic'] eq ''">{pigcms:$staticPath}/tpl/static/Popularity/images/pic.jpg<else/>{pigcms:$set.pic}</if>" width="373px" >
+		<br />
+		<input class="px"  name="pic" value="<if condition="$set['pic'] eq ''">{pigcms:$staticPath}/tpl/static/Popularity/images/pic.jpg<else/>{pigcms:$set.pic}</if>" id="pic1" style="width:363px;"  />
+		<br />
+		  <script src="/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('pic1',700,420,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic1')">预览</a>&nbsp;&nbsp;消息回复图片
+	  </div>
+  </TD>
+</TR>
+<TR>
+  <th valign="top"><span class="red">*</span>活动名称：</th>
+  <TD>
+	<input type="input" class="px" id="title" value="<if condition="$set.title eq ''">挑战人气榜<else/>{pigcms:$set.title}</if>" name="title" style="width:400px" />
+  	<br />
+  	请不要多于50字!
+  </TD>
+</TR>
+
+<!-- <TR>
+  <th valign="top"><span class="red">*</span>头部宣传图：</th>
+  <TD>
+		<input class="px"  name="top_pic" value="<if condition="$set['top_pic'] eq ''">{pigcms:$f_siteUrl}/tpl/static/Popularity/images/banner.jpg<else/>{pigcms:$set.top_pic}</if>" id="pic0" style="width:310px;"  />
+		<script src="/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('pic0',700,420,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic0')">预览</a>
+  </TD>
+</TR> -->
+
+  <TR>
+  	<th valign="top"><span class="red">*</span>地址：</th>
+  	<td>
+		<input type="input" class="px" id="txt" value="{pigcms:$set.addr}" name="addr" style="width:400px" />
+	</td>
+  </TR>
+  
+<tr> 
+    <th><span class="red">*</span>经纬度：</th> 
+    <td>经度 <input type="text" id="longitude"  name="longitude" size="14" class="px" value="{pigcms:$set.longitude}" /> 纬度 <input type="text"  name="latitude" size="14" id="latitude" class="px" value="{pigcms:$set.latitude}" /> <a href="###" onclick="setlatlng($('#longitude').val(),$('#latitude').val())">在地图中查看/设置</a></td> 
+</tr>
+
+<TR>
+	<th><span class="red">*</span>活动时间：</th>
+	<td><input type="input" class="px" id="statdate" value="<if condition="$set['start'] neq ''">{pigcms:$set.start|date="Y-m-d H:i",###}<else/>{pigcms:$start_date|date="Y-m-d H:i",###}</if>" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" name="start" />
+		到
+		<input type="input" class="px" id="enddate" value="<if condition="$set['end'] neq ''">{pigcms:$set.end|date="Y-m-d H:i",###}<else/>{pigcms:$end_date|date="Y-m-d H:i",###}</if>" name="end"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"  />
+	</td>
+</TR>
+<TR>
+<th valign="top">活动规则：</th>
+<td colspan="2">
+	<textarea  class="px" id="intro"  name="info"  style="width:400px; height:125px" >{pigcms:$set.info}</textarea>
+</td>
+</TR>
+<TR>
+ 	<th valign="top"><span class="red"></span>奖品数量：</th>
+ 	<td>
+	<input type="radio" name="show_num" value="1" <if condition="$set['show_num'] eq '' or $set['show_num'] eq 1">checked</if>>显示&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="show_num" value="2" <if condition="$set['show_num'] eq 2">checked</if>>不显示    &nbsp;&nbsp;&nbsp;&nbsp;（控制前台是否显示奖品的数量）
+</td>
+
+<TR>
+ 	<th valign="top"><span class="red"></span>未关注是否可以参与：</th>
+ 	<td>
+		<input type="radio" name="is_attention" value="1" <if condition="$set['is_attention'] eq '' or $set['is_attention'] eq 1">checked</if>>是
+		&nbsp;&nbsp;&nbsp;
+		&nbsp;
+		<input type="radio" name="is_attention" value="2" <if condition="$set['is_attention'] eq 2">checked</if>>否
+		  &nbsp;&nbsp;&nbsp;
+  		  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  		  {pigcms:$__access_remind__}
+	</td>
+</TR>
+<TR>
+ 	<th valign="top"><span class="red"></span>是否需要粉丝详细信息：</th>
+ 	<td>
+		<input type="radio" name="is_reg" value="1" <if condition="$set['is_reg'] eq '' or $set['is_reg'] eq 1">checked</if>>是
+		&nbsp;&nbsp;&nbsp;
+		&nbsp;
+		<input type="radio" name="is_reg" value="2" <if condition="$set['is_reg'] eq 2">checked</if>>否
+		&nbsp;&nbsp;&nbsp;
+  		（没有粉丝信息参加活动的处理方式）
+	</td>
+</TR>
+<TR>
+ 	<th valign="top"><span class="red"></span>是否开启：</th>
+ 	<td>
+	<input type="radio" name="is_open" value="1" <if condition="$set['is_open'] eq '' or $set['is_open'] eq 1">checked</if>>开启&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="is_open" value="2" <if condition="$set['is_open'] eq 2">checked</if>>关闭
+</td>
+ </TR>
+ <tr>    
+	<th valign="top"></th>     
+	<td>
+        <button type="submit" name="button" class="btnGreen">保存</button>
+   	</td> 
+</tr> 
+</TBODY>
+</TABLE>
+</div>
+
+<!--奖项设置-->
+<div class="cLineB">
+<h4>奖项设置</h4></div>
+<div class="msgWrap bgfc">
+<div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-bottom:5px;font-size:12px;">温馨提示：推荐每个奖项的人气值最好从小到大进行设置。奖项最多设置4个。单个奖项参数请填写完整，否则前台将不予显示。奖品图片宽高比例请尽量一致
+</div>
+<TABLE class="userinfoArea" style=" margin: 0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+<TBODY>
+<TR>
+<th valign="top"><span class="red">*</span>奖项一：</th>
+<td><input type="input" class="px" id="fist"  name="prize[0][name]" value="{pigcms:$prize[0]['name']}"  style="width:250px"/>
+请不要多于50字! </td>
+  <TD rowspan="9" valign="top">&nbsp;</TD>
+</TR>
+<tr>
+<th><span class="red">*</span>奖品图片</th>
+<td>
+<input class="px"  name="prize[0][img]" value="{pigcms:$prize[0]['img']}" id="pic2" style="width:200px;"  />
+<script src="/tpl/static/upyun.js"></script>
+<a href="###" onclick="upyunPicUpload('pic2',700,420,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic2')">预览</a>
+</td>
+</tr>
+<TR>
+<th valign="top"><span class="red">*</span>奖品数量：</th>
+<td>
+	<input type="input" class="px" name="prize[0][num]" value="{pigcms:$prize[0]['num']}" style="width:80px" />
+</td>
+</TR>
+<TR>
+<th valign="top"><span class="red">*</span>需要人气值：</th>
+<td>
+	<input type="input" class="px" name="prize[0][count]" value="{pigcms:$prize[0]['count']}" style="width:80px" />
+	<input  type="hidden" name="prize[0][id]" value="{pigcms:$prize[0]['id']}" />
+</td>
+</TR>
+
+<tr><td colspan="2"></td></tr>
+
+<TR>
+<th valign="top"><span class="red"></span>奖项二：</th>
+<td><input type="input" class="px" id="fist"  name="prize[1][name]" value="{pigcms:$prize[1]['name']}"  style="width:250px"/>
+请不要多于50字! </td>
+  <TD rowspan="9" valign="top">&nbsp;</TD>
+</TR>
+<tr>
+<th><span class="red"></span>奖品图片</th>
+<td>
+<input class="px"  name="prize[1][img]" value="{pigcms:$prize[1]['img']}" id="pic3" style="width:200px;"  />
+<script src="/tpl/static/upyun.js"></script>
+<a href="###" onclick="upyunPicUpload('pic3',700,420,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic3')">预览</a>
+</td>
+</tr>
+<TR>
+<th valign="top"><span class="red"></span>奖品数量：</th>
+<td>
+	<input type="input" class="px" name="prize[1][num]" value="{pigcms:$prize[1]['num']}" style="width:80px" />
+</td>
+</TR>
+<TR>
+<th valign="top"><span class="red"></span>需要人气值：</th>
+<td>
+	<input type="input" class="px" name="prize[1][count]" value="{pigcms:$prize[1]['count']}" style="width:80px" />
+	<input  type="hidden" name="prize[1][id]" value="{pigcms:$prize[1]['id']}" />
+</td>
+</TR>
+
+<tr><td colspan="2"></td></tr>
+
+<TR>
+<th valign="top"><span class="red"></span>奖项三：</th>
+<td><input type="input" class="px" id="fist"  name="prize[2][name]" value="{pigcms:$prize[2]['name']}"  style="width:250px"/>
+请不要多于50字! </td>
+  <TD rowspan="9" valign="top">&nbsp;</TD>
+</TR>
+<tr>
+<th><span class="red"></span>奖品图片</th>
+<td>
+<input class="px"  name="prize[2][img]" value="{pigcms:$prize[2]['img']}" id="pic4" style="width:200px;"  />
+<script src="/tpl/static/upyun.js"></script>
+<a href="###" onclick="upyunPicUpload('pic4',700,420,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic4')">预览</a>
+</td>
+</tr>
+<TR>
+<th valign="top"><span class="red"></span>奖品数量：</th>
+<td>
+	<input type="input" class="px" name="prize[2][num]" value="{pigcms:$prize[2]['num']}" style="width:80px" />
+</td>
+</TR>
+<TR>
+<th valign="top"><span class="red"></span>需要人气值：</th>
+<td>
+	<input type="input" class="px" name="prize[2][count]" value="{pigcms:$prize[2]['count']}" style="width:80px" />
+	<input  type="hidden" name="prize[2][id]" value="{pigcms:$prize[2]['id']}" />
+</td>
+</TR>
+
+<tr><td colspan="2"></td></tr>
+
+<TR>
+<th valign="top"><span class="red"></span>奖项四：</th>
+<td><input type="input" class="px" id="fist"  name="prize[3][name]" value="{pigcms:$prize[3]['name']}"  style="width:250px"/>
+请不要多于50字! </td>
+  <TD rowspan="9" valign="top">&nbsp;</TD>
+</TR>
+<tr>
+<th><span class="red"></span>奖品图片</th>
+<td>
+<input class="px"  name="prize[3][img]" value="{pigcms:$prize[3]['img']}" id="pic5" style="width:200px;"  />
+<script src="/tpl/static/upyun.js"></script>
+<a href="###" onclick="upyunPicUpload('pic5',700,420,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic5')">预览</a>
+</td>
+</tr>
+<TR>
+<th valign="top"><span class="red"></span>奖品数量：</th>
+<td>
+	<input type="input" class="px" name="prize[3][num]" value="{pigcms:$prize[3]['num']}" style="width:80px" />
+</td>
+</TR>
+<TR>
+<th valign="top"><span class="red"></span>需要人气值：</th>
+<td>
+	<input type="input" class="px" name="prize[3][count]" value="{pigcms:$prize[3]['count']}" style="width:80px" />
+	<input  type="hidden" name="prize[3][id]" value="{pigcms:$prize[3]['id']}" />
+</td>
+</TR>
+
+<tr>    
+	<th valign="top"></th>     
+	<td>
+        <input  type="hidden" name="id" value="{pigcms:$set.id}" />
+        <button type="submit" name="button" class="btnGreen">保存</button>
+        &nbsp;&nbsp;&nbsp;
+        <a href="" class="btnGray vm">取消</a>
+   	</td> 
+</tr>
+
+</TBODY>
+</TABLE>
+
+  </div>
+</div>
+
+</form>
+        <div class="clr"></div>
+      </div>
+    </div>
+  </div>
+
+<!--底部-->
+  	</div>
+  	
+  	
+<script>
+var editor;
+KindEditor.ready(function(K) {
+editor = K.create('#intro', {	
+resizeType : 1,
+allowPreviewEmoticons : false,
+allowImageUpload : true,
+allowUpload : true,
+uploadJson : '/index.php?g=User&m=Upyun&a=kindedtiropic',
+items : [
+'source','undo','clearhtml','hr',
+'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+'insertunorderedlist', '|', 'emoticons', 'image' , 'link', 'unlink','baidumap','lineheight','table','anchor','preview','print','template','code','cut']
+});
+
+});
+</script>  	
+  	
+<script>
+function setlatlng(longitude,latitude){
+	art.dialog.data('longitude', longitude);
+	art.dialog.data('latitude', latitude);
+	// 此时 iframeA.html 页面可以使用 art.dialog.data('test') 获取到数据，如：
+	// document.getElementById('aInput').value = art.dialog.data('test');
+	art.dialog.open('{pigcms::U('Map/setLatLng',array('token'=>$token,'id'=>$id))}',{lock:false,title:'设置经纬度',width:600,height:400,yesText:'关闭',background: '#000',opacity: 0.87});
+}
+</script>
+<include file="Public:footer"/>

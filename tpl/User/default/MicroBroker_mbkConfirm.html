@@ -1,0 +1,77 @@
+<include file="Public:head"/>
+<include file="Business:public_menu"/>
+<link rel="stylesheet" type="text/css" href="{pigcms::Common}/default_user_com.css" media="all">
+
+<script src="./tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="./tpl/static/artDialog/plugins/iframeTools.js"></script>
+<div class="content">
+    <div class="cLineB">
+         <h4 class="left">已回款客户列表</h4>
+		 <a class="right btnGrayS vm" href="{pigcms::U('MicroBroker/index',array('token'=>$token))}">返 回</a>
+      </div>
+          <div class="msgWrap">
+            <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+              <thead>
+				<tr>
+
+                    <th width="75">客户名称</th>
+                    <th width="80">客户电话</th>
+                    <th width="80">意向产品</th>
+					<th width="100">项目酬金</th>
+                    <th width="80">产品顾问</th>
+                    <th width="80">产品顾问电话</th>
+					<th width="72">经纪人</th>
+					<th width="76">酬金情况</th>
+					<th width="60">待审核金额</th>
+					<th width="75" style="text-align: center">添加时间</th>
+                    <th width="111" class="norightborder">操作</th>
+                    </tr>
+                  </thead>
+              <tbody>
+                <tr></tr>
+				<if  condition="!empty($commdatas)">
+                <volist name="commdatas" id="item">
+                    <tr>
+                        <td>{pigcms:$item['client_name']}</td>
+                        <td>{pigcms:$item['client_tel']}</td>
+                        <td>{pigcms:$item['proname']}</td>
+						<td><if condition="$item['xmtype'] eq 2">回款总额*{pigcms:$item['xmnum']}%<else/>现在{pigcms:$item['xmnum']}元</if></td>
+                        <td>{pigcms:$item['verifyname']}</td>
+                        <td>{pigcms:$item['verifytel']}</td>
+						<td>{pigcms:$item['tjname']}</td>
+						<td style="font-size:14px;"><if condition="$item['status'] eq 1 AND $item['money'] gt 0"><strong style="color:red;">已</strong>打入经纪人账户<else/><strong style="color:red;">未</strong>打入经纪人账户</if></td>
+						<td><if condition="$item['status'] eq 0">{pigcms:$item['money']}<else/>0.00</if></td>
+                        <td>{pigcms:$item['addtime']|date='Y-m-d H:i:s',###}</td>
+                        <td class="norightborder"><a href="###" onclick="mbkOperatMoney({pigcms:$item['tjuid']},{pigcms:$item['bid']},{pigcms:$item['id']})">酬金操作</a> <if condition="$item['status'] eq 0"> | <a href="###" onclick="toSureMoney({pigcms:$item['id']},{pigcms:$item['tjuid']},{pigcms:$item['bid']},{pigcms:$item['money']})">审核金额</a></if></td>
+                    </tr>
+                </volist>
+				</if>
+                </tbody>
+            </table>
+			{pigcms:$pageshow}
+          </div>
+
+          <div class="cLine">
+            <div class="pageNavigator right">
+                 <div class="pages">{pigcms:$page}</div>
+            </div>
+            <div class="clr"></div>
+          </div>
+        </div>
+		 <script type="text/JavaScript">
+			function mbkOperatMoney(id,bid,cmmid){
+				art.dialog.open('{pigcms::U('MicroBroker/mbkOperatMoney')}&id='+id+'&bid='+bid+'&cmmid='+cmmid,{lock:false,title:'酬金操作',width:410,height:400,yesText:'关闭',background: '#000',opacity: 0.87});
+			}
+
+			function toSureMoney(id,tjuid,bid,money){
+			   $.post('{pigcms::U('MicroBroker/mbkSureMoney')}',{id:id,tjuid:tjuid,bid:bid,money:money,token:'{pigcms:$token}'},function(ret){
+			        if(ret.error==1){
+					    alert('参数出错，审核失败');
+					}else{
+					    alert('审核成功，佣金已经打入到对应经纪人');
+					}
+			       window.location.reload();
+			   },'json');
+			}
+        </script>
+<include file="Public:footer"/>

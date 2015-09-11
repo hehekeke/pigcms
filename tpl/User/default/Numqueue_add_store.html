@@ -1,0 +1,286 @@
+<include file="Public:head"/>
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<script type="text/javascript" src="{pigcms:$staticPath}/tpl/static/address/PCASClass.js"> </script>
+<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script>
+<div class="content">
+<div class="cLineB">
+  <h4> 
+    微排号-添加门店
+</h4>
+<a href="javascript:history.go(-1);" class="right btnGrayS vm" style="margin-top:-27px">返回</a>
+</div>
+
+<div class="msgWrap bgfc">
+<form class="form" method="post" action="{pigcms::U('Numqueue/add_store')}" target="_top" enctype="multipart/form-data">
+<if condition="$vo['id'] neq ''">
+  <input type="hidden" name="id" value="{pigcms:$vo['id']}">
+</if>
+<table class="userinfoArea" style="margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%"><tbody>
+<tr>
+<th width="120"><span class="red">*</span>门店名称：</th>
+<td><input type="text" name="name" value="{pigcms:$vo.name}" class="px" style="width:250px;"></td>
+</tr>
+<tr>
+  <th><span class="red">*</span>Logo：</th>
+  <td>
+  <if condition="$vo.logo neq ''">
+<img class="thumb_img" id="pic1_src" src="{pigcms:$vo.logo}" style="max-height:100px;max-width: 200px;"></if>
+  <input type="text" name="logo" value='{pigcms:$vo.logo}' id="pic1" class="px" style="width:250px;" >
+  <a href="###" onclick="upyunPicUpload('pic1',365,158,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic1')">预览</a>   &nbsp; 建议图片尺寸166*241，图片大小不超过300K</td>
+</tr>
+<tr>
+<th width="120"><span class="red">*</span>地址：</th>
+<td><input type="text" name="address" value="{pigcms:$vo.address}" class="px" style="width:250px;"></td>
+</tr>
+<tr>
+<th width="120"><span class="red">*</span>电话：</th>
+<td><input type="text" name="tel" value="{pigcms:$vo.tel}" class="px" style="width:250px;">&nbsp;&nbsp;&nbsp;&nbsp;(可以填座机或手机号,座机要写区号)</td>
+</tr>
+<tr>
+<th width="120">门店说明：</th>
+<td><input type="text" name="remark" value="{pigcms:$vo.remark}" class="px" style="width:250px;"> &nbsp;&nbsp;&nbsp;&nbsp;(最多10个汉字,一个汉字等于3个英文字母,餐饮可以填菜系)</td>
+</tr>
+<tr>
+<th width="120">人均消费：</th>
+<td><input type="text" name="price" value="{pigcms:$vo.price}" class="px" style="width:120px;">&nbsp;&nbsp;&nbsp;&nbsp;(元/人)</td>
+</tr>
+<tr>
+<th width="120">门店类型：</th>
+<td><select name="store_type" id="store_type" style="width:130px;">
+<option value="1" <if condition="$vo.store_type eq 1"> selected = "selected"</if>>餐饮</option>
+<option value="2" <if condition="$vo.store_type eq 2"> selected = "selected"</if>>足浴</option>
+<option value="3" <if condition="$vo.store_type eq 3"> selected = "selected"</if>>理发</option>
+</select></td>
+</tr>
+<tr> 
+<th><span class="red">*</span>经纬度：</th> 
+<td>经度 <input type="text" value="{pigcms:$vo.longitude}" class="px" size="14" name="longitude" id="longitude"> 纬度 <input type="text" value="{pigcms:$vo.latitude}" class="px" id="latitude" size="14" name="latitude"> <a onclick="setlatlng($('#longitude').val(),$('#latitude').val())" href="###">在地图中查看/设置</a></td> 
+</tr>
+<tr>
+<th>营业时间：</th>
+<td><select name="opentime" style="width:100px;">
+<for start="1" end="25">
+<option value="{pigcms:$i}" <if condition="$vo.opentime neq '' && $vo.opentime eq $i"> selected = selected</if>>{pigcms:$i}:00</option>
+</for>
+</select>---<select name="closetime" style="width:100px;">
+<for start="1" end="25">
+<option value="{pigcms:$i}" <if condition="$vo.closetime neq '' && $vo.closetime eq $i"> selected = selected</if>>{pigcms:$i}:00</option>
+</for>
+</select></td>
+</tr>
+<tr>
+<th width="120"><span class="red">*</span>等待类型名称：</th>
+<td><input type="text" name="type_name" value="<if condition="$type_name neq ''">{pigcms:$type_name}<else />大桌,中桌,小桌</if>" class="px" style="width:250px;">&nbsp;&nbsp;&nbsp;&nbsp;(可以填类型1,类型2,类型3。<span style="color:red;">多个类型以英文逗号隔开</span>,领取排号时类型1对应A开头的号码,类型2对应B开头的号码以此类推。例如我排号时选的中桌并且前面有3个人等待,那我的号码就是B4)
+</td>
+</tr>
+<tr>
+<th width="120"><span class="red">*</span>等待类型属性值：</th>
+<td><input type="text" name="type_value" value="<if condition="$type_name neq ''">{pigcms:$type_value}<else />5-6人,3-4人,1-2人</if>" class="px" style="width:250px;">&nbsp;&nbsp;&nbsp;&nbsp;(例如属性值1,属性值2,属性值3。<span style="color:red;">多个属性值以英文逗号隔开</span>。属性值要和类型名称一一对应)</td>
+</tr>
+<tr>
+<th><span class="red">*</span>店员登陆密码：</th>
+<td><input type="password" class="px" id="password" value="{pigcms:$vo.password}"  name="password" style="width:250px;"/>&nbsp;&nbsp;&nbsp;&nbsp;(店员员前台登陆密码)</td>
+</tr>
+<tr>
+<th>网站名称：</th>
+<td><input type="text" class="px" id="jump_name" value="{pigcms:$vo.jump_name}"  name="jump_name" style="width:250px;"/>&nbsp;&nbsp;&nbsp;&nbsp;(例如大众点评网、百度糯米网,也可以是自己的网址)</td>
+</tr>
+<tr>
+<th>网站跳转地址：</th>
+<td><input type="text" class="px" id="hankowthames" value="{pigcms:$vo.hankowthames}"  name="hankowthames" style="width:250px;"/><if condition="session('isQcloud') neq true"><a href="###" onclick="addLink('hankowthames',0)" class="a_choose">从功能库添加</a></if>&nbsp;&nbsp;&nbsp;&nbsp;(可以从功能库中选择,也可以填写外链地址。例如：http://www.example.com)</td>
+</tr>
+<tr>
+<th width="120">优惠信息链接：</th>
+<td><input type="text" name="privilege_link" id="privilege_link" value="{pigcms:$vo.privilege_link}" class="px" style="width:250px;"><if condition="session('isQcloud') neq true"><a href="###" onclick="addLink('privilege_link',0)" class="a_choose">从功能库添加</a></if></td>
+</tr>
+<!--tr>
+<th width="120">优惠信息：</th>
+<td><textarea class="px" id="privilege" name="privilege" style="width:400px; height: 100px;">{pigcms:$vo.privilege}</textarea>&nbsp;&nbsp;&nbsp;&nbsp;(最多150个汉字,一个汉字等于3个英文字母)</td>
+</tr-->
+<tr>
+<th>排序：</th>
+<td><input type="text" class="px" id="rank" value="<if condition="$vo.rank neq ''">{pigcms:$vo.rank}<else />0</if>"  name="rank" style="width:120px;"/>&nbsp;&nbsp;&nbsp;&nbsp;(值越大,在手机端'热卖品牌厅'中就会越靠前,默认为0)</td>
+</tr>
+<tr>
+<th><span class="red">*</span>等待的单位时间：</th>
+<td><input type="input" class="px" id="wait_time" value='<if condition="$vo.wait_time neq ''">{pigcms:$vo.wait_time}<else />10</if>' name="wait_time">&nbsp;&nbsp;&nbsp;&nbsp;(每个排队者预计等待时间,单位分钟)</td>
+</tr>
+<tr>
+<th> <span class="red">*</span>限制最大距离：</th>
+<td>
+  <input type="text" name="allow_distance" value='<if condition="$vo.allow_distance neq ''">{pigcms:$vo.allow_distance}<else />1000.00</if>' class="px">&nbsp;&nbsp;&nbsp;&nbsp;(限制最大距离，超过这个距离就不让领号,单位km,保留2位小数)
+</td>
+</tr>
+<tr>
+<th>是否需要填写人数：</th>
+<td>
+  <input type="radio" name="need_numbers" value="1" <if condition="$vo.need_numbers eq '1' or $vo.need_numbers eq ''">checked</if>>
+  是
+  <input type="radio" name="need_numbers" value="2" <if condition="$vo.need_numbers eq '2'">checked</if>>否&nbsp;&nbsp;&nbsp;&nbsp;(点否时手机端领号时跳过输入人数步骤,建议门店类型是理发时,设置为否,跳过输入人数)
+</td>
+</tr>
+<tr>
+<th>是否需要排队：</th>
+<td>
+  <input type="radio" name="need_wait" value="1" <if condition="$vo.need_wait eq '1' or $vo.need_wait eq ''">checked</if>>
+  是
+  <input type="radio" name="need_wait" value="2" <if condition="$vo.need_wait eq '2'">checked</if>>否&nbsp;&nbsp;&nbsp;&nbsp;(手动控制是否需要排队,点是的时候手机端显示领号按钮,点否的时候手机端显示"无需排队"提示)
+</td>
+</tr>
+<tr>
+<th>是否开启门店：</th>
+<td>
+  <input type="radio" name="status" value="1" <if condition="$vo.status eq '1' or $vo.status eq ''">checked</if>>
+  开启
+  　　
+  <input type="radio" name="status" value="0" <if condition="$vo.status eq '0'">checked</if>>关闭
+</td>
+</tr>
+<tr>
+<th>&nbsp;</th>
+<input type="hidden" name="action_id" value="{pigcms:$action_id}" />
+<td><button type="button" name="button" class="btnGreen sub" onclick="save_store()">保存</button>
+<a href="" class="btnGray vm">取消</a>
+</td>
+</tr>
+</tbody>
+</table>
+</form>
+  </div>
+</div>
+<script type="text/javascript">
+<if condition="$type_name eq ''">
+$(function(){
+	var type = $("#store_type").val();
+	if(type == 1){
+		var name = '大桌,中桌,小桌';
+		var value = '5-6人,3-4人,1-2人';
+	}else if(type ==2){
+		var name = '大间,中间,小间';
+		var value = '5-6人,3-4人,1-2人';	
+	}else if(type ==3){
+		var name = '首席,总监,高级总监';
+		var value = '48元,58元,128元';
+	}
+	$(":input[name='type_name']").val(name);
+	$(":input[name='type_value']").val(value);
+});
+</if>
+$(function(){
+$("#store_type").change(function(){
+	var type = $("#store_type").val();
+	var store_type = '{pigcms:$vo.store_type}';
+	var type_name = '{pigcms:$type_name}';
+	var type_value = '{pigcms:$type_value}';
+		if(type == 1){
+			var name = (store_type == type && type_name != '') ? type_name : '大桌,中桌,小桌';
+			var value = (store_type == type && type_value != '') ? type_value : '5-6人,3-4人,1-2人';
+		}else if(type ==2){
+			var name = (store_type == type && type_name != '') ? type_name : '大间,中间,小间';
+			var value = (store_type == type && type_value != '') ? type_value :'5-6人,3-4人,1-2人';	
+		}else if(type ==3){
+			var name = (store_type == type && type_name != '') ? type_name : '首席,总监,高级总监';
+			var value = (store_type == type && type_value != '') ? type_value :'48元,58元,128元';
+		}
+		$(":input[name='type_name']").val(name);
+		$(":input[name='type_value']").val(value);
+	});
+});
+function setlatlng(longitude,latitude){
+	art.dialog.data('longitude', longitude);
+	art.dialog.data('latitude', latitude);
+	// 此时 iframeA.html 页面可以使用 art.dialog.data('test') 获取到数据，如：
+	// document.getElementById('aInput').value = art.dialog.data('test');
+	art.dialog.open('{pigcms::U('Map/setLatLng',array('token'=>$token,'id'=>$id))}',{lock:false,title:'设置经纬度',width:600,height:400,yesText:'关闭',background: '#000',opacity: 0.87});
+}
+//js验证活动建立
+function save_store(){
+	var name = $(":input[name='name']").val();
+	var logo = $(":input[name='logo']").val();
+	var address = $(":input[name='address']").val();
+	var tel = $(":input[name='tel']").val();
+	var latitude = $(":input[name='latitude']").val();
+	var longitude = $(":input[name='longitude']").val();
+	var type_name = $(":input[name='type_name']").val();
+	var type_value = $(":input[name='type_value']").val();
+	var password = $(":input[name='password']").val();
+	var rank = $(":input[name='rank']").val();
+	var allow_distance = $(":input[name='allow_distance']").val();
+	var wait_time = $(":input[name='wait_time']").val();
+	var reg_logo = /http|https:\/\/[0-9a-z\.\/\-]+\/[0-9a-z\.\/\-]+\.([0-9a-z\.\/\-]+)/;
+	var reg_tel = /^(0[0-9]{2,3})-([0-9]{7})/;
+	var reg_phone = /^(1([0-9]){7}|^1([0-9]){10})$/;
+	var reg_rank = /^[0-9]*$/;
+	var re = /^[1-9]+[0-9]*]*$/;
+	var msg = '';
+	if(name == ''){
+		msg += '门店名称不能为空\n';
+	}
+	if(logo == ''){
+		msg += 'logo不能为空\n';
+	}
+	if(!reg_logo.test(logo)){
+		msg += 'logo地址错误\n';
+	}
+	if(tel.indexOf("-") > 0){
+		if(!reg_tel.test(tel)){
+			msg += '电话格式不正确\n';
+		}
+	}else{
+		if(!reg_phone.test(tel)){
+		    msg += '手机格式不正确\n';
+		}
+	}
+	if(address == ''){
+		msg += '地址不能为空\n';
+	}
+	if(tel == ''){
+		msg += '电话不能为空\n';
+	}
+	if(latitude == ''){
+		msg += '纬度不能为空\n';
+	}
+	if(longitude == ''){
+		msg += '经度不能为空\n';
+	}
+	if(type_name == ''){
+		msg += '等待类型不能为空\n';
+	}
+	if(type_value == ''){
+		msg += '等待类型属性值不能为空\n';
+	}
+	if(password == ''){
+		msg += '管理员前台登陆密码不能为空\n';
+	}
+	if(!reg_rank.test(rank)){
+		msg += '排序请输入数字\n';
+	}
+	if(wait_time == ''){
+		msg += '单位等待时间不能为空';
+	}else if(!reg_rank.test(wait_time)){
+		msg += '单位等待时间请输入整数\n';
+	}
+	if(allow_distance == ''){
+		msg += '限制最大距离不能为空';
+	}
+	if(msg){
+		alert(msg);
+		return false;
+	}
+	$('.form').submit();
+}
+//默认营业时间6点到23点
+$(function(){
+	var opentime = '{pigcms:$vo.opentime}';
+	var closetime = '{pigcms:$vo.closetime}';
+	if(opentime == ''){
+		$("select[name='opentime']").val(6);
+	}
+	if(closetime == ''){	
+		$("select[name='closetime']").val(23);
+	}
+});
+</script>
+<include file="Public:footer"/>

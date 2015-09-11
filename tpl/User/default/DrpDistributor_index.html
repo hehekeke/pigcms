@@ -1,0 +1,69 @@
+<include file="Drp:head" />
+<style type="text/css">
+    .price {
+        color: #c40000;
+    }
+    .green {
+        color: green;
+    }
+</style>
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+<div class="content">
+<div class="cLineB">
+<h4 class="left">下级分销商 - {pigcms:$metaTitle}</h4>
+<div class="clr"></div>
+</div>
+    <!--tab start-->
+    <div class="tab">
+        <ul>
+            <li class="<if condition='$Think.get.level neq 2'>current</if> tabli" id="tab0"><a href="{pigcms::U('DrpDistributor/index', array('level' => 1))}">一级分销商</a></li>
+            <li class="<if condition='$Think.get.level eq 2'>current</if> tabli" id="tab1"><a href="{pigcms::U('DrpDistributor/index', array('level' => 2))}">二级分销商</a></li>
+        </ul>
+    </div>
+    <!--tab end-->
+
+    <div class="cLine">
+<div class="clr"></div>
+</div>
+<div class="msgWrap">
+<form method="post" action="" id="info">
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<if condition="$distributors neq array()">
+<thead>
+	<tr>
+		<th>分销商</th>
+        <th>店铺</th>
+        <th style="text-align: right">销售额（元）</th>
+        <th style="text-align: right">佣金（元）</th>
+        <th>联系方式</th>
+		<th style="text-align: center">加盟时间</th>
+	</tr>
+</thead>
+<tbody>
+<volist name="distributors" id="distributor">
+	<tr>
+		<td>{pigcms:$distributor.name}</td>
+        <td>{pigcms:$distributor.store}</td>
+        <td style="text-align: right">{pigcms:$distributor.saletotal}</td>
+        <td style="text-align: right">{pigcms:$distributor.commission}</td>
+        <td>{pigcms:$distributor.tel}</td>
+		<td style="text-align: center">{pigcms:$distributor.regtime|date='Y-m-d', ###}</td>
+	</tr>
+</volist>
+</tbody>
+<else />
+    <tr><td class="red" align="center">没有{pigcms:$metaTitle}！</td></tr>
+</if>
+</table>
+</form>
+</div>
+<div class="cLine">
+	<div class="pageNavigator right">
+		<div class="pages">{pigcms:$page}</div>
+	</div>
+	<div class="clr"></div>
+</div>
+</div>
+<include file="Public:footer"/>

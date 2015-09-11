@@ -1,0 +1,47 @@
+/*安全认证弹层样式*/
+.bdg_tc{position:fixed;_position:absolute;top:0;left:0;display:none;width:100%;height:100%;background:rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000,endColorstr=#99000000);z-index:998;}
+.layer_tc{position:fixed;_position:absolute;-moz-box-shadow:1px 1px 5px #555;-webkit-box-shadow:1px 1px 5px #555;-o-box-shadow:1px 1px 5px #555; box-shadow:1px 1px 5px #555;z-index:999;}
+.laybox_tc{}
+
+.laysmall_tc { background:#fff; width:560px;height:560px;}/*安全认证弹层*/
+.que-name_tc {display:block; float:left; width:90px; line-height:30px; font-size:14px; text-align:right; padding-right:15px;}
+.que-msg_tc {display:block; float:left; line-height:30px;font-size:14px;}
+.error_tc {font-size:12px;color:#ff0101}
+.que-btn_tc {display:block; float:left; line-height:30px;}
+.que-code_w_tc{width:100%x; background:#f8f8f8; padding-top:35px;}
+.weixin_code_tc{width:400px;margin:0 auto;}
+.weixin_code_tc img{width:176px; height:176px; border:2px solid #dbdbdb;}
+.weixin_code_tc p{ text-align:center; padding-top:15px; font-size:14px;}
+.lay-que_tc {width:525px;}
+.lay-tle_tc{padding:0 10px; height:45px; line-height:45px; font-size:16px;background:#ff9418;color:#fff;}
+.lay-cont_tc{ display:block;background:#fff;}
+.lay-btm_tc{ display:block; height:60px; line-height:60px; background:#fff;}
+.smallbtm_tc{ display:block; height:60px; line-height:60px; background:#fff; padding-bottom:30px;}
+.lay-customer_tc {background:#fff;width:400px; height:560px;}/*演示动画弹层*/
+.laycont_tc{ display:block;background:#fff;}
+.layedit_tc{width:415px; position:fixed; top:10% !important;}
+.que-edit_tc {line-height:30px; font-size:14px;}
+
+.noborder_tc {border-bottom:0px;}
+.lay-foot_tc{ display:block; height:60px; line-height:60px; background:#fff;}
+.lay-foot_tc p{display:inline-block; width:350px;*width:330px;_width:330px; line-height:30px; font-size:13px; color:#999; padding-left:20px;*padding-left:10px;_padding-left:10px;}
+.msgcode_tc{display:block;height:0px; line-height:0px; background:#fff;}/*控制扫码演示动画*/
+
+.close-btn_tc{display:inline-block;width:20px; height:17px; background:url(../images/closebg.png) no-repeat 0px 0px; cursor:pointer;}
+.close-btn_tc:hover{display:inline-block;width:20px; height:17px; background:url(../images/closebg.png) no-repeat 0px -17px; cursor:pointer;}
+.orange-btn03_tc {display:block; width:110px;height:30px; line-height:30px; font-size:14px; color:#fff; text-align:center; background:url(../images/btn_all02.jpg) no-repeat -300px 0px;cursor:pointer;}
+.orange-btn03_tc a, .orange-btn03 a:hover{color:#fff !important;}
+.orange-btn03_tc:hover{display:block; width:110px;height:30px; line-height:30px; font-size:14px;background:url(../images/btn_all02.jpg) no-repeat -300px -30px;color:#fff;}.input_260 {width:260px;}
+.radius_tc {display:block;line-height:28px; border:2px solid #ececec;-moz-border-radius:3px;-webkit-border-radius:3px;-o-border-radius:3px; border-radius:3px;background:#fff;}
+
+/*
+.font12{font-size:12px; color:#9a9a9a;}
+.input_180 {width:120px;}
+.input_360 {width:360px;}
+.input_checkbox {border: 0 none;}
+.ul_list_10 li input {border: 0 none;display: inline-block;float: left;line-height: 28px;margin-right: 8px;}
+.ty_btn {background: url("../images/ty_btn.jpg") no-repeat scroll 0 0;border: 0 none;color: #fff;cursor: pointer;font-size: 18px;height: 44px;padding-bottom: 6px;width: 120px;}
+
+
+.line{with:100%; height:0; line-height:0; border-bottom:1px solid #e5e5e5; clear:both;}
+*/

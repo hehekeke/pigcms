@@ -1,0 +1,67 @@
+<if condition="$ischild neq 1">
+<include file="Public:head" />
+<else />
+<include file="Repast:head" />
+</if>
+<link rel="stylesheet" type="text/css" href="{pigcms:$staticPath}/tpl/static/unitary/css/cymain.css" />
+<div class="content">
+	<div class="cLineB">
+		<h4 class="left">商品【{pigcms:$unitary.name}】的数据</h4>
+		<a href="{pigcms::U('Unitary/index',array('token'=>$token))}"  class="right btnGreen" >返回</a>
+	</div>
+	
+	<!-- <div class="cLine">
+		<div class="tab">
+			<ul>
+				<li class="current tabli" id="tab1"><a href="">购买数据</a></li>
+				<li class="tabli" id="tab2"><a href="">用户列表</a></li>
+			</ul>
+		</div>
+	</div> -->
+	
+	<div class="msgWrap">
+		<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+			<thead>
+				<th class="select">选择</th>
+				<th width="80px">昵称</th>
+				<th width="">电话</th>
+				<th width="250px">地址</th>
+				<th width="">状态</th>
+				<th width="">幸运号码</th>
+				<th width="150px">购买时间</th>
+				<th width="80px">操作</th>
+			</thead>
+			<tbody>
+				<volist name="lucknum_list" id="vo">
+				<tr>
+					<td class="select"><input type="checkbox" name="" value="" class="checkitem"></td>
+					<td>{pigcms:$vo.name}</td>
+					<td>{pigcms:$vo.phone}</td>
+					<td>{pigcms:$vo.address}</td>
+					<td><?php if($vo['state'] == 1){echo "<span style='color:red'>已中奖</span>";}else{echo "未中奖";}?>-<?php if($vo['paifa'] == 1){echo "<span style='color:red'>已发货</span>";}else{echo "未发货";}?></td>
+					<td><?php echo 100000 + $vo['lucknum'];?></td>
+					<?php
+						$thistime = floor($vo['addtime']/1000);
+						$ms = substr($vo['addtime'],-3);
+					?>
+					<td><?php echo date("Y-m-d H:i:s",$thistime).".".$ms;?></td>
+					<td class="norightborder">
+						<?php if($vo['state'] == 1 && $vo['paifa'] == 0){?>
+						<a href="{pigcms::U('Unitary/paifa',array('token'=>$token,'lucknumid'=>$vo['id']))}">发货</a>
+						<?php }elseif($vo['state'] == 1 && $vo['paifa'] == 1){?>
+						<a href="{pigcms::U('Unitary/paifa',array('token'=>$token,'lucknumid'=>$vo['id']))}">已发货</a>
+						<?php }else{echo "无";}?>
+					</td>
+				</tr>
+				</volist>
+			</tbody>
+		</table>
+	</div>
+	<div class="cLine">
+		<div class="pageNavigator right">
+			<div class="pages">{pigcms:$page}</div>
+		</div>
+		<div class="clr"></div>
+	</div>
+</div>
+<include file="Public:footer"/>

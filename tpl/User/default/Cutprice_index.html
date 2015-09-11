@@ -1,0 +1,104 @@
+<include file="Public:head" />
+<link rel="stylesheet" type="text/css" href="{pigcms:$staticPath}/tpl/static/cutprice/css/cymain.css" />
+<div class="content">
+	<div class="cLineB">
+		<h4 class="left">降价拍</h4>
+		<div class="clr"></div>
+	</div>
+	<div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-bottom:5px;font-size:12px;">
+		温馨提示：1、本功能使用了模板消息中的"订单发货提醒"模板消息,模板消息编号为OPENTM200565259。<br/>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		2、开通微信支付功能的公众号在使用此功能的时候可以在"基本设置——微信模板消息"中配置对应的模板消息。<br/>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		3、降价拍商品价格由高到低依次递减，直至竞买人以自己可承受价格抢单成功，活动结束。或者库存为零活动结束。又或者商品降价至底价活动结束。每位竞买人，均有一<br/>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		次抢拍资格，抢拍以最先拍下者获得，否则视作放弃本次抢拍权利，拍下不买者30分钟后失效并返回库存。
+	</div>
+	<div class="tab">
+		<ul>
+			<li class="current tabli" id="tab1"><a href="{pigcms::U('Cutprice/index',array('token'=>$token))}">商品</a></li>
+			<li class="tabli" id="tab2"><a href="{pigcms::U('Cutprice/order',array('token'=>$token))}">订单</a></li>
+		</ul>
+	</div>
+	
+	<div class="cLineB">
+		<h4 class="left">“降价拍”商品列表</h4>
+		<div class="clr"></div>
+	</div>
+	
+	<div class="cLine">
+		<div class="pageNavigator left">
+			<a href="{pigcms::U('Cutprice/add',array('token'=>$token))}" title="添加拍卖商品" class="btnGrayS vm bigbtn">添加拍卖商品</a>
+		</div>
+		<div class="pageNavigator right">
+			<input type="text" id="name" class="px name" placeholder="输入拍卖商品名称"  name="name" value="{pigcms:$_GET['name']}" style="margin-top:10px">
+			<a href="javascript:seach()" id="seach" href="" class="btnGrayS" title="搜索">搜索</a>
+		</div>
+		<script>
+			
+		</script>
+		<div class="clr"></div>
+	</div>
+	
+	<div class="msgWrap">
+		<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+			<thead>
+				<tr>
+					<th width="100px">商品名称</th>
+					<th width="100px">关键词</th>
+					<th width="160px">价格</th>
+					<th width="60px">库存</th>
+					<th width="60px">拍下人数</th>
+					<th>操作</th>
+					<th width="240px" class="norightborder">时间</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="cutprice_list" id="vo">
+					<tr>
+						<td>{pigcms:$vo.name}</td>
+						<td>{pigcms:$vo.keyword}</td>
+						<td>
+							原价：￥{pigcms:$vo.original}<br/>
+							起拍价：￥{pigcms:$vo.startprice}<br/>
+							最低价：￥{pigcms:$vo.stopprice}<br/>
+							每{pigcms:$vo.cuttime}分钟下降{pigcms:$vo.cutprice}元<br/>
+						</td>
+						<td>{pigcms:$vo.inventory}</td>
+						<td>{pigcms:$vo.paycount}</td>
+						<td class="norightborder" style="border-right:1px solid #eee">
+							<a href="{pigcms::U('Cutprice/order',array('token'=>$token,'id'=>$vo['pigcms_id']))}">订单</a>
+							<a href="{pigcms::U('Cutprice/update',array('token'=>$token,'id'=>$vo['pigcms_id']))}">修改</a>
+							<a href="javascript:drop_confirm('您确定要删除【{pigcms:$vo.name}】吗?', '{pigcms::U('Cutprice/operate',array('token'=>$token,'id'=>$vo['pigcms_id'],'type'=>'del'))}')">删除</a>
+						</td>
+						<td  style="border-right:0">
+							拍卖开始时间：{pigcms:$vo.starttime|date="Y-m-d H:i:s",###}<br/>
+							预计结束时间：{pigcms:$vo.stoptime|date="Y-m-d H:i:s",###}<br/>
+							商品添加时间：{pigcms:$vo.addtime|date="Y-m-d H:i:s",###}<br/>
+						</td>
+					</tr>
+				</volist>
+			</tbody>
+		</table>
+	</div>
+	<div class="cLine">
+		<div class="pageNavigator right">
+			<div class="pages">{pigcms:$page}</div>
+		</div>
+		<div class="clr"></div>
+	</div>
+</div>
+<script>
+	$(document).ready(function(){
+		
+	});
+	function seach(){
+		var name = $("#name").val();
+		if(name != ""){
+			window.location.href="{pigcms::U('Cutprice/index',array('token'=>$token))}&name="+name;
+		}else{
+			window.location.href="{pigcms::U('Cutprice/index',array('token'=>$token))}";
+		}
+	}
+</script>
+<include file="Public:footer"/>

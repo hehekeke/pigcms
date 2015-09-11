@@ -1,0 +1,93 @@
+<include file="Public:head" />
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<link rel="stylesheet" type="text/css" href="{pigcms:$staticPath}/tpl/static/livingcircle/css/cymain.css" />
+<script>
+	$(document).ready(function(){
+		$("form").submit(function () {
+			var name = $("#name").val();
+			var pic = $("#pic").val();
+			var num = $("#num").val();
+			var ajaxreturn = false;
+			if(name == ""){
+				alert('请填写商圈名称');
+				buterror("#name");
+				return false;
+			}else{
+				return true;
+			}
+		});
+	});
+	
+	function buterror(id){
+		$("html,body").animate({scrollTop: $("#ooo").offset().top}, 500);
+		$(id).css("border","2px solid red");
+		$(id).focus(function(){
+			$(id).css("border","1px solid");
+			$(id).css("border-color","#848484 #E0E0E0 #E0E0E0 #848484");
+		})
+	}
+</script>
+<form class="form" method="post"   action="{pigcms::U('LivingCircle/dozisellcircleadd',array('token'=>$token))}"  target="_top" enctype="multipart/form-data" >
+	<div class="content">
+		<div class="cLineB">
+			<h4 class="left">微信生活圈</h4>
+			<div class="clr"></div>
+		</div>
+		
+		<div class="tab">
+			<ul>
+				<li class="tabli" id="tab1"><a href="{pigcms::U('LivingCircle/index',array('token'=>$token))}">基础信息</a></li>
+				<li class="tabli" id="tab1"><a href="{pigcms::U('LivingCircle/type',array('token'=>$token))}">分类管理</a></li>
+				<li class="current tabli" id="tab2"><a href="{pigcms::U('LivingCircle/sellcircle',array('token'=>$token))}">商圈管理</a></li>
+				<li class="tabli" id="tab2"><a href="{pigcms::U('LivingCircle/seller',array('token'=>$token))}">商家管理</a></li>
+			</ul>
+		</div>
+
+		<div class="cLineB" id="ooo">
+			<h4 class="left">新增一个【{pigcms:$sellcircle.name}】的子商圈</h4>
+			<a href="{pigcms::U('LivingCircle/zisellcircle',array('token'=>$token,'sellcircleid'=>$_GET['sellcircleid']))}"  class="right btnGreen" >返回</a>
+		</div>
+		
+		<div class="msgWrap">
+			<table class="userinfoArea" style=" margin:20px 0 0 0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+				<tbody>
+					<tr>
+						<th valign="top">商圈名称：</th>
+						<td><input type="text" class="px" id="name" value="" name="name" style="width:500px" /></td>
+						<td>&nbsp;</td>
+					</tr>
+					
+					<tr>
+						<th valign="top">商圈排序：</th>
+						<td>
+							<input type="text" class="px" id="num" value="1" name="num" style="width:500px" />
+							<br />
+							值越小越靠前，值相同则按照添加时间最新的在前面
+						</td>
+						<td>&nbsp;</td>
+					</tr>
+					
+					<tr>
+						<th valign="top">是否显示：</th>
+						<td>
+							<input type="radio" class="px display" value="1" name="display" checked />是
+							<br/>
+							<input type="radio" class="px display" value="0" name="display" />否
+						</td>
+						<td>&nbsp;</td>
+					</tr>
+					
+					<tr>
+						<th>&nbsp;</th>
+						<td>
+							<input type="hidden" name="sellcircleid" value="{pigcms:$_GET['sellcircleid']}"/>
+							<button type="submit" class="btnGreen" >保存</button>　<a href="{pigcms::U('LivingCircle/zisellcircle',array('token'=>$token,'sellcircleid'=>$_GET['sellcircleid']))}"  class="btnGray vm">取消</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</form>
+<include file="Public:footer"/>

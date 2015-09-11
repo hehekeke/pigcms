@@ -1,0 +1,73 @@
+<include file="Public:head" />
+<link rel="stylesheet" type="text/css" href="{pigcms:$staticPath}/tpl/static/test/css/cymain.css" />
+<script>
+
+</script>
+<div class="content">
+	<div class="cLineB">
+		<h4 class="left">趣味测试</h4>
+		<div class="clr"></div>
+	</div>
+	
+	<div class="cLine">
+		<div class="pageNavigator left">
+			<a href="{pigcms::U('Test/add',array('token'=>$token))}" title="添加测试" class="btnGrayS vm bigbtn">添加测试</a>
+		</div>
+		<div class="pageNavigator right">
+			<input type="text" id="name" class="px name" placeholder="输入测试名称"  name="name" value="{pigcms:$_GET['name']}" style="margin-top:10px">
+			<a href="javascript:seach()" id="seach" href="" class="btnGrayS" title="搜索">搜索</a>
+		</div>
+		<script>
+			
+		</script>
+		<div class="clr"></div>
+	</div>
+	
+	<div class="msgWrap">
+		<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+			<thead>
+				<tr>
+					<th width="120px">测试名称</th>
+					<th width="60px">浏览量</th>
+					<th>操作</th>
+					<th width="120px" class="norightborder">添加时间</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="test_list" id="vo">
+					<tr>
+						<td>{pigcms:$vo.name}</td>
+						<td>{pigcms:$vo.pv}</td>
+						<td class="norightborder" style="border-right:1px solid #eee">
+							<a href="{pigcms::U('Test/data',array('token'=>$token,'id'=>$vo['pigcms_id']))}">数据</a>
+							<a href="{pigcms::U('Test/update',array('token'=>$token,'id'=>$vo['pigcms_id']))}">修改</a>
+							<a href="javascript:drop_confirm('您确定要删除【{pigcms:$vo.name}】吗?', '{pigcms::U('Test/operate',array('token'=>$token,'id'=>$vo['pigcms_id'],'type'=>'testdel'))}')">删除</a>
+						</td>
+						<td  style="border-right:0">{pigcms:$vo.addtime|date="Y-m-d H:i:s",###}</td>
+					</tr>
+				</volist>
+			</tbody>
+		</table>
+	</div>
+	<div class="cLine">
+		<div class="pageNavigator right">
+			<div class="pages">{pigcms:$page}</div>
+		</div>
+		<div class="clr"></div>
+	</div>
+</div>
+<script>
+	$(document).ready(function(){
+		
+	});
+	
+	function seach(){
+		var name = $("#name").val();
+		if(name != ""){
+			window.location.href="{pigcms::U('Test/index',array('token'=>$token))}&name="+name;
+		}else{
+			window.location.href="{pigcms::U('Test/index',array('token'=>$token))}";
+		}
+	}
+</script>
+<include file="Public:footer"/>

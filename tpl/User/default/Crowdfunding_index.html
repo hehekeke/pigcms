@@ -1,0 +1,97 @@
+<include file="Public:head"/> 
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+<link href="{pigcms:$staticPath}/tpl/static/crowdfunding/css/index.css" rel="stylesheet" type="text/css">
+        <div class="content">
+<div class="cLineB">
+<h4 class="left">微众筹</h4>
+<div class="clr"></div>
+</div>
+
+<div class="cLine">
+<div class="pageNavigator left"> <a href="{pigcms::U('Crowdfunding/basis_set',array('token'=>$token))}" title="添加众筹" class="btnGrayS vm bigbtn"><img src="{pigcms::RES}/images/product/add.png" width="16" class="vm">添加众筹</a></div>
+<div class="searchbar right">
+	<form method="post" action="">
+		<input type="text" id="msgSearchInput" class="txt left" placeholder="输入关键词搜索" name="search" value="">
+		<input type="hidden" name="ac" value="hotels-list">
+		<input type="hidden" name="id" value="9878">
+		<input type="hidden" name="wxid" value="gh_423dwjkewad">
+		<input type="submit" value="搜索" id="msgSearchBtn" href="" class="btnGrayS" title="搜索">
+	</form>
+</div>
+<div class="clr"></div>
+</div>
+<div class="msgWrap">
+<form method="post" action="" id="info">
+<input name="delall" type="hidden" value="">
+<input name="wxid" type="hidden" value="">
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<thead>
+<tr>
+<th width="280">项目信息</th>
+<th width="60">关键词</th>
+<th width="70">筹集资金(元)</th>
+<th width="50">当前状态</th>
+<th width="80" class="norightborder">操作</th>
+</tr>
+</thead>
+<tbody>
+<tr></tr>
+<volist name="list" id="item"> 
+<tr>
+<td class="align-left">
+	<div class="item_img">
+		<img src="{pigcms:$item.pic}" alt="{pigcms:$item.name}">
+	</div>
+	<div class="item_content">
+		<div class="item_title">{pigcms:$item.name}</div>
+		<div class="item_1">
+			<p>已完成</p>
+			<p>{pigcms:$item.progress}</p>
+		</div>
+		<div class="item_1">
+			<p>已筹集</p>
+			<p>{pigcms:$item.price_count}</p>
+		</div>
+		<div class="item_1">
+			<p>剩余天数</p>
+			<p>{pigcms:$item.remain_day} 天</p>
+		</div>
+	</div>
+</td>
+<td>{pigcms:$item.keyword}</td>
+<td>
+	{pigcms:$item.fund}
+	<br/>
+	(当前进度：{pigcms:$item.percent})
+</td> 
+<td>
+	<if condition="$item.status eq '1'">
+		<b style="color:#993300;">项目信息已保存</b>
+	<elseif condition="$item.status eq '2'"/>
+		<b style="color:#993300;">回报设置完成</b>
+	<elseif condition="$item.status eq '3'"/>
+		<b style="color:#44b549;">发布中</b>
+	<elseif condition="$item.status eq '4'"/>
+		<b style="color:#f05c52;">已结束</b>
+	</if>
+</td> 
+
+<td class="norightborder">
+	<a href="{pigcms::U('Crowdfunding/order',array('id'=>$item['id'],'token'=>$token))}">查看订单</a>&nbsp;
+	<a href="{pigcms::U('Crowdfunding/basis_set',array('token'=>$token,'id'=>$item['id']))}">修改</a>&nbsp;
+	<a href="javascript:drop_confirm('您确定要删除吗?', '{pigcms::U('Crowdfunding/del',array('token'=>$token,'id'=>$item['id']))}');">删除</a></td>
+</tr>
+</volist>
+</tbody>
+</table>
+</form>
+
+</div>
+<div class="cLine">
+<div class="pageNavigator right">
+<div class="pages">{pigcms:$page}</div>
+</div>
+<div class="clr"></div>
+</div>
+</div>
+<include file="Public:footer"/>

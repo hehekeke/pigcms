@@ -1,0 +1,552 @@
+<include file="Public:head" />
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<script src="{pigcms:$staticPath}/tpl/static/test/js/jscolor.js"></script>
+<link rel="stylesheet" type="text/css" href="{pigcms:$staticPath}/tpl/static/test/css/cymain.css" />
+<script>
+	$(document).ready(function(){
+		$("form").submit(function () {
+			var keyword = $("#keyword").val();
+			var wxtitle = $("#wxtitle").val();
+			var wxpic = $("#wxpic").val();
+			var name = $("#name").val();
+			var bgcolor = $("#bgcolor").val();
+			var indexpic = $("#indexpic").val();
+			var title = $("#title").val();
+			var questionpic = $("#questionpic").val();
+			var qtitle = $("#qtitle").val();
+			var fistq = $("#fistq").val();
+			var fistapic = $("#fistapic").val();
+			var fistatitle = $("#fistatitle").val();
+			var fistatitle2 = $("#fistatitle2").val();
+			var fistainfo = $("#fistainfo").val();
+			var secondq = $("#secondq").val();
+			var secondapic = $("#secondapic").val();
+			var secondatitle = $("#secondatitle").val();
+			var secondatitle2 = $("#secondatitle2").val();
+			var secondainfo = $("#secondainfo").val();
+			var thirdq = $("#thirdq").val();
+			var thirdapic = $("#thirdapic").val();
+			var thirdatitle = $("#thirdatitle").val();
+			var thirdatitle2 = $("#thirdatitle2").val();
+			var thirdainfo = $("#thirdainfo").val();
+			var fourq = $("#fourq").val();
+			var fourapic = $("#fourapic").val();
+			var fouratitle = $("#fouratitle").val();
+			var fouratitle2 = $("#fouratitle2").val();
+			var fourainfo = $("#fourainfo").val();
+			var fiveq = $("#fiveq").val();
+			var fiveapic = $("#fiveapic").val();
+			var fiveatitle = $("#fiveatitle").val();
+			var fiveatitle2 = $("#fiveatitle2").val();
+			var fiveainfo = $("#fiveainfo").val();
+			var num = $("#num").val();
+			if(keyword == ""){
+				alert('请填写关键字');
+				buterror("#keyword");
+				return false;
+			}else if(wxtitle == ""){
+				alert('请填写微信回复标题');
+				buterror("#wxtitle");
+				return false;
+			}else if(wxpic == ""){
+				alert('请添加微信图文信息图片');
+				buterror("#wxpic");
+				return false;
+			}else if(name == ""){
+				alert('请填写活动名称');
+				buterror("#name");
+				return false;
+			}else if(bgcolor == ""){
+				alert('请选择背景颜色');
+				buterror("#bgcolor");
+				return false;
+			}else if(indexpic == ""){
+				alert('请添加封面图片');
+				buterror("#indexpic");
+				return false;
+			}else if(title == ""){
+				alert('请添写封面标题');
+				buterror("#title");
+				return false;
+			}else if(questionpic == ""){
+				alert('请添加选项图片');
+				buterror("#questionpic");
+				return false;
+			}else if(qtitle == ""){
+				alert('请添写选项问题');
+				buterror("#qtitle");
+				return false;
+			}else if(fistq == ""){
+				alert('请添写第一个选项内容');
+				buterror("#fistq");
+				return false;
+			}else if(fistapic == ""){
+				alert('请添加第一个答案图片');
+				buterror("#fistapic");
+				return false;
+			}else if(fistatitle == ""){
+				alert('请添加第一个答案开头');
+				buterror("#fistatitle");
+				return false;
+			}else if(fistatitle2 == ""){
+				alert('请添加第一个答案内容');
+				buterror("#fistatitle2");
+				return false;
+			}else if(secondq == ""){
+				alert('请添写第二个选项内容');
+				buterror("#secondq");
+				return false;
+			}else if(secondapic == ""){
+				alert('请添加第二个答案图片');
+				buterror("#secondapic");
+				return false;
+			}else if(secondatitle == ""){
+				alert('请添加第二个答案开头');
+				buterror("#secondatitle");
+				return false;
+			}else if(secondatitle2 == ""){
+				alert('请添加第二个答案内容');
+				buterror("#secondatitle2");
+				return false;
+			}else if(thirdq != '' && thirdapic == ''){
+				alert('第三个选项内容已填写，请完善第三个答案图片');
+				buterror("#thirdapic");
+				return false;
+			}else if(thirdq != '' && thirdatitle == ''){
+				alert('第三个选项内容已填写，请完善第三个答案开头');
+				buterror("#thirdatitle");
+				return false;
+			}else if(thirdq != '' && thirdatitle2 == ''){
+				alert('第三个选项内容已填写，请完善第三个答案内容');
+				buterror("#thirdatitle2");
+				return false;
+			}else if(fourq != '' && fourapic == ''){
+				alert('第四个选项内容已填写，请完善第四个答案图片');
+				buterror("#fourapic");
+				return false;
+			}else if(fourq != '' && fouratitle == ''){
+				alert('第四个选项内容已填写，请完善第四个答案开头');
+				buterror("#fouratitle");
+				return false;
+			}else if(fourq != '' && fouratitle2 == ''){
+				alert('第四个选项内容已填写，请完善第四个答案内容');
+				buterror("#fouratitle2");
+				return false;
+			}else if(fiveq != '' && fiveapic == ''){
+				alert('第五个选项内容已填写，请完善第五个答案图片');
+				buterror("#fiveapic");
+				return false;
+			}else if(fiveq != '' && fiveatitle == ''){
+				alert('第五个选项内容已填写，请完善第五个答案开头');
+				buterror("#fiveatitle");
+				return false;
+			}else if(fiveq != '' && fiveatitle2 == ''){
+				alert('第五个选项内容已填写，请完善第五个答案内容');
+				buterror("#fiveatitle2");
+				return false;
+			}else{
+				return true;
+			}
+			
+		});
+	});
+	function buterror(id){
+		$("html,body").animate({scrollTop: $(id).offset().top}, 500);
+		$(id).css("border","2px solid red");
+		$(id).focus(function(){
+			$(id).css("border","1px solid");
+			$(id).css("border-color","#848484 #E0E0E0 #E0E0E0 #848484");
+		})
+	}
+</script>
+<form class="form" method="post"   action="{pigcms::U('Test/doupdate',array('token'=>$token))}"  target="_top" enctype="multipart/form-data" >
+	<div class="content">
+		<div class="cLineB">
+			<h4 class="left">修改趣味测试【{pigcms:$test.name}】</h4>
+			<a href="{pigcms::U('Test/index',array('token'=>$token))}"  class="right btnGreen" >返回</a>
+		</div>
+		<div class="msgWrap bgfc">
+			<table class="userinfoArea" style=" margin:0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+				<tbody>
+					
+					<tr>
+						<th valign="top"><span class="red">*</span>关键词：</th>
+						<td>
+							<input type="input" class="px" id="keyword" value="{pigcms:$test.keyword}" name="keyword" style="width:400px" />
+							<br/>
+							<span class="red">只能写一个关键词</span>，用户输入此关键词将会触发此活动。
+						</td>
+						<td rowspan="999" valign="top">
+							<div style="margin-left:20px">
+								<img id="wxpic_src" src="{pigcms:$test.wxpic}" width="373px" >
+								<br/>
+								<input class="px"  name="wxpic" value="{pigcms:$test.wxpic}" id="wxpic" style="width:363px;"  />
+								<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('wxpic',900,500,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('wxpic')">预览</a>&nbsp;<span class="red"><strong>*</strong></span>微信图文信息图片，推荐尺寸：900*500
+							</div>
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red">*</span>活动名称：</th>
+						<td>
+							<input type="input" class="px" id="name" value="{pigcms:$test.name}" name="name" style="width:400px" />
+							<br/>
+							请不要多于50字!
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red">*</span>微信回复标题：</th>
+						<td>
+							<input type="input" class="px" id="wxtitle" value="{pigcms:$test.wxtitle}" name="wxtitle" style="width:400px" />
+							<br/>
+							请不要多于50字!
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top">微信回复信息说明：</th>
+						<td>
+							<textarea  class="px" id="wxinfo" name="wxinfo"  style="width:400px; height:125px" >{pigcms:$test.wxinfo}</textarea>
+							<br/>
+							换行请输入
+							&lt;br&gt;
+						</td>
+					</tr>
+					
+				</tbody>
+			</table>
+		</div>
+		<div class="cLineB"></div>
+		<div class="msgWrap bgfc">
+			<table class="userinfoArea" style=" margin:0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+				<tbody>
+					
+					<tr>
+						<th valign="top"><span class="red">*</span>背景颜色：</th>
+						<td>
+							<input type="input" class="px color form-control input-lg" id="bgcolor" value="{pigcms:$test.bgcolor}" name="bgcolor" style="width:100px" />
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red">*</span>封面图片：</th>
+						<td>
+							<input type="input" class="px" id="indexpic"  name="indexpic" value="{pigcms:$test.indexpic}"  style="width:250px"/>
+							<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('indexpic',640,348,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('indexpic')">预览</a><span class="red"><strong>*</strong></span>推荐尺寸：640*348，最好是透明的或者和背景颜色相同背景颜色的图片
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red">*</span>封面标题：</th>
+						<td>
+							<input type="input" class="px" id="title" value="{pigcms:$test.title}" name="title" style="width:400px" />
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red">*</span>选项图片：</th>
+						<td>
+							<input type="input" class="px" id="questionpic"  name="questionpic" value="{pigcms:$test.questionpic}"  style="width:250px"/>
+							<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('questionpic',305,146,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('questionpic')">预览</a><span class="red"><strong>*</strong></span>推荐尺寸：305*146，必须是透明的图片
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red">*</span>选项问题：</th>
+						<td>
+							<input type="input" class="px" id="qtitle" value="{pigcms:$test.qtitle}" name="qtitle" style="width:400px" />
+							&nbsp;
+							比如：”今年年终奖发了多少钱“
+						</td>
+					</tr>
+					
+				</tbody>
+			</table>
+		</div>
+		<div class="cLineB"></div>
+		<div class="msgWrap bgfc">
+			<table class="userinfoArea" style=" margin:0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+				<tbody>
+					
+					<tr>
+						<th valign="top"><span class="red">*</span>第一个选项内容：</th>
+						<td>
+							<input type="input" class="px" id="fistq" value="{pigcms:$test.fistq}" name="fistq" style="width:400px" />
+							&nbsp;
+							比如：”10000-20000元“
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red">*</span>第一个答案图片：</th>
+						<td>
+							<input type="input" class="px" id="fistapic"  name="fistapic" value="{pigcms:$test.fistapic}"  style="width:250px"/>
+							<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('fistapic',460,480,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('fistapic')">预览</a><span class="red"><strong>*</strong></span>推荐尺寸：460*480
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red">*</span>第一个答案开头：</th>
+						<td>
+							<input type="input" class="px" id="fistatitle" value="{pigcms:$test.fistatitle}" name="fistatitle" style="width:400px" />
+							&nbsp;
+							比如：”经鉴定，你属于：“
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red">*</span>第一个答案内容：</th>
+						<td>
+							<input type="input" class="px" id="fistatitle2" value="{pigcms:$test.fistatitle2}" name="fistatitle2" style="width:400px" />
+							&nbsp;
+							比如：”24K真土豪“
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red"></span>第一个答案描述：</th>
+						<td>
+							<input type="input" class="px" id="fistainfo" value="{pigcms:$test.fistainfo}" name="fistainfo" style="width:400px" />
+							&nbsp;
+							比如：”时尚最时尚，你的任性让我刮目相看“
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red"></span>第一个分享提示：</th>
+						<td>
+							<input type="input" class="px" id="fistfx" value="{pigcms:$test.fistfx}" name="fistfx" style="width:400px" />
+							&nbsp;
+							比如：”你打败了35%的小伙伴快去分享到朋友圈炫耀一下吧“
+						</td>
+					</tr>
+					
+				</tbody>
+			</table>
+		</div>
+		<div class="cLineB"></div>
+		<div class="msgWrap bgfc">
+			<table class="userinfoArea" style=" margin:0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+				<tbody>
+					
+					<tr>
+						<th valign="top"><span class="red">*</span>第二个选项内容：</th>
+						<td>
+							<input type="input" class="px" id="secondq" value="{pigcms:$test.secondq}" name="secondq" style="width:400px" />
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red">*</span>第二个答案图片：</th>
+						<td>
+							<input type="input" class="px" id="secondapic"  name="secondapic" value="{pigcms:$test.secondapic}"  style="width:250px"/>
+							<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('secondapic',460,480,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('secondapic')">预览</a><span class="red"><strong>*</strong></span>推荐尺寸：460*480
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red">*</span>第二个答案开头：</th>
+						<td>
+							<input type="input" class="px" id="secondatitle" value="{pigcms:$test.secondatitle}" name="secondatitle" style="width:400px" />
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red">*</span>第二个答案内容：</th>
+						<td>
+							<input type="input" class="px" id="secondatitle2" value="{pigcms:$test.secondatitle2}" name="secondatitle2" style="width:400px" />
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red"></span>第二个答案描述：</th>
+						<td>
+							<input type="input" class="px" id="secondainfo" value="{pigcms:$test.secondainfo}" name="secondainfo" style="width:400px" />
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red"></span>第二个分享提示：</th>
+						<td>
+							<input type="input" class="px" id="secondfx" value="{pigcms:$test.secondfx}" name="secondfx" style="width:400px" />
+						</td>
+					</tr>
+					
+				</tbody>
+			</table>
+		</div>
+		<div class="cLineB"></div>
+		<div class="msgWrap bgfc">
+			<table class="userinfoArea" style=" margin:0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+				<tbody>
+					
+					<tr>
+						<th valign="top"><span class="red"></span>第三个选项内容：</th>
+						<td>
+							<input type="input" class="px" id="thirdq" value="{pigcms:$test.thirdq}" name="thirdq" style="width:400px" />
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red"></span>第三个答案图片：</th>
+						<td>
+							<input type="input" class="px" id="thirdapic"  name="thirdapic" value="{pigcms:$test.thirdapic}"  style="width:250px"/>
+							<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('thirdapic',460,480,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('thirdapic')">预览</a><span class="red"><strong></strong></span>推荐尺寸：460480
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red"></span>第三个答案开头：</th>
+						<td>
+							<input type="input" class="px" id="thirdatitle" value="{pigcms:$test.thirdatitle}" name="thirdatitle" style="width:400px" />
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red"></span>第三个答案内容：</th>
+						<td>
+							<input type="input" class="px" id="thirdatitle2" value="{pigcms:$test.thirdatitle2}" name="thirdatitle2" style="width:400px" />
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red"></span>第三个答案描述：</th>
+						<td>
+							<input type="input" class="px" id="thirdainfo" value="{pigcms:$test.thirdainfo}" name="thirdainfo" style="width:400px" />
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red"></span>第三个分享提示：</th>
+						<td>
+							<input type="input" class="px" id="thirdfx" value="{pigcms:$test.thirdfx}" name="thirdfx" style="width:400px" />
+						</td>
+					</tr>
+					
+				</tbody>
+			</table>
+		</div>
+		<div class="cLineB"></div>
+		<div class="msgWrap bgfc">
+			<table class="userinfoArea" style=" margin:0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+				<tbody>
+					
+					<tr>
+						<th valign="top"><span class="red"></span>第四个选项内容：</th>
+						<td>
+							<input type="input" class="px" id="fourq" value="{pigcms:$test.fourq}" name="fourq" style="width:400px" />
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red"></span>第四个答案图片：</th>
+						<td>
+							<input type="input" class="px" id="fourapic"  name="fourapic" value="{pigcms:$test.fourapic}"  style="width:250px"/>
+							<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('fourapic',460,480,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('fourapic')">预览</a><span class="red"><strong></strong></span>推荐尺寸：460480
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red"></span>第四个答案开头：</th>
+						<td>
+							<input type="input" class="px" id="fouratitle" value="{pigcms:$test.fouratitle}" name="fouratitle" style="width:400px" />
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red"></span>第四个答案内容：</th>
+						<td>
+							<input type="input" class="px" id="fouratitle2" value="{pigcms:$test.fouratitle2}" name="fouratitle2" style="width:400px" />
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red"></span>第四个答案描述：</th>
+						<td>
+							<input type="input" class="px" id="fourainfo" value="{pigcms:$test.fourainfo}" name="fourainfo" style="width:400px" />
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red"></span>第四个分享提示：</th>
+						<td>
+							<input type="input" class="px" id="fourfx" value="{pigcms:$test.fourfx}" name="fourfx" style="width:400px" />
+						</td>
+					</tr>
+					
+				</tbody>
+			</table>
+		</div>
+		<div class="cLineB"></div>
+		<div class="msgWrap bgfc">
+			<table class="userinfoArea" style=" margin:0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+				<tbody>
+					
+					<tr>
+						<th valign="top"><span class="red"></span>第五个选项内容：</th>
+						<td>
+							<input type="input" class="px" id="fiveq" value="{pigcms:$test.fiveq}" name="fiveq" style="width:400px" />
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red"></span>第五个答案图片：</th>
+						<td>
+							<input type="input" class="px" id="fiveapic"  name="fiveapic" value="{pigcms:$test.fiveapic}"  style="width:250px"/>
+							<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script><a href="###" onclick="upyunPicUpload('fiveapic',460,480,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('fiveapic')">预览</a><span class="red"><strong></strong></span>推荐尺寸：460480
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red"></span>第五个答案开头：</th>
+						<td>
+							<input type="input" class="px" id="fiveatitle" value="{pigcms:$test.fiveatitle}" name="fiveatitle" style="width:400px" />
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red"></span>第五个答案内容：</th>
+						<td>
+							<input type="input" class="px" id="fiveatitle2" value="{pigcms:$test.fiveatitle2}" name="fiveatitle2" style="width:400px" />
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red"></span>第五个答案描述：</th>
+						<td>
+							<input type="input" class="px" id="fiveainfo" value="{pigcms:$test.fiveainfo}" name="fiveainfo" style="width:400px" />
+						</td>
+					</tr>
+					
+					<tr>
+						<th valign="top"><span class="red"></span>第五个分享提示：</th>
+						<td>
+							<input type="input" class="px" id="fivefx" value="{pigcms:$test.fivefx}" name="fivefx" style="width:400px" />
+						</td>
+					</tr>
+					
+				</tbody>
+			</table>
+		</div>
+		<div class="cLineB"></div>
+		<div class="msgWrap bgfc">
+			<table class="userinfoArea" style=" margin:0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+				<tbody>
+					
+					<tr>
+						<th>&nbsp;</th>
+						<td>
+							<input type="hidden" name="pigcms_id" value="{pigcms:$test.pigcms_id}"/>
+							<button type="submit" class="btnGreen" >保存</button>　<a href="{pigcms::U('Test/index',array('token'=>$token))}"  class="btnGray vm">取消</a>
+						</td>
+					</tr>
+					
+				</tbody>
+			</table>
+		</div>
+		
+	</div>
+</form>
+<include file="Public:footer"/>

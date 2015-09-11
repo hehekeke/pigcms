@@ -1,0 +1,117 @@
+<include file="Public:head"/>
+<script src="{pigcms:$staticPath}/tpl/static/jquery.min.js" type="text/javascript"></script>
+<script src="{pigcms:$staticPath}/tpl/static/vote/common.js" type="text/javascript"></script>
+<script src="{pigcms:$staticPath}/tpl/static/upyun.js" type="text/javascript"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/jquery.artDialog.js?skin=default" type="text/javascript"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/plugins/iframeTools.js" type="text/javascript"></script>
+<script src="{pigcms::RES}/js/date/WdatePicker.js" type="text/javascript"></script>
+<div class="content">
+<div class="cLineB">
+  <h4> 
+    添加底部导航菜单
+</h4>
+<a href="javascript:history.go(-1);" class="right btnGrayS vm" style="margin-top:-27px">返回</a>
+</div>
+
+<div class="msgWrap bgfc">
+<form class="form" method="post" action="{pigcms::U('Voteimg/bottom_add',array('id'=>$vote_id,'token'=>$token))}" target="_top" onsubmit="return check_data();">
+<if condition="$set['id'] neq ''">
+  <input type="hidden" name="id" value="{pigcms:$set['id']}">
+</if>
+<table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%"><tbody>
+<tr>
+<th width="120">导航名称：</th>
+<td><input type="text" name="bottom_name" id="bottom_name" value="{pigcms:$set.bottom_name}" class="px" style="width:350px;"></td>
+<td class="bottom_name_msg" style="width:400px;color: red;"></td>
+</tr>
+<script type="text/javascript">
+	$(function(){
+		$('#bottom_name').blur(function(){
+			if($(this).val().length >5){
+				$('.bottom_name_msg').html('不要超过5个字');
+			}else{
+				$('.bottom_name_msg').html('');
+			}
+		});
+	});
+</script>
+<style type="text/css">
+	.shangchuan{
+		width: 550px;
+	}
+</style>
+<tr>
+<th width="120">导航图标：</th>
+<td class="shangchuan"><input type="text" name="bottom_icon" id="bottom_icon" value="{pigcms:$set.bottom_icon}" class="px" style="width:350px;"> <a href="###" onclick="upyunPicUpload('bottom_icon',0,0,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('bottom_icon')">预览</a></td>
+</tr>
+<if condition="$set.type eq '' || $set.type eq 1">
+<tr>
+<th width="120">导航连接：</th>
+<td><input type="text" name="bottom_link" id="bottom_link" value="{pigcms:$set.bottom_link}" class="px" style="width:350px;"><if condition="session('isQcloud') neq true"><a href="###" onclick="addLink('bottom_link',0)" class="a_choose">从功能库添加</a></if></td>
+</tr>
+<tr>
+<th width="120">导航排序：</th>
+<td><input type="text" name="bottom_rank" id="bottom_rank" value="{pigcms:$set.bottom_rank}" class="px" style="width:100px;">&nbsp;&nbsp;&nbsp;&nbsp;值越大排序越靠前&nbsp;<span class="intro1" style="color: red;"></span></td>
+</tr>
+<else />
+<input type="hidden" name="bottom_rank" id="bottom_rank" value="" />
+</if>
+<tr>
+<th>是否隐藏：</th>
+<td>
+  <input type="radio" name="hide" value="1" <if condition="$set.hide eq '1' or $set.hide eq ''">checked</if>>
+  否
+  　　
+  <input type="radio" name="hide" value="2" <if condition="$set.hide eq '2'">checked</if>>是
+</td>
+</tr>
+<tr>
+<th>&nbsp;</th>
+<input type="hidden" name="vote_id" value="{pigcms:$vote_id}">
+<input type="hidden" name="token" value="{pigcms:$token}">
+<td><button type="submit" name="button" class="btnGreen sub" id="btnGreentijiao">保存</button>
+<script type="text/javascript">
+	$(function(){
+		$('#btnGreentijiao').click(function(){
+			if($('#bottom_name').val().length >5){
+				alert('导航名称不要超过5个字');	
+				return false;
+			}			
+		});
+	});
+</script>
+
+
+			
+<a href="{pigcms::U('Voteimg/bottom_add',array('vote_id'=>$vote_id,'token'=>$token))}" class="btnGray vm">取消</a>
+</td>
+</tr>
+</tbody>
+</table>
+</form>
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){
+	$('#bottom_rank').blur(function(){
+		var bottom_rank = $("#bottom_rank").val();
+		var reg = /^[0-9]+[0-9]*]*$/;
+		if(!reg.test(bottom_rank) && bottom_rank != ""){
+			$(".intro1").html('请输入整数');
+		}else{
+			$(".intro1").html('');
+		}
+	});
+});
+
+function  check_data(){
+	var bottom_rank = $("#bottom_rank").val();
+	var reg = /^[0-9]+[0-9]*]*$/;
+	if(!reg.test(bottom_rank) && bottom_rank != ""){
+		alert('请输入整数');
+		return false;
+	}
+	return true;
+}
+</script>
+<include file="Public:footer"/>

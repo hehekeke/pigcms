@@ -1,0 +1,164 @@
+<style>
+*{
+	margin:0;
+	outline:none;
+}
+
+body{
+   background:#000;
+}
+
+a:link,a:visited {
+	color:#FFF;
+	text-decoration:none;
+}
+
+a:hover,a:active {
+	color:#FFF;
+	text-decoration:none;
+}
+
+#logo{
+	background:url({pigcms:$staticPath}/tpl/static/home/img/lamborghini.png) no-repeat center bottom;
+	background-size:100% auto;
+	position:absolute;
+	width:20px;
+	height:50px;
+	top:50px;
+	left:20px;
+	display:none;
+}
+
+.container{
+	background:url({pigcms:$staticPath}/tpl/static/home/img/splash-bg-small.jpg) top center no-repeat #000;
+	position:absolute;
+	width:100%;
+	max-width:640px;
+	height:100%;
+	background-size:100% 50%;
+	z-index: 100;
+	position: absolute;
+	top: 0;
+	left: 0px;
+}
+
+.titles{
+    text-align:center;
+    font:30px 'Bickham Script Pro', 'Edwardian Script ITC', 'Palace Script MT', Zapfino, cursive;
+	text-shadow:0 0 30px #fff;
+	color:#fff;
+	margin-top:80px;
+	display:none;
+	width:100px;
+	margin-left:60px;
+}
+
+
+
+.car{
+	position:absolute;
+	left:50%;
+	top:90px;
+	width:200px;
+	height:200px;
+	margin-left:-95px;
+	background:url({pigcms:$staticPath}/tpl/static/home/img/lamborghiniBMW.png) no-repeat center;
+	background-size:100% auto;
+	z-index:1;
+}
+
+.small{
+	-webkit-transform:scale(0.05);
+	-moz-transform:scale(0.05);
+	-ms-transform:scale(0.05);
+	-o-transform:scale(0.05);
+}
+
+
+.door{
+	position:absolute;
+	left:250px;
+	top:160px;
+	width:545px;
+	height:395px;
+	opacity:0;
+	z-index:2px;
+}
+
+.door.hover{
+	opacity:1;
+
+}
+</style>
+<script type="text/javascript" src="{pigcms:$staticPath}/tpl/static/home/js/jQuery.js"></script>
+<script type="text/javascript" src="{pigcms:$staticPath}/tpl/static/home/js/chinaz_com.js"></script>
+
+<body>
+<div class="container">
+      <div style="display: block;" id="logo"></div>
+      <div style="display: block;" class="titles">BMW</div>
+      <div style="transform: scale(1);" class="car"></div>
+</div>
+
+<script type="text/javascript"> 	
+	$(document).ready(function(){
+	var n = 0.05;		
+    
+	$(".car").removeClass("small");
+	var running = setInterval(function(){
+		if(n<1){
+		n+=0.05;
+		var scale = "scale("+n+")"	
+		$(".car").css({"-ms-transform":scale,
+					   "-webkit-transform":scale,
+					   "-moz-transform": scale,
+					   "-o-transform" : scale
+							});
+		}
+		else{
+			clearInterval(running);
+			fadeIn();
+		}
+	},70)
+	
+	var i = 0;
+
+	function fadeIn(){
+		$("#logo,.title").fadeIn(500,show);
+	}
+	
+	function show(){
+			
+		screenAndAudio();
+	}
+
+	function screenAndAudio(){
+		var closeScreen = {
+			manual_off: false,
+			evtName: ("ontouchstart" in window)?"touchend":"click",
+			handleEvent: function(){
+				if(closeScreen.manual_off){
+					var playbox = parent.playbox;
+					if(playbox){
+						playbox.autoPlayFix.on = false;
+						playbox.autoPlayEvt(false);
+						playbox.play();
+					}
+				}
+				setTimeout(function(){
+					var iframe_screen = parent.document.getElementById("iframe_screen");
+					iframe_screen.parentNode.removeChild(iframe_screen);
+				}, 500);
+			}
+		}
+		//
+		if(closeScreen.manual_off){
+			document.body.addEventListener(closeScreen.evtName, closeScreen, false);
+		}else{
+			closeScreen.handleEvent();
+		}
+		$(".container").hide();
+	}
+});
+
+</script> 

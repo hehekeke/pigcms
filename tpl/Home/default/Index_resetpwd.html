@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title> {pigcms:$f_siteTitle} {pigcms:$f_siteName}</title>
+<meta name="keywords" content="{pigcms:$f_metaKeyword}" />
+<meta name="description" content="{pigcms:$f_metaDes}" />
+<include file="Public:head"/>
+<div class="ptm wp cl" id="ct" style="margin:0 auto;width:960px">
+
+<div class="mn">
+
+<div id="main_message" class="bm">
+
+<div id="main_hnav" class="bm_h bbs">
+<span class="y">
+<a class="xi2" href="{pigcms::U('Index/reg')}">现在登录</a>
+</span>
+<h3 class="xs2" id="layer_reginfo_t">
+找回密码-{pigcms::C('sitename')}</h3>
+</div>
+
+<p id="returnmessage4"></p>
+
+<form action="{pigcms::U('Users/resetpwd')}" enctype="multipart/form-data" id="registerform" name="register" autocomplete="off" method="post">
+<div class="bm_c" id="layer_reg">
+
+<div class="mtw">
+<div id="reginfo_a">
+
+<div class="rfm">
+<table>
+<tbody><tr>
+<th><span class="rq">*</span><label for="BZc5AU">新密码:</label></th>
+<td><input type="password" required="" maxlength="15" size="25" autocomplete="off" tabindex="1" class="px er" name="password" id="idname" onclick="if(this.value=='请输入用户名'){this.value=''}" onblur="if(this.value==''){this.value='请输入用户名'}" />
+</td>
+<td class="tipcol"></td>
+</tr>
+</tbody></table>
+</div>
+<input type="hidden" name="uid" value="{pigcms:$uid}">
+</div>
+
+</div>
+
+</div>
+
+<div id="layer_reginfo_b">
+<div style=" margin-bottom:0" class="rfm bw0">
+<table width="100%">
+<tbody><tr>
+<th>&nbsp;</th>
+<td>
+<span id="reginfo_a_btn">
+<em>&nbsp;</em>
+<button tabindex="1" value="true" name="regsubmit" type="submit" id="registerformsubmit" class="btnGreen"><strong>重置密码</strong></button>
+<a href="{pigcms::U('Index/login')}">登 录</a>　
+</span>
+</td>
+<td></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+</form>
+</div>
+</div></div>
+</div></div>
+</div>
+<include file="Public:footer"/>

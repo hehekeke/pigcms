@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>敏感词添加</title>
+<link href="{pigcms::RES}/images/main.css" type="text/css" rel="stylesheet">
+<script src="{pigcms::STATICS}/jquery-1.4.2.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+	        
+</script>
+</head>
+<body class="warp">
+<div id="artlist" class="addn">
+<form action="" method="post" name="form" enctype="multipart/form-data" id="myform">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" id="addn">
+
+	<tr>
+		<th colspan="4">敏感词添加</th>
+	</tr>
+	<tr>
+		<th colspan="4">
+			<span style="color:red">
+				警告：添加时不能带标点符号，不能写单个字母，不能只写数字，尽量不要写英文，如果页面代码中有您填的敏感词将会出现页面混乱或功能无法使用的问题！请谨慎添加敏感词！
+			</span>
+		</th>
+	</tr>
+	<tr>
+		<td height="48" align="right"><strong>敏感词：</strong></td>
+		<td colspan="3" class="lt">
+			<input type="text" name="word" class="ipt" size="45" value="" />
+		</td>
+	</tr>
+	<tr>
+		<td height="48" align="right"><strong>状态：</strong></td>
+		<td colspan="3" class="lt">
+			<input type="radio" class="radio" class="ipt" value="1" name="state" id="state1" >
+			<label for="state1">启用</label>
+			<input type="radio" class="radio" class="ipt"  value="0" name="state" id="state2" checked>
+			<label for="state2">关闭</label>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="4">
+			<input class="bginput" type="submit" name="dosubmit" value="添 加" >
+			<input class="bginput" type="button" onclick="javascript:window.location.href='<?php echo U('System/Susceptible/index',array('word'=>$_GET['word'],'p'=>$_GET['p']));?>'" value="返 回" >
+		</td>
+	</tr>
+</table>
+</form>
+<br />
+<br />
+<br />
+
+</div>
+</body>
+</html>

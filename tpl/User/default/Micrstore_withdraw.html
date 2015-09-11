@@ -1,0 +1,41 @@
+<include file="Public:head"/>
+<div class="msgWrap form">
+<div class="content">
+<div class="cLineB">
+  <h4> 
+    提现管理---提现列表
+</h4>
+</div>
+    <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+	<thead>
+	<tr>
+	  <th style="width:10%;">开户行</th>
+	  <th style="width:10%;">卡号</th>
+	  <th style="width:10%;">提现人</th>
+	  <th style="width:10%;">总金额</th>
+	  <th style="width:15%;">提现时间</th>
+	  <th style="width:10%">提现状态</th>
+	  <th>操作</th>
+	</tr>
+	</thead>
+	<volist name="list" id="vo">
+	  <tbody><tr>
+		  <td>{pigcms:$vo.opening_bank}</td>
+		  <td>{pigcms:$vo.bank_card}</td>
+		  <td>{pigcms:$vo.nickname}</td>
+		  <td>{pigcms:$vo.amount}</td>
+		  <td>{pigcms:$vo.add_time|date="Y-m-d H:i:s",###}</td>
+		  <td>{pigcms:$vo.status}</td>
+		  <td class="norightborder">
+		  <a href="{pigcms::U('Micrstore/edit_withdraw',array('id'=>$vo['id'],'token'=>$token))}" class="btnGreen">编辑</a>
+		  <a href="{pigcms::U('Micrstore/del_withdraw',array('id'=>$vo['id']))}" onclick="return(confirm('确定要删除吗？'))" class="btnGreen">删除</a> </td>
+		</tr>
+	  </tbody>
+	</volist> 
+	</table>
+	<div class="footactions" style="padding-left:10px">
+	  <div class="pages" style="text-align:right;"> {pigcms:$page}</div>
+	</div>
+    </div>
+  </div>
+<include file="Public:footer"/>

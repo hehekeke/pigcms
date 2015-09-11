@@ -1,0 +1,144 @@
+<include file="Public:head"/>
+<link rel="stylesheet" type="text/css" href="./tpl/User/default/common/css/cymain.css" />
+<div class="content">
+         
+          <div class="cLineB">
+              <h4 class="left">{pigcms:$data.name} 虚拟商品管理</h4>
+                  <div>
+         
+          <a href="javascript:history.go(-1);" class="right btnGrayS vm">返回</a>
+          
+          </div>
+              <div class="clr"></div> 
+          </div>
+        
+  <div class="cLineB">
+            虚拟物品数量：<span class="redamount">{pigcms:$count} </span>个　　已销售的商品：<span class="redamount">{pigcms:$saleCount}</span>个          </div>
+            <div class="ftip" style="margin:0 auto">请先下载Excel模板，下载后按照Excel模板文件的格式把相应的信息填写进Excel表中。做好Excel后通过“导入虚拟商品”按钮把Excel导入即可。
+    </div>
+            <div style="margin-top:20px;"><a href="###" onclick="$('#import').css('display','')" class="btnGrayS vm">导入虚拟商品</a>&nbsp;&nbsp;
+            <a href="/tpl/User/default/common/GrouponExample.xls" class="btnGrayS vm">下载Excel模板</a>&nbsp;&nbsp;       
+            <a class="btnGrayS vm" onclick="$('#info').submit();">选中批量删除</a>
+            <a href="{pigcms::U('User/Groupon/sn', array('token'=>$token, 'id'=>$data['id'], 'status'=>1))}" class="btnGrayS vm <?php if (!empty($_GET['status'])):?>navHover<?php endif?>" style="float:right;background-color:#B6B8B4;">已出售</a>
+            <a href="{pigcms::U('User/Groupon/sn', array('token'=>$token, 'id'=>$data['id']))}" class="btnGrayS vm <?php if (empty($_GET['status'])):?>navHover<?php endif?>" style="float:right;background-color:#B6B8B4;">未出售</a>
+            </div>
+             <div style="margin-top:20px;display:none" id="import">
+             	<form enctype="multipart/form-data" action="?g=User&m=Groupon&a=uploadSNExcel" id="thumbForm" method="POST" style="font-size:14px;padding:10px 20px 10px 0px;">
+             		<div>选择本地文件：<input type="file" style="width:250px;border:1px solid #ddd" name="photo"></input>
+             		<input id="submitbtn" name="doSubmit" type="submit" class="btnGreen" value="上传" onclick="this.value='上传中...'"></input>
+             		<a href="###" onclick="$('#import').css('display','none')" class="btnGrayS vm">取消导入</a>
+					注意：不支持xlsx格式</div><input type="hidden" value="{pigcms:$data.id}" name="pid" />
+				</form>
+			</div>
+  			<div class="cLine" style=" padding: 8px 0">
+          </div>
+          <div class="msgWrap">
+          <form method="post"  action="" id="info" >
+          <input name="delall"  type="hidden" value="" />
+           <input name="wxid"  type="hidden" value="" />
+            <TABLE class="ListProduct" border="0" cellSpacing="0" cellPadding="0" width="100%">
+              <THEAD>
+                <TR style="text-align: center;">
+					<th class="select"><input type="checkbox" value="" id="check_box" onclick="selectall('id[]');"></th>
+					<TH class="select">序号</TH>
+					<TH width="25%">{pigcms:$data.sn_name}</TH>
+					<TH width="25%">{pigcms:$data['sn_pass'] ? $data['sn_pass'] : '密码'}</TH>
+					<TH width="10%">是否已发</TH>
+					<TH>发送时间</TH>
+					<TH>操作</TH>
+                </TR>
+				
+              </THEAD>
+              <TBODY>
+              	<form method="post" action="" id="info">
+				<volist name="models" id="record">
+					 <TR style="line-height:30px;height: 43px;line-height: 59px;">
+					 	<td><input type="checkbox" value="{pigcms:$record.id}" class="cbitem" name="id[]"></td>
+						<td class="select">{pigcms:$i}</td>
+						<td>
+							{pigcms:$record.sn}
+						</td>
+						<td>
+							{pigcms:$record.pass}
+						</td>
+						 <td>
+              				<if condition="$record['sendstutas'] eq 0">否<else/>是</if>
+           				 </td>
+            			<td><if condition="$record['sendtime'] eq 0"> <else/>{pigcms:$record.sendtime|date='Y-m-d H:i:s',###}</if></td>
+						<td>
+							<a href="javascript:drop_confirm('您确定要删除吗?', '{pigcms::U('Groupon/snDelete',array('token'=>$token,'id'=>$record['id']))}');">删除</a>             
+            			</td>
+					</TR>
+				</volist>				
+				<input type="hidden" name="token" value="{pigcms:$_GET['token']}" />
+				</form>
+			  </TBODY>
+            </TABLE>
+           </form> 
+           <script>
+   function checkvotethis() {
+var aa=document.getElementsByName('del_id[]');
+var mnum = aa.length;
+j=0;
+for(i=0;i<mnum;i++){
+if(aa[i].checked){
+j++;
+}
+}
+if(j>0) {
+document.getElementById('info').submit();
+} else {
+alert('未选中任何文章或回复！')
+}
+}
+ function selectall(name) {
+ 	var checkItems=$('.cbitem');
+ 	if ($("#check_box").attr('checked')==false) {
+ 		$.each(checkItems, function(i,val){
+ 			val.checked=false;
+ 		});
+ 		
+ 	} else {
+ 		$.each(checkItems, function(i,val){
+ 			val.checked=true;
+ 		});
+ 	}
+ }
+ </script>
+          </div>
+            
+ 
+          <div class="cLine">
+            <div class="pageNavigator right">
+                 <div class="pages">{pigcms:$page}</div>
+              </div>
+            <div class="clr"></div>
+          </div>
+        </div>
+
+        <div class="clr"></div>
+      </div>
+    </div>
+  </div>
+  <script>
+
+function checkAll(form, name) {
+for(var i = 0; i < form.elements.length; i++) {
+var e = form.elements[i];
+if(e.name.match(name)) {
+e.checked = form.elements['chkall'].checked;
+}
+}
+}
+
+function changesort(tid,sortval){
+
+var image=new Image();   
+image.src='index.php?ac=app&op=sort&wxid=gh_423dwjkewad&tid='+tid+'&sort='+sortval+'&r='+Math.random(); 
+
+}
+  </script>
+  <!--底部-->
+  	</div>
+<include file="Public:footer"/>
+        

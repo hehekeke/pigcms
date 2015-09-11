@@ -1,0 +1,91 @@
+<include file="Public:head"/>
+<include file="Business:public_menu"/>
+<link rel="stylesheet" type="text/css" href="{pigcms::Common}/default_user_com.css" media="all">
+
+<script src="./tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="./tpl/static/artDialog/plugins/iframeTools.js"></script>
+<div class="content">
+    <div class="cLineB">
+         <h4 class="left">经纪人管理列表</h4>
+		 <a class="btnGrayS vm" style="margin-left:10px;" href="{pigcms::U('MicroBroker/addOneConsultant',array('token'=>$token,'id'=>$id))}">添加一个产品顾问</a>
+		 <a class="right btnGrayS vm" href="{pigcms::U('MicroBroker/index',array('token'=>$token))}">返 回</a>
+      </div>
+
+          <div class="msgWrap">
+            <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+              <thead>
+				<tr>
+                    <th width="75">经纪人名称</th>
+                    <th width="80">经纪人电话</th>
+                    <th width="85">经纪人类型</th>
+					<th width="40">黑名单</th>
+                    <th width="55">推荐人数</th>
+                    <th width="60">可提取佣金</th>
+                    <th width="60">已提取佣金</th>
+                    <th width="105">添加时间</th>
+                    <th width="230" class="norightborder">操作</th>
+                    </tr>
+                  </thead>
+              <tbody>
+                <tr></tr>
+				<if  condition="!empty($userList)">
+                <volist name="userList" id="item">
+                    <tr>
+                        <td>{pigcms:$item['username']}</td>
+                        <td>{pigcms:$item['tel']}</td>
+                        <td>{pigcms:$item['description']}</td>
+						<if condition="$item['status'] eq 0">
+						<td style="font-size: 20px;">否</td>
+						<else/>
+						<td style="color:red;font-size: 20px;">是</td>
+						</if>
+                        <td>{pigcms:$item['recommendnum']}</td>
+                        <td>{pigcms:$item['totalcash']}</td>
+                        <td>{pigcms:$item['extractcash']}</td>
+                        <td>{pigcms:$item['addtime']|date='Y-m-d H:i:s',###}</td>
+                        <td class="norightborder"><a href="###" onclick="mbkBrokersDetail({pigcms:$item['id']},{pigcms:$item['bid']})">详细数据</a> | <a href="###" onclick="mbkOperatMoney({pigcms:$item['id']},{pigcms:$item['bid']})">佣金操作</a> | <a href="###" onclick="mbkMoneyOperatLog({pigcms:$item['id']},{pigcms:$item['bid']})">佣金操作日志</a> | <if condition="$item['status'] eq 0"><a href="###" onclick="toBlacklist({pigcms:$item['id']},{pigcms:$item['bid']},1)">拉入黑名单</a><else/><a href="###" onclick="toBlacklist({pigcms:$item['id']},{pigcms:$item['bid']},0)">移除黑名单</a></if></td>
+                    </tr>
+                </volist>
+				</if>
+                </tbody>
+            </table>
+			{pigcms:$pageshow}
+          </div>
+
+          <div class="cLine">
+            <div class="pageNavigator right">
+                 <div class="pages">{pigcms:$page}</div>
+            </div>
+            <div class="clr"></div>
+          </div>
+        </div>
+    <script type="text/javascript">
+    function mbkBrokersDetail(id,bid){
+         art.dialog.open('{pigcms::U('MicroBroker/mbkDetail')}&id='+id+'&bid='+bid,{lock:false,title:'经纪人详细数据',width:350,height:350,yesText:'关闭',background: '#000',opacity: 0.87});
+        }
+   function mbkOperatMoney(id,bid){
+         art.dialog.open('{pigcms::U('MicroBroker/mbkOperatMoney')}&id='+id+'&bid='+bid,{lock:false,title:'佣金操作',width:410,height:400,yesText:'关闭',background: '#000',opacity: 0.87});
+      }
+
+   function mbkMoneyOperatLog(id,bid){
+	   art.dialog.open('{pigcms::U('MicroBroker/mbkMoneyOperatLog')}&id='+id+'&bid='+bid,{lock:false,title:'佣金操作日志',width:500,height:600,yesText:'关闭',background: '#000',opacity: 0.87});
+	 }
+
+	function toBlacklist(id,bid,s){
+	  var tips="您确定将此经纪人拉入黑名单？\n\n拉入黑名单后此用户将无法在参与该活动了";
+	  if(s==0){
+	     tips="您确定将此经纪人移除黑名单？\n\n移除黑名单后此用户将能正常再参与该活动了";
+	  }
+	  if(confirm(tips)){
+	     $.post('{pigcms::U('MicroBroker/mbkBlacklist')}',{id:id,bid:bid,st:s,token:'{pigcms:$token}'},function(ret){
+			 if(ret.error==1){
+				   alert('操作失败');
+				}else{
+				   alert('操作成功');
+				}
+			    window.location.reload();
+		 },'json');
+	  }
+    }
+   </script>
+<include file="Public:footer"/>

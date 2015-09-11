@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta content="width =device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+		<meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+		<meta content="no-cache" http-equiv="pragma">
+		<meta content="0" http-equiv="expires">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<link href="{pigcms:$staticPath}/tpl/static/test/css/style.css" rel="stylesheet" type="text/css" />
+		<script src="{pigcms:$staticPath}/tpl/static/test/js/jquery-2.1.3.min.js" language="javascript" type="text/javascript"></script>
+		<title><?php echo $test['title'];?></title>
+		<style>
+
+			@media screen and (width: 360px) {
+				html {
+					font-size: 351.5% !important;
+				}
+			}
+
+			@media screen and (min-width: 375px) and (max-width: 383px) {
+				html {
+					font-size: 365.5% !important;
+				}
+			}
+
+			@media screen and (min-width: 384px) and (max-width: 413px) {
+				html {
+					font-size: 374.5% !important;
+				}
+			}
+
+			@media screen and (min-width: 414px) and (max-width: 500px) {
+				html {
+					font-size: 403.5% !important;
+				}
+			}
+
+			body {
+				background: #<?php echo $test['bgcolor'];?>;
+				width: 100%;
+				margin: 0 auto;
+				height: 100%;
+				position: relative;
+				overflow-x: hidden;
+			}
+
+			section {
+				position: absolute;
+				top: 0;
+				width: 6.4rem;
+				height: 100%;
+				text-align: center;
+				overflow: hidden;
+			}
+
+			.pg-first h1 {
+				background: url(<?php echo $test['indexpic'];?>) no-repeat;
+				background-size: 6.4rem 3.48rem;
+				margin: 0 auto;
+				width: 6.4rem;
+				height: .88rem;
+				padding-top: 2.6rem;
+				font-size: .24rem;
+				color: #6a2d2b;
+				animation: go-big 1.2s;
+				-webkit-animation: go-big 1.2s;
+			}
+
+			.pg-first .sub-title {
+				margin-top: .2rem;
+				font-size: .38rem;
+			}
+
+			.pg-first .btn-go {
+				position: relative;
+				width: 3.2rem;
+				height: 3.2rem;
+				line-height: 2.2rem;
+				margin: .4rem auto 0;
+				background: #ef4d48;
+				border-radius: 50%;
+				box-shadow: 0 0 0 .1rem #bc3d39;
+				color: #fff;
+				font-size: 0.62rem;
+				font-family: arial;
+				animation: go-small 1s infinite;
+				-webkit-animation: go-small 1s infinite;
+			}
+
+			.pg-first .btn-go strong {
+				position: absolute;
+				display: block;
+				top: 48%;
+				left: 50%;
+				width: 2rem;
+				height: 2rem;
+				margin-left: -1rem;
+				line-height: 1rem;
+				font-size: 1.2rem;
+			}
+
+			.pg-first .foot {
+				margin-top: 1rem;
+				color: #af7c3a;
+			}
+
+			.section-in {
+				animation: section-in 1s;
+				-webkit-animation: section-in 1s;
+			}
+
+			.section-out {
+				animation: section-out 3s;
+				-webkit-animation: section-out 3s;
+			}
+
+			.section-head {
+				position: relative;
+				color: #653a39;
+				font-size: .42rem;
+				border: 4px solid #ef4d48;
+				border-radius: .3rem;
+				background: #fff;
+				background-size: 3.05rem 1.43rem;
+				width: 5.4rem;
+				height: 1.2rem;
+				margin: .8rem auto 0;
+				padding: .6rem 0;
+				text-align: center;
+				overflow: visible;
+			}
+
+			.section-head em {
+				position: absolute;
+				display: block;
+				background: url(<?php echo $test['questionpic'];?>) no-repeat;
+				background-size: 3.05rem 1.46rem;
+				width: 3.05rem;
+				height: 1.43rem;
+				top: -.6rem;
+				left: -.3rem;
+			}
+
+			.answer-container {
+				width: 5.2rem;
+				margin: auto;
+				text-align: left;
+				font-size: .36rem;
+			}
+
+			.answer {
+				position: relative;
+				display: block;
+				background: #fff0c9;
+				height: 1rem;
+				line-height: .8rem;
+				border-radius: .5rem;
+				margin: .2rem 0;
+				padding-left: .1rem;
+				color: #653a39;
+				transform: translateX(100rem);
+				-webkit-transform: translateX(100rem);
+			}
+			/*.section-in .answer_0 {
+				animation: answer-in .6s linear 0s;
+				-webkit-animation: answer-in .6s linear 0s;
+				-webkit-animation-fill-mode: forwards;
+			}
+			.section-in .answer_1 {
+				animation: answer-in .6s linear 0.1s;
+				-webkit-animation: answer-in .6s linear 0.1s;
+				-webkit-animation-fill-mode: forwards;
+			}
+			.section-in .answer_2 {
+				animation: answer-in .6s linear 0.2s;
+				-webkit-animation: answer-in .6s linear 0.2s;
+				-webkit-animation-fill-mode: forwards;
+			}
+			.section-in .answer_3 {
+				animation: answer-in .6s linear 0.3s;
+				-webkit-animation: answer-in .6s linear 0.3s;
+				-webkit-animation-fill-mode: forwards;
+			}
+			.section-in .answer_4 {
+				animation: answer-in .6s linear 0.4s;
+				-webkit-animation: answer-in .6s linear 0.4s;
+				-webkit-animation-fill-mode: forwards;
+			}*/
+			.answer span {
+				display: inline-block;
+				background: #ef4d48;
+				width: .8rem;
+				height: .8rem;
+				border-radius: 50%;
+				text-align: center;
+				margin-top: .1rem;
+				margin-right: .1rem;
+				color: #fff0c9;
+			}
+
+			.answer:hover,
+			.answer:visited {
+				background: #ef4d48;
+			}
+
+			.answer:hover span,
+			.answer:visited span {
+				background: #fff0c9;
+				color: #ef4d48;
+			}
+
+			.pg-result {
+				position: relative;
+			}
+
+			.pg-result .res {
+				position: relative;
+				width: 4.08rem;
+				margin: 0 auto .2rem;
+				padding: .3rem .2rem .1rem;
+				height: 1.4rem;
+				text-align: center;
+				font-size: .24rem;
+				background: #ef4d48;
+				color: #fff;
+			}
+
+			.pg-result .res:before,
+			.pg-result .res:after {
+				content: "";
+				position: absolute;
+				display: block;
+				width: .2rem;
+				background: #d83e3a;
+				border-width: .7rem .2rem;
+				border-style: solid;
+				border-color: #d83e3a;
+				top: 10%;
+			}
+
+			.pg-result .res:before {
+				background: #d83e3a;
+				border-left-color: #ffcc4c;
+				border-right-width: 0;
+				box-shadow: .1rem 0 0 0 #cb3834;
+				left: -.5rem;
+			}
+
+			.pg-result .res:after {
+				background: #d83e3a;
+				border-right-color: #ffcc4c;
+				border-left-width: 0;
+				box-shadow: -.1rem 0 0 0 #cb3834;
+				right: -.5rem;
+			}
+
+			.pg-result .res strong {
+				display: inline-block;
+				font-size: .38rem;
+				color: #ffed57;
+				padding: .1rem;
+			}
+
+			.btn-container {
+				width: 5.4rem;
+				margin: .2rem auto;
+			}
+
+
+			.pg-result .pic {
+				width: 4.4rem;
+				height: 4.8rem;
+				margin: .6rem auto -.4rem;
+				transform: scale(0.9);
+				-webkit-transform: scale(0.9);
+				animation: go-big 1s linear .5s;
+				-webkit-animation: go-big 1s linear .5s;
+				-webkit-animation-fill-mode: forwards;
+			}
+			
+			.pg-result .pic_1 {
+				background: url(<?php echo $test['fistapic'];?>) no-repeat;
+				background-size: 4.4rem 4.8rem;
+			}
+			.pg-result .pic_2 {
+				background: url(<?php echo $test['secondapic'];?>) no-repeat;
+				background-size: 4.4rem 4.8rem;
+			}
+			<?php if($test['thirdq'] != ""){?>
+			.pg-result .pic_3 {
+				background: url(<?php echo $test['thirdapic'];?>) no-repeat;
+				background-size: 4.4rem 4.8rem;
+			}
+			<?php }?>
+			<?php if($test['fourq'] != ""){?>
+			.pg-result .pic_4 {
+				background: url(<?php echo $test['fourapic'];?>) no-repeat;
+				background-size: 4.4rem 4.8rem;
+			}
+			<?php }?>
+			<?php if($test['fiveq'] != ""){?>
+			.pg-result .pic_5 {
+				background: url(<?php echo $test['fiveapic'];?>) no-repeat;
+				background-size: 4.4rem 4.8rem;
+			}
+			<?php }?>
+			.intro {
+				margin: .4rem 0;
+			}
+			.intro p {
+				text-align: center;
+				color: #653a39;
+			}
+
+			.intro .favor {
+				margin: .1rem;
+				display: block;
+				position: relative;
+				text-align: center;
+				text-decoration: none;
+			}
+
+			/*.intro .favor:before,
+			.intro .favor:after {
+				position: absolute;
+				display: block;
+				content: "";
+				width: 1.3rem;
+				height: .02rem;
+				background: #fff;
+				top: 44%;
+			}
+
+			.intro .favor:before {
+				left: -0.6rem;
+			}
+
+			.intro .favor:after {
+				right: -0.6rem;
+			}*/
+
+			.star {
+				position: absolute;
+				z-index: 2;
+				animation: star .4s infinite;
+				-webkit-animation: star .4s infinite alternate;
+				display: none;
+			}
+
+			.star-1 {
+				width: .2rem;
+				height: .24rem;
+				left: 1.2rem;
+				top: 1.9rem;
+			}
+
+			.star-2 {
+				width: .48rem;
+				height: .57rem;
+				top: .9rem;
+				right: 1.1rem;
+				animation-duration: .5s;
+				-webkit-animation-duration: .5s;
+			}
+
+			.star-3 {
+				width: .32rem;
+				height: .38rem;
+				top: 1.7rem;
+				right: .8rem;
+				animation-duration: .6s;
+				-webkit-animation-duration: .6s;
+			}
+
+			.star-4 {
+				width: .48rem;
+				height: .57rem;
+				top: .3rem;
+				left: 1.8rem;
+				animation-duration: .8s;
+				-webkit-animation-duration: .8s;
+			}
+
+			@keyframes go-small {
+				from {
+					transform: none;
+					-webkit-transform: none;
+				}
+				to {
+					transform: scale(0.95);
+					-webkit-transform: scale(0.95);
+				}
+			}
+
+			@-webkit-keyframes go-small {
+				from {
+					transform: none;
+					-webkit-transform: none;
+				}
+				to {
+					transform: scale(0.95);
+					-webkit-transform: scale(0.95);
+				}
+			}
+
+			@keyframes go-big {
+				from {
+					transform: scale(0.9);
+					-webkit-transform: scale(0.9);
+				}
+				to {
+					transform: scale(1);
+					-webkit-transform: scale(1);
+				}
+			}
+
+			@-webkit-keyframes go-big {
+				from {
+					transform: scale(0.9);
+					-webkit-transform: scale(0.9);
+				}
+				to {
+					transform: scale(1);
+					-webkit-transform: scale(1);
+				}
+			}
+
+			@keyframes section-in {
+				0% {
+					transform: translateX(6.4rem);
+					-webkit-transform: translateX(6.4rem);
+				}
+				100% {
+					transform: translateX(0);
+					-webkit-transform: translateX(0);
+				}
+			}
+
+			@-webkit-keyframes section-in {
+				0% {
+					transform: translateX(6.4rem);
+					-webkit-transform: translateX(6.4rem);
+				}
+				100% {
+					transform: translateX(0);
+					-webkit-transform: translateX(0);
+				}
+			}
+
+			@keyframes section-out {
+				0% {
+					transform: translateX(0);
+					-webkit-transform: translateX(0);
+				}
+				100% {
+					transform: translateX(-32rem);
+					-webkit-transform: translateX(-32rem);
+				}
+			}
+
+			@-webkit-keyframes section-out {
+				0% {
+					transform: translateX(0);
+					-webkit-transform: translateX(0);
+				}
+				100% {
+					transform: translateX(-32rem);
+					-webkit-transform: translateX(-32rem);
+				}
+			}
+
+			@keyframes answer-in {
+				0% {
+					transform: translateX(6.4rem);
+					-webkit-transform: translateX(6.4rem);
+				}
+				100% {
+					transform: translateX(0);
+					-webkit-transform: translateX(0);
+				}
+			}
+
+			@-webkit-keyframes answer-in {
+				0% {
+					transform: translateX(6.4rem);
+					-webkit-transform: translateX(6.4rem);
+				}
+				100% {
+					transform: translateX(0);
+					-webkit-transform: translateX(0);
+				}
+			}
+
+			@keyframes answer-out {
+				0% {
+					transform: translateX(0);
+					-webkit-transform: translateX(0);
+				}
+				100% {
+					transform: translateX(-6.4rem);
+					-webkit-transform: translateX(-6.4rem);
+				}
+			}
+
+			@-webkit-keyframes answer-out {
+				0% {
+					transform: translateX(0);
+					-webkit-transform: translateX(0);
+				}
+				100% {
+					transform: translateX(-6.4rem);
+					-webkit-transform: translateX(-6.4rem);
+				}
+			}
+
+			@keyframes star {
+				0% {
+					transform: scale(0.4);
+					-webkit-transform: scale(0.4);
+					transform-origin: center center;
+					opacity: 0.5;
+				}
+				100% {
+					transform: scale(0.8);
+					-webkit-transform: scale(0.8);
+					transform-origin: center center;
+					opacity: 1;
+				}
+			}
+
+			@-webkit-keyframes star {
+				0% {
+					transform: scale(0.4);
+					-webkit-transform: scale(0.4);
+					transform-origin: center center;
+					opacity: 0.5;
+				}
+				100% {
+					transform: scale(0.8);
+					-webkit-transform: scale(0.8);
+					transform-origin: center center;
+					opacity: 1;
+				}
+			}
+			.wrapper-container {
+				position: relative;
+				height: 9.6rem;
+				width: 6.4rem;
+				margin: 0 auto;
+			}
+			.cover{
+				position: absolute;
+				position: fixed;
+				width: 100%;
+				height: 100%;
+				background-color:rgba(55,55,55,0.7);
+				overflow: hidden;
+				opacity: 0.9;
+				z-index: 99;
+				top:0;
+				left:0;
+			}
+
+			.cover_string{
+				position: absolute;
+				position: fixed;
+				top: 10px;
+				right: 10px;
+				font-size: 20px;
+				color: #ffffff;
+				z-index: 100;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrapper-container">
+			<section class="section-in">
+				<p class="section-head"><em></em>请您选择<br><?php echo $test['qtitle'];?></p>
+				<ul class="answer-container">
+						<li>
+							<a class="answer answer_0" href="javascript:void(0)" data-index="0" <?php if($_GET['answer'] == '0'){echo "style='background: #ef4d48;'";}?>><span <?php if($_GET['answer'] == '0'){echo "style='background: #fff0c9;color: #ef4d48;'";}?>>A</span><?php echo $test['fistq'];?></a>
+						</li>
+						<li>	
+							<a class="answer answer_1" href="javascript:void(0)" data-index="1" <?php if($_GET['answer'] == '1'){echo "style='background: #ef4d48;'";}?>><span <?php if($_GET['answer'] == '1'){echo "style='background: #fff0c9;color: #ef4d48;'";}?>>B</span><?php echo $test['secondq'];?></a>
+						</li>
+						<?php if($test['thirdq'] != ''){?>
+						<li>
+							<a class="answer answer_2" href="javascript:void(0)" data-index="2" <?php if($_GET['answer'] == '2'){echo "style='background: #ef4d48;'";}?>><span <?php if($_GET['answer'] == '2'){echo "style='background: #fff0c9;color: #ef4d48;'";}?>>C</span><?php echo $test['thirdq'];?></a>
+						</li>
+						<?php }?>
+						<?php if($test['fourq'] != ''){?>
+						<li>
+							<a class="answer answer_3" href="javascript:void(0)" data-index="3" <?php if($_GET['answer'] == '3'){echo "style='background: #ef4d48;'";}?>><span <?php if($_GET['answer'] == '3'){echo "style='background: #fff0c9;color: #ef4d48;'";}?>>D</span><?php echo $test['fourq'];?></a>
+						</li>
+						<?php }?>
+						<?php if($test['fiveq'] != ''){?>
+						<li>
+							<a class="answer answer_4" href="javascript:void(0)" data-index="4" <?php if($_GET['answer'] == '4'){echo "style='background: #ef4d48;'";}?>><span <?php if($_GET['answer'] == '4'){echo "style='background: #fff0c9;color: #ef4d48;'";}?>>E</span><?php echo $test['fiveq'];?></a>
+						</li>
+						<?php }?>
+				</ul>
+			</section>
+			<section class="pg-result section-in" style="display:none">
+				<img class="star star-1 s4" src="{pigcms:$staticPath}/tpl/static/test/images/s4.png">
+				<img class="star star-2 s4" src="{pigcms:$staticPath}/tpl/static/test/images/s4.png">
+				<img class="star star-3 s4" src="{pigcms:$staticPath}/tpl/static/test/images/s4.png">
+				<img class="star star-4 s4" src="{pigcms:$staticPath}/tpl/static/test/images/s4.png">
+				<div class="pic" id="J_res"></div>
+				<div class="res">
+					<span class="atitle"></span><br>
+					<strong></strong>
+
+					<div class="sub-res"></div>
+				</div>
+				
+				<div class="intro fxinfo" style="line-height:160%;padding:0 20px; margin:10px 0">
+
+					
+
+				</div>
+				<div class="intro" style="margin:0 0;">
+
+					<a href="{pigcms::U('Test/index',array('token'=>$token,'id'=>$next['id']))}" class="favor"><span style="color:#fff">——&nbsp;&nbsp;</span><?php echo $next['name']?><span style="color:#fff">&nbsp;&nbsp;——</span></a>
+
+				</div>
+				<div class="btn-container">
+					<a href="javascript:fx();" id="J_share" class="btn btn-large btn-block btn-share">分享给小伙伴</a>
+				</div>
+			</section>
+		</div>
+		<div class="cover" hidden="hidden"></div>
+		<div class="cover_string" hidden="hidden">点击右上角【发送给朋友】<br/>或者【分享到朋友圈】</div>
+		<script>
+			var result = '<?php echo $test['fistatitle2']?>|<?php echo $test['secondatitle2']?>|<?php echo $test['thirdatitle2']?>|<?php echo $test['fouratitle2']?>|<?php echo $test['fiveatitle2']?>~'.split('|'),
+				comment = '<?php echo $test['fistainfo']?>|<?php echo $test['secondainfo']?>|<?php echo $test['thirdainfo']?>|<?php echo $test['fourainfo']?>|<?php echo $test['	']?>~'.split('|'),
+				atitle = '<?php echo $test['fistatitle']?>|<?php echo $test['secondatitle']?>|<?php echo $test['thirdatitle']?>|<?php echo $test['fouratitle']?>|<?php echo $test['fiveatitle']?>'.split('|'),
+				pic = '<?php echo $test['fistapic']?>|<?php echo $test['secondapic']?>|<?php echo $test['thirdapic']?>|<?php echo $test['fourapic']?>|<?php echo $test['fiveapic']?>'.split('|'),
+				fxinfo = '<?php echo $test['fistfx']?>|<?php echo $test['secondfx']?>|<?php echo $test['thirdfx']?>|<?php echo $test['fourfx']?>|<?php echo $test['fivefx']?>'.split('|'),
+				current = 0;
+			$(document).ready(function(){
+				var index = <?php echo $_GET['answer']?>;
+				$(".section-in").eq(0).show();
+				answer(index);
+			});
+			function answer(index){
+				$(".section-in").eq(0).addClass("section-out").css({"transform": "translateX(-100rem)","-webkit-transform": "translateX(-100rem)"});
+				$(".section-in").eq(1).show();
+				$("#J_res").addClass("pic_" + (index + 1));
+				$(".atitle").html(atitle[index]);
+				$(".fxinfo").html(fxinfo[index]);
+				$(".res strong").text(result[index]);
+				$(".sub-res").text(comment[index]);
+				//$(".s" + (index + 1)).show();
+				$(".s4").show();
+			}
+			function fx(){
+				$('.cover').show();
+				$('.cover_string').show();
+				$('.cover').click(function(){
+					$('.cover').hide("slow");
+					$('.cover_string').hide();
+				})
+			}
+		</script>
+<script type="text/javascript">
+window.shareData = {  
+	"moduleName":"Test",
+	"moduleID":"<?php echo $test['pigcms_id'];?>",
+	"imgUrl": "<?php echo $imgUrl;?>",
+	"sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('Test/index',array('token'=>$token,'id'=>$test['pigcms_id']))}",
+	"tTitle": "<?php echo $test['keyword'].$sc;?>(<?php echo $tContent;?>)",
+	"tContent": "<?php echo  $test['title'];?>"
+};
+</script>
+		{pigcms:$shareScript}
+	</body>
+</html>

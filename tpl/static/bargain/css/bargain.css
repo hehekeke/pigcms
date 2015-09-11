@@ -1,0 +1,185 @@
+.none{ display:none}
+body,html{ background:#f0efed}
+footer{ height:40px; width:100%; position:fixed; left:0; bottom:0; background:#ff7900; z-index:2}
+footer li{ float:left; height:40px; width:25%;}
+footer li a{ width:100%; height:100%; line-height:40px; display:block; text-align:center; color:#fff; font-size:14px}
+footer li a:hover{ text-decoration:none; color:#ddd}
+footer li.hover{ background:#f6b900; background-size:15px auto}
+.footer_blank{ height:40px}
+
+header{ width:100%; height:40px; background:#fff; position:fixed; left:0; top:0; border-bottom:1px solid #E8E8E8; z-index:2}
+header .cont{ width:94%;margin:3px auto;}
+header input[type='search']{ background:url(../images/bargain/search.png) left no-repeat; text-indent:30px; height:34px; width:100%;background-size:20px auto;-webkit-appearance:none; border:0}
+.header_blank{ height:45px}
+
+#banner{ width:100%; background:#000; height:180px;}
+#banner *{ width:100%; height:100%;}
+
+#index_lst .items{ width:96%;background:#000; margin:0 auto; margin-top:8px; overflow:hidden}
+#index_lst .items img{ width:100%; height:auto; vertical-align:middle}
+
+.no_data{ text-align:center; padding:50px 0;}
+.no_data span{ color:#FF0000;}
+
+.product_banner{ width:100%; background:#000; height:180px;}
+.product_banner *{ width:100%; height:100%;}
+.product_detail{ background:#fff; padding-bottom:10px}
+.product_detail .info{ border-bottom:0px solid #ddd8ce; color:#707070; font-size:16px; padding:5px 10px}
+.product_detail .info span{ margin-right:10px}
+.product_detail .info span font{ color:#F00}
+.product_detail .stock_volume{ text-align:right; padding:0px 10px;color:#707070}
+.product_detail .stock_volume span{ margin-left:5px; font-size:12px}
+.product_detail h3{ font-size:16px; padding:5px 10px 0 10px; font-weight:bold}
+.product_detail .intro{ padding:0 10px; line-height:18px}
+
+.description{ background:#fff; padding:8px; margin-top:8px}
+.description .t{ color:#000; height:30px; line-height:30px; border-bottom:1px solid #ddd8ce; font-size:16px}
+.description .cont{ min-height:100px;}
+
+.join_bar_blank{ height:50px}
+#join_bar{ height:50px; position:fixed; bottom:0px; width:100%; left:0; background:#E8E8E8; overflow:hidden; z-index:2}
+#join_bar .price{ float:left; font-size:16px; height:50px; line-height:50px; width:65%;}
+#join_bar .price span{ padding-left:5px}
+#join_bar .price span font{ color:#F00}
+#join_bar .btn{ width:35%; float:right}
+#join_bar .btn a{ height:35px; width:90%; margin:0 auto; line-height:35px; color:#fff; background:#ff7800; display:block; text-align:center; border-radius:5px; margin-top:8px}
+
+
+#countdown{ height:35px; line-height:35px; background:#f0efed url(../images/bargain/clock.png) 10px center no-repeat;width:100%; background-size:20px;padding-left:35px; box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box}
+#countdown span{ margin:0 5px; color:red; font-weight:bold; display:inline-block; width:25px; text-align:center; font-size:16px}
+#activity_product_detail{ background:#f0efed; padding-bottom:0px}
+#activity_product_detail .info{ padding:5px 10px 0px 10px}
+
+.activity{ width:96%; margin:0 auto; padding:10px 0}
+.activity .dear span{ color:red;}
+.activity .txt{ padding:5px 0; line-height:20px}
+.activity .txt span{ color:red}
+.activity .btn_bar{ text-align:center; margin-top:10px}
+.activity .btn_bar li{ float:left}
+.activity .btn_bar .btn_orage{ width:96%; height:35px; line-height:none; text-align:center; color:#fff; background:#ff7900; border:0; border-radius:5px; font-size:16px; margin:0 auto}
+.activity .btn_bar .btn_blue{width:96%; height:35px; line-height:none; text-align:center; color:#fff; background:#0189ff; border:0; border-radius:5px; font-size:16px; margin:0 auto}
+
+#activity_show{ width:300px; position:fixed; z-index:100000; left:50%; margin-left:-150px; top:100px; background:#fff; padding:8px 0;border-radius:5px; display:none}
+#activity_show .img{ width:285px; height:135px; background:url(../images/bargain/sale_bg.jpg) no-repeat; background-size:100%; margin:0 auto}
+#activity_show .img span{ color:#fff; font-size:62px; display:inline-block; width:140px; height:80px; line-height:80px;float:right; margin:55px 15px 0 0; text-align:center; overflow:hidden}
+#activity_show .img span i{ font-size:16px;}
+#activity_show .btn{ width:25px; height:25px; position:absolute; top:-8px; right:-5px}
+#activity_show .btn img{ width:100%; height:100%}
+#activity_show .cancel{ background-color:#b3b3b3; color:#fff; width:30%; text-align:center; height:35px; line-height:normal; border-radius:5px;}
+#activity_show .help_me{ background-color:#ff7800; color:#fff; width:68%; text-align:center; height:35px; line-height:normal; border-radius:5px; margin-left:2%;}
+#activity_show .txt{width:285px; line-height:20px; margin:0 auto}
+#loading{ text-align:center;  font-size:12px; display:none}
+
+
+#products .items{ width:96%; margin:0 auto; background:#fff; margin-bottom:8px; padding-bottom:8px}
+#products .items a:hover{ text-decoration:none}
+#products .items .img{ width:100%;}
+#products .items .img img{ width:100%; height:auto}
+#products .items .info{ margin:0 auto; padding:8px 8px 0 8px}
+#products .items .info .name{ font-size:16px}
+#products .items .info .desc{ color:#999; font-size:14px; line-height:20px}
+#products .items .info .price{ position:relative; margin-top:5px; z-index:1}
+#products .items .info .price span{ padding:0 5px; font-size:16px; color:red}
+#products .items .info .price span i{ font-size:12px}
+#products .items .info .price .volume{ float:right; color:#CCC; font-size:12px; line-height:normal; position:absolute; bottom:0; right:0}
+#products .items .info .price .stock{ float:right; color:#666; font-size:14px; line-height:normal;}
+
+
+#activity_list .items{ width:96%; margin:0 auto; background:#fff; margin-bottom:8px; padding-top:8px}
+#activity_list .items .cont{ position:relative; z-index:1; padding-left:110px;box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; width:96%; margin:0 auto; min-height:62px}
+#activity_list .items a:hover{ text-decoration:none}
+#activity_list .items .img{ width:110px; height:62px; position:absolute; left:0px; top:0px}
+#activity_list .items .img img{ width:100%; height:auto}
+#activity_list .items .info{ padding-left:5px}
+#activity_list .items .name{ font-size:14px;}
+#activity_list .items .price{ padding:5px 0 0 0}
+#activity_list .items .stock{}
+#activity_list .items .price span{ font-size:16px; color:red}
+#activity_list .items .price span.pd_r5{ padding-right:5px}
+#activity_list .items .price span i{ font-size:12px}
+#activity_list .items .countdown{height:30px; line-height:30px; background:url(../images/bargain/clock.png) 10px center no-repeat;width:100%; background-size:15px; padding-left:28px;box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; margin-top:3px}
+#activity_list .items .countdown .stock{ float:right; color:#666666; margin-right:8px}
+#activity_list .items .countdown span{ margin-right:3px; color:red;text-align:center; font-size:16px; display:inline-block; width:20px;}
+
+#rankings{ width:96%; margin:0 auto; border:1px solid #d9d9d9; margin-top:30px}
+#rankings h3{ background:#ededed; height:35px; line-height:35px; color:#dd7126}
+#rankings h3 span{ float:left; text-indent:10px}
+#rankings h3 span.col_1{ width:70%}
+#rankings h3 span.col_3{ width:30%}
+#rankings .items{ padding:3px 0}
+#rankings .items li{ margin-left:2%; float:left; overflow:hidden; height:30px; line-height:30px}
+#rankings .items .col_1{width:68%;}
+#rankings .items .col_3{width:28%}
+#rankings .items .col_1{ position:relative; padding-left:35px;box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; z-index:1}
+#rankings .items .col_1 .face{  display:block; width:30px; height:30px; position:absolute; top:0px; left:0px}
+#rankings .items .col_1 .face img{ width:100%; height:100%;}
+#rankings .items .col_1 .name{ width:100%; overflow:hidden}
+
+
+#checkout{margin:8px auto;}
+#checkout .i-ture{border:1px solid #ddd; border-radius:5px; margin:8px; padding:8px; background:#fff;}
+#checkout .i-ture h1.t{font-weight:bold; height:22px; border-bottom:1px solid #ddd;}
+#checkout .products li{height:32px; line-height:32px; overflow:hidden;}
+#checkout .products li.price font{color:#F69A08; font-weight:bold;}
+#checkout .products li span{color:#888;}
+#checkout .address ul{padding-top:8px;}
+#checkout .address ul li{line-height:150%; padding:5px 0; color:#666;}
+#checkout .address dl{display:none;}
+#checkout .address dl dd{padding-top:8px; color:#666;}
+#checkout .address dl dd input{border:1px solid #ddd; border-radius:5px; width:100%; box-sizing:border-box; height:32px; line-height:32px; color:#666;}
+#checkout .address dl dd select{height:32px; border:1px solid #ddd; border-radius:5px; padding:5px; background:#fff; margin-bottom:5px; color:#666;}
+#checkout .shippng li{padding:5px 0; color:#666;}
+#checkout .remark div{padding:5px 0;}
+#checkout .remark div textarea{width:100%; box-sizing:border-box; border:1px solid #ddd; border-radius:5px; padding:5px; line-height:150%; color:#666;}
+#checkout .checkout{padding:3px 8px 3px 0; height:38px;}
+#checkout .checkout input{float:right; height:36px; color:#fff; text-align:center; border-radius:5px; width:150px; font-weight:bold; font-size:16px; background-color:#F00019; border:1px solid #c10001; background-image:linear-gradient(bottom, #E20018 0, #DC3749 100%); background-image:-moz-linear-gradient(bottom, #E20018 0, #DC3749 100%); background-image:-webkit-linear-gradient(bottom, #E20018 0, #DC3749 100%); box-shadow:0 1px 0 #D95260 inset, 0 1px 2px rgba(0,0,0,0.5);}
+#checkout .i-ture ul li .lbar{float:left; width:20px;}
+#checkout .i-ture ul li .rbar{float:left; width:90%;}
+#checkout .stores li{margin:5px 0px}
+
+#payment .i-ture{border:1px solid #ddd; border-radius:5px; margin:8px; padding:8px; background:#fff;}
+#payment .i-ture h1.t{font-weight:bold; height:22px; border-bottom:1px solid #ddd; font-size:16px;}
+#payment .i-ture .info{line-height:200%; padding-top:8px;}
+#payment .i-ture ul{padding-top:5px;}
+#payment .i-ture ul li{padding-top:10px;}
+#payment .i-ture ul li .payment_info{line-height:150%; padding-left:20px; color:#888;}
+#payment .i-ture ul li textarea{width:97%; height:80px; line-height:150%; border-radius:5px;}
+#payment .payment{padding:5px 8px 10px 0; height:38px;}
+#payment .payment input{float:right; height:36px; color:#fff; text-align:center; border-radius:5px; width:150px; font-weight:bold; font-size:16px; background-color:#F00019; border:1px solid #c10001; background-image:linear-gradient(bottom, #E20018 0, #DC3749 100%); background-image:-moz-linear-gradient(bottom, #E20018 0, #DC3749 100%); background-image:-webkit-linear-gradient(bottom, #E20018 0, #DC3749 100%); box-shadow:0 1px 0 #D95260 inset, 0 1px 2px rgba(0,0,0,0.5);}
+
+#userinfo{ position:relative; z-index:1; box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; padding-left:100px; height:100px;}
+#userinfo .face{ width:60px; height:60px; border-radius:60px; position:absolute; left:20px; top:20px}
+#userinfo .face img{ width:60px; height:60px; border-radius:60px;}
+#userinfo .name{ padding-top:30px}
+
+#userlist{ background:#fff; border-top:1px solid #e4e4e4}
+#userlist li{ height:50px; border-bottom:1px solid #e4e4e4;  font-size:16px;}
+#userlist li span{ float:right; margin:15px 10px 0 0}
+#userlist li span img{ width:10px; height:auto; vertical-align:middle}
+#userlist li a{ display:block; width:100%; height:100%; box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box;padding-left:60px;line-height:50px;}
+#userlist li.menu_0 a{ background:url(../images/bargain/userm_0.png) 15px center no-repeat; background-size:30px auto}
+#userlist li.menu_1 a{ background:url(../images/bargain/userm_1.png) 15px center no-repeat; background-size:25px auto}
+#userlist li.menu_2 a{ background:url(../images/bargain/userm_2.png) 15px center no-repeat; background-size:30px auto }
+
+#order_list h1{text-indent:8px; height:22px; border-bottom:1px solid #ddd; font-weight:bold;}
+#order_list .item{border:1px solid #ddd; border-radius:5px; margin:8px; padding:8px 0; padding-bottom:0; overflow:hidden; position:relative; background:#fff;}
+#order_list .item .pro{position:relative; min-height:65px; overflow:hidden; clear:both; margin:8px; margin-bottom:0;}
+#order_list .item .pro .img{width:100px; overflow:hidden; position:absolute; border:1px solid #eee;}
+#order_list .item .pro .img img{width:100%; float:left;}
+#order_list .item .pro dl{overflow:hidden; margin-left:108px; margin-right:5px;}
+#order_list .item .pro dl dd{height:22px; overflow:hidden; color:#888;}
+#order_list .item .pro dl dd.name{white-space:nowrap; text-overflow:ellipsis;}
+#order_list .item .pro dl dd a{font-weight:bold;}
+#order_list .item ul{margin:0 8px;}
+#order_list .item ul li.d{height:32px; line-height:32px; border-top:1px dotted #ddd;}
+#order_list .item ul li.f{border:none;}
+#order_list .item ul li.address{border-top:1px dotted #ddd; padding:7px 0;}
+#order_list .item ul li .payment{color:red;}
+#order_list #turn_page{padding:5px; padding-bottom:10px;}
+
+#member_menu{ background:#000; height:40px; position:fixed; z-index:10; width:100%; text-align:center; line-height:40px; color:#fff; font-size:18px}
+#member_menu .account{ display:block; position:absolute; width:30px; height:30px; left:10px; top:5px}
+#member_menu .account img{ width:100%; height:100%;}
+#member_menu .home{ display:block; position:absolute; width:28px; height:28px; right:10px; top:5px}
+#member_menu .home img{ width:100%; height:100%;}
+.member_menu_blank{ height:48px}

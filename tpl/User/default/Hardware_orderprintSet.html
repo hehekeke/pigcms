@@ -1,0 +1,133 @@
+<include file="Public:head"/>
+<link rel="stylesheet" type="text/css" href="./tpl/User/default/common/css/cymain.css" />
+<script src="/tpl/static/fushionCharts/JSClass/FusionCharts.js" type="text/javascript"></script>   
+
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script>
+<script>
+function showWxhelp(){
+	art.dialog.open('http://www.meihua.com/waphelp/printer.php',{lock:true,title:'帮助',width:800,height:600,yesText:'Y',background: '#000',opacity: 0.45});
+}
+</script>
+<script>
+function showOldWxhelp(){
+	art.dialog.open('http://www.meihua.com/waphelp/printerold.php',{lock:true,title:'帮助',width:800,height:600,yesText:'Y',background: '#000',opacity: 0.45});
+}
+</script>
+<script>
+$(document).ready(function(){
+	$("form").submit(function () {
+		var name = $("#name").val();
+		var mp = $("#mp").val();
+		if(mp != '' && name != ''){
+			alert('手机号和账号只能填一种');
+			return false;
+		}else{
+			return true;
+		}
+	});
+});
+</script>
+<div class="content">
+          <div class="cLineB"><h4>无线订单打印机（小票打印机）</h4></div>
+<include file="Hardware:header"/>
+ <div class="ftip" style="margin:25px auto 5px auto;">无线订单打印机（小票打印机）是指无需人工处理，有微信订单的时候会自动打印订单信息的小型打印机，<span style="color:#f00">如果背部没有终端号，我们称之为A打印机</span></div>
+ <style>
+.dtas{padding:20px}
+.dtas p{line-height:30px;}
+</style>
+ <style>
+.a_red {	
+	background-image:none !important;
+	border:none !important;
+	text-shadow:none !important;
+	margin-left: 5px;
+	padding: 2px 8px !important;
+	cursor: pointer !important;
+	display: inline-block !important;
+	overflow: visible !important;
+	border-radius: 2px !important;
+	-moz-border-radius: 2px !important;
+	-webkit-border-radius: 2px !important;
+	background-color: #f60 !important;
+	color: #fff !important;
+	font-size: 14px !important;
+	/*line-height: 1.5 !important;*/
+
+}
+</style>
+       <div class="msgWrap">
+<form class="form" method="post" enctype="multipart/form-data" >
+<TABLE class="userinfoArea" style=" margin:20px 0 0 0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+  <THEAD>
+<TR>
+  <TH valign="top"><label for="acttitle">绑定手机号：</label></TH>
+  <TD><input type="input" class="px" id="mp"  name="mp" style="width:200px"  value="{pigcms:$info.mp}" >    A打印机无需填写</TD>
+  <TD>&nbsp;</TD>
+</TR>
+<TR>
+  <TH valign="top"><label for="acttitle">绑定账号：</label></TH>
+  <TD><input type="input" class="px" id="name"  name="name" style="width:200px"  value="{pigcms:$info.name}" >    A打印机填写</TD>
+  <TD>&nbsp;</TD>
+</TR>
+<TR>
+  <TH valign="top"><label for="acttitle">终端号：</label></TH>
+  <TD><input type="input" class="px" id="mcode"  name="mcode" style="width:500px"  value="{pigcms:$info.mcode}" >  非A打印机底部查看 / A打印机点击打印机后面黑色小按钮查看 </TD>
+  <TD>&nbsp;</TD>
+</TR>
+<TR>
+  <TH valign="top"><label for="acttitle">密钥：</label></TH>
+  <TD><input type="input" class="px" id="mkey"  name="mkey" style="width:500px"  value="{pigcms:$info.mkey}" >  非A打印机底部查看 / A打印机在注册页面查看 </TD>
+  <TD>&nbsp;</TD>
+</TR>
+<TR>
+  <TH valign="top"><label for="acttitle">打印份数：</label></TH>
+  <TD><input type="input" class="px" id="count"  name="count" style="width:100px"  value="{pigcms:$info.count}" >  每个订单打印几份 </TD>
+  <TD>&nbsp;</TD>
+</TR>
+<TR style="display:none">
+  <TH valign="top"><label for="acttitle">二维码链接：</label></TH>
+  <TD>
+	<input type="input" class="px" id="qr"  name="qr" style="width:250px"  value="{pigcms:$info.qr}" >
+	<a href="###" class="a_upload" onclick="viewImg('qr')">预览</a> 此二维码链接只限微信或者支付宝生成的二维码链接
+  </TD>
+  <TD>&nbsp;</TD>
+</TR>
+<TR>
+  <TH valign="top"><label for="acttitle">选择店面：</label></TH>
+  <TD><select name="companyid" class="pt">
+	  	<option value="0" <if condition="$info['companyid'] eq 0">selected</if>>请选择</option>
+       <volist id="company" name="companys">
+       <option value="{pigcms:$company.id}" <if condition="$info['companyid'] eq $company['id']">selected</if>>{pigcms:$company.name}</option>
+       </volist>                            
+  	 
+  	</select> 用于哪个店面&nbsp;&nbsp;<a href="/index.php?g=User&m=Company&a=index&token={pigcms:$token}">点击这里添加店面</a>   </TD>
+  <TD>&nbsp;</TD>
+</TR>
+<TR>
+  <TH valign="top"><label for="acttitle">用途：</label></TH>
+  <TD>{pigcms:$moduleStr}   选择打印哪些类型的订单</TD>
+  <TD>&nbsp;</TD>
+</TR>
+
+<TR>
+  <TH valign="top">打印类型：</TH>
+  <TD><label for="radio3"><input id="radio3" class="radio" type="radio" name="paid" value="1"  <eq name="info.paid" value="1">checked="checked"</eq> /> 只打印付过款的</label>&nbsp;&nbsp;<label for="radio4"><input class="radio" id="radio4" type="radio" name="paid" value="0" <eq name="info.paid" value="0">checked="checked"</eq> /> 无论是否付款都打印</label></TD>
+</TR>
+
+  <TH></TH>
+  <TD><button type="submit"  name="button"  class="btnGreen left" >保存</button>　　&nbsp;&nbsp;<a href="###" onclick="showWxhelp()" class="a_red">背部无终端号的操作说明</a>&nbsp;&nbsp;<a href="###" onclick="showOldWxhelp()" class="a_red">背部有终端号的操作说明</a>
+  	</TD>
+  </TR>
+  </TBODY>
+</TABLE>
+  </form>
+
+
+
+  </div> 
+
+          
+        </div>
+<include file="Public:footer"/>

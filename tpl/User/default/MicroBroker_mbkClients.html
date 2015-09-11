@@ -1,0 +1,76 @@
+<include file="Public:head"/>
+<include file="Business:public_menu"/>
+<link rel="stylesheet" type="text/css" href="{pigcms::Common}/default_user_com.css" media="all">
+
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<div class="content">
+    <div class="cLineB">
+         <h4 class="left">客户管理列表</h4>
+		 <a class="right btnGrayS vm" href="{pigcms::U('MicroBroker/index',array('token'=>$token))}">返 回</a>
+      </div>
+          <div class="msgWrap">
+            <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+              <thead>
+				<tr>
+                    <th width="80">客户名称</th>
+                    <th width="80">客户电话</th>
+                    <th width="100">客户意向产品</th>
+                    <th width="80">经纪人</th>
+                    <th width="80">产品顾问</th>
+                    <th width="60">目前状态</th>
+                    <th width="70">添加时间</th>
+					<th width="150">备注</th>
+                    <th width="180" class="norightborder">操作</th>
+                    </tr>
+                  </thead>
+              <tbody>
+                <tr></tr>
+				<if  condition="!empty($clientList)">
+                <volist name="clientList" id="item">
+                    <tr>
+                        <td>{pigcms:$item['cname']}</td>
+                        <td>{pigcms:$item['ctel']}</td>
+                        <td>{pigcms:$item['xmname']}</td>
+                        <td>{pigcms:$item['username']}</td>
+                        <td><if  condition="!empty($item['verifyname'])">{pigcms:$item['verifyname']}<else/>暂无</if></td>
+                        <td>{pigcms:$statusarr[$item['status']]}</td>
+                        <td>{pigcms:$item['addtime']|date='Y-m-d H:i:s',###}</td>
+						<td>{pigcms:$item['remark']}</td>
+                        <td class="norightborder"><a href="###" onclick="AssignConsultant({pigcms:$item['id']},{pigcms:$item['bid']})" class="btnGreen"><if  condition="empty($item['verifyname'])">分配产品顾问<else/>重新分配产品顾问</if></a></td>
+                    </tr>
+                </volist>
+				</if>
+                </tbody>
+            </table>
+			{pigcms:$pageshow}
+          </div>
+           <script>
+            function AssignConsultant(id,bid){
+                art.dialog.open('{pigcms::U('MicroBroker/Consultant')}&id='+id+'&bid='+bid,{lock:false,title:'产品顾问',width:450,height:200,yesText:'关闭',background: '#000',opacity: 0.87});
+            }
+			function toUrlInquiry(){
+			  // var CurrentUrl=window.location.href;
+			 var CurrentUrl="{pigcms::U('MicroBroker/mbkClients',array('token'=>$token,'id'=>$bid))}";
+			 var clientname=$.trim($('#clientname').val());
+				 if(clientname) CurrentUrl+='&clientname='+clientname;
+			 var clientpro=$.trim($('#clientpro').val());
+				 if(clientpro) CurrentUrl+='&clientpro='+clientpro;
+			 var broker=$.trim($('#broker').val());
+				 if(broker) CurrentUrl+='&broker='+broker;
+			 var consultant=$.trim($('#consultant').val());
+				 if(consultant) CurrentUrl+='&consultant='+consultant;
+			 var cstatus=$.trim($('#cstatus').val());
+				 if(cstatus) CurrentUrl+='&cstatus='+cstatus;
+			   window.location.href=CurrentUrl;
+			}
+        </script>
+
+          <div class="cLine">
+            <div class="pageNavigator right">
+                 <div class="pages">{pigcms:$page}</div>
+            </div>
+            <div class="clr"></div>
+          </div>
+        </div>
+<include file="Public:footer"/>

@@ -1,0 +1,244 @@
+
+.wrap {width: 960px;margin: 0 auto;}
+.sl { position: absolute;left:0;top:0; margin: 0; color: white;height: 555px;width:100%;
+}
+.sl_iphone_1{background:url('img/banner-1.jpg') top center repeat-x}
+.sl_iphone_2{background:url('img/banner-2.jpg') top center repeat-x}
+.sl_iphone_2 .sl_con {margin:191px 0 0 475px;}
+.sl_iphone_2 .smallfont { font-size:14px;line-height: 25px;margin-top: 30px;}
+.sl_iphone_2_down {background: url('img/sl_iphone_2_down1.png'); display: block; height: 31px; width: 100px; position: absolute;text-indent: -9999px; top:335px; left: 184px;}
+.sl_iphone_2_down:hover {background: url('img/sl_iphone_2_down2.png');}
+.sl_iphone_2_down:visited {background: url('img/sl_iphone_2_down3.png');}
+.sl_iphone_3{background:url('img/banner-3.jpg') top center repeat-x}
+.sl_iphone_4{background:url('img/banner-4.jpg') top center repeat-x}
+.sl_iphone_4 .sl_con {margin:216px 0 0 30px;}
+.sl_iphone_4 .sl_con ul { width:440px}
+.sl_iphone_5{background:url('img/banner-5.jpg') top center repeat-x}
+.sl_iphone_5 .sl_con {margin:265px 0 0 555px;}
+.sl_iphone_5 .sl_con ul { width:350px}
+.sl_iphone_6{background:url('img/banner-6.jpg') top center repeat-x}
+.sl_iphone_6 .sl_con {margin:193px 0 0 31px;}
+.sl_iphone_6 .sl_con ul { width:350px}
+.sl_iphone_6 .btn_ljxq {
+    background: url("img/banner-ljxq.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 54px;
+    text-indent: -9999px;
+    width: 147px;
+}
+.sl_iphone_6 .btn_ljxq:hover {
+    background: url("img/banner-ljxq2.png") no-repeat scroll 0 0 transparent;
+}
+.sl_iphone_6 .btn_ljxq:active {
+    background: url("img/banner-ljxq.png") no-repeat scroll 0 0 transparent;
+}
+.sl_iphone_7{background:url('img/banner-7.jpg') top center repeat-x}
+
+.sl_iphone_7 .wrap {
+    height: 555px;
+    margin: 0 auto;
+    width: 960px;
+	display:block;
+}
+
+.sl_wrap{position: relative;left:0;top:0px;width:100%;height:555px;overflow:hidden;}
+.sl_wrap .wrap {width: 960px;margin: 0 auto;}
+.sl_wrap .btn {margin-top: 20px;}
+.sl_wrap_in{position:absolute;left:0;top:0;z-index:2;width:100%;height:100%;}
+.sl_con ul {font-size: 18px;margin-top: 20px;}
+.sl_con ul li {margin-top:12px;line-height: 31px;text-shadow:0 1px 2px rgba(51, 51, 51, 0.5);}
+.sl_con {margin:183px 0 0 35px;font-family: 微软雅黑,黑体,宋体; }
+.banner_prev, .banner_next { display: block; position: absolute; z-index: 10; width: 65px; height: 65px;  top: 265px;}
+.banner_prev {background: url(img/banner_prev.png) no-repeat;_background: url(img/banner_prev.gif) no-repeat;}
+.banner_next {background: url(img/banner_next.png) no-repeat;_background: url(img/banner_next.gif) no-repeat;}
+
+.propaganda:after {
+    bottom: 0;
+    content: "";
+    height: 2px;
+    position: absolute;
+    width: 960px;
+	background: url(img/present-line.jpg) no-repeat left center;
+}
+.present{ width:100%; margin:0 auto; display:block;}
+.present li {margin: 0 auto;position: relative;width: 960px;}
+.present li:after {
+    bottom: 0;
+    content: "";
+    height: 2px;
+    position: absolute;
+    width: 960px;
+	background: url(img/present-line.jpg) no-repeat left center;
+}
+.present li .presenttext{ width:420px; display:block;position:absolute; }
+.present li h2{ font-size:24px; font-weight:normal; color:#636B89;margin-bottom: 6px;}
+.present li p{ font-size:15px; color:#636B89; line-height:24px}
+.present001{background: url(img/present001.jpg) no-repeat left center;height: 373px;  }
+.present001 .presenttext{ left:510px; top:130px;}
+.present002{background: url(img/present002.jpg) no-repeat right bottom; height: 320px; }
+.present002 .presenttext{  left:35px; top:80px; }
+.present003{background: url(img/present003.jpg) no-repeat left bottom; height: 330px; }
+.present003 .presenttext{  left:510px; top:120px;}
+.present004{background: url(img/present004.jpg) no-repeat right bottom;height: 350px;  }
+.present004 .presenttext{  left:35px; top:120px; }
+.present005{background: url(img/present005.jpg) no-repeat left center;height: 390px;  }
+.present005 .presenttext{  left:510px; top:120px;}
+.present006{background: url(img/present006.jpg) no-repeat right bottom;height: 300px;  }
+.present006 .presenttext{  left:35px; top:90px; }
+.present007{background: url(img/present007.jpg) no-repeat left center;height: 373px;  }
+.present007 .presenttext{  left:510px; top:130px;}
+.present008{ height: 150px;}
+.present li.present008 .presenttext{ left:0; top:45px; text-align:center; width:960px}
+.present li.present008:after {
+    bottom: 0;
+    content: "";
+    height: 2px;
+    position: absolute;
+    width: 960px;
+	background: none;
+}
+
+
+
+.weixinapps{display: block;background-color: #f1f1f2;
+    padding: 40px 0;
+	border-top: 1px solid #C7C7CD;
+	margin:0 auto; width:960px;
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix:before, .clearfix:after {
+    content: ".";
+    display: block;
+    font-size: 0;
+    height: 0;
+    line-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+}
+.clearfix:before, .clearfix:after {
+    content: ".";
+    display: block;
+    font-size: 0;
+    height: 0;
+    line-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+}
+.weibo {
+    left: 420px;
+    position: absolute;
+    text-align: center;
+    top: 30px;
+    width: 52px;
+}
+.xl_weibo {
+    background: url("img/weibo.png") no-repeat scroll 0 -38px transparent;
+    display: block;
+    height: 34px;
+    margin: 10px 0;
+    width: 42px;
+}
+.tx_weibo {
+    background: url("img/weibo.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    float: left;
+    height: 38px;
+    margin: 10px 0;
+    width: 42px;
+}
+.xl_weibo:hover {
+    background-position: 0 -110px;
+}
+.tx_weibo:hover {
+    background-position: 0 -72px;
+}
+
+.weixinapps .weixinapps-inner {
+    margin: 0 auto;
+    padding: 0 25px;
+    width: 940px;
+}
+.weixinapps .app-box {
+	margin: 0 auto;
+    width: 920px;
+}
+.weixinapps h2 {
+	font-size:16px; font-weight:normal; color:#636B89;
+}
+.weixinapps .app-item {
+    background: none repeat scroll 0 0 #F9F9F9;
+    border-color: #FFFFFF #E4E4E4 #E4E4E4;
+    border-image: none;
+    border-radius: 3px;
+	-webkit-border-radius:3px;
+	-moz-border-radius:3px;
+    border-right: 1px solid #E4E4E4;
+    border-style: solid;
+    border-width: 1px;
+    float: left;
+    margin:10px 10px 0 0;
+    text-align: center;
+	display: block;
+    height: 66px;
+    overflow: hidden;
+    padding: 17px 5px;
+    text-decoration: none;
+    transition: background 0.2s linear 0s;
+    width: 90px;
+	color: #666666;
+}
+
+.weixinapps .app-item:hover {
+    background: none repeat scroll 0 0 #FFFFFF;
+    color: #3C7800;
+}
+.weixinapps .app-item:hover a{
+    color: #3C7800;
+}
+.weixinapps .app-item img {
+    border: medium none;
+	width:48px; height:48px;
+	border-radius: 30px;
+	-webkit-border-radius:30px;
+	-moz-border-radius:30px;
+}
+.weixinapps .app-item span {
+    display: block;
+    height: 16px;
+    overflow: hidden;
+    text-align: center;
+    white-space: nowrap;
+}
+.weixinapps .app-item:hover {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+	-moz-box-shadow:0 1px 3px rgba(0, 0, 0, 0.05);
+	-webkit-box-shadow:0 1px 3px rgba(0, 0, 0, 0.05);
+}
+.weixinapps .left-box {
+    float: right;
+}
+.weixinapps .more {
+    float: right;
+    margin: 10px 12px 0 0;
+}
+.more {
+    color: #3C7800;
+    display: inline-block;
+}
+.more:hover {
+    color: #3C7800;
+}
+.more .more-arrow {
+	 background: url("img/more.gif") no-repeat scroll 0 center transparent;
+    display: inline-block;
+    height: 16px;
+    line-height: 13px;
+    margin: -3px 0 0 5px;
+    overflow: hidden;
+    vertical-align: middle;
+    width: 16px;
+}

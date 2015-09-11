@@ -1,0 +1,110 @@
+<include file="Public:head"/>
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+
+<div class="content">
+	<div class="cLineB">
+		<h4 class="left">核销记录</h4>
+		<div class="searchbar right"></div>
+		<div class="clr"></div>
+	</div>
+	<!-- <div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-top:5px;">
+	 	“普通卡券”可被粉丝领取。 <if condition="$wxuser.wx_coupons eq 1">“微信卡券”通过审核后才能领取。</if> “赠送券”无法领取，设置“开卡赠送”时可选择使用
+	 </div>  --> 
+	<div class="cLine">
+		<div class="left"> 
+			<a href="javascript:void(0);" onclick="showLog('')" title="卡券核销" class="btnGrayS vm bigbtn"><img class="vm" src="./tpl/User/default/common/images/product/add.png">卡券核销</a>
+		</div>
+		<div class="right" style="line-height:30px;margin:5px 0;">
+       	<form action="" method="POST">
+		   <select name="cardid" style="width:140px">
+				<option value="">请选择所属会员卡</option>
+				<volist name="allcard" id="allcard">
+					<option value="{pigcms:$allcard.id}" <if condition="$allcard['id'] eq $cardid">selected</if>>{pigcms:$allcard.cardname}</option>
+				</volist>
+			</select>
+			-
+          	<input type="text" name="keyword" value="" placeholder="请填写卡券号或者卡券名称" class="px" style="width:150px">
+          	<input type="submit" value="查找" class="btnGreen vm">
+        </form>
+      	</div>
+
+	</div>
+
+
+        <div class="msgWrap">
+          <form method="post" action="index.php?ac=importtxt&amp;id=9878&amp;wxid=gh_423dwjkewad" id="info">
+          <input name="delall" type="hidden" value="del">
+           <input name="wxid" type="hidden" value="gh_423dwjkewad">
+            <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+              <thead>
+                <tr>
+                	<th class="time" style="width:120px;">时间</th>
+					<th class="time" style="width:120px;">卡券号</th>
+					<th class="time" style="width:120px;">卡券名称</th>
+					<th class="time" style="width:120px;">卡券类型</th>
+					<th class="time" style="width:120px;">门店</th>
+					<th class="time" style="width:120px;">核销员</th>
+                </tr>
+              </thead>
+              <tbody>
+                <volist name="list" id="list">           
+                <tr>
+                	<td>
+						{pigcms:$list.use_time|date="Y-m-d H:i:s",###}
+					</td>
+
+					<td>
+						{pigcms:$list.cancel_code}
+					</td> 
+
+					<td>
+						{pigcms:$list.title}
+					</td> 
+
+					<td>
+						<if condition="$list.coupon_type eq 2">
+							礼品券
+						<elseif condition="$list.coupon_type eq 1"/>
+							优惠券
+						<else/>
+							代金券
+						</if>
+						<if condition="$list.is_weixin eq 1">
+							(微)
+						<elseif condition="$list.coupon_type eq 1"/>
+							(赠)
+						<else/>
+							(普)
+						</if>
+					</td>
+
+					<td>
+						{pigcms:$list.company_name}
+					</td>
+
+					<td>
+						{pigcms:$list.staff_name}	
+					</td>
+                </tr>
+				</volist>
+      			 
+              </tbody>
+            </table>
+           </form> 
+
+          </div>
+          <div class="cLine">
+            <div class="pageNavigator right">
+                 <div class="pages">{pigcms:$page}</div>
+             </div>
+            <div class="clr"></div>
+          </div>
+        </div>
+
+<script>
+function showLog(code){
+	art.dialog.open('{pigcms::U('Member_card/write_off',array('token'=>$token))}&code='+code,{lock:false,title:'卡券核销',width:750,height:600,yesText:'关闭',background: '#000',opacity: 0.87});
+}
+</script>
+<include file="Public:footer"/>

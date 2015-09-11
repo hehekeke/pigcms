@@ -1,0 +1,108 @@
+<if condition="$ischild neq 1">
+<include file="Public:head" />
+<else />
+<include file="Repast:head" />
+</if>
+<link rel="stylesheet" type="text/css" href="{pigcms:$staticPath}/tpl/static/unitary/css/cymain.css" />
+<div class="content">
+	<div class="cLineB">
+		<h4 class="left">一元购活动商品管理</h4>
+		<div class="clr"></div>
+	</div>
+	
+	<div class="cLine">
+		<div class="pageNavigator left">
+			<a href="{pigcms::U('Unitary/add',array('token'=>$token))}" title="新增活动商品" class="btnGrayS vm bigbtn"><img src="{pigcms:$staticPath}/tpl/static/unitary/images/add.png" class="vm">新增活动商品</a>
+		</div>
+		<!-- <div class="pageNavigator right">
+			<form class="form" method="post"  action="">
+				<input type="text" id="" class="px" placeholder="输入名称/关键词搜索"  name="nameorkeyword" value="{pigcms:$Think.post.nameorkeyword}" style="margin-top:10px">
+				<input type="submit" value="搜索" id="" href="" class="btnGrayS" title="搜索">
+			</form>
+		</div> -->
+		<script>
+			$(function(){
+				$(".radio").click(function(){
+					var name = $(this).attr("name");
+					var val = $(this).val();
+					$.ajax({
+						type:"POST",
+						url:"{pigcms::U('Unitary/indexajax',array('token'=>token))}",
+						dataType:"json",
+						data:{
+							token:"{pigcms:$token}",
+							name:name,
+							val:val
+						},
+						success:function(data){
+							if(data.error == 0){
+								alert("修改成功");
+							}
+						}
+					});
+				});
+			})
+		</script>
+		<div class="clr"></div>
+	</div>
+	<div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-bottom:5px;font-size:12px;">
+		温馨提示：本功能使用了模板消息中的"订单发货提醒"模板消息和"中奖结果通知"模板消息,模板消息编号为OPENTM200565259和TM00695。<br/>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		开通微信支付功能的公众号在使用此功能的时候可以在"基本设置——微信模板消息"中配置对应的模板消息。<br/><br/>
+		活动算法：活动开始以后，当商品的最后一元被购买，此时活动就会开奖。中奖号码的计算是取最后一元的购买者前100条全站记录（这个全站记录是指所有购买一元购的人的记录，并
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		不是单独一个活动的记录）的时间转化成数字（例如21:45:32.123转化后就是214532123）的总和，用这个总和与设置的价钱取余数，这余数加上100000组成最终的幸运号
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		码，（当全站记录没有100条时，则有几条取几条）。
+	</div>
+	<div class="msgWrap">
+		<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+			<thead>
+				<th class="select">选择</th>
+				<th width="120px">名称</th>
+				<th width="90px">价格/元</th>
+				<th width="90px">关键字</th>
+				<th width="120px">活动状态</th>
+				<th width="150px">创建时间</th>
+				<th class="norightborder">操作</th>
+			</thead>
+			<tbody>
+				<volist name="unitary_list" id="vo">
+				<tr>
+					<td class="select"><input type="checkbox" name="" value="" class="checkitem"></td>
+					<td>{pigcms:$vo.name}</td>
+					<td>&#165;{pigcms:$vo.price}.00</td>
+					<td>{pigcms:$vo.keyword}</td>
+					<if condition="$vo.state eq 1">
+					<td style="color:green">开始-已有{pigcms:$vo.pay_count}人</td>
+					<elseif condition="$vo.state eq 2" />
+					<td style="color:blue">结束-已有{pigcms:$vo.pay_count}人</td>
+					<else />
+					<td style="color:red">关闭-已有{pigcms:$vo.pay_count}人</td>
+					</if>
+					<td><?php echo date("Y-m-d H:i:s",$vo['addtime']);?></td>
+					<td class="norightborder">
+						<a href="{pigcms::U('Unitary/update',array('token'=>$token,'unitaryid'=>$vo['id']))}">修改</a>
+						<if condition="$vo.state eq 0">
+						<a href="javascript:drop_confirm('开始后将不能修改价格，确定开始吗?','{pigcms::U('Unitary/operate',array('token'=>$token,'unitaryid'=>$vo['id'],'type'=>'start','p'=>$_GET['p']))}')">开始</a>
+						<elseif condition="$vo.state eq 1" />
+						<a href="javascript:drop_confirm('关闭后将不再手机上显示，确定关闭吗?','{pigcms::U('Unitary/operate',array('token'=>$token,'unitaryid'=>$vo['id'],'type'=>'stop','p'=>$_GET['p']))}')">关闭</a>
+						</if>
+						<a href="{pigcms::U('Unitary/data',array('token'=>$token,'unitaryid'=>$vo['id']))}">数据</a>
+						<if condition="($vo.state eq 0) and ($vo.pay_count eq 0)">
+						<a href="javascript:drop_confirm('您确定要删除【{pigcms:$vo.name}】吗?', '{pigcms::U('Unitary/operate',array('token'=>$token,'unitaryid'=>$vo['id'],'type'=>'del'))}')">删除</a>
+						</if>
+					</td>
+				</tr>
+				</volist>
+			</tbody>
+		</table>
+	</div>
+	<div class="cLine">
+		<div class="pageNavigator right">
+			<div class="pages">{pigcms:$page}</div>
+		</div>
+		<div class="clr"></div>
+	</div>
+</div>
+<include file="Public:footer"/>

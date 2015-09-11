@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta content="width =device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+		<meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+		<meta content="no-cache" http-equiv="pragma">
+		<meta content="0" http-equiv="expires">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<title>{pigcms:$livingcircle.wxtitle}</title>
+		<link href="{pigcms:$staticPath}/tpl/static/livingcircle/css/common.min.css" rel="stylesheet" type="text/css" />
+		<link href="{pigcms:$staticPath}/tpl/static/livingcircle/css/01.min.css" rel="stylesheet" type="text/css" />
+		<script src="{pigcms:$staticPath}/tpl/static/livingcircle/js/jquery-2.1.3.min.js" language="javascript" type="text/javascript"></script>
+		<script src="{pigcms:$staticPath}/tpl/static/livingcircle/js/swipe.min.js" language="javascript" type="text/javascript"></script>
+		<script src="{pigcms:$staticPath}/tpl/static/livingcircle/js/jquery.lazyload.min.js" language="javascript" type="text/javascript"></script>
+		<script language="javascript" src="http://webapi.amap.com/maps?v=1.3&key=b6c2c19cf45cd3d2b82541bc857eed7c"></script>
+		<script language="javascript">
+		$(document).ready(function(){
+			$("#pioneer_mask").show();
+			<if condition="$_SESSION['mylat'] neq ''">
+			tjsjlist();
+			</if>
+		});
+		var mapObj,toolBar,locationInfo;
+		var lng,lat;
+		//初始化地图对象，加载地图
+		function mapInit(){
+			mapObj = new AMap.Map("iCenter");
+			//地图中添加地图操作ToolBar插件
+			mapObj.plugin(["AMap.ToolBar"],function(){		
+				toolBar = new AMap.ToolBar(); //设置地位标记为自定义标记
+				mapObj.addControl(toolBar);		
+				AMap.event.addListener(toolBar,'location',function callback(e){	
+					locationInfo = e.lnglat;
+					if(locationInfo){
+					  window.location.href="{pigcms::U('LivingCircle/latlng',array('token'=>$token))}&mylat="+locationInfo.lat+"&mylng="+locationInfo.lng;
+					  //lng = locationInfo.lng; //定位坐标经度值
+					  //lat = locationInfo.lat; //定位坐标纬度值
+					  //$("#pioneer_mask").hide();
+					  //tjsjlist();
+					}
+				});
+				toolBar.doLocation();
+			});
+		}
+		<if condition="$_SESSION['mylat'] neq ''">
+		function tjsjlist(){
+			$.ajax({
+				type:"POST",
+				url:"{pigcms::U('LivingCircle/ajax',array('token'=>$token))}",
+				dataType:"json",
+				data:{
+					type:"indextjsjlist",
+					lat:{pigcms:$mylat},
+					lng:{pigcms:$mylng}
+				},
+				success:function(data){
+					if(data.error == 0){
+						$("#tjsjlist").html(data.tjsjlist);
+					}
+				}
+			});
+		}
+		</if>
+		</script>
+	</head>
+	<if condition="$_SESSION['mylat'] eq ''">
+	<body onload="mapInit()">
+	<else />
+	<body>
+	</if>
+		<div>
+			<div id="banner_box" class="box_swipe" style="visibility: visible;">
+				<ul id="swipe-box">
+					<volist name="headpic" id="pic">
+						<li>
+							<a href="javascript:;">
+								<img src="{pigcms:$pic}" style="width: 100%;">
+							</a>
+						</li>
+					</volist>
+				</ul>
+				<ol>
+					<volist name="headpic" id="pic">
+						<li class="<if condition='$i eq 1'>on</if>">
+						</li>
+					</volist>
+				</ol>
+			</div>
+		</div>
+		
+		<ul class="menu">
+
+			<li><a href="{pigcms::U('LivingCircle/typelist',array('token'=>$token))}"><img src="{pigcms:$livingcircle.navpic}"><span>本地导航</span></a></li>
+			<li><a href="{pigcms::U('LivingCircle/favorite',array('token'=>$token))}"><img src="{pigcms:$livingcircle.mysellerpic}"><span>我的商家</span></a></li>
+			<volist name="type_list" id="vo">
+				<li><a href="{pigcms::U('LivingCircle/sellerlist',array('token'=>$token,'typeid'=>$vo['pigcms_id'],'zitypeid'=>'0','sellcircleid'=>'0','zisellcircleid'=>'0','sort'=>'1','keyword'=>''))}"><img src="{pigcms:$vo.pic}"><span>{pigcms:$vo.name}</span></a></li>
+			</volist>
+        
+		</ul>
+		<if condition="$_SESSION['mylat'] neq ''">
+		<ul class="list inset pic" id="tjsjlist">
+			
+		</ul>
+		</if>
+		<p class="copyright">
+			<if condition="$iscopyright eq 1">
+			{pigcms:$homeInfo.copyright}
+			<else/>
+			{pigcms:$siteCopyright}
+			</if>
+		</p>
+		
+		<div style="width:100%;height:51px;"></div>
+		
+		<footer>
+                <a href="{pigcms::U('LivingCircle/index',array('token'=>$token))}"> 
+                    <i class="icon home"></i>首页
+                </a>
+                <a href="{pigcms::U('LivingCircle/typelist',array('token'=>$token))}"> 
+                    <i class="icon rocket"></i>本地导航
+                </a>
+                <!-- <a href=""> 
+                    <i class="icon gift"></i>优惠券
+                </a> -->
+                <a href="{pigcms::U('LivingCircle/my',array('token'=>$token))}"> 
+                    <i class="icon user"></i>我的
+                </a>
+        </footer>
+		<if condition="$_SESSION['mylat'] eq ''">
+		<div id="pioneer_mask" style="opacity: 0.3; height: 100%; width: 100%;"><div class="loding"><i class="icon spinner"></i><br>正在定位，请稍等...</div></div>
+		</if>
+		
+		<script type="text/javascript">
+			$(function () { new Swipe(document.getElementById('banner_box'), { speed: 500, auto: 3000, callback: function () { var lis = $(this.element).next("ol").children(); lis.removeClass("on").eq(this.index).addClass("on") } }) });
+		</script>
+		
+		<div id="scrollUp" class="goToTop goToTop63" style="display: none;"></div>
+		
+		<script>
+			$(function () { var $bottomTools = $('.bottom_tools'); $(window).scroll(function () { var scrollHeight = $(document).height(); var scrollTop = $(window).scrollTop(); var $windowHeight = $(window).innerHeight(); scrollTop > 50 ? $("#scrollUp").fadeIn(200).css("display", "block") : $("#scrollUp").fadeOut(200); $bottomTools.css("bottom", scrollHeight - scrollTop > $windowHeight ? 40 : $windowHeight + scrollTop + 40 - scrollHeight) }); $('#scrollUp').click(function (e) { e.preventDefault(); $('html,body').animate({ scrollTop: 0 }) }) });
+			//图片延迟加载
+			$(function () {
+				$("img.lazy").lazyload({ effect: "fadeIn" });
+			});
+		</script>
+		
+		<div id="iCenter"style="display:none;"></div>
+		
+		
+<script type="text/javascript">
+window.shareData = {  
+            "moduleName":"LivingCircle",
+            "moduleID":"0",
+            "imgUrl": "{pigcms:$staticPath}/tpl/static/unitary/images/wxnewspic.jpg", 
+            "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('LivingCircle/index',array('token'=>$token))}",
+            "tTitle": "微信生活圈",
+            "tContent": ""
+        };
+</script>
+{pigcms:$shareScript}
+	</body>
+</html>

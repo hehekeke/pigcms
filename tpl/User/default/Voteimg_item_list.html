@@ -1,0 +1,48 @@
+<include file="Public:head"/>
+<script src="{pigcms:$staticPath}/tpl/static/upyun.js" type="text/javascript"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/jquery.artDialog.js?skin=default" type="text/javascript"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<div class="msgWrap form">
+<div class="content">
+<div class="cLineC" style="line-height: 32px;"> 
+<a href="{pigcms::U('Voteimg/add_item',array('token'=>$token,'vote_id'=>$vote_id))}" class="btnGrayS vm bigbtn">添加投票选项</a>  
+<a href="{pigcms::U('Voteimg/index',array('token'=>$token))}" class="right btnGrayS vm" style="margin-top:1px">返回投票列表</a>
+</div>
+    <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+	<thead>
+	<tr>
+	  <th style="width:10%;">编号</th>
+	  <th style="width:10%;">选项标题</th>
+	  <th style="width:15%;">缩略图</th>
+	  <th style="width:15%;">图片跳转地址</th>
+	 <th style="width:10%;">票数</th>
+	 <th style="width:10%;">联系方式</th>
+	<th>操作</th>
+	</tr>
+	</thead>
+	<if condition="$list neq ''">
+	<volist name="list" id="vo">
+	  <tbody><tr>
+	   <td>{pigcms:$vo.baby_id}</td>
+		  <td>{pigcms:$vo.vote_title|mb_substr=0,8,'utf-8'}</td>
+		  <td><img src="{pigcms:$vo.vote_img}" width="50px" height="50px"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="art.dialog.open('{pigcms::U('Voteimg/apply_phone_list',array('id'=>$vo['id']))}',{lock:false,title:'报名图片预览',width:800,height:600,yesText:'关闭',background: '#000',opacity: 0.87});" href="###">预览</a></td>
+		  <td>{pigcms:$vo.jump_url}</td>
+		  <td>{pigcms:$vo.vote_count}</td>
+		   <td>{pigcms:$vo.contact|default="暂无"}</td>
+		  <td class="norightborder">
+		  <a href="{pigcms::U('Voteimg/edit_item',array('id'=>$vo['id'],'token'=>$token))}" class="btnGreen">编辑选项</a>
+		  <a href="{pigcms::U('Voteimg/del_item',array('id'=>$vo['id'],'vote_id'=>$vo['vote_id'],'token'=>$vo['token']))}" onclick="return(confirm('确定要删除吗？'))" class="btnGreen">删除</a> </td>
+		</tr>
+	  </tbody>
+	</volist> 
+	<else />
+		  <tbody><tr><td colspan="7" align="center">暂无投票选项,请添加</td></tr>
+	  </tbody>
+	</if>
+	</table>
+	<div class="footactions" style="padding-left:10px">
+	  <div class="pages" style="text-align:right;"> {pigcms:$page}</div>
+	</div>
+    </div>
+  </div>
+<include file="Public:footer"/>

@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>后台首页</title>
+<link href="{pigcms::RES}/images/main.css" type="text/css" rel="stylesheet">
+<meta http-equiv="x-ua-compatible" content="ie=7" />
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js" type="text/javascript"></script>
+<script src="{pigcms:$f_siteUrl}/tpl/User/default/common/js/date/WdatePicker.js"></script>
+</head>
+<body style="background:none">
+<div class="content" style="overflow:visible">
+<div class="box">
+	<h3>PigCms更新消息</h3>
+    <div class="con dcon">
+    <div class="update">
+    <p style="display:none">服务器环境：Apache/2.2.9 (APMServ) mod_ssl/2.2.9 OpenSSL/0.9.8h PHP/5.2.6</p>
+    <p>服务器IP：127.0.0.1</p>
+    <p>当前网站语言：UTF-8简体中文</p>
+    <p>公司网站：<script language=javascript>
+
+window["\x64\x6f\x63\x75\x6d\x65\x6e\x74"]["\x77\x72\x69\x74\x65\x6c\x6e"]("\x3c\x61 \x68\x72\x65\x66\x3d\"\x68\x74\x74\x70\x3a\/\/\x62\x62\x73\x2e\x67\x6f\x70\x65\x2e\x63\x6e\/\" \x74\x61\x72\x67\x65\x74\x3d\"\x5f\x62\x6c\x61\x6e\x6b\" \x73\x74\x79\x6c\x65\x3d\"\x63\x6f\x6c\x6f\x72\x3a\x23\x30\x30\x30\x30\x43\x44\x3b\" \x3e\x3c\x62\x3e\u72d7\u6251\u6e90\u7801\u793e\u533a\x3c\/\x62\x3e\x3c\/\x61\x3e");
+
+</script></p>
+    <p>数据库日期：<if condition="$updateRecord.lastsqlupdate">{pigcms:$updateRecord.lastsqlupdate|date="Ymd H:i:s",###}<else/>暂无版本记录</if> （数据库日期跟当前时间相差几个月是正常的）</p>
+    <p>系统版本：<if condition="$updateRecord.version">{pigcms:$updateRecord.version|date="Ymd H:i:s",###}<else/>暂无版本记录</if>&nbsp;&nbsp;<a href="?g=System&m=System&a=checkUpdate" class="blue">检查更新并在线升级</a> &nbsp;&nbsp;<a href="?g=System&m=System&a=doSqlUpdate" class="blue">升级数据库</a> &nbsp;&nbsp;<a href="http://jyupdate.sinaapp.com/oa.php" class="blue" target="_blank" style="color:red; font-weight:bold">有问题？提交售后工单 (账号为您的顶级域名：<?php echo C('server_topdomain');?>&nbsp;&nbsp;&nbsp;&nbsp;默认密码：123456</a><if condition="$canEnUpdate neq 1"><span style="color:red;font-weight:bold"></span></if></p>
+    <p><a href="?g=System&m=System&a=repairTable" class="blue" style="color:green">系统反应慢，关键词没响应，请点击这里删除一下缓存</a></p>
+    <p style="display:none">数据库版本： <a href="?g=System&m=System&a=checkUpdate" class="blue">检查更新并在线升级</a></p>
+	<p>回滚程序版本：
+	<input type="button" value=" - " style="width:20px" id="hg_jian" onclick="hg_jian()"/>
+	<input type="text" value='1' style="width:30px" id="hg_zhi"/>
+	<input type="button" value=" + " style="width:20px" id="hg_jia" onclick="hg_jia()"/>
+	（天）
+	<input type="submit" onclick="hg_but()" value="确定" style="color:#5A5A5A"/>
+	</p>
+    </div>
+    <ul class="myinfo" style="margin-top:-12px">
+   <li><p class="red">您的程序版本为：狗扑多用户微信营销系统</p><span>{pigcms:$versionName}</span></li>
+   
+   <li style="display:none"><p class="red" style="display:none">您的程序版本为：狗扑多用户微信营销系统v1.0</p><span style="display:none">[ 授权版本：商业版 (终身免费) ]</span></li>
+  
+	</ul>
+    </div>
+</div>
+<!--/box-->
+<div class="box">
+	<h3>PigCms说明</h3>
+    <div class="con dcon">
+    <div class="kjnav" style="display:none">
+    <script language=javascript>
+
+window["\x64\x6f\x63\x75\x6d\x65\x6e\x74"]["\x77\x72\x69\x74\x65\x6c\x6e"]("\x3c\x61 \x68\x72\x65\x66\x3d\"\x68\x74\x74\x70\x3a\/\/\x62\x62\x73\x2e\x67\x6f\x70\x65\x2e\x63\x6e\/\" \x74\x61\x72\x67\x65\x74\x3d\"\x5f\x62\x6c\x61\x6e\x6b\" \x73\x74\x79\x6c\x65\x3d\"\x63\x6f\x6c\x6f\x72\x3a\x23\x30\x30\x30\x30\x43\x44\x3b\" \x3e\x3c\x62\x3e\u72d7\u6251\u6e90\u7801\u793e\u533a\x3c\/\x62\x3e\x3c\/\x61\x3e");
+
+</script>
+    </div>
+	
+    <ul style="display:" class="myinfo kjinfo">
+	   <li class="title" style="color:red">紧急通知</li>
+
+				<li><script language=javascript>
+
+window["\x64\x6f\x63\x75\x6d\x65\x6e\x74"]["\x77\x72\x69\x74\x65\x6c\x6e"]("\x3c\x61 \x68\x72\x65\x66\x3d\"\x68\x74\x74\x70\x3a\/\/\x62\x62\x73\x2e\x67\x6f\x70\x65\x2e\x63\x6e\/\" \x74\x61\x72\x67\x65\x74\x3d\"\x5f\x62\x6c\x61\x6e\x6b\" \x73\x74\x79\x6c\x65\x3d\"\x63\x6f\x6c\x6f\x72\x3a\x23\x30\x30\x30\x30\x43\x44\x3b\" \x3e\x3c\x62\x3e\u72d7\u6251\u6e90\u7801\u793e\u533a\x3c\/\x62\x3e\x3c\/\x61\x3e");
+
+</script></li>
+			</volist
+	</ul>
+    </div>
+</div>
+
+<!--/box-->
+</div>
+<script>
+function hg_jian(){
+	var hg_zhi = $('#hg_zhi').val();
+	hg_zhi--;
+	if(hg_zhi < 1){
+		$('#hg_zhi').val(1);
+	}else{
+		$('#hg_zhi').val(hg_zhi);
+	}
+}
+function hg_jia(){
+	var hg_zhi = $('#hg_zhi').val();
+	hg_zhi++
+	$('#hg_zhi').val(hg_zhi);
+}
+function hg_but(){
+	var hg_zhi = $('#hg_zhi').val();
+	/*var now = <?php echo $updateRecord['version'];?>-(60*60*24*hg_zhi);
+	var now_date = new Date(now*1000);
+	var year = now_date.getFullYear();
+	var month = now_date.getMonth()+1;
+	var day = now_date.getDate();
+	month =(month<10 ? "0"+month:month);
+	day =(day<10 ? "0"+day:day);*/
+	url = '<?php echo U('System/Index/rollback')?>&time='+hg_zhi;
+	if(confirm('确定将程序版本回滚'+hg_zhi+'天吗？')){
+        window.location = url;
+    }
+}
+function drop_confirm(msg, url){
+    if(confirm(msg)){
+        window.location = url;
+    }
+}
+function systemupdatecheck(){
+	$.ajax({
+		type: "GET",
+		url: "Services/EFService.svc/Members",
+		data: "{}",
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		success: function (data) {
+			if (data.success == true) {
+				setTimeout("window.location.href = location.href",2000);
+			} else {
+				alert(data.msg);
+			}
+		},
+		error: function (msg) {
+			alert(msg);
+		}
+	});
+}
+</script>
+{pigcms:~updateSync::finished_callback()}
+</body>
+</html>

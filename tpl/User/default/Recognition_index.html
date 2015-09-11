@@ -1,0 +1,119 @@
+<include file="Public:head"/>
+<link rel="stylesheet" type="text/css" href="./tpl/User/default/common/css/cymain.css" />
+<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<div class="content">
+
+<div class="cLineB">
+  <h4>认证服务号渠道二维码生成与统计</h4>
+            
+ </div>
+
+<div class="ftip" style="margin:25px auto 5px auto;">只有认证服务号才能使用（向微信官方交过300元认证费的服务号）</div>
+    
+ <div class="msgWrap bgfc" style=" padding:5px 10px; margin:0">
+ 
+   <table class="ListProduct" border="" cellspacing="0" cellpadding="0" width="100%">
+	<thead>
+		<tr>
+			<th style="width:80px;">渠道ID</th>
+			<th>渠道名称</th>
+			<th>渠道使用量</th>
+      <th>触发关键词</th>
+			<th>粉丝分组</th>
+			<th style="width:150px;">渠道二维码</th>
+			<th style="width:80px;">状态</th>
+			<th style=" width:100px;" class="norightborder">操作</th>
+		</tr>
+	</thead>
+	<tbody>
+			  <pigcmslist array="list" foreach="list">
+			    <if condition="$list['title'] neq '餐饮二维码'">
+                <tr>
+                  <td style="width:80px;">{pigcms:$list.id}</td>
+                  <td>{pigcms:$list.title}</td>
+                  <td>{pigcms:$list.attention_num}</td>
+                  <td>{pigcms:$list.keyword}</td>
+                  <td>{pigcms:$list.group}</td>
+                  <td>
+					<pigcmsif where="$list['code_url'] neq ''">
+						<a href="<?php if(intval($wxuser['winxintype']) == 3){echo U("User/Recognition/showqr",array('token'=>$token,'qrurl'=>urlencode('https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket='.$list['code_url'])));}else{echo "javascript:alert('只有认证的服务号才可以使用！')";}?>" target="_blank">点击查看微信二维码</a>
+					<else />
+						<a href="{pigcms::U('Recognition/get_code',array('id'=>$list['id']))}">获取微信二维码</a>
+					</pigcmsif>
+					<?php if($fuwu == 'yes'){?>
+						<br/>
+						<?php if($list['fuwu_code_url'] != ''){?>
+							<a href="<?php if(intval($wxuser['winxintype']) == 3 || $wxuser['fuwuappid'] != ''){echo U("User/Recognition/showqr",array('token'=>$token,'qrurl'=>urlencode($list['fuwu_code_url'])));}else{echo "javascript:alert('{pigcms:$isgostr}')";}?>" target="_blank">点击查看服务窗二维码</a>
+						<?php }else{?>
+							<a href="{pigcms::U('Recognition/fuwu_code',array('token'=>$token,'id'=>$list['id']))}">获取服务窗二维码</a>
+						<?php }?>
+					<?php }?>
+					</td>
+				   <td><pigcmsif where="$list['status'] eq 0">启用<else/>暂停</pigcmsif></td>
+                  <td class="norightborder">
+						<pigcmsif where="$list['status'] eq 0"><a href="{pigcms::U('Recognition/status',array('type'=>1,'id'=>$list['id']))}">停用</a><else/><a href="{pigcms::U('Recognition/status',array('type'=>0,'id'=>$list['id']))}">启用</a></pigcmsif>
+						<br>
+						<a href="{pigcms::U('Recognition/del',array('id'=>$list['id']))}">删除</a>　
+						<br>
+						<a href="<?php if(intval($wxuser['winxintype']) == 3 || $wxuser['fuwuappid'] != ''){?>{pigcms::U('RecognitionData/index',array('rid'=>$list['id']))}<?php }else{echo "javascript:alert('{pigcms:$isgostr}')";}?>">分析</a>
+				   </td>
+                </tr>
+				</if>
+      			</pigcmslist>
+                 <tr>
+                </tr>
+              </tbody>
+	</table>
+	 <div class="cLine">
+            <div class="pageNavigator right">
+                 <div class="pages">{pigcms:$page}</div>
+              </div>
+            <div class="clr"></div>
+          </div>
+  <form class="form" method="post" action="" target="_top" enctype="multipart/form-data">
+<table class="userinfoArea" style=" margin:20px 0 0 0;" border="0" cellspacing="0" cellpadding="0" width="100%">
+  <thead>
+<tr>
+  <th valign="top"><label for="title">渠道名称：</label></th>
+  <td><input type="input" class="px" required="" id="title" value="" name="title" style="width:400px"> 请认真填写生成后不可以编辑！只能删除重建<br>
+                   </td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <th valign="top">粉丝分组：</th>
+  <td>
+    <select name="groupid">
+      <pigcmslist array="groups" foreach="g">
+        <option value="{pigcms:$g.wechatgroupid}">{pigcms:$g.name}</option>
+      </pigcmslist>
+    </select>
+    从此渠道进入的粉丝将会被归类到您选择的分组<br>
+  </td>
+  <td>&nbsp;</td>
+</tr>
+                              <tr>
+  <th valign="top"><label for="keyword">触发关键词：</label></th>
+  <td><input type="input" class="px" id="keyword" value="" name="keyword" style="width:60px"> <a href="###" onclick="addLink('keyword',1)" class="a_choose">从功能库添加</a> 必填项<br>
+                   </td>
+  <td>&nbsp;</td>
+</tr>
+                            </thead>
+                            
+  <tbody>
+ 
+<tr>
+  <th></th>
+  <td><button type="submit" name="button" class="btnGreen left">添加</button> 
+  </td>
+  </tr>
+  </tbody>
+</table>
+  </form>
+
+       
+       <div class="clear"></div>
+      </div>
+  </div>
+<include file="Public:footer"/>

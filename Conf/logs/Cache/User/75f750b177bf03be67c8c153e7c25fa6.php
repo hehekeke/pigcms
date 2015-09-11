@@ -1,0 +1,188 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<meta charset="utf-8">
+<title>微信公众平台</title>
+
+<script src="/tpl/static/jquery.min.js"></script>
+<link rel="stylesheet" href="<?php echo ($staticPath); ?>/tpl/static/card/css/card_coupons.css"/>
+<link rel="stylesheet" href="<?php echo ($staticPath); ?>/tpl/static/card/css/card_dispel.css"/>
+
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+</head>
+
+<body class="zh_CN">
+   <div id="body" class="body page_simple">
+    <div class="container_box">
+
+		<div class="main_bd disple_wrp">
+			<div class="search_box" id="js_search_box">
+				<div class="sub_search">
+					<div class="frm_controls">
+						<span class="frm_input_box search append">
+							<a href="javascript:;" id="js_search" class="frm_input_append">
+								<i class="icon16_common search_gray">搜索</i>&nbsp;
+							</a>
+							<input id="js_cardCode" name="code" type="text" placeholder="请输入卡券号" maxlength="14" value="<?php echo ($code); ?>" class="frm_input">
+						</span>
+						<p class="frm_tips"></p>
+					</div>
+				</div>
+			</div>
+
+			<div id="js_search_result">
+				<div class="card_intro" id="js_intro">
+					<img src="<?php echo ($staticPath); ?>/tpl/static/card/images/new/demo_card.png">
+					<div class="step_list_wrp">
+					    <ul class="step_list">
+					        <li class="step_item step_box no_extra_up">
+					            <div class="step_inner">
+					                <div class="step_content">
+					                    <h4>搜索卡券</h4>
+					                    <div class="step_desc">
+					                        请顾客出示卡券，输入卡券号
+					                    </div>
+					                </div>
+					            </div>
+					 
+					            <span class="icon_step_line icon_step_line_up"></span>
+					            <span class="icon_step_line icon_step_line_dcoden"></span>
+					            <span class="icon_step_wrapper"><i class="icon_step_list finish">1</i></span>
+					        </li>
+					        <li class="step_item step_box">
+					            <div class="step_inner">
+					                <div class="step_content">
+					                    <h4>校检</h4>
+					                    <div class="step_desc">
+					                        微信提供有效期验证，其他信息请自行核对
+					                    </div>
+					                </div>
+					            </div>
+					 
+					            <span class="icon_step_line icon_step_line_up"></span>
+					            <span class="icon_step_line icon_step_line_dcoden"></span>
+					            <span class="icon_step_wrapper"><i class="icon_step_list finish">2</i></span>
+					        </li>
+					        <li class="step_item step_box no_extra_dcoden">
+					            <div class="step_inner">
+					                <div class="step_content">
+					                    <h4>销券完成</h4>
+					                    <div class="step_desc">
+					                        查看销券结果，顾客将同时收到销券成功通知
+					                    </div>
+					                </div>
+					            </div>
+					            <span class="icon_step_line icon_step_line_up"></span>
+					            <span class="icon_step_line icon_step_line_dcoden"></span>
+					            <span class="icon_step_wrapper"><i class="icon_step_list step">3</i></span>
+					        </li>
+					    </ul>
+					</div>
+				</div>
+			</div>
+
+			</div>
+		</div>
+
+    </div>
+</div>
+
+  
+<div class="scale_tips" id="zoom_tips" style="display: none;">
+	<div class="scale_tips_inner">
+		<i class="icon_scale_tips"></i>
+		<p class="scale_tips_content">
+			<span id="zoom_msg"></span>
+			<a href="javascript:;" id="zoom_prompt">不再提示</a>
+		</p>
+	</div>
+</div>
+
+<div style="position: absolute; right: 0px; bottom: 0px; visibility: visible;"></div>
+
+<script>
+	$(function(){
+		$('#js_cardCode').keyup(function(ev){
+			var code 	= $(this).val();
+			  	code 	= code.replace(/-*/g, "");
+		        var result = [];
+		        for(var i = 0; i < code.length; i++)
+		        {
+		            if (i % 4 == 0 && i != 0)
+		            {
+		                result.push("-" + code.charAt(i));
+		            }
+		            else
+		            {
+		                result.push(code.charAt(i));
+		            }
+		        }
+
+		        $(this).val(result.join(""));
+		});
+
+		$('#js_search').click(function(){
+			var code 	= $('#js_cardCode').val();
+			if(code == ''){
+				alert('请输入序列号');
+			}else{
+				$.post('<?php echo U('Member_card/find_coupons',array('token'=>$token));?>',{code:code},function(res){
+					var info 	= res.info;
+					var company = res.company;
+					
+					if(info){
+						var ht 	= '';
+
+						$.each(company, function(k, v) {
+							ht+='<tr><td class="name">'+v.name+'</td><td class="address">'+v.address+'</td></tr>';
+						});
+
+						var html = '<div class="outcome"><div class="outcome_hd">'+(info.logourl==''?'':'<img src="'+info.logourl+'" width="76" height="76" class="shop_logo">')+'<div class="card_contract"><h3 class="card_title">'+info.title+'</h3><div class="card_info"><label><span>有效期：'+info.statdate+'至'+info.enddate+'</span><span class="outdate"></span></label><br><label><span>序列号：</span><span class="series_num">'+info.cancel_code+'</span></label></div><label class="status">'+(info.is_use==1?'<span class="unvalid">已核销</span>':'<span class="valid">有效卡券</span>')+'</label></div><p class="expande_switch"><a href="javascript:void(0);" id="js_expand_detail" isshow="0">展开更多</a><span class="icon_rank js_rank rank_down"><i class="arrow arrow_up"></i><i class="arrow arrow_down"></i></p></div>';
+							if(ht){
+								html += '<div class="outcome_bd"><div class="member_info" id="js_card_detail_p" style="border-bottom-width: 0px; display: none;"><div class="frm_control_group show_value"><label for="" class="frm_label">使用须知</label><div class="frm_controls"><span class="frm_input_box">'+info.info+'</span></div></div><div class="frm_control_group show_value"><label for="" class="frm_label">适用门店</label><div class="frm_controls"><ul class="supplement_list"><li class="list_info"></li><li class="list_info"><div id="js_shoplist"><table cellspacing="0" cellspading="0" class="shop_table"><thead><tr><th class="name">门店名称</th> <th class="address th_last">地址</th></tr></thead><tbody>'+ht+'</tbody></table><div id="js_pagerbar"></div></div></li></ul></div>';
+							}
+							html += '</div></div><div class="ft">'+(info.is_use==1?'<button class="js_destroy_card btn">确定销券</button>':'<button class="js_destroy_card btn btn_primary">确定销券</button>')+'<div class="bubble_tips bubble_left"><div class="bubble_tips_inner"><p class="mass_send_tips" id="tips"> 卡券核销后不可撤回 </p></div><i class="bubble_tips_arrcode out"></i><i class="bubble_tips_arrcode in"></i></div></div>';
+
+						$('#js_search_result').empty();
+						$('#js_search_result').html(html);
+					}else{
+						$('#js_search_result').empty();
+						$('#js_search_result').html('<p class="no_data">无法查到相关信息，请仔细核对卡券序列号并重新输入。</p>');
+					}
+
+				},'JSON');
+			}
+		});
+
+		$('#js_search_result').on('click','.js_destroy_card',function(){
+			var code 	= $('#js_cardCode').val();
+			$.post('<?php echo U('Member_card/consume_coupons',array('token'=>$token));?>',{code:code},function(res){
+				if(res['err']){
+					alert(res.msg);
+				}else{
+					alert(res.msg);
+					setTimeout("art.dialog.close()", 1500 );
+				}
+			},'JSON');
+		});
+
+		$('#js_search_result').on('click','#js_expand_detail',function(){
+			if($(this).attr('isshow') == 1){
+				$(this).attr('isshow','0').html('展开更多');
+				$('.js_rank').addClass('rank_down').removeClass('rank_up');
+				$('#js_search_result #js_card_detail_p').css('display','none');
+			}else{
+				$(this).attr('isshow','1').html('收起更多');
+				$('.js_rank').addClass('rank_up').removeClass('rank_down');
+				$('#js_search_result #js_card_detail_p').css('display','block');
+			}
+		});
+
+	});
+</script>
+</body>
+</html>

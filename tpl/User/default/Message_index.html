@@ -1,0 +1,372 @@
+<include file="Public:head"/>
+ <style>
+ /*单条多条图文*/
+	.chatPanel .media a {
+	display:block;
+}
+.chatPanel .media {
+	border:1px solid #cdcdcd;
+	box-shadow:0 3px 6px #999999;
+	-webkit-border-radius:12px;
+	-moz-border-radius:12px;
+	border-radius:12px;
+	width:285px;
+	background-color:#FFFFFF;
+	background:-webkit-gradient(linear,  left top, left bottom,  from(#FFFFFF), to(#FFFFFF));
+	background-image:-moz-linear-gradient(top, #FFFFFF 0%, #FFFFFF 100%);
+	margin:0px auto;
+}
+.chatPanel .media .mediaPanel {
+	padding:0px;
+	margin:0px;
+}
+.chatPanel .media .mediaImg {
+	margin: 25px 15px 15px;
+	width: 255px;
+	position: relative;
+}
+.chatPanel .media .mediaImg .mediaImgPanel {
+	position:relative;
+	padding:0px;
+	margin:0px;
+	max-height:164px;
+	overflow:hidden;
+}
+.chatPanel .media .mediaImg img {
+	/* width:100%;
+		height:164px;
+		position:absolute;
+		left:0px;*/
+		width:255px;
+}
+.chatPanel .media .mediaImg .mediaImgFooter {
+	position: absolute;
+	bottom: 0;
+	height:29px;
+	background-color:#000;
+	background-color:rgba(0, 0, 0, 0.4);
+	text-shadow:none;
+	color:#FFF;
+	text-align:left;
+	padding:0px 11px;
+	line-height:29px;
+	width:233px;
+}
+.chatPanel .media .mediaImg .mediaImgFooter a:hover p {
+	color:#B8B3B3;
+}
+.chatPanel .media .mediaImg .mediaImgFooter .mesgTitleTitle {
+	line-height:28px;
+	color:#FFF;
+	max-width:240px;
+	height:26px;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	-o-text-overflow:ellipsis;
+	overflow:hidden;
+	width: 240px;
+}
+.chatPanel .media .mesgIcon {
+	display:inline-block;
+	height:19px;
+	width:13px;
+	margin:8px 0px -2px 4px;
+	background:url(../images/mesgIcon.png) no-repeat;
+}
+.chatPanel .media .mediaContent {
+	margin:0px;
+	padding:0px;
+}
+.chatPanel .media .mediaContent .mediaMesg {
+	border-top:1px solid #D7D7D7;
+	padding:10px;
+}
+.chatPanel .media .mediaContent .mediaMesg .mediaMesgDot {
+	display: block;
+	position:relative;
+	top: -3px;
+	left:20px;
+	height:6px;
+	width:6px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+.chatPanel .media .mediaContent .mediaMesg .mediaMesgTitle:hover p {
+	color:#1A1717;
+}
+.chatPanel .media .mediaContent .mediaMesg .mediaMesgTitle a {
+	color:#707577;
+}
+.chatPanel .media .mediaContent .mediaMesg .mediaMesgTitle a:hover p {
+	color:#444440;
+}
+.chatPanel .media .mediaContent .mediaMesg .mediaMesgIcon {
+}
+.chatPanel .media .mediaContent .mediaMesg .mediaMesgTitle p {
+	line-height:1.5em;
+	max-height: 45px;
+	max-width: 220px;
+	min-width:176px;
+	margin-top:2px;
+	color:#5D6265;
+	text-overflow:ellipsis;
+	-o-text-overflow:ellipsis;
+	overflow:hidden;
+	text-align: left;
+	text-overflow:ellipsis;
+}
+.chatPanel .media .mediaContent .mediaMesg .mediaMesgIcon img {
+	height:45px;
+	width:45px;
+}
+/*media mesg detail*/
+	.chatPanel .media .mediaHead {
+	/*height:48px;*/
+		padding:0px 15px 4px;
+	border-bottom:0px solid #D3D8DC;
+	color:#000000;
+	font-size:20px;
+}
+.chatPanel .media .mediaHead .title {
+	line-height:1.2em;
+	margin-top: 22px;
+	display:block;
+	max-width:312px;
+	text-align: left;/*height:25px;
+		white-space:nowrap;
+		text-overflow:ellipsis;
+		-o-text-overflow:ellipsis;
+		overflow:hidden;*/
+	}
+.chatPanel .mediaFullText .mediaImg {
+	width:255px;
+	padding:0;
+	margin:0 15px;
+	overflow:hidden;
+	max-height:164px;
+}
+.chatPanel .mediaFullText .mediaImg img {
+/*margin-top:17px;
+		position:absolute;*/
+}
+.chatPanel .mediaFullText .mediaContent {
+	padding:0 0 15px;
+	font-size:16px;
+	line-height: 1.5em;
+	text-align:left;
+	color:#222222;
+}
+.chatPanel .mediaFullText .mediaContentP {
+	margin:12px 15px 0px;
+	border-bottom:1px solid #D3D8DC;
+}
+.chatPanel .media .mediaHead .time {
+	margin:0px;
+	margin-top: 21px;
+	color:#8C8C8C;
+	background:none;
+	width:auto;
+	font-size:12px;
+}
+.chatPanel .media .mediaFooter {
+	-webkit-border-radius:0px 0px 12px 12px;
+	-moz-border-radius:0px 0px 12px 12px;
+	border-radius:0px 0px 12px 12px;
+	padding: 0 15px;
+}
+.chatPanel .media .mediaFooter a {
+	color:#222222;
+	font-size:16px;
+	padding:0;
+}
+.chatPanel .media .mediaFooter .mesgIcon {
+	margin:15px 3px 0px 0px;
+}
+.chatPanel .media a:hover {
+	cursor: pointer;
+}
+.chatPanel .media a:hover .mesgIcon {
+}
+.appmsg{position:relative;overflow:hidden;margin-bottom:20px;border:1px solid #d3d3d3;background-color:#fff;box-shadow:0 1px 0 rgba(0,0,0,0.1);-moz-box-shadow:0 1px 0 rgba(0,0,0,0.1);-webkit-box-shadow:0 1px 0 rgba(0,0,0,0.1);border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px}.appmsg_info{font-size:13px;line-height:20px;padding-bottom:6px}.appmsg_date{font-weight:400;font-style:normal}.appmsg_content{padding:0 14px;border-bottom:1px solid #d3d3d3;position:relative;*zoom:1}.appmsg_title{font-weight:400;font-style:normal;font-size:16px;padding-top:6px;line-height:28px;max-height:56px;overflow:hidden;white-space:pre-wrap;word-wrap:normal;word-break:normal}.appmsg_title a{display:block;color:#222}.appmsg_thumb_wrp{height:160px;overflow:hidden}.appmsg_thumb{width:100%}.appmsg_desc{padding:5px 0 10px;white-space:pre-wrap;word-wrap:normal;word-break:normal}.appmsg_opr{background-color:#f4f4f4}.appmsg_opr ul{overflow:hidden;*zoom:1}.appmsg_opr_item{float:left;line-height:44px;height:44px}.appmsg_opr_item a{display:block;border-right:1px solid #d3d3d3;box-shadow:1px 0 0 0 #fff;-moz-box-shadow:1px 0 0 0 #fff;-webkit-box-shadow:1px 0 0 0 #fff;text-align:center;line-height:20px;margin-top:12px}.appmsg_opr_item a.no_extra{border-right-width:0}.appmsg_item{*zoom:1;position:relative;padding:12px 14px;border-top:1px solid #d3d3d3}.appmsg_item:after{content:"\200B";display:block;height:0;clear:both}.appmsg_item .appmsg_title{line-height:24px;max-height:48px;overflow:hidden;*zoom:1;margin-top:14px}.appmsg_item .appmsg_thumb{float:right;width:78px;height:78px;margin-left:14px}.multi .appmsg_info{padding-top:4px;padding-left:14px;padding-right:14px}.multi .appmsg_content{padding:0}.multi .appmsg_title{font-size:14px;padding-top:0}.cover_appmsg_item{position:relative;margin:0 14px 14px}.cover_appmsg_item .appmsg_title{position:absolute;bottom:0;left:0;width:100%;background:rgba(0,0,0,0.6)!important;filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#99000000',endcolorstr = '#99000000')}.cover_appmsg_item .appmsg_title a{padding:0 4px;color:#fff}.appmsg_mask{display:none;position:absolute;top:0;left:0;width:100%;height:100%;background-color:#000;filter:alpha(opacity = 60);-moz-opacity:.6;-khtml-opacity:.6;opacity:.6;z-index:1}.appmsg .icon_appmsg_selected{display:none;position:absolute;top:50%;left:50%;margin-top:-30px;margin-left:-33px;line-height:999em;overflow:hidden;z-index:1}.dialog_wrp .appmsg:hover{cursor:pointer}.appmsg:hover .appmsg_mask{display:block}.appmsg.selected .appmsg_mask{display:block}.appmsg.selected .icon_appmsg_selected{display:inline-block}.icon_appmsg_selected{background:transparent url(/mpres/htmledition/images/icon/media/icon_appmsg_selected1ccaec.png) no-repeat 0 0;width:75px;height:60px;vertical-align:middle;display:inline-block}.appmsg_thumb.default{display:block;color:#c0c0c0;text-align:center;line-height:160px;font-weight:400;font-style:normal;background-color:#ececec;font-size:22px}.appmsg_item .appmsg_thumb.default{line-height:78px;font-size:16px}.appmsg_edit_mask{display:none;position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(229,229,229,0.85)!important;filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#d9e5e5e5',endcolorstr = '#d9e5e5e5');text-align:center}.appmsg_item .appmsg_edit_mask{line-height:102px}.cover_appmsg_item .appmsg_edit_mask{line-height:160px}.appmsg_edit_mask a{margin-left:8px;margin-right:8px}.editing .cover_appmsg_item:hover .appmsg_edit_mask,.editing .appmsg_item:hover .appmsg_edit_mask{display:block}.editing .appmsg_thumb{display:none}.editing .appmsg_thumb.default{display:block}.editing .has_thumb .appmsg_thumb{display:block}.editing .has_thumb .appmsg_thumb.default{display:none}.editing .appmsg_content{box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;border-bottom-width:0}.editing.multi .appmsg_content{border-bottom-width:1px}.appmsg_add{text-align:center;padding:12px 14px;line-height:72px}.appmsg_add a{display:block;font-size:0;text-decoration:none;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;border:3px dotted #b8b8b8;height:72px}.appmsg_add a i{*vertical-align:baseline}.tab_content .appmsg{width:320px}.appmsg_list{text-align:justify;text-justify:distribute-all-lines;text-align-last:justify;font-size:0;padding-top:38px;margin:0 46px;letter-spacing:-4px}.appmsg_list:after{display:inline-block;width:100%;height:0;font-size:0;margin:0;padding:0;overflow:hidden;content:"."}.appmsg_col{display:inline-block;*display:inline;*zoom:1;vertical-align:top;width:48%;font-size:14px;text-align:left;font-size:14px;letter-spacing:normal}.media_dialog.appmsg_list{position:relative;padding:28px 140px;height:340px;margin-bottom:0;overflow-y:scroll}.page_appmsg_edit .tool_area{clear:both;margin:0;padding:20px 0}.page_appmsg_edit .tool_bar{margin-left:0;margin-right:0}.page_appmsg_edit .appmsg{min-height:180px}.page_appmsg_edit .upload_file_box{top:22px;left:-12px;width:377px;border-color:#d3d3d3;border-radius:0;-moz-border-radius:0;-webkit-border-radius:0}.page_appmsg_edit .upload_preview img{max-width:100px;max-height:100px}.media_preview_area{float:left;width:320px;margin-right:14px}.media_edit_area{display:table-cell;vertical-align:top;float:none;width:auto;*display:block;*zoom:1}.media_edit_area:after{content:" . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ";visibility:hidden;clear:both;height:0!important;display:block;line-height:0}.edui_editor_wrp{position:relative;z-index:0}.appmsg_edit_item{padding-bottom:1em}.editor_extra_info{text-align:right;padding-top:6px}.editor_extra_info a{color:#a3a3a3}.editor_extra_info a:hover{color:#2e7dc6}
+</style>
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+
+<form class="form" method="post"   action=""  target="_top" enctype="multipart/form-data" >
+<div class="content">
+<!--活动开始-->
+<div class="cLineB">
+    <h4>设置群发消息</h4><a href="javascript:history.go(-1);"  class="right btnGrayS vm" style="margin-top:-27px" >返回</a>
+</div>
+
+<div class="msgWrap bgfc">
+
+<div style="float:left;width:60%;">
+<TABLE class="userinfoArea" style=" margin:0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+<TBODY>
+<tr>
+	<th><span class="red">*</span>群发标题</th>
+	<td><input type="text" class="px"  value="" name="title"> 此标题只做发送类型区分，不会发送给粉丝</td>
+</tr>
+<TR>
+  <th valign="top"><span class="red">*</span>选择图文消息</th>
+  <TD>
+	<a href="###" onclick="addImgMessage()" class="a_choose">选择图文消息</a>&nbsp;&nbsp;<a href="###" onclick="clearMessage()" class="a_clear">清空重选</a>
+  </TD>
+</TR>
+<TR>
+  <th valign="top"><span class="red">*</span>消息群发方式:</th>
+  <TD>
+		<input type="radio" value="1" name="send_type" class="send_type" checked>分组群发
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="radio" value="2" name="send_type" class="send_type">指定粉丝
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="radio" value="3" name="send_type" class="send_type">全部粉丝	
+  </TD>
+</tr>
+<TR class="group_show">
+	<th>请选择分组：</th>
+	<td>
+		<pigcmsif where="$groups">
+				<select name="wechatgroupid" id="group"  style="width:150px;">
+					<pigcmslist array="groups" foreach="g">
+						<option value="{pigcms:$g.wechatgroupid}">{pigcms:$g.name}</option>
+					</pigcmslist>
+				</select>
+			<else/>
+				<a href="{pigcms::U('Wechat_group/groups')}">还没有同步公众平台的粉丝分组，点击这里进行分组设置</a>
+		</pigcmsif>
+	</td>
+</TR>
+
+<TR style="display:none;" class="fans_show">
+<th valign="top">请选择粉丝：</th>
+	<td colspan="2">
+		<a href="javascript:void(0);" class="a_choose" id="add_fans">选择粉丝</a>
+			&nbsp;
+		<a href="javascript:void(0);" id="clear_fans">清空</a><br />
+		<textarea name="openid" id="fans_id" class="px" style="width:250px;height:60px;float:left;"></textarea>	
+	</td>
+</TR>
+
+ <tr>    
+	<th valign="top"></th>     
+	<td>
+        
+ 		<input type="hidden" class="px" id="imgids" value="" name="imgids" style="width:300px" >  <br>
+        <button type="submit" name="button" class="btnGreen">保存</button>
+        &nbsp;&nbsp;&nbsp; 
+        <a href="" class="btnGray vm">取消</a>
+   	</td> 
+</tr> 
+<tr>
+	<th></th>
+	<td></td>
+</tr>
+</TBODY>
+</TABLE>
+</div>
+<div style="float:right;width:40%;">
+		<div class="chatPanel" style="width:280px;" id="singlenews">
+	  	<div un="item_1741035" class="chatItem you"> 
+			<div class="media mediaFullText" id="titledom">
+				<div class="mediaPanel">
+					<div class="mediaHead"><span class="title" id="zbt">图文消息预览</span><span class="time"><?php echo date('Y-m-d',time());?></span>
+						<div class="clr"></div>
+					</div>
+					<div class="mediaImg"><img id="suicaipic1" src="/tpl/static/message/oid.jpg"></div>
+					<div class="mediaContent mediaContentP">
+						<p id="zinfo">消息简介</p>
+					</div>
+					<div class="mediaFooter">
+						<span class="mesgIcon right"></span><span style="line-height:50px;" class="left">查看全文</span>
+						<div class="clr"></div>
+					</div>
+				</div>
+			</div>
+	 	</div>
+	</div>
+	 <div class="media_preview_area" id="multinews" style="display:none">
+        <div class="appmsg multi editing">
+    	<div id="js_appmsg_preview" class="appmsg_content">
+	        <div id="appmsgItem1" data-fileid="" data-id="1" class="js_appmsg_item ">
+		        <div class="appmsg_info">
+		            <em class="appmsg_date"></em>
+		        </div>
+	        	<div class="cover_appmsg_item" id="multione"></div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="clr"></div>
+</div>
+</form>
+        <div class="clr"></div>
+      </div>
+    </div>
+  </div>
+
+<!--底部-->
+  	</div>
+<script>
+$(function(){
+	
+	if($('.send_type:checked').val() == 1){
+		$('.group_show').css('display','');
+		$('.fans_show').css('display','none');
+		$('.send_type:eq(0)').attr('checked',true);
+	}else if($('.send_type:checked').val() == 2){
+		$('.group_show').css('display','none');
+		$('.fans_show').css('display','');
+		$('.send_type:eq(1)').attr('checked',true);
+	}else if($('.send_type:checked').val() == 3){
+		$('.group_show').css('display','none');
+		$('.fans_show').css('display','none');
+		$('.send_type:eq(2)').attr('checked',true);
+	}
+
+	$('.send_type').change(function(){
+		if($(this).val() == 1){
+			$('.group_show').css('display','');
+			$('.fans_show').css('display','none');
+		}else if($(this).val() == 2){
+			$('.group_show').css('display','none');
+			$('.fans_show').css('display','');
+		}else if($(this).val() == 3){
+			$('.group_show').css('display','none');
+			$('.fans_show').css('display','none');
+		}
+	});
+	$('#add_fans').click(function(){
+		var token 	= '{pigcms:$token}';
+		var group 	= $('#group').val();
+		art.dialog.open('?g=User&m=Message&a=message_fans&token='+token+'&group='+group,{lock:true,title:'选择粉丝',width:600,height:400,yesText:'关闭',background: '#000',opacity: 0.45});
+	});
+
+	$('#clear_fans').click(function(){
+		$('#fans_id').val('');
+	});
+});
+
+
+function addImgMessage(){
+	art.dialog.data('titledom', 'titledom');
+	art.dialog.data('imgids', 'imgids');
+	art.dialog.data('multinews', 'multinews');
+	art.dialog.data('singlenews', 'singlenews');
+	
+	art.dialog.data('js_appmsg_preview', 'js_appmsg_preview');
+	art.dialog.data('multione', 'multione');
+	art.dialog.open('?g=User&m=Message&a=img',{lock:true,title:'选择图文消息',width:600,height:400,yesText:'关闭',background: '#000',opacity: 0.45});
+}
+ function clearMessage(){
+ 	document.getElementById('titledom').innerHTML='';
+ 	document.getElementById('imgids').value='';
+ 	document.getElementById('js_appmsg_preview').innerHTML='<div class="appmsg_info"><em class="appmsg_date"></em></div><div class="cover_appmsg_item" id="multione"></div>';
+ 	document.getElementById('multinews').style.display='none';
+ 	document.getElementById('singlenews').style.display='';
+}
+</script>
+<include file="Public:footer"/>

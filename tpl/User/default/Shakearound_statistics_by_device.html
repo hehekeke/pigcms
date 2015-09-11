@@ -1,0 +1,72 @@
+<if condition="$stat eq true && $msg neq ''">
+<div style="height:400px;width:960px;text-align:center;color:#4a98e0;padding-top:100px;font-size:14px;">{pigcms:$msg}</div>
+<else />
+<div id="shakearound" style="height:400px;width:960px;"></div>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('shakearound')); 
+    var option = {
+        title : {
+            text: '以设备为维度的数据统计',
+            x:'left'
+        },
+        tooltip : {
+            trigger: 'axis'
+        },
+        legend: {
+            data:['点击摇周边次数','点击摇周边人数','摇周边的次数','摇周边的人数'],
+            x: 'right'
+        },
+        toolbox: {
+            show : false,
+            feature : {
+                mark : {show: false},
+                dataView : {show: false, readOnly: false},
+                magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                restore : {show: false} ,
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
+        xAxis : [
+            {
+                type : 'category',
+                boundaryGap : false,
+                data : [{pigcms:$charts.xAxis}]
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value'
+            }
+        ],
+        series : [
+            {
+                name:'点击摇周边次数',
+                type:'line',
+                tiled: '总量',
+                data: [{pigcms:$charts.click_pv}]
+            },    
+            {
+                "name":'点击摇周边人数',
+                "type":'line',
+                "tiled": '总量',
+                data:[{pigcms:$charts.click_uv}]
+            },
+            {
+                "name":'摇周边的次数',
+                "type":'line',
+                "tiled": '总量',
+                data:[{pigcms:$charts.shake_pv}]
+            },         
+			{
+                "name":'摇周边的人数',
+                "type":'line',
+                "tiled": '总量',
+                data:[{pigcms:$charts.shake_uv}]
+            }
+
+        ]
+    };                   
+    myChart.setOption(option); 
+</script>
+</if>

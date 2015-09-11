@@ -1,0 +1,1188 @@
+<html>
+    
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1">
+        <title>
+            {pigcms:$tpl.wxname}
+        </title>
+        <style type="text/css">
+            * {
+	margin: 0;
+	padding: 0
+}
+
+#d_tab29 ul, #d_tab29 li {
+	margin: 0;
+	padding: 0;
+	list-style: none
+}
+
+#d_tab29 img {
+	border: 0;
+	vertical-align: top
+}
+
+#d_tab29 {
+	position: relative;
+	height: 200px;
+	; text-align: left;
+	margin-top: -10px;
+}
+
+#d_tab29 .d_img {
+	position: relative;
+	margin: 0 auto;
+	width: 320px;
+	height: 100%
+}
+
+#d_tab29 .d_img li {
+	position: absolute;
+	display: none;
+	z-index: 0
+}
+
+#d_tab29 .d_img li img {
+	width: 100%;
+}
+
+#d_tab29 .d_img li.d_pos2 {
+	display: block;
+	width: 80%;
+	left: 0%;
+	top: 40px;
+	z-index: 2
+}
+
+#d_tab29 .d_img li.d_pos3 {
+	display: block;
+	width: 95%;
+	left: 3%;
+	top: 20px;
+	z-index: 3
+}
+
+#d_tab29
+            .d_img li.d_pos4 {
+	display: block;
+	width: 80%;
+	right: 0%;
+	top: 40px;
+	z-index: 2
+}
+
+#d_tab29 .d_menu {
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	text-align: center;
+	z-index: 99;
+}
+
+#d_tab29 .d_menu li {
+	display: inline-block;
+	zoom: 1;
+	*display: inline;
+	background: url('{pigcms:$staticPath}/tpl/Wap/default/common/images/template/template_1.png')
+            no-repeat 0 0;
+	width: 12px;
+	height: 12px;
+	cursor: pointer;
+	margin-right: 3px
+}
+
+#d_tab29 .d_menu li.d_select {
+	background: url('{pigcms:$staticPath}/tpl/Wap/default/common/images/template/template_1.png')
+            no-repeat 0 -18px
+}
+
+#d_tab29 .d_next {
+	position: absolute;
+	left: 50%;
+	margin-left: 30%;
+	top: 80px;
+	z-index: 10;
+	cursor: pointer
+}
+
+#d_tab29 .d_next:hover {
+	position: absolute;
+	left: 50%;
+	margin-left: 30%;
+	top: 80px;
+	z-index: 10;
+	cursor: pointer
+}
+
+#d_tab29 .d_prev {
+	position: absolute;
+	left: 50%;
+	margin-left: -40%;
+	top: 80px;
+	z-index: 10;
+	cursor: pointer
+}
+
+#d_tab29 .d_prev:hover {
+	position: absolute;
+	left: 50%;
+	margin-left: -40%;
+	top: 80px;
+	z-index: 10;
+	cursor: pointer
+}
+
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, form, img,
+            dl, dt, dd, table, th, td, blockquote, fieldset, div, strong, label, em {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+ul, ol, li {
+	list-style: none;
+}
+
+input,
+            button {
+	margin: 0;
+	font-size: 12px;
+	vertical-align: middle;
+}
+
+body {
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: center;
+	margin: 0 auto;
+	font-family: "宋体";
+	color: #898989;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+b, em, i {
+	font-style: normal;
+	font-weight: normal;
+}
+
+h1, h2, h3 {
+	font-size: 14px;
+}
+
+h4 {
+	font-weight: normal;
+	font-size: 14px;
+}
+
+h5 {
+	font-size: 12px;
+}
+
+h6 {
+	font-size: 12px;
+	font-weight: normal;
+}
+
+img {
+	display: block;
+}
+
+.adpic {
+	width: 100%;
+	float: left;
+	margin-bottom: 10px;
+}
+
+.adpic img {
+	width: 100%;
+}
+
+#wrap .noright {
+	margin-right: 0;
+	padding-right: 0;
+}
+
+#wrap .nobottom {
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+
+#wrap .notop {
+	margin-top: 0;
+	padding-top: 0;
+}
+
+#wrap .nobg {
+	background: none;
+}
+
+#wrap
+            .noline {
+	border: none;
+}
+
+.check, .radio {
+	margin-right: 3px;
+	_margin-right: 0;
+}
+
+.pcenter {
+	text-align: center;
+}
+
+.pcenter img {
+	margin: 0 auto;
+}
+
+#wrap {
+	width: 950px;
+	overflow: hidden;
+	margin: 0 auto;
+	text-align: left;
+}
+
+a {
+	color: #6e6e76;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #ef9b11;
+}
+
+.l {
+	width: 100%;
+	float: left;
+}
+
+.fl {
+	display: inline;
+	float: left;
+}
+
+.fr {
+	display: inline;
+	float: right;
+}
+
+.content {
+	float: left;
+	_display: inline;
+	overflow: hidden;
+}
+
+.side {
+	float: right;
+	_display: inline;
+	overflow: hidden;
+}
+
+#slides {
+	width: 100%;
+	margin: 40px auto;
+	height: 110px;
+	overflow: hidden;
+	position: relative;
+}
+
+#ul1 li:nth-child(1) a:nth-child(1) img{background-color: #df6162;}
+#ul1 li:nth-child(1) a:nth-child(2) img{background-color: #25c389;}
+#ul1 li:nth-child(1) a:nth-child(3) img{background-color: #ffb901;}
+#ul1 li:nth-child(2) a:nth-child(1) img{background-color: #80c269;}
+#ul1 li:nth-child(2) a:nth-child(2) img{background-color: #8f82bc;}
+#ul1 li:nth-child(2) a:nth-child(3) img{background-color: #ffb901;}
+#ul1 li:nth-child(3) a:nth-child(1) img{background-color: #5bbae8;}
+#ul1 li:nth-child(3) a:nth-child(2) img{background-color: #ef7281;}
+#ul1 li:nth-child(3) a:nth-child(3) img{background-color: #13b5b1;}
+
+.slides_container li {
+	width: 100%;
+	float: left;
+}
+
+.slides_container
+            li a {
+	display: inline-block;
+	width: 30%;
+	height: 107px;
+	border: 1px solid
+            #fff;
+	float: left;
+	margin-left: 2%;
+}
+
+.slides_container li a img {
+	width: 100%;
+	height: 107px;
+}
+
+.slides_container li a span {
+	display: block;
+	width: 100%;
+	cursor: pointer;
+	height: 30px;
+	line-height: 8px;
+	background: #262626;
+	color: #fff;
+}
+
+.slides_container li a:hover {
+	border: 1px solid #ff8400;
+}
+
+.slides_container li a:hover span {
+	color: #ff8400;
+}
+
+.pagination {
+	position: absolute;
+	left: 50%;
+	z-index: 10;
+	top: 170px;
+	display: none;
+}
+
+.pagination
+            li {
+	float: left;
+	padding-right: 7px;
+}
+
+.pagination a {
+	display: block;
+	outline: none;
+	background: url({pigcms:$staticPath}/tpl/Wap/default/common/images/template/template_2.gif)
+            no-repeat -1px 0;
+	text-indent: -999em;
+	width: 14px;
+	height: 14px;
+}
+
+.pagination
+            li.current a {
+	background-position: -22px 0;
+}
+
+.prev {
+	background: url({pigcms:$staticPath}/tpl/Wap/default/common/images/template/template_3.png)
+            no-repeat;
+	width: 29px;
+	height: 43px;
+	display: block;
+	left: 1px;
+	top: 35px;
+	position: absolute;
+	text-indent: -999em;
+	outline: none;
+	z-index: 99;
+}
+
+.prev:hover {
+	background-position: 0 -43px;
+}
+
+.next {
+	background: url({pigcms:$staticPath}/tpl/Wap/default/common/images/template/template_3.png)
+            no-repeat -29px 0;
+	width: 29px;
+	height: 43px;
+	display: block;
+	right: 1px;
+	top: 35px;
+	position: absolute;
+	text-indent: -999em;
+	outline: none;
+	z-index: 99;
+}
+
+.next:hover {
+	background-position: -29px -43px;
+}
+
+.slides_control {
+	width: 100% !important;
+	height: 110px !important;
+	;
+}
+
+.tet {
+	margin-top: 8px;
+}
+
+img.tub1 {
+	height: 50px !important;
+	margin-left: 50%;
+	margin-top: -70%;
+}
+
+.item_one {
+	width: 22%;
+	height: 75px;
+	float: left;
+	margin-left: 2%;
+	margin-top: 3%;
+}
+
+.gntub {
+	width: 60px;
+	height: 60px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.active {
+	dispaly: block;
+}
+
+.pro {
+	display: none;
+}
+
+.weiba-copyright {
+	text-align: center;
+	height: 48px;
+	line-height: 65px;
+	font-size: 14px;
+}
+
+.footer {
+	clear: both;
+}
+
+.weiba-support.tpl-support {
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#707070), to(#707070));
+	color: #FFFFFF!important;
+	font-size: 12px;
+	height: 24px;
+	line-height: 24px;
+}
+
+.one_itme {
+	width: 99%;
+}
+
+.one_itmell {
+	width: 99%;
+	height: 270px;
+}
+
+.one_itmelll {
+	width: 99%;
+	height: 340px;
+}
+
+.one_banner {
+	width: 100%;
+	height: 180px;
+	border: #00F 1px
+            solid;
+	display: none;
+}
+
+.banner_pic {
+	width: 94%;
+	height: 110px;
+	border: #FF0
+            1px solid;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 2%;
+}
+
+.banner_txt {
+	margin-left: 3%;
+	width: 94%;
+	height: 50px;
+	border: #F0F
+            1px solid;
+	text-align: left;
+	margin-top: 5px;
+}
+
+.list_one {
+	width: 94%;
+	height: 50px;
+	border: rgba(0, 0, 255, 0) 1px solid;
+	margin-left: auto;
+	margin-right: auto;
+	border-bottom: #adadad 1px solid;
+	box-shadow: 1px -3px 8px rgb(233,
+            233, 233);
+	margin-top: 4px;
+}
+
+.list_one_pic {
+	width: 35px;
+	height: 35px;
+	border: rgba(0, 0, 255, 0) 1px solid;
+	float: left;
+	margin-top: 7px;
+	margin-left: 8%;
+}
+
+.list_one_txt {
+	width: 75%;
+	height: 35px;
+	border: rgba(0, 0, 255, 0) 1px solid;
+	margin-left: 70px;
+	margin-top: 7px;
+	text-align: left;
+	overflow: hidden;
+}
+
+.list_onell {
+	width: 94%;
+	height: 70px;
+	border: rgba(0, 0, 255, 0) 1px solid;
+	margin-left: auto;
+	margin-right: auto;
+	border-bottom: #adadad 1px solid;
+	box-shadow: 1px -3px 8px rgb(233,
+            233, 233);
+	margin-top: 4px;
+}
+
+.list_one_picll {
+	width: 50px;
+	height: 50px;
+	border: rgba(0, 0, 255, 0) 1px solid;
+	float: left;
+	margin-top: 7px;
+	margin-left: 3%;
+}
+
+.list_one_txtll {
+	width: 75%;
+	height: 50px;
+	border: rgba(0, 0, 255, 0) 1px solid;
+	margin-left: 70px;
+	margin-top: 7px;
+	text-align: left;
+	overflow: hidden;
+}
+
+.banner_h1 {
+	margin-top: 1px;
+}
+
+.list_h1 {
+	margin-top: 8px;
+	color: black;
+}
+.list_h1s {
+	margin-top: 2px;
+	color: black;
+	height:40px;
+	overflow:hidden;
+}
+.list_h1sz {
+	margin-top: 3px;
+	color: black;
+	height:40px;
+	overflow:hidden;
+}
+
+.list_h1lls {
+	margin-top: 2px;
+	color: black;
+margin-bottom: 3px;
+}
+.list_h1ll {
+	margin-top: 2px;
+	color: black;
+margin-bottom: 3px;
+}
+
+.more {
+	width: 50%;
+	height: 25px;
+	margin-left: auto;
+	margin-right: auto;
+	border: #333 1px solid;
+	margin-top: 10px;
+	border-radius: 15px;
+	background-color: #707070;
+	background-image: url({pigcms:$staticPath}/tpl/Wap/default/common/images/template/template_4.png);
+	background-repeat: no-repeat;
+	background-position-x: 94%;
+	background-position-y: 4px;
+}
+
+.more_anli {
+	width: 50%;
+	height: 25px;
+	margin-left: auto;
+	margin-right: auto;
+	border: #333 1px
+            solid;
+	margin-top: 10px;
+	border-radius: 15px;
+	background-color: #707070;
+	background-image: url({pigcms:$staticPath}/tpl/Wap/default/common/images/template/template_4.png);
+	background-repeat: no-repeat;
+	background-position-x: 94%;
+	background-position-y: 4px;
+	display: none;
+}
+
+.banner_pic1 {
+	width: 100%;
+	height: 100%;
+}
+
+.yy {
+	width: 100%;
+	height: 40px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-size: 100%
+            100%;
+	margin-top: 20px;
+}
+.tongzhi{display:none;}
+.yy div:nth-child(1){display:block;}
+
+.jianjie {
+	line-height: 180%;
+	font-size: 14px;
+	padding-left: 4px;
+	margin-right: 4px;
+}
+.jianjie span p img{
+	max-width: 100%;
+}
+.jianjie_h {
+	font-size: 16px;
+	color: #000;
+}
+
+.more_txt {
+	color: #000;
+	font-weight: bolder;
+}
+
+.tet2 {
+	margin-top: 3px;
+}
+
+.swiper-container {
+	margin: 0 auto;
+	position: relative;
+	overflow: hidden;
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	-ms-backface-visibility: hidden;
+	-o-backface-visibility: hidden;
+	backface-visibility: hidden;
+	z-index: 1;
+}
+
+.swiper-wrapper {
+	position: relative;
+	width: 100%;
+	-webkit-transition-property: -webkit-transform, left, top;
+	-webkit-transition-duration: 0s;
+	-webkit-transform: translate3d(0px, 0, 0);
+	-webkit-transition-timing-function: ease;
+	-moz-transition-property: -moz-transform, left, top;
+	-moz-transition-duration: 0s;
+	-moz-transform: translate3d(0px, 0, 0);
+	-moz-transition-timing-function: ease;
+	-o-transition-property: -o-transform, left, top;
+	-o-transition-duration: 0s;
+	-o-transform: translate3d(0px,
+            0, 0);
+	-o-transition-timing-function: ease;
+	-o-transform: translate(0px,
+            0px);
+	-ms-transition-property: -ms-transform, left, top;
+	-ms-transition-duration: 0s;
+	-ms-transform: translate3d(0px, 0, 0);
+	-ms-transition-timing-function: ease;
+	transition-property: transform, left, top;
+	transition-duration: 0s;
+	transform: translate3d(0px, 0, 0);
+	transition-timing-function: ease;
+}
+
+.swiper-free-mode>.swiper-wrapper {
+	-webkit-transition-timing-function: ease-out;
+	-moz-transition-timing-function: ease-out;
+	-ms-transition-timing-function: ease-out;
+	-o-transition-timing-function: ease-out;
+	transition-timing-function: ease-out;
+	margin: 0 auto;
+}
+
+.swiper-slide {
+	float: left;
+}
+
+.swiper-wp8-horizontal {
+	-ms-touch-action: pan-y;
+}
+
+.swiper-wp8-vertical {
+	-ms-touch-action: pan-x;
+}
+
+.swiper-container {
+}
+
+.swiper-slide {
+}
+
+.swiper-slide-active {
+}
+
+.swiper-slide-visible {
+}
+
+.swiper-pagination-switch {
+}
+
+.swiper-active-switch {
+}
+
+.swiper-visible-switch {
+}
+
+.device {
+	position: relative
+}
+
+.device .arrow-left {
+	background: url({pigcms:$staticPath}/tpl/Wap/default/common/images/template/template_5.png)
+            no-repeat left top;
+	position: absolute;
+	left: 10px;
+	top: 50%;
+	margin-top: -15px;
+	width: 50px;
+	height: 50px;
+	z-index: 10;
+	display: none;
+}
+
+.device .arrow-right {
+	background: url({pigcms:$staticPath}/tpl/Wap/default/common/images/template/template_6.png)
+            no-repeat left bottom;
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	margin-top: -15px;
+	width: 50px;
+	height: 50px;
+	z-index: 10;
+	display: none;
+}
+.tongzhi{width: 94%;height: 40px;border:
+            rgba(0, 0, 255, 0) 1px solid;margin-left: auto;margin-right: auto;border-bottom:
+            #E9E9E9 1px solid;box-shadow: 1px -3px 8px rgb(233, 233, 233);margin-top:
+            4px;}.tongzhi_pic{width: 35px;height: 35px;border: rgba(0, 0, 255, 0) 1px
+            solid;float: left;margin-top: 0px;margin-left: 2%;}.tongzhi_txt{width:
+            78%;height: 35px;line-height: 35px;border: rgba(0, 0, 255, 0) 1px solid;margin-left: 50px;margin-top:
+            -3px;text-align: left;overflow: hidden;}.tongzhi_h1 {margin-top: 6px;color:
+            #797979;font-size: 13px;}.tongzhi_pic1{width:100%;height:100%;width: 100%;}
+.swiper-container {
+	height: 175px;
+	width: 100%;
+}
+
+.swiper-container img {
+	width: 100%
+}
+
+.content-slide {
+	padding: 20px;
+	color: #fff;
+}
+
+.points {
+	position: absolute;
+	left: 0;
+	text-align: center;
+	bottom: -15px;
+	width: 100%;
+	z-index: 10
+}
+
+.swiper-pagination-switch {
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	border-radius: 10px;
+	background: #fff;
+	box-shadow: 0px 1px 2px #555 inset;
+	margin: 0 3px;
+	cursor: pointer;
+}
+
+.swiper-active-switch {
+	background: #9bcc0e;
+}
+        </style>
+        <script type="text/javascript" src="{pigcms:$staticPath}/tpl/Wap/default/common/images/template/jquery.min.js">
+        </script>
+        <script type="text/javascript" src="{pigcms:$staticPath}/tpl/Wap/default/common/images/template/idangerous.swiper.js">
+        </script>
+    </head>
+    
+    <body style="min-width:320px;margin: 0;">
+        <div class="page" style="margin:0;">
+            <div class="device">
+                <a class="arrow-left" href="javascript:();">
+                </a>
+                <a class="arrow-right" href="javascript:();">
+                </a>
+                <div class="swiper-container" style="cursor: -webkit-grab;">
+                    <div class="swiper-wrapper" style="width: 18624px; height: 160px; -webkit-transform: translate3d(-4656px, 0px, 0px); transition: 0.3s; -webkit-transition: 0.3s;">
+                    	<volist name="flash" id="vo">
+	                        <a href="{pigcms:$vo.url}" class="swiper-slide" style="width: 1552px; height: 165px;">
+	                            <img src="{pigcms:$vo.img}" alt="{pigcms:$vo.title}">
+	                        </a>
+                        </volist>
+                    </div>
+                </div>
+                <div class="points">
+                    <span class="swiper-pagination-switch">
+                    </span>
+                </div>
+            </div>
+            <div class="yy">
+            	<volist name="info" id="vo">
+                    <if condition="$vo.classid eq $newsID ">
+		                <div class="tongzhi">
+		                    <a href="<if condition="$vo.url eq ''">{pigcms::U('Wap/Index/content',array('id'=>$vo['id'],'classid'=>$id[4],'token'=>$token))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>">
+		                        <div class="tongzhi_pic">
+		                            <img class="tongzhi_pic1" src="{pigcms:$staticPath}/tpl/Wap/default/common/images/template/template_0.png">
+		                        </div>
+		                        <div class="tongzhi_txt">
+                       				<p class="tongzhi_h1">
+                                		{pigcms:$vo.title}
+                                	</p>
+		                        </div>
+		                    </a>
+		               </div>
+		            </if>
+		        </volist>
+            </div>
+            <div class="content" style="width:100%; min-height:350px;margin-top: -30px;">
+                <div class="gun" style="width:100%; height:100px;">
+                    <div id="slides">
+                        <ul class="slides_container swiper-wrapper" id="ul1" style="width: 4656px; height: 110px;">
+                            <li class="swiper-slide swiper-slide-visible swiper-slide-active" style="width: 1552px; height: 110px;">
+                                <volist name="list" id="vo">
+                                	<if condition="$i lt 4">
+		                                <a href="javascript:;" target="_blank">
+		                                    <img id="num">
+		                                    <div class="tub" style="border:#00F 1px solid; width:50%; margin-top:-60px;">
+		                                        <img class="tub1" src="{pigcms:$vo.img}"
+		                                        alt="">
+		                                    </div>
+		                                    <div class="tet">
+		                                        <span>
+		                                            <h1>
+		                                                {pigcms:$vo.name}
+		                                            </h1>
+		                                            <br>
+		                                            {pigcms:$vo.info}
+		                                        </span>
+		                                    </div>
+		                                </a>
+		                            </if>
+	                            </volist>
+                            </li>
+                            <li class="swiper-slide" style="width: 1552px; height: 110px;">
+                            	<volist name="list" id="vo">
+                            		<if condition="$i gt 3 && $i lt 7">
+		                                <a href="javascript:;" target="_blank">
+		                                    <img id="num">
+		                                    <div class="tub" style="border:#00F 1px solid; width:50%; margin-top:-60px;">
+		                                        <img class="tub1" src="{pigcms:$vo.img}"
+		                                        alt="">
+		                                    </div>
+		                                    <div class="tet">
+		                                        <span>
+		                                            <h1>
+		                                                {pigcms:$vo.name}
+		                                            </h1>
+		                                            <br>
+		                                            {pigcms:$vo.info}
+		                                        </span>
+		                                    </div>
+		                                </a>
+		                            </if>
+		                        </volist>
+                            </li>
+                            <li class="swiper-slide" style="width: 1552px; height: 110px;">
+                            	<volist name="list" id="vo">
+                            		<if condition="$i gt 6 && $i lt 10">
+                                		<a href="javascript:;" target="_blank">
+		                                    <img id="num">
+		                                    <div class="tub" style="border:#00F 1px solid; width:50%; margin-top:-60px;">
+		                                        <img class="tub1" src="{pigcms:$vo.img}"
+		                                        alt="">
+		                                    </div>
+		                                    <div class="tet">
+		                                        <span>
+		                                            <h1>
+		                                                {pigcms:$vo.name}
+		                                            </h1>
+		                                            <br>
+		                                            {pigcms:$vo.info}
+		                                        </span>
+		                                    </div>
+		                                </a>
+		                            </if>
+		                        </volist>
+                            </li>
+                        </ul>
+                        <a href="javascript:;" class="prev">
+                            prev
+                        </a>
+                        <a href="javascript:;" class="next" id="soso">
+                            next
+                        </a>
+                    </div>
+                </div>
+
+                <ul class="neir" style="width:95%; margin-left:2%;border: rgba(37, 195, 137, 0) 1px solid; margin-top:20px; overflow:hidden; min-height:240px;" id="ul2">
+                    <li class="<?php if (!$currentTab){echo 'active';}else {echo 'pro';}?>">
+                    	<volist name="function" id="vo">
+                    		
+		                        <a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/content',array('classid'=>$id[0],'id'=>$vo['id'],'token'=>$token))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>" class="item_one">
+		                            <img class="gntub" src="{pigcms:$vo.pic}">
+		                            <div class="tet2">
+		                                <span>
+		                                    {pigcms:$vo.title}
+		                                </span>
+		                            </div>
+		                        </a>
+		                    
+	                    </volist>
+                    </li>
+                    <li class="<?php if ($currentTab=='product'){echo 'active';}else {echo 'pro';}?>">
+                        <div class="one_itme" id="li_two">
+                        	<volist name="product" id="vo">
+	                            <a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/lists',array('classid'=>$vo['id'],'token'=>$token))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>">
+	                                <div class="list_onell">
+	                                    <div class="list_one_picll">
+	                                        <img class="banner_pic1" src="{pigcms:$vo.img}">
+	                                    </div>
+	                                    <div class="list_one_txtll">
+	                                        <h1 class="list_h1ll">
+	                                            {pigcms:$vo.name}
+	                                        </h1>
+	                                        <span>
+	                                            {pigcms:$vo.info}
+	                                        </span>
+	                                    </div>
+	                                </div>
+	                            </a>
+	                        </volist>
+                        </div>
+                    </li>
+                    <li class="<?php if ($currentTab=='industry'){echo 'active';}else {echo 'pro';}?>">
+                        <div class="one_itme" id="li_three">
+                        	<volist name="industryInfos" id="vo">
+                        		
+		                            <a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/content',array('id'=>$vo['id'],'classid'=>$id[2],'token'=>$token))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>">
+		                                <div class="list_onell">
+		                                    <div class="list_one_picll">
+		                                        <img class="banner_pic1" src="{pigcms:$vo.pic}">
+		                                    </div>
+		                                    <div class="list_one_txtll">
+		                                        <h1 class="list_h1ll">
+		                                            {pigcms:$vo.title}
+		                                        </h1>
+		                                    </div>
+		                                </div>
+		                            </a>
+	                          
+                            </volist>
+                        </div>
+                    </li>
+                    <li class="<?php if ($currentTab=='aftersale'){echo 'active';}else {echo 'pro';}?>">
+                        <div class="one_itmelll" id="li_four">
+                        	<volist name="info" id="vo">
+                        		<if condition="$vo.classid eq $afterSaleID">
+		                            <a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/content',array('id'=>$vo['id'],'classid'=>$id[3],'token'=>$token))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>">
+		                                <div class="list_onell">
+		                                    <div class="list_one_picll">
+		                                        <img class="banner_pic1" src="{pigcms:$vo.pic}">
+		                                    </div>
+		                                    <div class="list_one_txtll">
+		                                        <h1 class="list_h1ll">
+		                                            {pigcms:$vo.title}
+		                                        </h1>
+		                                    </div>
+		                                </div>
+		                            </a>
+		                        </if>
+		                    </volist>
+                        </div>
+                    </li>
+                    <li class="<?php if ($currentTab=='case'){echo 'active';}else {echo 'pro';}?>">
+                        <div class="one_itme" id="li_five">
+                        	<volist name="case" id="vo">
+	                            <a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/lists',array('classid'=>$vo['id'],'token'=>$token))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>" class="item_one">
+	                                <img class="gntub" src="{pigcms:$vo.img}">
+	                                <div class="tet2">
+	                                    <span>
+	                                        {pigcms:$vo.name}
+	                                    </span>
+	                                </div>
+	                            </a>
+                            </volist>
+                        </div>
+                    </li>
+                    <li class="<?php if ($currentTab=='advantage'){echo 'active';}else {echo 'pro';}?>">
+                    	<div>
+                    		<volist name="info" id="vo">
+                    			<if condition="$vo.classid eq $advantageID">
+		                            <a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/content',array('id'=>$vo['id'],'classid'=>$id[4],'token'=>$token))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>">
+		                                <div class="list_one">
+		                                    <div class="list_one_pic">
+		                                        <img class="banner_pic1" src="{pigcms:$vo.pic}">
+		                                    </div>
+		                                    <div class="list_one_txt">
+		                                        <h1 class="list_h1sz" style="width: 96%;">
+		                                            {pigcms:$vo.title}
+		                                        </h1>
+		                                    </div>
+		                                </div>
+		                            </a>
+	                           	</if>
+	                       	</volist>
+                        </div>
+                    </li>
+                    <li class="<?php if ($currentTab=='news'){echo 'active';}else {echo 'pro';}?>">
+                        <div class="one_itme" id="li_seven">
+                        	<volist name="info" id="vo">
+                        		<if condition="$vo.classid eq $newsID">
+		                            <a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/content',array('id'=>$vo['id'],'classid'=>$id[5],'token'=>$token))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>">
+		                                <div class="list_onell">
+		                                    <div class="list_one_picll">
+		                                        <img class="banner_pic1" src="{pigcms:$vo.pic}">
+		                                    </div>
+		                                    <div class="list_one_txtll">
+		                                        <h1 class="list_h1lls">
+		                                            {pigcms:$vo.title}
+		                                        </h1>
+		                                    </div>
+		                                </div>
+		                            </a>
+                            	</if>
+                           	</volist>
+                        </div>
+                    </li>
+                    <li class="<?php if ($currentTab=='about'){echo 'active';}else {echo 'pro';}?>">
+                        <div class="one_itme" id="li_one">
+                        	<volist name="info" id="vo">
+                        		<if condition="$vo.classid eq $aboutID">
+		                            <a href="<if condition="$vo['url'] eq ''">{pigcms::U('Wap/Index/content',array('id'=>$vo['id'],'classid'=>$id[5],'token'=>$token))}<else/>{pigcms:$vo.url|htmlspecialchars_decode}</if>">
+		                                <div class="list_one">
+		                                    <div class="list_one_pic">
+		                                        <img class="banner_pic1" src="{pigcms:$vo.pic}">
+		                                    </div>
+		                                    <div class="list_one_txt">
+		                                        <h1 class="list_h1s">
+		                                            {pigcms:$vo.title}
+		                                        </h1>
+		                                    </div>
+		                                </div>
+		                            </a>
+	                           	</if>
+	                        </volist>
+                        </div>
+                    </li>
+                    <li class="<?php if ($currentTab=='contact'){echo 'active';}else {echo 'pro';}?>">
+                        <div class="one_itme" id="li_nigth">
+							<volist name="info" id="vo">
+								<if condition="$vo.classid eq $contactID">
+		                            <a href="{pigcms:$vo.url}">
+		                                <div class="list_one">
+		                                    <div class="list_one_pic">
+		                                        <img class="banner_pic1" src="{pigcms:$vo.pic}">
+		                                    </div>
+		                                    <div class="list_one_txt">
+		                                        <h1 class="list_h1">
+		                                            {pigcms:$vo.title}
+		                                        </h1>
+		                                    </div>
+		                                </div>
+		                            </a>
+		                        </if>
+	                        </volist>
+                        </div>
+                    </li>
+                </ul>
+                <div class="footer" style="margin:15px 0 10px 0">
+                    <a class="weiba-support tpl-support" href="javascript:();"
+                    style=" ;display:block;">
+                        ©{pigcms:$time} {pigcms:$tpl.weixin}
+                    </a>
+                </div>
+            </div>
+        </div>
+        <script>
+            var mySwiper = new Swiper('.swiper-container', {
+                pagination: '.points',
+                loop: true,
+                autoplay: 3000,
+                grabCursor: true,
+                paginationClickable: true
+            });
+            $('.arrow-left').on('click',
+            function(e) {
+                e.preventDefault();
+                mySwiper.swipePrev()
+            });
+            $('.arrow-right').on('click',
+            function(e) {
+                e.preventDefault();
+                mySwiper.swipeNext()
+            });
+            var mySwiper2 = new Swiper('#slides', {
+                pagination: false,
+                paginationClickable: true,
+            });
+            $('.prev').on('click',
+            function(e) {
+                e.preventDefault();
+                mySwiper2.swipePrev()
+            });
+            $('.next').on('click',
+            function(e) {
+                e.preventDefault();
+                mySwiper2.swipeNext()
+            });
+            window.onload = function() {
+                var box = document.getElementById('ul1');
+                var div = box.getElementsByTagName('a');
+                var Btn = document.getElementById('ul2');
+                var ali = Btn.getElementsByTagName('li');
+                for (var i = 0; i < div.length; i++) {
+                    div[i].index = i;
+                    div[i].onclick = function() {
+                        for (var i = 0; i < ali.length; i++) {
+                            ali[i].index = i;
+                            ali[i].style.display = 'none';
+                            ali[i].className = ''
+                        };
+                        this.className = 'active';
+                        ali[this.index].style.display = 'block'
+                    }
+                }
+            };
+        </script>
+    </body>
+<script type="text/javascript" name="baidu-tc-cerfication" data-appid="5292903" src="http://apps.bdimg.com/cloudaapi/lightapp.js"></script>
+</html>

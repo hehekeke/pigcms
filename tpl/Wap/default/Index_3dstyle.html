@@ -1,0 +1,55 @@
+<!-- webJQ -->
+<script type="text/javascript" src="tpl/Wap/default/common/js/jmquery.js" charset="utf-8"></script><!-- /webJQ -->
+<!-- 我的加载器 -->
+<script type="text/javascript" src="tpl/Wap/default/common/js/som-min.js" charset="utf-8"></script><!-- /我的加载器 -->
+<style>
+	.fn-clear:after {
+		visibility: hidden;
+		display: block;
+		font-size: 0;
+		content: "1";
+		clear: both;
+		height: 0;
+	}
+	.fn-clear {
+		zoom: 1;
+	}
+	fieldset, img {
+		border: 0;
+	}
+	img, object {
+		vertical-align: top;
+	}
+	.wsdbannerbox{background:url("{pigcms:$staticPath}/tpl/Wap/default/common/images/3dload.gif") no-repeat 50%;}
+	.wsdbanner{overflow:hidden;background:#FFF;margin:0 auto;min-height:160px;opacity:0;position:relative;}
+	.wsdbanner ul{position:relative;left:0;top:0;height:100%;}
+	.wsdbanner ul li{float:left;overflow:hidden;background:#FFF;height:100%;}
+	.wsdbanner ul img{width:100%;}
+	.wsdbanner ul a{display:block;overflow:hidden;height:100%;}
+	.wsdbanner .ui-txt{position:absolute;bottom:0;left:0;background:rgba(0,0,0,.5);z-index:1;width:100%;height:30px;line-height:30px;overflow:hidden;color:#FFF;}
+	.wsdbanner .ui-txt p{padding-left:5px;}
+	.wsdbanner .fn-hide{display:none;}
+	.wsdbanner .ui-btn{position:absolute;bottom:10px;right:0;z-index:2;}
+	.wsdbanner .ui-btn span{float:left;width:8px;height:8px;border:1px solid #CCC;background:#000;margin-right:5px;border-radius:5px;}
+	.wsdbanner .ui-btn .ui-focus{border:1px solid #FFF;background:#CCC;}
+	.bodyer .ui-list .ui-cur{transform:rotate(90deg);-moz-transform:rotate(90deg);-webkit-transform:rotate(90deg);-o-transform:rotate(90deg)}
+</style>
+<div clajavascript:;ss="wsd_page">
+	<!--banner幻灯片-->
+<div class="wsdbannerbox">
+    <div class="wsdbanner" id="wsdBanner" data-img-list="">
+       <div class="ui-txt">
+       		<volist name="flash" id="vo">
+				<p class="fn-hide" data-img-list="{pigcms:$vo.img}" data-img-link="{pigcms:$vo.url}">{pigcms:$vo.info}</p>
+			</volist>
+        </div>
+        <div class="ui-btn"></div>
+    </div>
+</div>
+<script type="text/javascript">
+"use strict";
+som.use(['js/module_phone/wsd3dBanenr.js'], function(wsd3dBanenr){
+    wsd3dBanenr();
+})
+</script>
+</div>

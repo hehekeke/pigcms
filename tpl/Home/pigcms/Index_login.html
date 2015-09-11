@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>登陆与注册－{pigcms:$f_siteTitle}</title>
+        <link href="{pigcms:$staticPath}/tpl/Home/pigcms/common/css/public.css" rel="stylesheet" type="text/css" />
+        <script src="{pigcms:$staticPath}/tpl/Home/pigcms/common/js/jquery.js" type="text/javascript"></script>
+        <script src="{pigcms:$staticPath}/tpl/Home/pigcms/common/js/daohang.js" type="text/javascript"></script>
+        <link href="{pigcms:$staticPath}/tpl/Home/pigcms/common/css/manage.css" rel="stylesheet" type="text/css" />
+    </head>
+    
+    <body>
+    	<!--startof header-->
+    	<include file="Public:header00"/>
+            <!--banner-->
+            <div class="banner clr" >
+            	<p class="zhutu clr" style="background:#cbfef7;">
+                    <if condition="$images['login'] eq null">
+                	    <img src="{pigcms:$staticPath}/tpl/Home/pigcms/common/images/images/5.png" />
+                    <else />
+                        <img src="{pigcms:$images['login']}" style="width:100%;height:300px;">
+                    </if>
+                </p>
+            </div>
+            <!--end banner-->
+        <!--ENDOF header-->
+        
+        <!--startof content-->
+        <div class="content clr">
+        	<div class="congtS clr">
+            	<div class="shangLt clr">当前位置</div>
+                <div class="shangRt clr">
+                	<p class="oneth clr"> <a href="#">{pigcms:$f_siteName}多用户微信营销系统</a></p>
+                    <p>»</p>
+                    <p class="twoth clr"><a href="#">管理中心</a></p>
+                </div>
+            </div>
+            <!--end congtX-->
+            <div class="congtX">
+            	<div class="contLt clr">
+                    <form action="{pigcms::U('Users/checklogin')}" method="post" class="login">
+                    	<p class="denglu clr">登录</p>
+                    	<div class="name clr">
+                        	<span style="padding-right:10px;">用户名</span> 
+                            <input class="text" type="text" name="username" />
+                        </div><br />
+                        <div class="password clr">
+                        	<span style="padding-right:10px;">密码</span> 
+                            <input class="text" type="password" name="password" />
+                        </div><br />
+                        <div class="yanzheng clr">
+                        	<span style="padding-right:10px;">验证码</span> 
+                             <input name="verifycode2" type="text" size="8" style="width:80px;" class="text" maxlength="4" />&nbsp;<img src="{pigcms::U('Index/verifyLogin')}" id="txtCheckCode2" style="width:70px;margin-top:-5px"/>&nbsp;<a href="javascript:refreshImg2();" style="color:#666">看不清？换一张</a>
+                            <script>
+                            function refreshImg2(){
+                                document.getElementById("txtCheckCode2").src="/index.php?g=Home&m=Index&a=verifyLogin&s="+Math.random();
+                            }
+                            </script>
+                        </div><br />
+                        <button class="submit" type="submit">登录</button>
+                    </form>
+                </div>
+                <!--end left-->
+                
+                <p style="border-right:1px solid #E3E3E3; width:1px; float:left; height:530px; padding-left:20px;"></p>
+                
+                <div class="contRt clr">
+                	<form action="{pigcms::U('Users/checkreg')}" method="post" class="login">
+                    	<p class="denglu clr">注册</p>
+                    	<div class="name clr">
+                        	<span>用户名</span> 
+                            <input class="text" required="" value="请输入用户名" onclick="if(this.value=='请输入用户名'){this.value=''}" onblur="if(this.value==''){this.value='请输入用户名'}" type="text" name="username">
+                        </div><br />
+                        <div class="password clr">
+                        	<span>密码</span> 
+                            <input class="text" type="password" name="password">
+                        </div><br />
+                        <div class="aginword clr">
+                        	<span>重复密码</span> 
+                            <input class="text" type="password" name="repassword">
+                        </div><br />
+                        <php>if($f_regNeedMp){</php>
+                        <div class="teliphone clr">
+                        	<span>手机</span> 
+                            <input class="text" type="text" id="sms_mp" name="mp" />
+                        </div><br />
+                        <php>}</php>
+                        <div class="youxiang clr">
+                        	<span>邮箱</span> 
+                            <input class="text" type="text" name="email" value="" onclick="if(this.value=='请输入电子邮箱'){this.value=''}" onblur="if(this.value==''){this.value=''}">
+                        </div><br />
+                        <div class="hangYe clr">
+                        	<span style="margin-left: -226px;">所属行业</span> 
+                            <select name="business">
+                                <volist name="business" id="business">
+                                    <option value="{pigcms:$business.key}">{pigcms:$business.val}</option>
+                                </volist>
+                            </select>
+                        </div><br />
+                        <div class="duanxin clr">
+                <if condition="C('reg_mp_verify') eq 0">
+                    
+                    <div class="hangYe clr">
+                        	<span style="margin-left: -86px;">验证码</span> 
+                        <script>
+                        function refreshImg(){
+                            document.getElementById("txtCheckCode").src="/index.php?g=Home&m=Index&a=verify&s="+Math.random();
+                        }
+                        </script>
+                        <input name="verifycode" type="text" size="4" style="width:80px;" class="text" maxlength="4" />&nbsp;<img src="{pigcms::U('Index/verify')}" id="txtCheckCode" style="width:70px;"/>&nbsp;<a href="javascript:refreshImg();" style="color:#666;font-size: 16px;border:none">看不清？换一张</a></td>
+                    </div>
+
+                <else />                   
+                     <div class="hangYe clr">
+                        	<span style="margin-left: -86px;">短信验证</span> 
+                        	<input type="text" class="text" name="verifycode" style="width:80px" maxlength="6" />
+                             <span id="a_verify" >
+
+                           <a href="###" onclick="sendMsg()" id="a_btn" >获取验证码</a>
+
+                            </span>
+                   
+                        <script>
+                            function sendMsg(){
+                                var num = document.getElementById('sms_mp').value;
+                                var reg=/^0{0,1}1[0-9]{10}$/i;
+                                if( num == '' || !reg.test(num)){
+                                    alert('请输入正确的手机号！');
+                                    return false;
+                                }
+
+
+                               if (confirm("我们会将会发送验证码到 "+num)){
+                                    jQuery(function($) {
+                                        $.ajax({
+                                            url:"{pigcms::U('Users/sendMsg')}",
+                                            type:"post",
+                                            data:"mp="+num,
+                                            success:function(data){
+                                                
+                                                $("#a_verify").css({"background":"#ccc","borderColor":"#ccc"});
+                                                fun_timedown(60);
+
+                                              }
+                                        });
+                                    });
+                                }
+                                return false;
+                            }
+
+                            function fun_timedown(time){
+                                if(time=='undefined'){
+                                    time = 60;
+                                }
+
+                                $("#a_verify").html(time+"秒后可重新获取");
+                                
+                                time = time-1;
+                                if(time>=0){
+                                    setTimeout("fun_timedown("+time+")",1000);
+                                }else{
+                                    $("#a_verify").css({"background":"#fff","borderColor":"#007DDB"});
+                                    $("#a_verify").html('<a href="javascript:sendMsg();" id="a_btn" >获取验证码</a>');
+                                }
+                            }
+                        </script>
+                    
+                </if>
+                        </div><br />
+                        <input class="text" type="hidden" name="invitecode" value="<?php echo $_GET['invitecode'];?>">
+                        <button class="submit" type="submit" class="buttom"style=" margin-left:84px;">注册</button>
+
+                    </form>
+                </div>
+                <!--end right-->
+                
+            </div>
+        </div>
+        
+        <!--endof content-->
+        
+        
+        <!--footer-->
+        	<include file="Public:footer00"/>
+    </body>
+</html>

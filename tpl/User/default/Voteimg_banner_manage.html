@@ -1,0 +1,110 @@
+<include file="Public:head"/>
+<script src="{pigcms:$staticPath}/tpl/static/jquery.min.js" type="text/javascript"></script>
+<script src="{pigcms:$staticPath}/tpl/static/vote/common.js" type="text/javascript"></script>
+<script src="{pigcms:$staticPath}/tpl/static/upyun.js" type="text/javascript"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/jquery.artDialog.js?skin=default" type="text/javascript"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/plugins/iframeTools.js" type="text/javascript"></script>
+<script src="{pigcms:$staticPath}/tpl/static/js/date/WdatePicker.js" type="text/javascript"></script>
+<div class="content">
+<div class="cLineB" style="line-height: 20px;">
+<a href="{pigcms::U('Voteimg/banner_manage',array('token'=>$token,'vote_id'=>$vote_id))}" class="btnGrayS vm bigbtn">横幅管理</a> <a href="{pigcms::U('Voteimg/stat_list',array('token'=>$token,'vote_id'=>$vote_id))}" class="btnGrayS vm bigbtn">统计栏管理</a> <a href="{pigcms::U('Voteimg/menu_list',array('token'=>$token,'vote_id'=>$vote_id))}" class="btnGrayS vm bigbtn">菜单管理</a> <a href="{pigcms::U('Voteimg/bottom_list',array('token'=>$token,'vote_id'=>$vote_id))}" class="btnGrayS vm bigbtn">底部管理</a>
+<a href="{pigcms::U('Voteimg/apply_list',array('token'=>$token,'vote_id'=>$vote_id))}" class="btnGrayS vm bigbtn">报名管理</a>
+<a href="{pigcms::U('Voteimg/index',array('token'=>$token))}" class="right btnGrayS vm" style="margin-top:1px">返回投票列表</a>
+</div>
+<div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-bottom:5px;font-size:12px;">温馨提示：建议横幅图片尺寸<span style="color:red;">1080px*450px</span>,如果这里没有设置,手机端头部横幅默认使用新建活动时的回复图片。
+</div>
+<div class="msgWrap bgfc">
+<form class="form" method="post" action="{pigcms::U('Voteimg/banner_manage',array('id'=>$action_id,'token'=>$token))}" target="_top" enctype="multipart/form-data">
+<table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%">
+<tbody>
+<if condition="$banner_list neq ''">
+
+<table width="100%" cellspacing="0" cellpadding="0" border="0" class="ListProduct">
+<thead>
+<tr>
+<tr>
+    <th width="33%">横幅图片</th>
+    <th width="33%">图片跳转地址(可以从功能库选择,也可以填写外链地址)</th>   
+    <th width="12%">排序(值小优先展示)</th>	
+	<th width="7%" class="norightborder"> 操作</th>
+</tr>
+</tr>
+</thead>
+<volist name='banner_list' id='banner'>
+<tbody class="item">
+    <tr>
+    <input type="hidden" name="add[id][]" value="{pigcms:$banner.id}" style="width:20px;" >
+        <td>
+            <input type="text" style="width:250px;" id="img_{pigcms:$banner.id}" class="px" value="{pigcms:$banner.img_url}" name="add[img_url][]"><a class="a_upload" onclick="upyunPicUpload('img_{pigcms:$banner.id}',0,0,'{pigcms:$token}')" href="javascript:;">上传</a>
+			<a onclick="viewImg('img_{pigcms:$banner.id}')" href="###">预览</a>
+        </td>
+		<td><input type="text" name="add[external_links][]" id="external_links_{pigcms:$banner.id}" value="{pigcms:$banner.external_links}" class="px" style="width:220px;"><if condition="session('isQcloud') neq true"><a href="###" onclick="addLink('external_links_{pigcms:$banner.id}',0)" class="a_choose">从功能库添加</a></if></td>
+        <td>
+          <input type="text" name="add[banner_rank][]" value="{pigcms:$banner.banner_rank}" class="px" style="width:20px;"/>
+        </td>
+        <td width="50" class="norightborder"><a vid="0" href="{pigcms::U('Voteimg/del_banner',array('vote_id'=>$banner['vote_id'],'token'=>$banner['token'],'id'=>$banner['id']))}">删除</a>
+        </td>
+    </tr>
+</tbody>
+</volist>
+</table>
+<else />
+<table width="100%" cellspacing="0" cellpadding="0" border="0" class="ListProduct">
+<thead>
+<tr>
+    <th width="33%">横幅图片</th>
+    <th width="33%">图片跳转地址(可以从功能库选择,也可以填写外链地址)</th>   
+    <th width="12%">排序(值小优先展示)</th>	
+	<th width="7%" class="norightborder"> 操作</th>
+</tr>
+</thead>
+<tbody class="item">
+    <tr>
+      <input type="hidden" style="width:20px;" value="0" name="add[id][]">
+        <td>
+            <input type="text" style="width:250px;" id="img" class="px" value="" name="add[img_url][]"><a class="a_upload" onclick="upyunPicUpload('img',0,0,'{pigcms:$token}')" href="javascript:;">上传</a>
+			<a onclick="viewImg('img')" href="###">预览</a>
+        </td>
+		<td><input type="text" name="add[external_links][]" id="external_links" value="" class="px" style="width:220px;"><if condition="session('isQcloud') neq true"><a href="###" onclick="addLink('external_links',0)" class="a_choose">从功能库添加</a></if></td>
+        <td>
+          <input type="text" name="add[banner_rank][]" value="" class="px" style="width:20px;"/>
+        </td>
+        <td width="50" class="norightborder"><a vid="0" href="{pigcms::U('Voteimg/del_banner',array('vote_id'=>$banner['vote_id'],'token'=>$banner['token'],'id'=>$banner['id']))}">删除</a>
+        </td>
+    </tr>
+</tbody>
+</table>
+</if>      
+</tbody>
+</table>
+<table>
+<tbody>
+<tr>
+<th width="55" style="width:783px;">&nbsp;</th>
+<input type="hidden" name="vote_id" value="{pigcms:$vote_id}">
+<input type="hidden" name="token" value="{pigcms:$token}">
+<td align="right"><button type="submit" name="button" class="btnGreen sub">保存</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a id="addItem" class="btnGray right" href="javascript:void(0);">添加横幅</a>
+</td> 
+</tbody>  
+</tr> 
+</table>
+</form>
+</div>
+</div>
+<script>
+$(function(){
+	$("#addItem").click(function(){
+		var len   = $('.ListProduct').children('tbody').length;
+		var str = '<tbody class="item"><tr><input type="hidden" value="0" name="add[id][]"><td><input type="text" style="width:250px;" id="url_'+len+'" class="px" value="" name="add[img_url][]"><a class="a_upload" onclick="upyunPicUpload(\'url_'+len+'\',0,0,\'{pigcms:$token}\')" href="javascript:;">上传</a><a onclick="viewImg(\'url_'+len+'\')" href="###">预览</a></td><td><input type="text" name="add[external_links][]" id="external_links_'+len+'" value="" class="px" style="width:220px;"><a href="###" onclick="addLink(\'external_links_'+len+'\',0)" class="a_choose">从功能库添加</a></td><td><input type="text" name="add[banner_rank][]" value="" class="px" style="width:20px;"/></td><td class="norightborder"><a class="del" vid="0" href="javascript:;">删除</a></td></tr></tbody>';
+		$(".ListProduct").append(str);
+	});
+    $(".ListProduct").on('click','.del',function(e){
+      var vid = $(this).attr('vid');
+      if(vid == 0){
+        $(this).parents('.item').remove();
+      }
+    });
+});
+</script>
+<include file="Public:footer"/>

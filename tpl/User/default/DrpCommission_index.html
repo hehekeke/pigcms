@@ -1,0 +1,66 @@
+<include file="Drp:head" />
+<style type="text/css">
+    .price {
+        color: #c40000;
+    }
+    .green {
+        color: green;
+    }
+</style>
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+<div class="content">
+<div class="cLineB">
+<h4 class="left">分销佣金 - 我的佣金记录</h4>
+<div class="clr"></div>
+</div>
+    <!--tab start-->
+    <div class="tab">
+        <ul>
+            <li class="current tabli" id="tab0"><a href="{pigcms::U('DrpCommission/index')}">我的佣金记录</a></li>
+            <li class="tabli" id="tab1"><a href="{pigcms::U('DrpCommission/withdraw')}">我的提现记录</a></li>
+            <li class="tabli" id="tab2"><a href="{pigcms::U('DrpCommission/withdraw_apply')}">提现申请</a></li>
+        </ul>
+    </div>
+    <!--tab end-->
+
+    <div class="cLine">
+<div class="clr"></div>
+</div>
+<div class="msgWrap">
+<form method="post" action="" id="info">
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<if condition="$commission_records neq array()">
+<thead>
+	<tr>
+        <th>编号</th>
+		<th style="text-align: right">佣金（元）</th>
+        <th>备注</th>
+        <th style="text-align: center">时间</th>
+	</tr>
+</thead>
+<tbody>
+<volist name="commission_records" id="commission_record">
+	<tr>
+        <td>{pigcms:$commission_record.id}</td>
+		<td style="text-align: right">{pigcms:$commission_record.amount|number_format=###, 2, '.', ''}</td>
+        <td>{pigcms:$commission_record.bak}</td>
+		<td style="text-align: center">{pigcms:$commission_record.addtime|date='Y-m-d', ###}</td>
+	</tr>
+</volist>
+</tbody>
+<else />
+    <tr><td class="red" align="center">没有记录！</td></tr>
+</if>
+</table>
+</form>
+</div>
+<div class="cLine">
+	<div class="pageNavigator right">
+		<div class="pages">{pigcms:$page}</div>
+	</div>
+	<div class="clr"></div>
+</div>
+</div>
+<include file="Public:footer"/>

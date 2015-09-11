@@ -1,0 +1,51 @@
+<include file="Drp:head" />
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+<div class="content">
+<div class="cLineB">
+<h4 class="left">我的会员</h4>
+<div class="clr"></div>
+</div>
+<div class="cLine">
+<div class="clr"></div>
+</div>
+<div class="msgWrap">
+<form method="post" action="" id="info">
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<thead>
+	<tr>
+		<th>ID</th>
+		<th>用户名</th>
+		<th>姓名</th>
+        <th style="text-align:right">消费金额（元）</th>
+        <th style="text-align:right">订单数量</th>
+        <th style="text-align:center">注册时间</th>
+		<th class="norightborder" style="text-align: center">操作</th>
+	</tr>
+</thead>
+<tbody>
+<tr></tr>
+<volist name="members" id="member">
+	<tr>
+		<td><a href="{pigcms::U('DrpOrder/info', array('id' => $order['id']))}">{pigcms:$member.id}</a></td>
+		<td>{pigcms:$member.username}</td>
+		<td>{pigcms:$member.truename}</td>
+        <td style="text-align: right">{pigcms:$member.ordertotal}</td>
+        <td style="text-align: right">{pigcms:$member.ordercount}</td>
+        <td style="text-align: center">{pigcms:$member.regtime|date='Y-m-d', ###}</td>
+		<td class="norightborder" style="text-align: center">
+			<a href="{pigcms::U('DrpOrder/info', array('id' => $order['id']))}">详细</a>
+		</td>
+	</tr>
+</volist>
+</tbody>
+</table>
+</form>
+</div>
+<div class="cLine">
+	<div class="pageNavigator right">
+		<div class="pages">{pigcms:$page}</div>
+	</div>
+	<div class="clr"></div>
+</div>
+</div>
+<include file="Public:footer"/>

@@ -1,0 +1,58 @@
+@charset "utf-8";
+/* CSS Document */
+.banner .zhutu{width:100%;height:300px;position:absolute;left:0px;top:114px; text-align:center;}
+.content{ width:1000px; margin:0 auto; margin-top:60px; margin-bottom:60px;}
+.content .congtS .shangLt{ float:left; border-bottom:2px solid #83bb43; padding:10px; font-size:16px;}
+.content .congtS .shangRt{ float:left; border-bottom:2px solid #e3e3e3; padding:11px; font-size:14px; width:893px;}
+.congtS .shangRt p{ float:left; padding-right:20px;}
+.shangRt p a{ color:#363636;}
+.shangRt p a:hover{ color:#83bb43;}
+.content .congtX { margin-top:35px;line-height:200%;}
+.content .congtX .guanyu{ color:#181717; font-size:32px; text-align:center; padding-bottom:10px;}
+.congtX .guanyu span{ color:#a9a9a9; font-size:28px; font-style:italic;}
+.content .congtX .duanluo{ font-size:14px; color:#7c7c7c; text-indent:2em; line-height:20px; padding-top:10px;}
+.content .congtX .photoShow{ padding-top:40px;}
+.congtX .photoShow ph1{ float:left; width:376px;}
+.photoShow ph1 div{ float:left;}
+.ph1 .tupian1{ width:376px;}
+.ph1 .tupian1 span{ position:relative; z-index:100; left:-145px; top:138px;}
+.ph1 .tupian1 p{ background:#000; opacity:0.5; height:16px; position:relative; top:-140px;}
+.congtX .photoShow ph2{ float:left;}
+.congtX .photoShow ph3{ float:left;}
+.congtX .photoShow ph4{ float:left;}
+
+
+.photos{ width:1000px; margin:0 auto; padding-top:40px;}
+.photo_01, .photo_02, .photo_03, .photo_04, .photo_05, .photo_06, .photo_07, .photo_08 {position:relative; float:left; margin-right:6px; overflow:hidden;}
+.photo_01 { width:370px; height:161px; }
+.photo_02 { width:182px; height:161px; padding-top:6px;}
+.photo_03 { width:182px; height:161px; padding-top:6px;}
+.photo_04 { width:209px; height:328px; }
+.photo_05 { width:201px; height:161px; }
+.photo_06 { width:201px; height:161px; margin-right:0;}
+.photo_07 { width:201px; height:162px; padding-top:6px;}
+.photo_08 { width:201px; height:162px; padding-top:6px; margin-right:0;}
+.photo_01 p, .photo_02 p, .photo_03 p, .photo_04 p, .photo_05 p, .photo_06 p, .photo_07 p, .photo_08 p { 
+	position:absolute; height:20px; background:#000;
+	filter:alpha(opacity=50);  /*支持 IE 浏览器*/
+	-moz-opacity:0.50; /*支持 FireFox 浏览器*/
+	opacity:0.50;  /*支持 Chrome, Opera, Safari 等浏览器*/
+	width:100%;
+	}
+.photo_01 p {top:141px;	}
+.photo_02 p {top:147px;	}
+.photo_03 p {top:147px;	}
+.photo_04 p {top:309px;	}
+.photo_05 p {top:141px;	}
+.photo_06 p {top:141px;	}
+.photo_07 p {top:148px;	}
+.photo_08 p {top:148px;	}
+.photo_01 span, .photo_02 span, .photo_03 span, .photo_04 span, .photo_05 span, .photo_06 span, .photo_07 span, .photo_08 span { display:block; color:#FFF; position:absolute; z-index:100;}
+.photo_01 span {top:143px; left:15px; }
+.photo_02 span {top:148px; left:15px; }
+.photo_03 span {top:148px; left:15px; }
+.photo_04 span {top:310px; left:15px; }
+.photo_05 span {top:143px; left:15px; }
+.photo_06 span {top:143px; left:15px; }
+.photo_07 span {top:150px; left:15px; }
+.photo_08 span {top:150px; left:15px; }

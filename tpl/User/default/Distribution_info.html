@@ -1,0 +1,237 @@
+<if condition="$ischild neq 1">
+<include file="Public:head" />
+<else />
+<include file="Repast:head" />
+</if>
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<style type="text/css">
+    .up {
+        height: 65px;
+        overflow-y: hidden;
+    }
+</style>
+  <div class="content">
+   <div class="cLineB"> 
+    <h4>分销商详细</h4>
+    <a href="{pigcms::U('Distribution/index',array('token'=>$token))}" class="right  btnGreen" style="margin-top:-27px">返回</a>
+   </div> 
+
+    <div class="msgWrap bgfc up info">
+     <table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%"> 
+      <tbody>
+       <tr> 
+        <th>名称：</th>
+        <td>{pigcms:$distributor.name}</td>
+       </tr> 
+       <tr> 
+        <th>用户名：</th>
+        <td>{pigcms:$distributor.username}</td>
+       </tr> 
+       <tr> 
+        <th>电话：</th>
+        <td>{pigcms:$distributor.tel|default='空'}</td>
+       </tr>
+       <tr> 
+        <th>地址：</th>
+        <td>{pigcms:$distributor.addr|default='空'}</td>
+       </tr>
+       <tr> 
+        <th>简介：</th> 
+        <td>{pigcms:$distributor.intro|default='空'}</td>
+       </tr>
+       <tr> 
+        <th>渠道商：</th>
+        <td><if condition="$distributor['ischannel'] eq 1">是<else />否</if></td>
+       </tr>
+       <tr>
+           <th>状态：</th>
+           <td><if condition="$distributor['status'] eq 1">已启用<else />已禁用</if></td>
+       </tr>
+       <tr>
+           <th>加盟审核：</th>
+           <td><if condition="$distributor['checked'] eq 1">已审核<else />未审核</if></td>
+       </tr>
+       <tr>
+           <th>余额：</th>
+           <td>{pigcms:$distributor.balance}元</td>
+       </tr>
+       <tr>
+           <th>已支付：</th>
+           <td>{pigcms:$distributor.paid}元</td>
+       </tr>
+       <tr>
+           <th>销售额：</th>
+           <td><?php echo number_format($distributor['balance'] + $distributor['paid'], 2, '.', '' );?>元</td>
+       </tr>
+      </tbody> 
+     </table>
+     </div>
+      <div style="text-align: right"><a href="javascript:;" class="btn">点击展开</a></div>
+      <h4>分销商品</h4>
+      <div class="msgWrap">
+          <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+              <thead>
+                  <tr>
+                      <th style="text-align: center">图片</th>
+                      <th>商品名称</th>
+                      <th style="text-align: right">价格（元）</th>
+                      <th style="text-align: right">佣金</th>
+                      <th style="text-align: right">销量</th>
+                      <th style="text-align: right">库存</th>
+                  </tr>
+              </thead>
+              <tbody>
+              <volist name="products" id="product">
+                  <tr>
+                      <td style="text-align: center"><img src="{pigcms:$product.logourl}" width="80" /> </td>
+                      <td>{pigcms:$product.name}</td>
+                      <td style="text-align: center">{pigcms:$product.price|number_format=###, 2, '.', ''}</td>
+                      <td style="text-align: right">
+                          <if condition="$product.commission_type eq 'fixed'">{pigcms:$product.commission}元</if>
+                          <if condition="$product.commission_type eq 'float'">{pigcms:$product.commission}%</if></td>
+                      <td style="text-align: right">{pigcms:$product.salesnum}</td>
+                      <td style="text-align: right">{pigcms:$product.num}</td>
+                  </tr>
+              </volist>
+              </tbody>
+          </table>
+          <div class="pageNavigator right">
+              <div class="pages">{pigcms:$page}</div>
+          </div>
+      </div>
+
+      <div class="msgWrap">
+          <div id="line" style="height:400px;width:960px;float:right;"></div>
+          <div id="pie" style="height:400px;width:960px;float:right;"></div>
+      </div>
+  </div>
+        <script type="text/javascript">
+            $(function(){
+                $('.btn').toggle(function(){
+                    $('.info').removeClass('up');
+                    $(this).html('点击收起');
+                }, function(){
+                    $('.info').addClass('up');
+                    $(this).html('点击展开');
+                })
+            })
+        </script>
+
+<script src="{pigcms:$staticPath}/tpl/static/myChart/js/echarts-plain.js"></script>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('line'));
+
+
+    var option = {
+        title : {
+            text: '"{pigcms:$distributor.name}" 本月销售额统计',
+            x:'left'
+        },
+        tooltip : {
+            trigger: 'axis'
+        },
+        legend: {
+            data:['销售额（元）','分销佣金（元）'],
+            x: 'right'
+        },
+        toolbox: {
+            show : false,
+            feature : {
+                mark : {show: false},
+                dataView : {show: false, readOnly: false},
+                magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                restore : {show: false} ,
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
+        xAxis : [
+            {
+                type : 'category',
+                boundaryGap : false,
+                data : {pigcms:$days}
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value'
+            }
+        ],
+        series : [
+            {
+                name:'销售额（元）',
+                type:'line',
+                tiled: '总量',
+                data: {pigcms:$saletotal}
+            },
+            {
+                "name":'分销佣金（元）',
+                "type":'line',
+                "tiled": '总量',
+                data:{pigcms:$commissiontotal}
+            }
+
+
+        ]
+
+    };
+
+    myChart.setOption(option);
+
+    var myChart2 = echarts.init(document.getElementById('pie'));
+
+    var option2 = {
+        title : {
+            text: '"{pigcms:$distributor.name}" 本月销售额 / 佣金比统计',
+            x:'center'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        toolbox: {
+            show : false,
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
+        series : [
+            {
+                name:'销售额 / 佣金比统计',
+                type:'pie',
+                radius : ['50%', '70%'],
+                itemStyle : {
+                    normal : {
+                        label : {
+                            show : false
+                        },
+                        labelLine : {
+                            show : false
+                        }
+                    },
+                    emphasis : {
+                        label : {
+                            show : true,
+                            position : 'center',
+                            textStyle : {
+                                fontSize : '18',
+                                fontWeight : 'bold'
+                            }
+                        }
+                    }
+                },
+                data:[
+                    {pigcms:$salecommissiondata}
+                ]
+            }
+        ]
+    };
+    myChart2.setOption(option2,true);
+
+</script>
+  <include file="Public:footer" />

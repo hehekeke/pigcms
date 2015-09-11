@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+		<title>{pigcms:$cutprice.name}</title>
+		<script src="{pigcms:$staticPath}/tpl/static/cutprice/js/jquery-2.1.3.min.js" language="javascript" type="text/javascript"></script>
+		<script src="{pigcms:$staticPath}/tpl/static/cutprice/js/swipe.min.js" language="javascript" type="text/javascript"></script>
+		<link href="{pigcms:$staticPath}/tpl/static/cutprice/css/base.css" rel="stylesheet" type="text/css" />
+		<link href="{pigcms:$staticPath}/tpl/static/cutprice/css/showcase.css" rel="stylesheet" type="text/css" />
+		<link href="{pigcms:$staticPath}/tpl/static/cutprice/css/auction.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript">
+			$(function () { new Swipe(document.getElementById('banner_box'), { speed: 500, auto: 3000, callback: function () { var lis = $(this.element).next("ol").children(); lis.removeClass("on").eq(this.index).addClass("on") } }) });
+			<?php if($state == 'stop' && $cutprice['inventory'] > 0){?>
+			var nowprice = <?php echo $cutprice['stopprice'];?>;
+			<?php }?>
+			$(function(){
+				
+				setInterval("buyers()",60000);
+				$(".but_guize").click(function(){
+					$("#guize").removeClass("hide");
+					$("#guize .js-ok").click(function(){
+						$("#guize").addClass("hide");
+					});
+				});
+				<?php if($memberNotice == NULL){?>
+				$(".but_buy").click(function(){
+					inventory(1);
+					$("#buy .txt").val(1);
+					$("#buy button").removeClass("disabled");
+					$("#buy .minus").addClass("disabled");
+					
+					$(".js-goods-price").html(nowprice);
+					$("#buy").removeClass("hide");
+					$("#buy .js-cancel").click(function(){
+						$("#buy").addClass("hide");
+					});
+				});
+				<?php }?>
+				$(".js-tabber button").click(function(){
+					$(".js-tabber button").removeClass("active");
+					$(this).addClass("active");
+					var tabber = $(this).attr('tabber');
+					if(tabber == 1){
+						buyers();
+						$('.js-auction-log').removeClass('hide');
+						$('.js-goods-detail').addClass('hide');
+					}else{
+						$('.js-goods-detail').removeClass('hide');
+						$('.js-auction-log').addClass('hide');
+					}
+				});
+			});
+			function buyers(){
+				$.ajax({
+					type:"POST",
+					url:"{pigcms::U('Cutprice/ajax',array('token'=>$token))}",
+					dataType:"json",
+					data:{
+						type:'buyers',
+						token:"{pigcms:$token}",
+						wecha_id:"{pigcms:$wecha_id}",
+						id:<?php echo $_GET['id'];?>
+					},
+					success:function(data){
+						if(data.buyers != ''){
+							$('.js-auction-log').html(data.buyers);
+						}
+					}
+				});
+			}
+			var inventory_num = 0;
+			function inventory(type){
+				$.ajax({
+					type:"POST",
+					url:"{pigcms::U('Cutprice/ajax',array('token'=>$token))}",
+					dataType:"json",
+					data:{
+						type:'inventory',
+						token:"{pigcms:$token}",
+						wecha_id:"{pigcms:$wecha_id}",
+						id:<?php echo $_GET['id'];?>
+					},
+					success:function(data){
+						if(data.inventory > 0){
+							inventory_num = data.inventory;
+							if(type == 0){
+								$(".js-remain-num").html(data.inventory);
+								$(".stock-num").html(data.inventory);
+								alertalert('还剩'+data.inventory+'个，赶快入手吧！');
+							}else{
+								$(".js-remain-num").html(data.inventory);
+								$(".stock-num").html(data.inventory);
+							}
+						}else{
+							location.reload();
+						}
+					}
+				});
+			}
+		</script>
+		<style>
+			.window {
+				width: 240px;
+				position: fixed;
+				display: none;
+				margin: -50px auto 0 -120px;
+				padding: 2px;
+				top: 50%;
+				left: 50%;
+				border-radius: 0.6em;
+				-webkit-border-radius: 0.6em;
+				-moz-border-radius: 0.6em;
+				background-color: rgba(255, 0, 0, 0.5);
+				-webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+				-moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+				-o-box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+				box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+				font: 14px/1.5 Microsoft YaHei,Helvitica,Verdana,Arial,san-serif;
+				z-index: 99999;
+				bottom: auto;
+			}
+
+			.window .tip {
+				overflow: auto;
+				padding: 10px;
+				color: #222222;
+				text-shadow: 0 1px 0 #FFFFFF;
+				border-radius: 0 0 0.6em 0.6em;
+			}
+			.window #txt {
+				min-height: 30px;
+				font-size: 15px;
+				line-height: 22px;
+				color: #FFF;
+				text-align: center;
+			}
+			.buyer{width:100%;height:40px;padding:5px;line-height:30px;font-size:12px}
+			.buyerinfo{float:left;width:33%;height:100%;text-align:center};
+		</style>
+	</head>
+	<body>
+		<if condition="$memberNotice neq NULL">
+			{pigcms:$memberNotice}
+		</if>
+		<style>.box_swipe {overflow: hidden;position: relative;background-color: #fff;}.box_swipe>ol {height: 20px;position: relative;z-index: 10;margin-top: -35px;text-align: center;margin-bottom: 0;background-color: rgba(0,0,0,0.3);}.box_swipe>ol>li.on {background-color: #fff;}.box_swipe>ol>li {display: inline-block;margin: 6px 2px;width: 8px;height: 8px;background-color: #757575;border-radius: 8px;}</style>
+		<div class="content " style="min-height: 13px;">
+			<div>
+				<div id="banner_box" class="box_swipe" style="visibility: visible;">
+					<ul id="swipe-box">
+						<li>
+							<a href="{pigcms:$cutprice.logourl1}">
+								<img src="{pigcms:$cutprice.logoimg1}" style="width: 100%;">
+							</a>
+						</li>
+						<if condition="$cutprice.logoimg2 neq ''">
+						<li>
+							<a href="{pigcms:$cutprice.logourl2}">
+								<img src="{pigcms:$cutprice.logoimg2}" style="width: 100%;">
+							</a>
+						</li>
+						</if>
+						<if condition="$cutprice.logoimg3 neq ''">
+						<li>
+							<a href="{pigcms:$cutprice.logourl3}">
+								<img src="{pigcms:$cutprice.logoimg3}" style="width: 100%;">
+							</a>
+						</li>
+						</if>
+					</ul>
+					<ol>
+						<li class="on"></li>
+						<if condition="$cutprice.logoimg2 neq ''">
+						<li></li>
+						</if>
+						<if condition="$cutprice.logoimg3 neq ''">
+						<li></li>
+						</if>
+						
+					</ol>
+				</div>
+			</div>
+			<div class="goods-basic-info">
+				<h2 class="font-size-16 c-black">{pigcms:$cutprice.name}</h2>
+				<?php if($state == 'start' || $state == 'wait'){?>
+				<p class="font-size-12 c-gray-dark clearfix">
+					<span class="pull-left">
+						当前价：
+					</span>
+					<span class="js-cur-price pull-left font-size-16 c-red cur-price">
+						￥{pigcms:$cutprice.nowprice}
+					</span>
+					<span class="old-price line-through">
+						原价：￥{pigcms:$cutprice.original}
+					</span>
+					<span class="old-price line-through">
+						底价：￥{pigcms:$cutprice.stopprice}
+					</span>
+				</p>
+				<?php }elseif($cutprice['inventory'] > 0){?>
+					<span class="pull-left">
+						当前价：
+					</span>
+					<span class="js-cur-price pull-left font-size-16 c-red cur-price">
+						￥{pigcms:$cutprice.stopprice}
+					</span>
+					<span class="old-price line-through">
+						原价：￥{pigcms:$cutprice.original}
+					</span>
+					<span class="old-price line-through">
+						底价：￥{pigcms:$cutprice.stopprice}
+					</span>
+				<?php }?>
+				<hr>
+				<p class="font-size-12 c-black js-status clearfix relative">
+					<?php if($state == 'start'){?>
+					<span class="pull-left js-status-label">下次降价：</span>
+					<span class="js-time-count-down font-size-16 pull-left">{pigcms:$cutprice.min}分{pigcms:$cutprice.sec}秒</span>
+					<?php }?>
+					<a class="font-size-12 badgebadge badge-rule but_guize" href="#">抢拍规则</a>
+					<?php if($state == 'wait'){?>
+					<span class="font-size-16 pull-left" style="color:red">未开始</span>
+					<?php }?>
+					<?php if($state == 'stop'){?>
+					<span class="font-size-16 pull-left" style="color:red">已结束</span>
+					<?php }?>
+				</p>
+				<?php if($state == 'start'){?>
+				<p class="font-size-12 c-gray-dark clearfix">
+					降价幅度：<span class="c-black">每{pigcms:$cutprice.cuttime}分钟降{pigcms:$cutprice.cutprice}元</span>
+				</p>
+				<?php }?>
+
+			</div>
+			<?php if($state == 'start'){?>
+			<script type="text/javascript">
+				var min = {pigcms:$cutprice.min};
+				var sec = {pigcms:$cutprice.sec};
+				var nowprice = {pigcms:$cutprice.nowprice};
+				var stopprice = {pigcms:$cutprice.stopprice};
+				$(function(){
+					
+					setInterval("inventory(0)",60000);
+					
+					down();
+					
+				});
+				function down(){
+					sec--;
+					if(sec < 0){
+						sec = 59;
+						min--;
+					}
+					if(sec < 10){
+						sec_c = '0'+sec;
+					}else{
+						sec_c = sec;
+					}
+					if(min < 10){
+						min_c = '0'+min;
+					}else{
+						min_c = min;
+					}
+					if(min < 0){
+						sec = 59;
+						min = {pigcms:$cutprice.cuttime} - 1;
+						nowprice = nowprice - {pigcms:$cutprice.cutprice};
+						if(nowprice <= stopprice){
+							location.reload();
+						}else{
+							$(".js-time-count-down").html('0'+min+'分'+sec+'秒');
+							$(".js-cur-price").html('￥'+nowprice);
+							setTimeout("down()",1000);
+						}
+					}else{
+						$(".js-time-count-down").html(min_c+'分'+sec_c+'秒');
+						setTimeout("down()",1000);
+					}
+					
+				}
+			</script>
+			<?php }?>
+			<?php if($state == 'start' || $state == 'wait' || $cutprice['inventory'] > 0){?>
+			<div class="sku-detail">
+				<div class="sku-detail-inner adv-opts-inner">
+					<dl>
+						<dt>库存：</dt>
+						<dd class="js-remain-num">{pigcms:$cutprice.inventory}</dd>
+					</dl>
+				</div>
+			</div>
+			<?php }?>
+			<div class="js-components-container components-container">
+				<div class="custom-store">
+					<a class="custom-store-link clearfix" href="{pigcms::U('Wap/Cutprice/index',array('token'=>$token))}">
+						<div class="custom-store-img"></div>
+						<div class="custom-store-name">全部商品</div>
+						<span class="custom-store-enter">进入</span>
+					</a>
+				</div>
+
+				<div class="js-tabber tabber  red clearfix">
+					<button class="active" tabber='0'>商品详情</button>
+					<button class="" tabber='1'>中拍买家</button>
+				</div>
+
+				<div class="js-goods-detail goods-tabber-c">
+					<div class="custom-richtext">
+						{pigcms:$cutprice.info|htmlspecialchars_decode}
+					</div>
+				</div>
+
+				<div class="js-auction-log goods-tabber-c hide">
+					<div><p style="text-align:center;line-height:60px;">还没有人抢到！</p></div>
+					<!-- <div class='buyer'><div class='buyerinfo'>你麻痹</div><div class='buyerinfo'>186****5252</div><div class='buyerinfo'>2</div></div> -->
+					
+				</div>
+
+			</div>
+			<div class="js-bottom-opts js-footer-auto-ele bottom-fix">
+				<div class="btn-1-1">
+					<!-- <button disabled class="btn">立即拿下</button> -->
+					<?php if($state == 'wait'){?>
+					<button class="btn disabled">未开始</button>
+					<?php }?>
+					<?php if($state == 'start' || ($cutprice['inventory'] > 0 && $state != 'wait')){?>
+					<button class="btn btn-red but_buy">立即拿下</button>
+					<?php }?>
+					<?php if($state == 'stop' && $cutprice['inventory'] < 1){?>
+					<button class="btn disabled">已结束</button>
+					<?php }?>
+				</div>
+			</div>
+		</div>
+		<div class="js-footer" style="min-height: 1px;margin-bottom:60px">
+			<div class="footer">
+				<div class="copyright">
+					<div class="ft-links">
+					<a href="{pigcms::U('Wap/Cutprice/index',array('token'=>$token))}">全部商品</a>
+					<a href="{pigcms::U('Wap/Cutprice/my',array('token'=>$token))}">个人中心</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="guize" class="hide">
+			<div id="hei" style="height: 100%; position: fixed; top: 0px; left: 0px; right: 0px; z-index: 1000; opacity: 1; transition: none 0.2s ease; -webkit-transition: none 0.2s ease; background-color: rgba(0, 0, 0, 0.8);"></div>
+			<div id="guizeinfo" class="popout-box" style="overflow: hidden; visibility: visible; position: fixed; z-index: 1000; transition: opacity 300ms ease; -webkit-transition: opacity 300ms ease; opacity: 1; top: 50%; left: 50%; -webkit-transform: translate3d(-50%, -50%, 0px); border-radius: 4px; width: 270px; padding: 15px; background: white;">
+				<form class="form-dialog">
+					<div class="header">
+						<h2> <span>抢拍规则</span> </h2>
+					</div>
+					<fieldset class="body">
+						<p class="font-size-14">降价拍商品价格由高到低依次递减，直至竞买人以自己可承受价格抢单成功，活动结束。或者库存为零活动结束。又或者商品降价至底价活动结束。</p>
+						<p class="font-size-14">每位竞买人，均有一次抢拍资格，抢拍以最先拍下者获得，否则视作放弃本次抢拍权利，拍下不买者30分钟后失效并返回库存。</p>
+						<?php if($cutprice['onebuynum'] > 0){?>
+						<p class="font-size-14">每人限购买{pigcms:$cutprice.onebuynum}个商品。</p>
+						<?php }?>
+					</fieldset>
+					<div class="action-container">
+						<button type="button" class="js-ok btn btn-green btn-block">我知道了</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="window" id="windowcenter" style="margin-top:50px;">
+			<div class="tip">
+				<div id="txt"></div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			function alertalert(title){ 
+				$("#windowcenter").slideToggle("slow"); 
+				$("#txt").html(title);
+				setTimeout(function(){
+					$("#windowcenter").slideUp(500)
+				},3000);
+			}
+			$(function(){
+				$("#buy .response-area-minus").click(function(){
+					var goods_num = $("#buy .txt").val();
+					goods_num--;
+					if(goods_num*1 < 2){
+						$("#buy button").removeClass("disabled");
+						$("#buy .minus").addClass("disabled");
+						if(goods_num*1 < 1){
+							goods_num = 1;
+						}
+					}
+					$("#buy .txt").val(goods_num);
+					$("#buy .js-goods-price").html((nowprice*1)*(goods_num*1));
+				});
+				$("#buy .response-area-plus").click(function(){
+					var goods_num = $("#buy .txt").val();
+					var onebuynum = {pigcms:$cutprice.onebuynum};
+					if(onebuynum > 0 && inventory_num - onebuynum > 0){
+						if(goods_num*1 < onebuynum){
+							goods_num++;
+							$("#buy button").removeClass("disabled");
+							if(goods_num*1 > onebuynum-1){
+								goods_num = onebuynum;
+								$("#buy .plus").addClass("disabled");
+							}
+						}else{
+							goods_num = onebuynum;
+							$("#buy .plus").addClass("disabled");
+						}
+					}else{
+						if(goods_num*1 < inventory_num){
+							goods_num++;
+							$("#buy button").removeClass("disabled");
+							if(goods_num*1 > inventory_num-1){
+								goods_num = inventory_num;
+								$("#buy .plus").addClass("disabled");
+							}
+						}else{
+							goods_num = inventory_num;
+							$("#buy .plus").addClass("disabled");
+						}
+					}
+					$("#buy .txt").val(goods_num);
+					$("#buy .js-goods-price").html((nowprice*1)*(goods_num*1));
+				});
+				$("#buy .js-confirm-it").click(function(){
+					var goods_num = $("#buy .txt").val();
+					window.location.href='<?php echo U("Wap/Cutprice/buyinfo",array("token"=>$token,"id"=>$_GET['id']))?>&num='+goods_num+'&nowprice='+nowprice;
+				});
+			})
+		</script>
+		<div id="buy" class="hide">
+			<div id="" style="height: 100%; position: fixed; top: 0px; left: 0px; right: 0px; z-index: 1000; opacity: 1; transition: none 0.2s ease; -webkit-transition: none 0.2s ease; background-color: rgba(0, 0, 0, 0.8);"></div>
+			<div id="" class="sku-layout sku-box-shadow" style="overflow: hidden; opacity: 1; bottom: 0px; left: 0px; right: 0px; height: 184px; position: fixed; z-index: 1000;">
+				<div class="layout-title sku-box-shadow name-card sku-name-card">
+					<div class="thumb"><img src="{pigcms:$cutprice.logoimg1}" alt=""></div>
+					<div class="detail goods-base-info clearfix">
+						<p class="title c-black ellipsis">{pigcms:$cutprice.name}</p>
+						<div class="goods-price clearfix">
+							<div class="current-price c-black pull-left">
+								<span class="price-name pull-left font-size-14 c-orange">￥</span><i class="js-goods-price price font-size-18 c-orange vertical-middle">{pigcms:$cutprice.nowprice}</i>
+							</div>
+						</div>
+					</div> 
+					<div class="js-cancel sku-cancel">
+						<div class="cancel-img"></div>
+					</div>
+				</div>
+
+				<div class="adv-opts layout-content" style="height: 124px;">
+					<div class="goods-models js-sku-views block block-list block-border-top-none">
+						<dl class="clearfix block-item">
+							<dt class="model-title sku-num pull-left">
+								<label>数量</label>
+							</dt>
+							<dd>
+								<dl class="clearfix">
+									<div class="quantity">
+										<button class="minus disabled" type="button"></button>
+										<input type="text" class="txt" value="1" readonly="">
+										<button class="plus" type="button"></button>
+										<div class="response-area response-area-minus"></div>
+										<div class="response-area response-area-plus"></div>
+										<div class="txtCover"></div>
+									</div>
+									<div class="stock pull-right font-size-12">
+										<dt class="model-title stock-label pull-left">
+											<label>剩余: </label>
+										</dt>
+										<dd class="stock-num">
+											{pigcms:$cutprice.inventory}
+										</dd>
+									</div>
+								</dl>
+							</dd>
+						</dl>
+						<div class="block-item block-item-messages" style="display: none;"></div>
+					</div>
+					<div class="confirm-action content-foot">
+						<a href="javascript:;" class="js-confirm-it btn btn-block btn-orange-dark">下一步</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+		window.shareData = {  
+			"moduleName":"Cutprice",
+			"moduleID":"<?php echo $cutprice['pigcms_id'];?>",
+			"imgUrl": "<?php echo $cutprice['logoimg1'];?>",
+			"sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('Cutprice/goods',array('token'=>$token,'id'=>$cutprice['pigcms_id']))}",
+			"tTitle": "<?php echo $cutprice['wxtitle'];?>",
+			"tContent": "<?php echo $cutprice['wxinfo'];?>"
+		};
+		</script>
+		{pigcms:$shareScript}
+	</body>
+</html>

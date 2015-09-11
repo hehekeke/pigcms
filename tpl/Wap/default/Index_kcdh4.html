@@ -1,0 +1,92 @@
+<style>
+	*{margin: 0;}
+	body{font-size: 12px;}
+</style>
+	
+<script type="text/javascript" src="{pigcms:$staticPath}/tpl/static/home/js/jquery_min.js"></script>
+</head>
+<body>
+	<!--自定义开场动画-->
+	<div data-role="widtet" data-widget="screen_1" class="screen_1" id="screen_1">
+		<style>
+			.screen_1 .animation, .screen_1 .loading{position: fixed; left: 0; top: 0; width: 100%; height: 100%; min-height: 330px;  box-shadow:5px 5px 5px 10px rgba(0, 0, 0, 0.6); z-index: 9000; display: none;background: #ffffff;}
+			.screen_1 .loading{background-color: #fff; display: block; text-align: center;}
+			.screen_1 .loading > div{position: absolute; left: 0; top: 50%; margin-top: -32px; width: 100%; color: #fc8e65; z-index:9010;}
+		</style>
+		<script>
+			var screen_1 = (function(){
+				$.extend($.easing, {
+					def: 'easeOutQuad',
+					easeOutBack: function (x, t, b, c, d, s) {
+						if (s == undefined) s = 1.70158;
+						return c*((t=t/d-1)*t*((s+1)*t + s) + 1) + b;
+					},
+					easeOutElastic: function (x, t, b, c, d) {
+						var s=1.70158;var p=0;var a=c;
+						if (t==0) return b;  if ((t/=d)==1) return b+c;  if (!p) p=d*.3;
+						if (a < Math.abs(c)) { a=c; var s=p/4; }
+						else var s = p/(2*Math.PI) * Math.asin (c/a);
+						return a*Math.pow(2,-10*t) * Math.sin( (t*d-s)*(2*Math.PI)/p ) + c + b;
+					},
+					easeOutExpo: function (x, t, b, c, d) {
+						return (t==d) ? b+c : c * (-Math.pow(2, -10 * t/d) + 1) + b;
+					}
+				});
+
+				function _animation(callback){ //开场动画
+					var obj = $('#screen_1_animation');
+					if(obj.length){
+						obj.fadeIn(1500, function(){
+							$(this).animate({top: 120}, 'easeOutBack', function(){
+								$(this).animate({top: 0}, 500, 'easeOutElastic');
+								$('#screen_1_loading').remove();
+							}).one('touchstart click', function(e){
+								$(this).animate({top: '-100%'}, function(){
+								$(this).remove();
+							});
+							if(callback) callback.call(this);
+								e.preventDefault();
+							});
+						});
+					}else{
+						if(callback) callback.call(this);
+					}
+				}
+
+				function screenClose(evt){
+					evt.preventDefault();
+					switch(evt.type){
+						case "load":
+						case "error":
+						default:
+							_animation(function(){
+								setTimeout(function(){
+									$("#screen_1").remove();
+									try{
+										var iframe_screen = parent.document.getElementById("iframe_screen");
+										iframe_screen.parentNode.removeChild(iframe_screen);
+									}catch(e){
+										console.log(e);
+									}
+									delete window.screen_1;
+								}, 2000);
+							});
+						break;
+					}
+				}
+				return {
+					screenClose: screenClose
+				}
+			})($);
+		</script>
+
+		<div class="loading" id="screen_1_loading">
+			<div><img src="{pigcms:$staticPath}/tpl/static/home/img/loading.gif" width="50" height="50" /><!--p>数据加载中..</p--></div>
+		</div>
+		
+		<div class="animation t1" id="screen_1_animation" style="display: block; top: 0px;">
+			<img src="<if condition="$homeInfo['stpic'] eq ''">{pigcms:$staticPath}/tpl/static/home/kcdhbj.jpg<else/>{pigcms:$homeInfo.stpic}</if>" style="width:100%;min-height:100%;" onload="screen_1.screenClose(event);" onerror="screen_1.screenClose(event);">
+		</div>
+	</div>
+
+</body></html>

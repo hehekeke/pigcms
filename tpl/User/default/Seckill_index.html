@@ -1,0 +1,78 @@
+<include file="Public:head"/>
+<include file="Business:public_menu"/>
+<!-- <script src="{pigcms::STATICS}/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="{pigcms::STATICS}/artDialog/plugins/iframeTools.js"></script> -->
+
+ <style>
+.cLine {
+    overflow: hidden;
+    padding: 5px 0;
+  color:#000000;
+}
+.alert {
+padding: 8px 35px 0 10px;
+text-shadow: none;
+-webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+-moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+background-color: #f9edbe;
+border: 1px solid #f0c36d;
+-webkit-border-radius: 2px;
+-moz-border-radius: 2px;
+border-radius: 2px;
+color: #333333;
+margin-top: 5px;
+}
+.alert p {
+margin: 0 0 10px;
+display: block;
+}
+.alert .bold{
+font-weight:bold;
+}
+ </style>
+
+
+<include file="Business:tips"/>
+
+<div class="msgWrap form">
+    <div class="content">
+		<div class="cLineC" style="line-height: 32px;"> 
+<a href="{pigcms::U('Seckill/action_add',array('token'=>$token,'type'=>$type))}" class="btnGrayS vm bigbtn">添加微秒杀</a>
+</div>
+  <div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-bottom:5px;font-size:12px;">温馨提示：本功能使用了模板消息中的"订单完成通知"模板消息,模板消息编号OPENTM202521011。<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;开通微信支付功能的公众号在使用此功能的时候可以在"基本设置——微信模板消息"中配置对应的模板消息。
+</div>
+        <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+          <thead>
+            <tr>
+  <th style=" width:15%;">活动标题</th>
+   <th style=" width:15%;">回复关键词</th>
+  <th style=" width:15%;">活动开始时间</th>
+  <th style=" width:15%;">活动结束时间</th>
+</th>
+              <th style=" width:120px;">操作</th>
+            </tr>
+          </thead>
+			<volist name="action" id="vo">
+					  <tbody><tr>
+						  <td>{pigcms:$vo.action_name}</td>
+						  <td>{pigcms:$vo.reply_keyword}</td>
+						  <td>{pigcms:$vo.action_sdate|date="Y-m-d H:i:s",###}</td>
+						  <td>{pigcms:$vo.action_edate|date="Y-m-d H:i:s",###}</td>
+						  <td class="norightborder">
+						  <a href="{pigcms::U('Seckill/shop_detail',array('aid'=>$vo['action_id'], 'type'=>'seckill'))}" class="btnGreen">管理活动商品</a>
+						  <a href="{pigcms::U('Seckill/order_man',array('aid'=>$vo['action_id'], 'type'=>'seckill'))}" class="btnGreen">查看活动订单</a>
+						  <a href="{pigcms::U('Seckill/action_add',array('id'=>$vo['action_id'],'op'=>'mod', 'type'=>'seckill'))}" class="btnGreen">编辑</a>
+						  <a href="{pigcms::U('Seckill/action_del',array('id'=>$vo['action_id'],'type'=>'del', 'type'=>'seckill'))}" onclick="return(confirm('确定要删除吗？'))" class="btnGreen">删除</a> </td>
+						</tr>
+					  </tbody>
+			</volist> 
+            </table>
+			<div class="footactions" style="padding-left:10px">
+			  <div class="pages" style="text-align:right;"> {pigcms:$page}</div>
+			</div>
+    </div>
+  </div>
+</div>
+
+<include file="Public:footer"/>

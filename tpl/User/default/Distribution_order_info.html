@@ -1,0 +1,115 @@
+<include file="Public:head" />
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+<div class="content">
+    <div class="cLineB">
+        <h4 class="left">分销商：{pigcms:$distributor}&nbsp;&nbsp;&nbsp;<a href="{pigcms::U('Distribution/order', array('token' => $_GET['token']))}">订单</a> - {pigcms:$order.orderid}</h4>
+        <a href="{pigcms::U('Distribution/order', array('token' => $_GET['token']))}" class="right btnGrayS vm">返回</a>
+        <div class="clr"></div>
+    </div>
+    <div class="msgWrap">
+        <div style="line-height:200%;padding:10px 20px;background: #eee">
+            支付状态：<if condition="$order.paid eq 1"><span class="green">已付款</span><else/><span class="red">未付款</span></if><br>
+            支付方式：<if condition="empty($order['paytype']) neq true">
+        <if condition="$order['paytype'] eq 'alipay'"><span style="color:green">支付宝</span>
+        <elseif condition="$order['paytype'] eq 'weixin'" /><span style="color:green">微信支付</span>
+        <elseif condition="$order['paytype'] eq 'tenpay'" /><span style="color:green">财付通[wap手机]</span>
+        <elseif condition="$order['paytype'] eq 'tenpayComputer'" /><span style="color:green">财付通[即时到帐]</span>
+        <elseif condition="$order['paytype'] eq 'yeepay'" /><span style="color:green">易宝支付</span>
+        <elseif condition="$order['paytype'] eq 'allinpay'" /><span style="color:green">通联支付</span>
+        <elseif condition="$order['paytype'] eq 'daofu'" /><span style="color:green">货到付款</span>
+        <elseif condition="$order['paytype'] eq 'dianfu'" /><span style="color:green">到店付款</span>
+        <elseif condition="$order['paytype'] eq 'chinabank'" /><span style="color:green">网银在线</span></if>
+    
+    <else />
+        <if condition="$order['paymode'] eq 0"><span style="color:green">其他方式</span>
+        <elseif condition="$order['paymode'] eq 1" /><span style="color:green">在线支付</span>
+        <elseif condition="$order['paymode'] eq 4" /><span style="color:green">会员卡支付</span>
+        <elseif condition="$order['paymode'] eq 5" /><span style="color:green">积分兑换</span>
+        <else /><span style="color:green">货到付款</span></if>
+    </if><br/>
+            会员：{pigcms:$order.member}<br>
+            订单金额：<span style="color:#f30;font-size:16px;font-weight:bold">{pigcms:$order.price}</span>元 (含运费)<br>
+            <b>买家留言：</b><span class="red">{pigcms:$order.comment}</span><br>
+            收货信息：<b>收货人：</b>{pigcms:$order.truename}&nbsp;&nbsp;&nbsp;<b>收货地址：</b>{pigcms:$order.address}&nbsp;&nbsp;&nbsp;<b>联系方式：</b>{pigcms:$order.tel}
+        </div>
+
+
+        <div class="bgfc" style="margin-top: 20px;border: 1px solid #EEEEEE;">
+            <form class="form" method="post" id="form" action="{pigcms::U('Distribution/order_info', array('id' => $_GET['id'], 'token' => $_GET['token']))}">
+            <table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%">
+                <tbody>
+                <tr>
+                    <th><span class="red">*</span>支付状态：</th>
+                    <td>
+                        <select name="paid">
+                            <option value="0" <if condition="$order.paid eq 0">selected</if>>未付款</option>
+                            <option value="1" <if condition="$order.paid eq 1">selected</if>>已付款</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th><span class="red">*</span>发货状态：</th>
+                    <td>
+                        <select name="sent">
+                            <option value="0" <if condition="$order.sent eq 0">selected</if>>未发</option>
+                            <option value="1" <if condition="$order.sent eq 1">selected</if>>已发</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th><span class="red">*</span>快递公司：</th>
+                    <td><input type="text" name="logistics" value="{pigcms:$order.logistics}" class="px" style="width:200px;" /></td>
+                </tr>
+                <tr>
+                    <th><span class="red">*</span>快递单号：</th>
+                    <td><input type="text" name="logisticsid" value="{pigcms:$order.logisticsid}" class="px" style="width:200px;" /></td>
+                </tr>
+
+                <tr>
+                    <th>&nbsp;</th>
+                    <td>
+                        <button type="submit" name="button" class="btnGreen">保存</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            </form>
+        </div>
+
+
+        <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+            <thead>
+            <tr>
+                <th align="center" style="text-align:center">图片</th>
+                <th>商品</th>
+                <th style="text-align:right">单价（元）</th>
+                <th style="text-align:right">运费（元）</th>
+                <th style="text-align:right">数量</th>
+                <th>买家留言</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr></tr>
+            <volist name="products" id="product">
+                <tr>
+                    <td align="center"><img src="{pigcms:$product.logourl}"  width="100" /><br /></td>
+                    <td>{pigcms:$product.name}
+                        <if condition="$product['skus'] neq ''">
+                        <p class="green">
+                        <volist name="product['skus']" id="sku">
+                            - {pigcms:$key}:{pigcms:$sku}<br/>
+                        </volist>
+                        </p>
+                        </if>
+                    </td>
+                    <td align="right">{pigcms:$product.price|number_format=###, 2, '.', ''}</td>
+                    <td align="right"><if condition="$product.shipping gt 0">{pigcms:$product.shipping}<else />免运费</if></td>
+                    <td align="right">{pigcms:$product.quantity}</td>
+                    <td class="red">{pigcms:$product.comment}</td>
+                </tr>
+            </volist>
+            </tbody>
+        </table>
+    </div>
+</div>
+<include file="Public:footer"/>

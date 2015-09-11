@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>详情</title>
+<link href="{pigcms::RES}/images/main.css" type="text/css" rel="stylesheet">
+<script src="{pigcms::STATICS}/jquery-1.4.2.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+	        
+</script>
+</head>
+<body class="warp">
+<div id="artlist" class="addn">
+<form action="" method="post" name="form" enctype="multipart/form-data" id="myform">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" id="addn">
+
+	<tr>
+		<th colspan="4">详情</th>
+	</tr>
+	<tr>
+		<td></td>
+		<td colspan="3" class="lt" style="padding:20px">
+			<img src="{pigcms:$info.url}" width="500px">
+		</td>
+	</tr>
+	<tr>
+		<td height="48" align="right"><strong>地址：</strong></td>
+		<td colspan="3" class="lt">
+			<p>{pigcms:$info.url}</p>
+		</td>
+	</tr>
+	<tr>
+		<td height="48" align="right"><strong>所属用户：</strong></td>
+		<td colspan="3" class="lt">
+			<p><?php echo $info['username']?$info['username']:'无';?></p>
+		</td>
+	</tr>
+	<tr>
+		<td height="48" align="right"><strong>所属公众号：</strong></td>
+		<td colspan="3" class="lt">
+			<p><?php echo $info['wxname']?$info['wxname']:'无';?></p>
+		</td>
+	</tr>
+	<tr>
+		<td height="48" align="right"><strong>所属粉丝：</strong></td>
+		<td colspan="3" class="lt">
+			<p><?php echo $info['wechaname']?$info['wechaname']:'无';?></p>
+		</td>
+	</tr>
+	<tr>
+		<td height="48" align="right"><strong>大小：</strong></td>
+		<td colspan="3" class="lt">
+			<p><?php echo round(($info['size']/1024),2).'Kb';?></p>
+		</td>
+	</tr>
+	<tr>
+		<td height="48" align="right"><strong>上传IP：</strong></td>
+		<td colspan="3" class="lt">
+			<p>{pigcms:$info.upload_ip}</p>
+		</td>
+	</tr>
+	<tr>
+		<td height="48" align="right"><strong>上传时间：</strong></td>
+		<td colspan="3" class="lt">
+			<p>{pigcms:$info.time|date="Y-m-d H:i:s",###}</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="4">
+			<input class="bginput" type="button" onclick="javascript:window.location.href='<?php echo U('System/Examine_image/index',array('p'=>$_GET['p']));?>'" value="返 回" >
+		</td>
+	</tr>
+</table>
+</form>
+<br />
+<br />
+<br />
+
+</div>
+</body>
+</html>

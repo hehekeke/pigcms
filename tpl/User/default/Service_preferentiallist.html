@@ -1,0 +1,69 @@
+<include file="Public:head" />
+<div class="content">
+	<div class="cLineB">
+		<h4 class="left">优惠活动</h4>
+		<div class="clr"></div>
+	</div>
+	
+	<div class="cLine">
+		<div class="pageNavigator left">
+			<a href="{pigcms::U('Service/preferentialadd',array('token'=>$token,'type'=>'preferential'))}" title="添加优惠" class="btnGrayS vm bigbtn">添加优惠</a>
+		</div>
+		<div class="pageNavigator right">
+			<input type="text" id="name" class="px name" placeholder="输入优惠名称"  name="name" value="{pigcms:$_GET['name']}" style="margin-top:10px">
+			<a href="javascript:seach()" id="seach" href="" class="btnGrayS" title="搜索">搜索</a>
+		</div>
+		<script>
+			
+		</script>
+		<div class="clr"></div>
+	</div>
+	
+	<div class="msgWrap">
+		<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+			<thead>
+				<tr>
+					<th width="100px">图片</th>
+					<th width="100px">标题</th>
+					<th width="300px">描述</th>
+					<th>操作</th>
+					<th class="norightborder">添加时间</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="preferential_list" id="vo">
+					<tr>
+						<td><img src="{pigcms:$vo.img}" width="60px"/></td>
+						<td>{pigcms:$vo.name}</td>
+						<td>{pigcms:$vo.info}</td>
+						<td class="norightborder" style="border-right:1px solid #eee">
+							<a href="{pigcms::U('Service/preferentialupdate',array('token'=>$token,'type'=>'preferential','id'=>$vo['pigcms_id']))}">修改</a>
+							<a href="javascript:drop_confirm('您确定要删除【{pigcms:$vo.name}】吗?', '{pigcms::U('Service/preferentialdel',array('token'=>$token,'id'=>$vo['pigcms_id'],'type'=>'preferential'))}')">删除</a>
+						</td>
+						<td  style="border-right:0">{pigcms:$vo.addtime|date="Y-m-d H:i:s",###}</td>
+					</tr>
+				</volist>
+			</tbody>
+		</table>
+	</div>
+	<div class="cLine">
+		<div class="pageNavigator right">
+			<div class="pages">{pigcms:$page}</div>
+		</div>
+		<div class="clr"></div>
+	</div>
+</div>
+<script>
+	$(document).ready(function(){
+		
+	});
+	function seach(){
+		var name = $("#name").val();
+		if(name != ""){
+			window.location.href="{pigcms::U('Service/preferentiallist',array('token'=>$token,'type'=>'preferential'))}&name="+name;
+		}else{
+			window.location.href="{pigcms::U('Service/preferentiallist',array('token'=>$token,'type'=>'preferential'))}";
+		}
+	}
+</script>
+<include file="Public:footer"/>

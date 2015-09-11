@@ -1,0 +1,56 @@
+<include file="Public:head"/>
+<form class="form" method="post" action="{pigcms::U('Shakearound/apply_device')}" target="_top">
+<div class="content">
+<div class="cLineB">
+  <h4>添加设备</h4><a href="javascript:history.go(-1);" class="right btnGrayS vm" style="margin-top:-27px">返回</a></div>
+<div class="msgWrap bgfc">
+<table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%">
+<tbody>
+<tr>
+  <th width="120"><span class="red">*</span>设备名称：</th>
+  <td><input style="width:350px;" name="apply_comment" id="apply_comment" class="px" />&nbsp;&nbsp;&nbsp;(不超过30个英文字母,一个汉字相当于3个字母)</td>
+</tr>
+<tr>
+  <th valign="top"><span class="red">*</span>添加理由:</th>
+  <td><textarea style="width:350px;height:75px" name="apply_reason" id="apply_reason" class="px"></textarea>&nbsp;&nbsp;&nbsp;(不超过200个英文字母,一个汉字相当于3个字母,填写添加的理由)<br>
+  </td>
+</tr>
+<!--tr>
+  <th valign="top">门店ID：</th>
+  <td><input type="input" class="px" id="poi_id" value="" name="poi_id" style="width:150px"><br>
+  </td>
+</tr-->
+<tr>
+	<th></th>
+	<td>
+		<button type="button" name="button" id="apply_device" class="btnGreen">添加设备</button>　
+		<a href="" class="btnGray vm">取消</a>
+	</td>
+</tr>
+</tbody>
+</table>
+ </div>
+</div>
+</form>
+<script>
+//简单的表单验证
+$(function(){
+	$("#apply_device").click(function(){
+		var apply_reason = $("#apply_reason").val();
+		var apply_comment = $("#apply_comment").val();
+		var msg = '';
+		if(apply_comment == ''){
+			msg += '设备名称不能为空\n';
+		}
+		if(apply_reason == ''){
+			msg += '备注不能为空';
+		}
+		if(msg != ''){
+			alert(msg);
+			return false;
+		}
+		$(".form").submit();
+	});
+});
+</script>
+<include file="Public:footer"/>

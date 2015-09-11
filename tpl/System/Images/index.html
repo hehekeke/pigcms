@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>权限管理</title>
+<include file="common:public" />
+<div class="cr"></div>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" id="alist">
+	  <tr>
+		<td width="150">图片位置</td>
+		<td>图片</td>
+		<td width="100">管理操作</td>
+	  </tr>
+
+		<tr>
+			<td ><b>功能介绍</b></td>
+			<td ><img src="{pigcms:$list['fc']}" style="height:150px"/></td>
+			<td align='center'>
+				<a href="{pigcms::U('Images/edit/',array('id'=>1,'pid'=>$pid))}">修改</a>
+			</td>
+		</tr>
+
+		<tr>
+			<td ><b>关于我们</b></td>
+			<td ><img src="{pigcms:$list['about']}" style="height:150px"/></td>
+			<td align='center'>
+				<a href="{pigcms::U('Images/edit/',array('id'=>2,'pid'=>$pid))}">修改</a>
+			</td>
+		</tr>
+
+		<tr>
+			<td ><b>资费说明</b></td>
+			<td ><img src="{pigcms:$list['price']}" style="height:150px"/></td>
+			<td align='center'>
+				<a href="{pigcms::U('Images/edit/',array('id'=>3,'pid'=>$pid))}">修改</a>
+			</td>
+		</tr>
+
+		<tr>
+			<td ><b>产品案例</b></td>
+			<td ><img src="{pigcms:$list['common']}" style="height:150px"/></td>
+			<td align='center'>
+				<a href="{pigcms::U('Images/edit/',array('id'=>4,'pid'=>$pid))}">修改</a>
+			</td>
+		</tr>
+
+		<tr>
+			<td ><b>管理中心</b></td>
+			<td ><img src="{pigcms:$list['login']}" style="height:150px"/></td>
+			<td align='center'>
+				<a href="{pigcms::U('Images/edit/',array('id'=>5,'pid'=>$pid))}">修改</a>
+			</td>
+		</tr>
+
+		<tr>
+			<td ><b>帮助中心</b></td>
+			<td ><img src="{pigcms:$list['help']}" style="height:150px"/></td>
+			<td align='center'>
+				<a href="{pigcms::U('Images/edit/',array('id'=>6,'pid'=>$pid))}">修改</a>
+			</td>
+		</tr>
+
+
+     <tr bgcolor="#FFFFFF"> 
+      <td colspan="8"><div class="listpage">{pigcms:$page}</div></td>
+    </tr>
+   
+</table>
+
+<div class="bottom">
+
+</div>
+
+</body>
+</html>

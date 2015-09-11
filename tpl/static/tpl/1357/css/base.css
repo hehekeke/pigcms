@@ -1,0 +1,99 @@
+@charset "utf-8";
+
+body{ font:0.75em 'microsoft yahei'; color:#353535;}
+a{ text-decoration:none; color:#353535;}
+a:hover{ text-decoration:none;}
+
+/*container*/
+#container{ width:100%; max-width:640px; min-width:320px; margin:0 auto;}
+
+/*footer*/
+#footer{ padding:2.3% 2.65%; background-color:#3a4148;}
+#footer nav{ margin-bottom:3%; opacity:0.7;}
+#footer .copyRight{ font-family:Arial; opacity:0.57;}
+
+/*goToTop*/
+.goToTop{ display:inline-block; width:2.9em; height:2.9em; text-indent:-9999px; background-size:29em 17.5em; right:1.9%; top:21%;}
+.goToTop11{ background-position:0 0;}
+.goToTop12{ background-position:-2.9em 0;}
+.goToTop13{ background-position:-5.8em 0;}
+.goToTop14{ background-position:-8.7em 0;}
+
+.goToTop21{ background-position:0 -2.9em;}
+.goToTop22{ background-position:-2.9em -2.9em;}
+.goToTop23{ background-position:-5.8em -2.9em;}
+.goToTop24{ background-position:-8.7em -2.9em;}
+
+.goToTop31{ background-position:0 -5.8em;}
+.goToTop32{ background-position:-2.9em -5.8em;}
+.goToTop33{ background-position:-5.8em -5.8em;}
+.goToTop34{ background-position:-8.7em -5.8em;}
+.goToTop35{ background-position:-11.6em -5.8em;}
+.goToTop36{ background-position:-14.5em -5.8em;}
+.goToTop37{ background-position:-17.4em -5.84em;}
+
+.goToTop41{ background-position:0 -8.7em;}
+.goToTop42{ background-position:-2.9em -8.7em;}
+.goToTop43{ background-position:-5.8em -8.7em;}
+.goToTop44{ background-position:-8.7em -8.7em;}
+.goToTop45{ background-position:-11.6em -8.7em;}
+.goToTop46{ background-position:-14.5em -8.7em;}
+.goToTop47{ background-position:-17.4em -8.7em;}
+.goToTop48{ background-position:-20.3em -8.7em;}
+.goToTop49{ background-position:-23.2em -8.7em;}
+.goToTop410{ background-position:-26.1em -8.7em;}
+
+.goToTop51{ background-position:0 -11.6em;}
+.goToTop52{ background-position:-2.9em -11.6em;}
+
+.goToTop61{ background-position:0 -14.5em;}
+.goToTop62{ background-position:-2.9em -14.5em;}
+.goToTop63{ background-position:-5.8em -14.5em;}
+
+/*index*/
+.carouselBox{ position:relative;}
+.carouselBox .carouselPics li{ float:left; text-align:center;}
+.carouselBox .carouselPics li img{ width:100%; vertical-align:middle;}
+.carouselBox .carouselBtns{ width:100%; left:0; bottom:0; display:table; z-index:5; text-align:center;}
+.carouselBox .carouselBtns li{ display:inline-block; width:1.8%; height:0.5em; margin-left:1.6%; border-radius:0.25em; background:rgba(235,235,235,0.7);}
+.carouselBox .carouselBtns li.current{ background:rgba(235,235,235,1);}
+.carouselBox .carouselBtns li:first-child{ margin-left:0;}
+.carouselBox .carouselBtnsBg{ width:27.7%; height:1.1em; left:50%; margin-left:-13.8%; bottom:0;background-size:7em 1.5em;}
+
+.menu371 li{ float:left; width:33.1%; border-top:#ffffff solid 0.1em; border-right:#ffffff solid 0.1em; background:#f3faff; background:-webkit-linear-gradient(#f9fcff 0%,#e3f4ff 100%);}
+.menu371 li a{ display:block; height:5.65em; overflow:hidden; text-align:center;}
+.menu371 li div{ width:36px; height:36px; margin:7% auto 3%; border-radius:1.5em; background:#9fc8e4; background:-webkit-linear-gradient(#9fc8e4 0%,#8aa9be 100%);}
+.menu371 li img{ height:1.74em; width:1.74em;margin:20% 0 0 0; vertical-align:middle;}
+.menu371 li span{ display:inline-block; width:100%; height:1.3em; color:#676f73; overflow:hidden;}
+.menu371 li:nth-child(3){ border-right:none;}
+.menu371 li:nth-child(6){ border-right:none;}
+
+.menu372{ height:12.32em;}
+.menu372 img{ width:100%; height:12.32em;}
+
+.menu373 li{ background:#ffffff; background:-webkit-linear-gradient(#ffffff 0%,#ffffff 59%,#fdfdfd 60%,#dfdfdf 100%); background:-moz-linear-gradient(#ffffff 0%,#ffffff 59%,#fdfdfd 60%,#dfdfdf 100%);margin:3px 5px 3px 5px;}
+.menu373 li .box{ padding:4% 8% 3% 4%; overflow:hidden;height:50px;}
+.menu373 li .info{ float:left; width:65%;}
+.menu373 li .pic{ float:right; width:18.6%;}
+.menu373 li h3{ margin-bottom:1%; color:#247ea8; font-weight:bold;margin-top:-8px;}
+.menu373 li .text{ color:#4e4e4e;height:30px;}
+.menu373 li img{ height:3.55em; vertical-align:middle;}
+
+@media screen and (min-width:480px){
+	#container{ font-size:18px;}
+	#container .menu371 li span{ font-size:14px;}
+	#container .menu373 li h3{ font-size:17px;}
+	#container .menu373 li .text{ font-size:13px;}
+	#footer{ font-size:15px;}
+	#footer .copyRight{ font-size:16px;}
+}
+@media screen and (min-width:640px){
+	#container{ font-size:24px;}
+	#container .menu371 li span{ font-size:18px;}
+	#container .menu373 li h3{ font-size:22px;}
+	#container .menu373 li .text{ font-size:16px;}
+	#footer{ font-size:19px;}
+	#footer .copyRight{ font-size:20px;}
+}
+
+

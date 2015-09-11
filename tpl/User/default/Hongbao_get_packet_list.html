@@ -1,0 +1,62 @@
+<include file="Public:head"/>
+<div class="content">
+<div class="cLineB">
+<h4 class="left">红包领取记录</h4>
+<a href="{pigcms::U('Hongbao/index',array('token'=>$token))}" class="right btnGrayS vm">返回列表</a>
+<div class="clr"></div>
+</div>
+<div class="cLine">
+<div class="searchbar right">
+</div>
+<div class="clr"></div>
+</div>
+<div class="msgWrap">
+<form method="post" action="" id="info">
+<input name="delall" type="hidden" value="1">
+<input name="wxid" type="hidden" value="">
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<thead>
+<tr>   
+	<th width="50">微信昵称</th>                              
+	<th width="80">红包名称</th>	
+	<th width="50">手机号</th>
+	<th width="50">红包价值</th>
+ 	<th width="50">是否领取</th>
+	<th width="80"class="norightborder">操作</th>
+</tr>
+</thead>
+<tbody>
+<tr></tr>
+<pigcmslist array="list" foreach="list">
+<tr>
+	<td>{pigcms:$list.grabber_nickname}</td>
+	<td>{pigcms:$list.action_name}</td>
+	<td><if condition="$list.grabber_tel neq '111111'">{pigcms:$list.grabber_tel}<else />---</if></td>
+	<td>{pigcms:$list.money}</td>
+	<!--<td>{pigcms:$list.code}</td>-->
+	<td>
+		<if condition="$list.isgrabbed eq '2'">
+			<font color="">已领取</font>
+		<elseif  condition="$list.isgrabbed eq '1'"/>
+			抢到未领取
+		<else/>
+			未抢到
+		</if>
+	</td>
+	<td class="norightborder">
+		<a href="javascript:drop_confirm('您确定要删除吗?', '{pigcms::U('Hongbao/del_packet',array('token'=>$token,'id'=>$list['grabber_id']))}');">删除</a>
+    </td>
+</tr>
+</pigcmslist>
+</tbody>
+</table>
+</form>
+</div>
+<div class="cLine">
+<div class="pageNavigator right">
+<div class="pages">{pigcms:$page}</div>
+</div>
+<div class="clr"></div>
+</div>
+</div>
+<include file="Public:footer"/>

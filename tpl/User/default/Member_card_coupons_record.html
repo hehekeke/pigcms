@@ -1,0 +1,106 @@
+<include file="Public:head"/>
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<div class="content">
+         
+          <div class="cLineB">
+              <h4 class="left">
+				领券记录
+              </h4>
+               <a class="right btnGrayS vm" href="{pigcms::U('Member_card/coupons',array('token'=>$token))}">返回</a>
+              <div class="clr"></div>
+          </div>
+          	<div class="cLine">
+
+		<div class="right" style="line-height:30px;margin:5px 0;">
+       	<form action="" method="POST">
+          	<input type="text" name="keyword" value="" placeholder="请填写卡券号或者粉丝名称" class="px" style="width:160px;">
+          	<input type="submit" value="查找" class="btnGreen vm">
+        </form>
+      	</div>
+
+	</div>
+
+
+          <div class="msgWrap">
+          <form method="post" action="index.php?ac=importtxt&amp;id=9878&amp;wxid=gh_423dwjkewad" id="info">
+          <input name="delall" type="hidden" value="del">
+           <input name="wxid" type="hidden" value="gh_423dwjkewad">
+            <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+              <thead>
+                <tr>
+					<!-- <th class="select" style="width:50px">选择</th> -->
+					<th style="width:150px;">卡券号</th>
+					<th style="width:150px;">领取时间</th>
+					<th style="width:150px;">领取粉丝</th>
+					<th style="width:100px">电话</th>
+					<th style="width:150px;">状态</th>
+					<th style="width:150px;">来源</th>
+					<th class="edit norightborder">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <volist name="list" id="c">           
+                <tr>
+					  <!-- <td>  <input type="checkbox" name="del_id[]" value="" class="checkitem"></td> -->
+					  <td>{pigcms:$c.cancel_code}</td>
+					  <td><nobr>{pigcms:$c.add_time|date='Y-m-d H:i:s',###}</nobr></td>
+					  <td>{pigcms:$c.wechaname}</td>
+					  <td>{pigcms:$c.tel}</td>
+					  <td>
+						<if condition="$c.is_use eq 1">
+							已核销
+						<else/>
+							未使用
+						</if>
+					  </td>
+					  <td>
+						<if condition="$c.where eq 1">
+							{pigcms:$c.wherename}
+						<else/>
+							会员卡
+						</if>
+					  </td>
+					  <td class="norightborder">
+					  		<if condition="$c.is_use eq '0'">
+								<a href="javascript:void(0);" onclick="showLog({pigcms:$c.cancel_code})">核销</a>
+					  		</if>
+					  		<a href="javascript:drop_confirm('您确定要删除吗?','{pigcms::U('Member_card/coupons_record_del',array('itemid'=>$c['id'],'id'=>$thisCard['id']))}');">删除</a>
+					  </td>
+                </tr>
+				</volist>
+      			 
+              </tbody>
+            </table>
+           </form> 
+			<script>
+			   function checkvotethis() {
+					var aa=document.getElementsByName('del_id[]');
+					var mnum = aa.length;
+					j=0;
+					for(i=0;i<mnum;i++){
+					if(aa[i].checked){
+					j++;
+					}
+					}
+					if(j>0) {
+						document.getElementById('info').submit();
+					} else {
+						alert('未选中内容！')
+					}
+				}
+			</script>
+          </div>
+          <div class="cLine">
+            <div class="pageNavigator right">
+                 <div class="pages">{pigcms:$page}</div>
+             </div>
+            <div class="clr"></div>
+          </div>
+        </div>
+<script>
+function showLog(code){
+	art.dialog.open('{pigcms::U('Member_card/consume_use',array('token'=>$token))}&code='+code,{lock:false,title:'卡券核销',width:750,height:600,yesText:'关闭',background: '#000',opacity: 0.87});
+}
+</script>
+<include file="Public:footer"/>

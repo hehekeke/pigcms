@@ -1,0 +1,72 @@
+<include file="Frame:header"/>
+<div class="columntitle">友情链接管理</div>
+<div style="border:1px solid #E9EFF7;margin-top:10px;">
+<div class="oper" style="border:none;background: #FDFDFD;">
+	<if condition="$wxname eq null">
+		<div class="ksearch">
+	 		<form action="{pigcms::U('Site/newsset')}" method="post" style="float:left;">
+	 		<span style="color:red">请设置公众号后再进行新闻管理操作。</span>
+	 		<input type="hidden" name="agentid" class="ipt" value="{pigcms:$agentid}" size="45"/>
+	 		公众号：
+		 		<input name="new" type="text" value="">
+		 		<input type="submit" value=" 确 定 ">
+		 	</form>
+	    </div>
+	<else />
+	    <div class="ksearch">
+	    	<div style="margin-left:20px"><b>当前公众号：{pigcms:$wxname}</b><span style="margin-left:40px"><a href="{pigcms::U('Site/newsdel',array('wxname'=>$wxname,'agentid'=>$agentid))}">退出</a></span></div>
+	    </div>
+	</if>
+</div>
+
+  <table cellspacing="1" cellpadding="1" class="listtable">
+		<tr class="summary-title">
+		    <td width="100" align='center'>id</td>
+			<td align='center'>新闻分类1</td>
+			<td align='center'>新闻分类2</td>
+			<td align='center'>新闻分类3</td>
+			<td width="200" align='center'>操作</td>
+		</tr>
+		<form action="{pigcms::U('Site/newsup')}" method="post">
+			<tr>
+				<td align='center'>{pigcms:$info.id}</td>
+				<td align='center'>
+					<select style="height:25px;width:200px" id="clas1" name="class1"> 
+						<option value ="0">——请选择新闻分类——</option>
+						<volist name="class" id="vo">
+							<option value ="{pigcms:$vo.id}" <if condition="$info['class1'] eq $vo['id']">selected</if>>{pigcms:$vo.name}</option>
+						</volist>
+					</select>
+				</td>
+				<td align='center'>
+					<select style="height:25px;width:200px" id="clas2" name="class2"> 
+						<option value ="0">——请选择新闻分类——</option>
+						<volist name="class" id="vo">
+							<option value ="{pigcms:$vo.id}" <if condition="$info['class2'] eq $vo['id']">selected</if>>{pigcms:$vo.name}</option>
+						</volist>
+					</select>
+				</td>
+				<td align='center'>
+					<select style="height:25px;width:200px" id="clas3" name="class3"> 
+						<option value ="0">——请选择新闻分类——</option>
+						<volist name="class" id="vo">
+							<option value ="{pigcms:$vo.id}" <if condition="$info['class3'] eq $vo['id']">selected</if>>{pigcms:$vo.name}</option>
+						</volist>
+					</select>
+				</td>
+
+				<td style="display:none">
+					<input name="tok" type="text" value="{pigcms:$tok}">
+					<input name="name" type="text" value="{pigcms:$wxname}">
+					<input type="hidden" name="agentid" class="ipt" value="{pigcms:$agentid}" size="45"/>
+				</td>
+				<td align='center'>
+					<input type="submit" value=" 确 定 ">
+				</td>
+			</tr>
+		</form>
+	</table>
+</div>
+<div style="color:red;margin:10px 0 0 20px;font-size:13px;">请选择文章分类,系统会选取每个分类下的5篇文章作为新闻信息。</div>
+<div class="pages">{pigcms:$page}</div>
+<include file="Frame:footer"/>

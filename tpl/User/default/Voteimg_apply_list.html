@@ -1,0 +1,87 @@
+<include file="Public:head"/>
+<script src="{pigcms:$staticPath}/tpl/static/upyun.js" type="text/javascript"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/jquery.artDialog.js?skin=default" type="text/javascript"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<div class="msgWrap form">
+<div class="content">
+<div class="cLineC" style="line-height: 20px;"> 
+<a href="{pigcms::U('Voteimg/banner_manage',array('token'=>$token,'vote_id'=>$vote_id))}" class="btnGrayS vm bigbtn">横幅管理</a> <a href="{pigcms::U('Voteimg/stat_list',array('token'=>$token,'vote_id'=>$vote_id))}" class="btnGrayS vm bigbtn">统计栏管理</a> <a href="{pigcms::U('Voteimg/menu_list',array('token'=>$token,'vote_id'=>$vote_id))}" class="btnGrayS vm bigbtn">菜单管理</a> <a href="{pigcms::U('Voteimg/bottom_list',array('token'=>$token,'vote_id'=>$vote_id))}" class="btnGrayS vm bigbtn">底部管理</a>
+<a href="{pigcms::U('Voteimg/apply_list',array('token'=>$token,'vote_id'=>$vote_id))}" class="btnGrayS vm bigbtn">报名管理</a>
+<a href="{pigcms::U('Voteimg/index',array('token'=>$token))}" class="right btnGrayS vm" style="margin-top:1px">返回投票列表</a>
+</div>
+  <h2> 
+ 图文投票---报名管理
+</h2>
+    <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+	<thead>
+	<tr>
+	<th></th>
+	  <th style="width:10%;">标题</th>
+	  <th style="width:15%;">缩略图</th>
+	  <th style="width:15%;">手机号</th>
+	  <th style="width:15%;">上传时间</th>
+	 <th style="width:8%;">审核状态</th>
+	</th>
+	<th>操作</th>
+	</tr>
+	</thead>
+	<volist name="list" id="vo">
+	  <tbody><tr>
+	  <td><input type="checkbox" name="item_id[]" value="{pigcms:$vo['id']}" /></td>
+		  <td>{pigcms:$vo.vote_title|mb_substr=0,8,'utf-8'}</td>
+		  <td><img src="{pigcms:$vo.vote_img}" width="50px" height="50px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="art.dialog.open('{pigcms::U('Voteimg/apply_phone_list',array('id'=>$vo['id']))}',{lock:false,title:'报名图片预览',width:800,height:600,yesText:'关闭',background: '#000',opacity: 0.87});" href="###">预览</a></td>
+		  <td>{pigcms:$vo.contact}</td>
+		  <td>{pigcms:$vo.upload_time|date='Y-m-d H:i',###}</td>
+		  <td><if condition="$vo.check_pass eq 0">未审核<else />审核通过</if></td>
+		  <td class="norightborder">
+		  <if condition="$vo.check_pass eq 0">
+		  <a href="{pigcms::U('Voteimg/apply_check',array('vote_id'=>$vo['vote_id'],'token'=>$vo['token'],'item_id'=>$vo['id']))}">通过</a><else /><a href="{pigcms::U('Voteimg/apply_check',array('vote_id'=>$vo['vote_id'],'token'=>$vo['token'],'item_id'=>$vo['id']))}">不通过</a></if><a href="{pigcms::U('Voteimg/edit_item',array('id'=>$vo['id'],'token'=>$token,'upload_type'=>'phone'))}" class="btnGreen">编辑</a><a href="{pigcms::U('Voteimg/apply_del',array('vote_id'=>$vo['vote_id'],'token'=>$vo['token'],'item_id'=>$vo['id']))}">删除</a>
+		  </td>
+		</tr>
+	  </tbody>
+	</volist> 
+	</table>
+	<div class="footactions" style="padding-left:10px">
+	 <div style="float:left;">  <input type="checkbox" id="checkall" onclick="selectAll(this);" /><label for="checkall"> 全选 / 全不选  <button class="btnGrayS" onclick="batch_pass()">批量通过</button> <button class="btnGrayS" onclick="unbatch_pass()">批量不通过</button></div> <div class="pages" style="text-align:right;"> {pigcms:$page}</div>
+	</div>
+    </div>
+  </div>
+  <script>
+function selectAll(checkbox) { 
+	$('input[type=checkbox]').attr('checked', $(checkbox).attr('checked')); 
+} 
+function batch_pass(){
+	var ids = new Array();
+	$(":input[name=item_id[]]").each(function(i,d){
+		if(d.checked){
+			ids.push(d.value);
+		}
+	});
+	$.post("/index.php?g=User&m=Voteimg&a=batch_pass&vote_id={pigcms:$vote_id}&token={pigcms:$token}",{'ids':ids},function(data){
+		if(data == 'done'){
+			alert('批量通过成功');
+		}else{
+			alert('批量通过失败');
+		}
+		window.location.reload();
+	});
+}
+
+function unbatch_pass(){
+	var unids = new Array();
+	$(":input[name=item_id[]]").each(function(i,d){
+		if(d.checked){
+			unids.push(d.value);
+		}
+	});
+	$.post("/index.php?g=User&m=Voteimg&a=unbatch_pass&vote_id={pigcms:$vote_id}&token={pigcms:$token}",{'unids':unids},function(data){
+		if(data == 'done'){
+			alert('批量不通过成功');
+		}else{
+			alert('批量不通过失败');
+		}
+		window.location.reload();
+	});
+}
+</script>	
+<include file="Public:footer"/>

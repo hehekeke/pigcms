@@ -1,0 +1,101 @@
+<include file="Public:head"/>
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+	<if condition="$usertplid eq 0">
+		<link href="{pigcms:$staticPath}{pigcms::ltrim(RES,'.')}/css/style.css?id=103" rel="stylesheet" type="text/css" />
+	<else />
+		<link href="{pigcms:$staticPath}{pigcms::ltrim(RES,'.')}/css/style-{pigcms:$usertplid}.css?id=103" rel="stylesheet" type="text/css" />
+	</if>
+<link rel="stylesheet" type="text/css" href="{pigcms:$staticPath}{pigcms::ltrim(RES,'.')}/css/style_2_common.css?BPm" />
+<div class="content" >  
+<div class="cLineB">
+  <h4>消息群发<span class="FAQ"></span></h4>
+ </div>
+ <div class="cLine">
+    <div class="pageNavigator left">
+  		<a class="btnGrayS vm bigbtn" title="新增语音回复" href="?g=User&m=Message&a=index"><img width="16" class="vm" src="./tpl/User/default/common/images/product/add.png">新增群发消息</a>
+    </div>
+          
+    <div class="clr"></div>
+</div>
+<div class="ftip" style="margin:0;">只有认证公众号才能使用（其他类型公众号请不要使用第三方群发，否则微信可能会封号）</div>
+
+<div class="msgWrap form">
+<div class="bdrcontent">
+<div id="div_ptype">
+<table class="ListProduct" border="0" cellSpacing="0" cellPadding="0" width="100%">
+<thead>
+<tr>
+<th style=" width:100px;">标题</th>
+<th style=" width:80px;">群发类型</th>
+<th style=" width:100px;" class="norightborder">发送时间</th>
+<th style=" width:80px;">群发状态</th>           
+<th style=" width:120px;">操作</th>    
+</tr>
+</thead>
+<volist name="info" id="actinfo">
+<tr>
+<td>{pigcms:$actinfo.title}</td>
+<td>
+	<if condition="$actinfo.send_type eq 1">
+		分组群发
+	<elseif condition="$actinfo.send_type eq 2"/>
+		指定粉丝
+	<else/>
+		全部粉丝 
+	</if>
+</td>
+<td>
+	<if condition="$actinfo.time eq 0">
+		未发送
+	<else/>
+		{pigcms:$actinfo.time|date="Y-m-d",###}
+	</if>
+</td>
+<td>
+	<if condition="$actinfo.status eq 0">
+		<p style="color:#ff203c;">未发送</p>
+	<elseif condition="$actinfo.status eq 1"/>
+		<p style="color:#ff9b2d;">已发送</p>
+	<elseif condition="$actinfo.status eq 2"/>
+		<p style="color:#44b549;">发送成功</p>
+	<else/>
+		<p style="color:red;">发送失败</p>
+	</if>
+</td>
+<td class="norightborder">
+	<a charset="a_oper" href="{pigcms::U('Message/tosendAll',array('token'=>$token,'id'=>$actinfo['id']))}">
+		<if condition="$actinfo.status eq 0">
+			立即发送
+		<else/>
+			重复发送
+		</if>
+	</a>
+	<a charset="a_oper" href="javascript:preview('{pigcms:$actinfo['id']}');">预览</a>
+	<a charset="a_oper" href="{pigcms::U('Message/del',array('token'=>$token,'id'=>$actinfo['id']))}" onclick="javascript:return confirm('确定要删除吗');">删除</a>
+</td>
+</tr>
+</volist>
+</table>
+
+</div>
+</div>
+<div class="footactions" style="padding-left:10px">
+  <div class="pages">{pigcms:$page}</div>
+</div>
+          </div>
+  
+        </div>
+   
+        <div class="clr"></div>
+      </div>
+    </div>
+  </div> 
+  <!--底部-->
+ </div>
+<script>
+function preview(id){
+	art.dialog.open('?g=User&m=Message&a=preview&id='+id,{lock:true,title:'群发预览',width:600,height:400,yesText:'关闭',background: '#000',opacity: 0.45});
+}
+</script>
+<include file="Public:footer"/>

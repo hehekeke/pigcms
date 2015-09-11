@@ -1,0 +1,69 @@
+<include file="Public:head"/> 
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+        <div class="content">
+<div class="cLineB">
+<h4 class="left">人气榜</h4>
+<a href="{pigcms::U('Popularity/index',array('token'=>$token))}" class="right btnGrayS vm">返回</a>
+<div class="clr"></div>
+</div>
+
+<div class="cLine">
+<div class="pageNavigator left"> <a href="{pigcms::U('Popularity/set',array('token'=>$token))}" title="添加活动" class="btnGrayS vm bigbtn"><img src="{pigcms::RES}/images/product/add.png" width="16" class="vm">添加活动</a></div> 
+<div class="searchbar right" style="padding:10px 0;">
+	<form method="post" action="">
+		人气值搜索：
+		<input type="text" id="msgSearchInput" class="txt" placeholder="大于" name="min" value="" style="height:22px;width:60px;">-
+		<input type="text" id="msgSearchInput" class="txt" placeholder="小于" name="max" value="" style="height:22px;width:60px;">
+		<input type="submit" value="搜索" id="msgSearchBtn" href="" class="btnGrayS" title="搜索">
+	</form>
+</div>
+<div class="clr"></div>
+</div>
+<div class="msgWrap">
+<form method="post" action="" id="info">
+<input name="delall" type="hidden" value="">
+<input name="wxid" type="hidden" value="">
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<thead>
+<tr>
+<th width="160">排名</th>
+<th width="160">姓名</th>
+<th width="160">昵称</th>
+<th width="160">手机号码</th>
+<th width="100">人气值</th>
+<th width="150">加入时间</th>
+<th width="160" class="norightborder">操作</th>
+</tr>
+</thead>
+<tbody>
+<tr></tr>
+<volist name="list" id="item" key="key"> 
+<tr>
+<td>{pigcms:$key}</td>
+<td>{pigcms:$item.username}</td>
+<td>{pigcms:$item.nickname}</td>
+<td>{pigcms:$item.mobile}</td>
+<td>{pigcms:$item.share_count}点</td>
+<td>{pigcms:$item.add_time|date="Y-m-d H:i:s",###}</td> 
+<td class="norightborder">
+<!-- 	<if condition="$item.status eq 0">
+	<a href="{pigcms::U('Popularity/is_ok',array('id'=>$item['id'],'token'=>$token))}" onclick="javascript:return confirm('确定兑奖完成吗');">确认兑奖</a>
+</if> -->
+	<a href="javascript:drop_confirm('您确定要删除吗?', '{pigcms::U('Popularity/log_del',array('id'=>$item['id'],'token'=>$token))}');">删除</a>
+
+</td>
+</tr>
+</volist>
+</tbody>
+</table>
+</form>
+
+</div>
+<div class="cLine">
+<div class="pageNavigator right">
+<div class="pages">{pigcms:$page}</div>
+</div>
+<div class="clr"></div>
+</div>
+</div>
+<include file="Public:footer"/>

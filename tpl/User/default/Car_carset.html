@@ -1,0 +1,100 @@
+<include file="Public:head"/>
+<include file="Car:menu"/>
+<link rel="stylesheet" type="text/css" href="{pigcms::Common}/default_user_com.css" media="all">
+<script src="{pigcms::RES}/js/select/js/jquery.js"></script>
+<script src="{pigcms::RES}/js/select/js/comm.js"></script>
+<script src="{pigcms::RES}/js/select/js/linkagesel-min.js"></script>
+<script src="{pigcms::STATICS}/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="{pigcms::STATICS}/artDialog/plugins/iframeTools.js"></script>
+
+<style>
+
+  .maroon{ color: red;
+  }
+</style>
+<div class="content">
+<div class="cLineB">
+  <h4>汽车回复配置</h4><!--a href="javascript:history.go(-1);return false;" class="right btnGrayS vm" style="margin-top:-27px">返回</a-->
+ </div>
+ <!--tab start-->
+
+<!--tab end-->
+    <div class="msgWrap bgfc" style="margin-top:10px;">
+      <form class="form" method="post" action="" target="_top" enctype="multipart/form-data"><table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%"><tbody>
+                <tr>
+                    <th width="120">触发关键词：</th>
+                    <td> <input type="text" name="keyword" id="keyword"  class="px"  data-rule-maxlength="60" value="{pigcms:$carset['keyword']|default='汽车'}"/>
+                    <span class="maroon">*</span>
+                    <span class="help-inline">如：汽车 或者 微汽车</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th width="120">图文标题：</th>
+                    <td>
+                         <input type="text" name="title" id="title" value="{pigcms:$carset['title']}" class="px" />
+                         <span class="maroon">* 图文封面标题</span>
+                     </td>
+                </tr>
+
+                 <tr>
+                    <th width="120">标题图片：</th>
+                    <td>
+                     <p>
+                         <img class="thumb_img" id="head_url_src" src="{pigcms:$carset['head_url']|default='tpl/User/default/common/car/car_title.jpg'}"  style="max-height:100px;">
+                         <input type="input" class="px" id="head_url" value="{pigcms:$carset['head_url']|default='tpl/User/default/common/car/car_title.jpg'}"  name="head_url" >
+
+                         <span class="help-inline">
+                              <script src="{pigcms::STATICS}/upyun.js"></script><a href="###" onclick="upyunPicUpload('head_url',365,158,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('head_url')">预览</a>
+                              <span class="help-inline">建议图片尺寸365*158，图片大小不超过300K</span>
+                         </span>
+                     </p>
+                    </td>
+                </tr>
+                <tr>
+                    <th width="120">图文外链:</th>
+                    <td>
+                      <input type="text" name="url" id="url" value="{pigcms:$carset['url']}" class="px"  />
+                    <span class="help-block"><font color='red'>请在输入框左侧选择或这里填写网址(例如：http://baidu.com，必须有http://)</font></span>
+                    </td>
+                </tr>
+
+
+<TR>
+  <TH valign="top"><label for="keyword"><font color="red">首页模板：</font></label></TH>
+  <TD>
+
+
+    <input type="text" id="selecttpl" class="px" value="已选择模板 {pigcms:$carset['tpid']|default=23}" disabled size="40"  />
+    <a class="a_upload" onclick="chooseTpl('tpid','selecttpl',1)">选择模板</a>
+    <a class="a_upload" onclick="viewTpl()">预览</a> [请注意,并不是所有模板都支持,如果发现所选模板显示不正确,请另换一个]
+    <script>
+        function viewTpl(){
+            var tid = $('#tpid').val();
+            chooseTpl(tid,'',2);
+        }
+    </script>
+    <input type="hidden" class="px" id="tpid" value="{pigcms:$carset['tpid']|default=23}" name="tpid" style="width:250px">
+  </TD>
+  <TD>
+    &nbsp;
+  </TD>
+</TR>				
+                  <tr>
+                    <td>
+                    <if condition="$carset['id'] neq ''">
+                    <input type="hidden" name="id" value="{pigcms:$carset['id']}" />
+                    <input type="hidden" name="status" value="editstatus" />
+
+                    </if>
+                      <input type="hidden" name="token" value="{Pigcms:$token}" />
+                        <button type="submit" name="button" class="btnGreen">保存</button>
+                        <a href="javascript:history.go(-1);" class="btnGray vm">取消</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+  </div>
+
+        </div>
+<include file="Public:footer"/>

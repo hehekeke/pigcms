@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta content="telephone=no" name="format-detection">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>我的订单</title>
+		<link href="{pigcms:$staticPath}/tpl/static/bargain/css/global.css" rel="stylesheet" type="text/css" />
+		<link href="{pigcms:$staticPath}/tpl/static/bargain/css/global2.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="{pigcms:$staticPath}/tpl/static/bargain/js/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="{pigcms:$staticPath}/tpl/static/bargain/js/global.js"></script>
+		<link href="{pigcms:$staticPath}/tpl/static/bargain/css/bargain.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="{pigcms:$staticPath}/tpl/static/bargain/js/bargain.js"></script>
+		<link href="{pigcms:$staticPath}/tpl/static/bargain/css/idangerous.swiper.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="{pigcms:$staticPath}/tpl/static/bargain/js/idangerous.swiper-1.9.1.min.js"></script>
+	</head>
+	<body>
+		<div id="member_menu">
+			我的订单
+			<a href="{pigcms::U('Bargain/my',array('token'=>$token))}" class="account"><img src="{pigcms:$staticPath}/tpl/static/bargain/images/bargain/back.png"></a>
+			<a href="{pigcms::U('Bargain/home',array('token'=>$token))}" class="home"><img src="{pigcms:$staticPath}/tpl/static/bargain/images/bargain/home_icon.png"></a>
+		</div>
+		<div class="member_menu_blank"></div>
+		<div id="activity_list">
+			<?php foreach($order_list as $vo){?>
+			<div class="items" id="order<?php echo $vo['orderid'];?>">
+				<div class="cont">
+					<div class="img" style="overflow:hidden;"><a href="<?php echo U("Bargain/index",array("token"=>$token,"id"=>$vo['bargain_id']));?>"><img src="<?php echo $vo['bargain_logoimg'];?>" alt=""></a></div>
+					<div class="info">
+						<div class="name"><a href="<?php echo U("Bargain/index",array("token"=>$token,"id"=>$vo['bargain_id']));?>"><?php echo $vo['bargain_name'];?></a></div>
+						<div class="price">底价:<span class="pd_r5"><i>￥</i><?php echo $vo['bargain_minimum'];?></span>原价:<span><i>￥</i><?php echo $vo['bargain_original'];?></span></div>
+						<div class="price">购买价:<span class="pd_r5"><i>￥</i><?php echo $vo['price'];?></span></div>
+					</div>
+				</div>
+				<?php if($vo['state'] == 0){?>
+				<div class="countdown"><font class="stock">订单号：<?php echo 10000000+$vo['orderid'];?></font>状态：未发货</div>
+				<?php }else{?>
+				<div class="countdown"><font class="stock">订单号：<?php echo 10000000+$vo['orderid'];?></font>状态：已发货</div>
+				<?php }?>
+			</div>
+			<?php }?>
+		</div>
+		<footer>
+			<ul>
+				<li><a href="{pigcms::U('Bargain/home',array('token'=>$token,'type'=>'0'))}">全部</a></li>
+				<li><a href="{pigcms::U('Bargain/home',array('token'=>$token,'type'=>'1'))}">最新</a></li>
+				<li><a href="{pigcms::U('Bargain/home',array('token'=>$token,'type'=>'2'))}">最热</a></li>
+				<li class="hover"><a href="{pigcms::U('Bargain/my',array('token'=>$token))}">我的</a></li>
+			</ul>
+		</footer>
+	</body>
+</html>

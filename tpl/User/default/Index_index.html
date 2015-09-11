@@ -1,0 +1,197 @@
+<include file="Index:header"/>
+<script src="/tpl/static/jquery-1.4.2.min.js"></script>
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<link rel="stylesheet" type="text/css" href="{pigcms::Common}/default_user_com.css" media="all">
+<script language="JavaScript">
+if (window.top != self){
+  window.top.location = self.location;
+}
+</script>
+<script>
+function addFee(){
+  art.dialog.open('?g=User&m=Alipay&a=add',{lock:true,title:'充值续费',width:600,height:400,yesText:'关闭',background: '#000',opacity: 0.45});
+}
+function showApiInfo(id,name){
+  art.dialog.open('?g=User&m=Index&a=apiInfo&id='+id,{lock:true,title:name+'接口信息',width:830,height:270,yesText:'关闭',background: '#000',opacity: 0.45});
+}
+</script>
+<div class="content">
+<div class="usercontent">
+
+<ul>
+
+  <li class="addli">
+    <a class="addwx" style="background-color:#7CBAE5" title="添加公众号" href="#" onclick="addWeixin()">绑定公众号</a>
+
+  </li>
+
+  <li>
+    <a onclick="addFuwu()" title="绑定服务窗" class="goldbuy" href="#" style="background-color:#79CBE5">绑定服务窗</a>
+  </li>
+  
+  <li class="addli">
+    <a class="addbiz" title="添加企业号" onclick="addbiz()" href="#" style="background-color:#66D2C6">添加企业号</a>
+  </li>
+  
+  <li>
+    <a href="index.php?g=User&m=Alipay&a=index" class="gold" title="查看资金" style="background-color:#60D295" >
+      <p><strong>账户余额：</strong>{pigcms:$thisUser.moneybalance}</p>
+      <p>点击充值</p>
+    </a>
+  </li>
+
+  <li>
+  <a href="###">
+    <div class="qqqun" style="background-color:#4CC15D">
+      <div class="qt">官方QQ号</div>
+      <div class="qt2">{pigcms:$f_qq}</div>
+    </div>
+  </a>
+  </li>
+
+
+<script type="text/javascript">
+  function addbiz(){
+    <if condition="C('open_biz') eq 0">
+      alert('请联系站长在后台开启企业号');
+    <else />
+      location.href="{pigcms::U('Index/add',array('biz'=>1))}";
+    </if>
+  }
+
+  function addFuwu(){
+     <eq name="hasFuwu" value="0">
+        alert('您不可以使用服务窗功能，请联系您的网站管理员处理');
+     <else />
+        location.href="{pigcms::U('Index/add',array('token'=>$token,'goldbuy'=>1))}";
+     </eq>
+  }
+
+  function addWeixin(){
+    <eq name="hasWeixin" value="0">
+      alert('您不可以使用此功能，请联系您的网站管理员处理');
+    <else />
+         <if condition="$oauthUrl eq ''">
+            location.href="{pigcms::U('Index/add')}";
+          <else />
+             location.href="{pigcms:$oauthUrl}";
+         </if>
+    </eq>
+  }
+</script>
+
+<div class="clr"></div>
+</ul>
+
+
+        <div class="clr"></div>
+      </div>
+          <div class="msgWrap">
+            <TABLE class="ListProduct" border="0" cellSpacing="0" cellPadding="0" width="100%">
+              <THEAD>
+                <TR>
+                  <TH>公众号名称</TH>
+                  <TH style="text-align:center">VIP等级</TH>
+                  <TH>创建时间/到期时间</TH>
+                   <TH>已定义/上限</TH>
+                   <TH>请求数</TH>
+                  <TH>操作</TH>
+                </TR>
+              </THEAD>
+              <TBODY>
+                <TR></TR>                
+                 <volist name="info" id="vo"> 
+          <TR>
+            <TD>
+				<?php if($vo['qr'] == ""){?>
+				<p><a href="{pigcms::U('Function/index',array('id'=>$vo['id'],'token'=>$vo['token']))}" ><img src="{pigcms:$vo.headerpic}" width="40" height="40"></a></p><br><p style="float:left;margin-top:-15px;<?php if($vo['error'] != 0){echo "color:red";}?>" >{pigcms:$vo.wxname}</p>
+				<?php }else{?>
+				<p><a href="{pigcms::U('Function/index',array('id'=>$vo['id'],'token'=>$vo['token']))}" ><div class="cateimg"><img src="{pigcms:$vo.headerpic}" width="40" height="40" style="width:40px;height:40px" class="cateimg_small"><img src="{pigcms:$vo.qr}" class="cateimg_big"  /></div></a></p><br><br><br><p style="float:left;margin-top:-15px;<?php if($vo['error'] != 0){echo "color:red";}?>">{pigcms:$vo.wxname}</p>
+				<?php }?>
+			</TD>
+			<TD align="center">{pigcms:$thisGroup.name}</TD>
+            <TD><p>创建时间:{pigcms:$vo.createtime|date="Y-m-d",###}</p><p>到期时间:{pigcms:$viptime|date="Y-m-d",###}</p><p><a href="###" onclick="addFee()" id="smemberss" class="green"><em>升级vip续费</em></a></p></Td>
+            <TD><p>图文：<php>echo $_SESSION['diynum'].'/'.$group[$_SESSION['gid']]['did'];</php></p></TD>
+             <TD><p>总请求数:<php>echo $_SESSION['connectnum']</php></p><p> 本月请求数:<php>echo $group[$_SESSION['gid']]['cid'];</php></p></TD>
+            
+            <TD class="norightborder">　
+    
+      <a href="{pigcms::U('Index/edit',array('id'=>$vo['id']))}<if condition='$vo.ifbiz eq 1'>&biz=1</if><if condition='$vo.goldbuy neq ""'>&goldbuy=1</if>">编辑</a>
+      <a  href="javascript:drop_confirm('您确定要删除吗?', '{pigcms::U('Index/del',array('id'=>$vo['id']))}');">删除</a>
+          <if condition='$vo.ifbiz eq 1'>
+            <a target="_blank" href="{pigcms::U('Index/qiye',array('id'=>$vo['id']))}" class="btnGreens" >功能管理</a>
+            <a target="_blank" href="{pigcms::U('Index/qiye',array('id'=>$vo['id']))}" class="btnGreens" >企业号</a>
+          <else />
+	<?php if($vo['qr'] != '' || $topdomain == 'pigcms.cn' || $vo['fuwuappid'] != ''){?>
+      <a <if condition="$usertplid eq 1">href="{pigcms::U('Function/welcome',array('id'=>$vo['id'],'token'=>$vo['token']))}" <else />href="{pigcms::U('Function/index',array('id'=>$vo['id'],'token'=>$vo['token']))}" </if>class="btnGreens" >功能管理</a>
+    <?php }else{?>
+      <a href="javascript:alert('请上传您的公众号二维码！');window.location.href='<?php echo U("User/Index/edit",array('id'=>$vo['id']));?>'" class="btnGreens" >功能管理</a>
+    <?php }?>
+      <a onclick="showApiInfo({pigcms:$vo.id},'{pigcms:$vo.wxname}')" href="###" class="btnGreens" >API接口</a>
+      
+      <if condition="$vo.type eq 1 and $oauthUrl neq ''">
+        <if condition="$vo.authorizer_refresh_token eq ''">
+          <a href="{pigcms:$oauthUrl}%26ac_id%3D{pigcms:$vo.id}" class="btnGreens">重新授权</a>
+        </if>
+      <elseif condition="$vo.type eq 0 and $oauthUrl neq '' and $vo.fuwuappid neq ''"/>
+        <a href="{pigcms:$oauthUrl}%26ac_id%3D{pigcms:$vo.id}" class="btnGreens">登陆授权</a>
+      </if>
+          </if>
+
+            </TD>
+          </TR>
+                  </volist>
+
+              </TBODY>
+            </TABLE>
+            
+          </div>
+          <br>
+          <pigcmsif where="$demo eq 1">
+          <div class="alert">
+          <p><b>欢迎试用小猪CMS微信多用户营销系统，为了您测试方便，我们已经自动创建了公众号并填充了各类数据，您只需要按照下面步骤操作即可进行测试：</b></p>
+          <p>1、<a href="{pigcms::U('Index/edit',array('id'=>$wxinfo['id']))}">点击这里修改您的公众号信息</a></p>
+          <p>2、登录您的微信公众平台，按照说明绑定您的微信公众号(<a href="{pigcms::U('User/Index/bindHelp',array('id'=>$wxinfo['id'],'token'=>$wxinfo['token']))}" target="_blank">点击这里查看帮助说明</a>)</p>
+          <p>3、如果您需要测试自定义菜单功能，请<a href="{pigcms::U('Function/index',array('id'=>$wxinfo['id'],'token'=>$wxinfo['token']))}">进入功能管理</a>，然后生成自定义菜单，重新关注公众号就会看到自定义菜单了</p>
+          <p>就这些，如果碰到任何问题，请您给我们留言，QQ：800022936</p>
+          </div>
+          </pigcmsif>
+          <div class="cLine">
+            <div class="pageNavigator right">
+              <div class="pages">{pigcms:$page}</div>
+            </div>
+            <div class="clr"></div>
+          </div>
+        </div>
+        
+        <div class="clr"></div>
+      </div>
+    </div>
+  </div>
+  <!--底部-->
+    </div>
+    <!--ad start-->
+    <pigcmsif where="$thisAD">
+    <div id="ad1" style="width: 100%; height: 100%; position: fixed; z-index: 1997; top: 0px; left: 0px; overflow: hidden;"><div style="height: 100%; background: none repeat scroll 0% 0% rgb(0, 0, 0); opacity: 0.65;filter:alpha(opacity=65);">
+    
+    </div></div>
+    <div id="ad2" style="position:fixed; text-align:center; width:100%; top:140px; z-index:30001">
+    <a href="<?php if ($thisAD['url']){?>{pigcms:$thisAD.url}<?php }else{?>###<?php };?>" target="_blank"><img src="{pigcms:$thisAD.imgs}" /></a>
+    </div>
+    <div id="ad3" style="position:fixed; text-align:center; width:100%; top:140px;z-index:30012; background:#f80; opacity:0;filter:alpha(opacity=0);">
+    <div style="height:40px;width:700px;margin:0 auto;z-index:30012;">
+    <div onclick="closeAD()" style="height:45px;width:45px;margin:0 0 0 655px;cursor:pointer;"></div>
+    </div>
+    </div>
+    <script>
+    function closeAD(){
+      $('#ad1').animate({opacity: "hide"}, "slow");
+      $('#ad2').animate({opacity: "hide"}, "slow");
+      $('#ad3').animate({opacity: "hide"}, "slow");
+      $.ajax({url: "/index.php?g=User&m=Index&a=closeAD",dataType: "json"});
+    }
+    </script>
+    </pigcmsif>
+    <!--ad end-->
+<include file="Public:footer"/> 

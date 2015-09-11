@@ -1,0 +1,90 @@
+<style>
+	#tags ul {
+	  display: none;
+	  position: absolute;
+	  margin-top: 39px;
+	  min-width: 160px;
+	  padding: 0 0 5px;
+	  background: #fff;
+	  border: 1px solid #dadada;
+	  border-top: 0;
+	  border-radius: 0 0 3px 3px;
+	  -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.04);
+	  box-shadow: 0 0 1px rgba(0, 0, 0, 0.04);
+	}
+	#tags ul.large{
+		min-width: 120px;
+	}
+	#tags ul.large li:first-child{
+		border-top:none;
+	}
+	#tags ul.large li{
+		float:none;
+		background:none;
+		margin: 0 10px;
+		border-top: 1px solid #eee;
+	}
+	#tags ul.large a{
+		padding:0px;
+		width:100%;
+		text-align:center;
+		background:none;
+		COLOR: #999;
+	}
+	#tags LI.hove,#tags ul.large li.hove,#tags ul.large li.selectTag{
+		BACKGROUND-POSITION: left top;
+		MARGIN-BOTTOM: -2px;
+		POSITION: relative;
+		HEIGHT: 40px; 
+	}
+	#tags .hove a,#tags ul.large li.hove,#tags ul.large li.selectTag{
+		COLOR: #000;
+		BACKGROUND-POSITION: right top;
+		COLOR: #000;
+		LINE-HEIGHT: 40px;
+		HEIGHT: 40px;
+	}
+	#tags .hove,#tags ul.large li.hove,#tags ul.large li.selectTag{
+		background:#EEEEEE;
+	}
+</style>
+<div class="msgWrap form">
+	<ul id="tags" style="width:100%">
+		<li <pigcmsif where="$catid eq 0">class="hove"</pigcmsif>>
+			<a href="?g=User&m=Card&a=cardLibrary">全部</a>
+		</li>
+	<volist id="list" name="cats">
+		<li <pigcmsif where="$catid eq $list['cid'] OR $topid eq $list['cid']">class="hove"</pigcmsif>>
+			<a href="?g=User&m=Card&a=cardLibrary&catid={pigcms:$list.cid}">{pigcms:$list.title}</a>
+			<pigcmsif where="$list['down']">
+				<ul class="large">
+					<volist id="aot" name="list['down']">
+						<li <pigcmsif where="$catid eq $aot['cid']">class="hove"</pigcmsif>><a href="?g=User&m=Card&a=cardLibrary&catid={pigcms:$aot.cid}">{pigcms:$aot.title}</a></li>
+					</volist>
+				</ul>
+			</pigcmsif>
+		</li>
+	</volist>
+		<div class="clr" style="height:1px;background:#eee;margin-bottom:20px;"></div>
+	</ul>
+</div>
+<script>
+	$(function(){
+		$('#tags').find('li').mouseover(function(){
+			$(this).toggleClass('selectTag');
+			if($(this).find('.large').size() > 0){
+				$(this).find('.large').show();
+			}
+		}).mouseout(function(){
+			$(this).toggleClass('selectTag');
+			if($(this).find('.large').size() > 0){
+				$(this).find('.large').hide();
+			}
+		});
+		$('.large').find('li').mouseover(function(e){
+			$(this).addClass('selectTag');
+		}).mouseout(function(e){
+			$(this).removeClass('selectTag');
+		});
+	});
+</script>

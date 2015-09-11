@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title> 微信公众平台源码,微信机器人源码,微信自动回复源码 PigCms多用户微信营销系统</title>
+<meta http-equiv="MSThemeCompatible" content="Yes" />
+<script src="{pigcms::STATICS}/jquery-1.4.2.min.js" type="text/javascript"></script>
+<link href="{pigcms::RES}/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body id="nv_member">
+<div style="text-align: center; margin-top: 20px;">
+	<if condition="$wxuser['winxintype'] eq 3">
+		<php>
+		if(!empty($erweima['code_url'])){
+		 echo '<img src="https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket='.$erweima['code_url'].'" style="width: 250px;height: 250px">&nbsp;&nbsp;&nbsp;<span><a href="'.U('Repast/DownWxewm', array('token' => $token,'cid' => $cid,'ticket'=>$erweima['code_url'])).'" class="red">下载二维码</a></span>';
+		  }else{
+			echo '<span><a href="'.U('Recognition/get_Wxticket', array('token' => $token,'cid' => $cid,'rid'=>$erweima['id'],'tid'=>$erweima['tableid'])).'" class="red" style="font-size: 25px;">点击获取二维码</a></span>';
+		  }
+		</php>
+	<else/>
+	<img src="{pigcms::U('Repast/QRcode', array('token' => $token,'cid' => $cid,'tid'=>$tid))}" style="width: 250px;height: 250px">
+	&nbsp;&nbsp;&nbsp;<span><a href="{pigcms::U('Repast/QRcode', array('token' => $token,'cid' => $cid,'tid'=>$tid,'down'=>1))}" class="red">下载二维码</a></span>
+	</if>
+</div>
+</body>
+</html>

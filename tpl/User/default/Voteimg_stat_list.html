@@ -1,0 +1,81 @@
+<include file="Public:head"/>
+<style>#nub_msg{color:red;}</style>
+<script src="{pigcms:$staticPath}/tpl/static/jquery.min.js" type="text/javascript"></script>
+<div class="content">
+<div class="cLineB">
+<a href="{pigcms::U('Voteimg/banner_manage',array('token'=>$token,'vote_id'=>$vote_id))}" class="btnGrayS vm bigbtn">横幅管理</a> <a href="{pigcms::U('Voteimg/stat_list',array('token'=>$token,'vote_id'=>$vote_id))}" class="btnGrayS vm bigbtn">统计栏管理</a> <a href="{pigcms::U('Voteimg/menu_list',array('token'=>$token,'vote_id'=>$vote_id))}" class="btnGrayS vm bigbtn">菜单管理</a> <a href="{pigcms::U('Voteimg/bottom_list',array('token'=>$token,'vote_id'=>$vote_id))}" class="btnGrayS vm bigbtn">底部管理</a>
+<a href="{pigcms::U('Voteimg/apply_list',array('token'=>$token,'vote_id'=>$vote_id))}" class="btnGrayS vm bigbtn">报名管理</a>
+<a href="{pigcms::U('Voteimg/index',array('token'=>$token))}" class="right btnGrayS vm" style="margin-top:1px">返回投票列表</a>
+</div>
+  <h2> 
+    图文投票-统计管理
+</h2>
+<div class="msgWrap bgfc">
+<form class="form" method="post" action="{pigcms::U('Voteimg/stat_list')}" target="_top" onsubmit="return check_data();">
+<table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%">
+<tbody>
+<tr>
+<th width="55" style="width:55px;">统计参与者：</th>
+<td width="200">
+	<input type="text" style="width:150px" class="px" value="{pigcms:$stat_name.0}" name="stat_name[]"> &nbsp;&nbsp;&nbsp(自定义名称)
+</td>
+</tr>
+<tr>
+<th width="55" style="width:55px;">统计投票数：</th>
+<td width="200">
+	<input type="text" style="width:150px;" class="px" value="{pigcms:$stat_name.1}" name="stat_name[]">&nbsp;&nbsp;&nbsp(自定义名称)
+</td>
+</tr>
+<tr>
+<th width="55" style="width:55px;">统计访问量：</th>
+<td width="200">
+	<input type="text" style="width:150px;" class="px" value="{pigcms:$stat_name.2}" name="stat_name[]">&nbsp;&nbsp;&nbsp(自定义名称)
+</td>
+</tr>
+<tr>
+<th width="55" style="width:55px;">自定义访问量：</th>
+<td width="200">
+	<input type="text" style="width:150px;" class="px" value="{pigcms:$count}" name="nub">&nbsp;&nbsp;&nbsp(手机端访问量=自定义访问量+真实访问量) <span id="nub_msg"></span>
+</td>
+</tr>
+<tr>
+	<th>是否隐藏：</th>
+	<td>
+		<input type="radio" name="stat_hide" value="1" <if condition="$hide eq 1 || $hide eq ''"> checked </if>>否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="radio" name="stat_hide" value="2" <if condition="$hide eq 2"> checked </if>>是
+	</td>
+</tr>
+<input type="hidden" name="vote_id" value="{pigcms:$vote_id}">
+<input type="hidden" name="token" value="{pigcms:$token}">
+<tr>
+<th></th>
+<td><button type="submit" name="button" class="btnGreen sub">保存</button>
+</td>
+</tr>
+</tbody>
+</table>
+</form>
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){
+	$("input[name='nub']").blur(function(){
+		var nub = $("input[name='nub']").val();
+		var reg = /^[0-9]+[0-9]*]*$/;
+		if(!reg.test(nub)){
+			$("#nub_msg").html('请输入整数');
+		}else{
+			$("#nub_msg").html('');
+		}
+	});
+});
+function  check_data(){
+	var nub = $("input[name='nub']").val();
+	var reg = /^[0-9]+[0-9]*]*$/;
+	if(!reg.test(nub)){
+		alert('请输入整数');
+		return false;
+	}
+}
+</script>
+<include file="Public:footer"/>

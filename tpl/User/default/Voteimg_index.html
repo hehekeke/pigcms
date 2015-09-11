@@ -1,0 +1,49 @@
+<include file="Public:head"/>
+<div class="msgWrap form">
+<div class="content">
+<div class="cLineC" style="line-height: 32px;"> 
+<a href="{pigcms::U('Voteimg/add_voteimg',array('token'=>$token,'id'=>$id))}" class="btnGrayS vm bigbtn">添加图片投票</a>  
+</div>
+    <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+	<thead>
+	<tr>
+	  <th style="width:10%;">活动标题</th>
+	  <th style="width:10%;">回复关键词</th>
+	  <th style="width:13%;">活动开始结束时间</th>
+	  <th style="width:13%;">报名开始结束时间</th>
+	  <th style="width:14%;">活动状态</th>
+	</th>
+	<th>操作</th>
+	</tr>
+	</thead>
+	<volist name="list" id="vo">
+	  <tbody><tr>
+		  <td>{pigcms:$vo.action_name}</td>
+		  <td>{pigcms:$vo.keyword}</td>
+		  <td>{pigcms:$vo.start_time|date="Y-m-d H:i",###}<br>{pigcms:$vo.end_time|date="Y-m-d H:i",###}</td>
+		  <td>{pigcms:$vo.apply_start_time|date="Y-m-d H:i",###}<br>{pigcms:$vo.apply_end_time|date="Y-m-d H:i",###}</td>
+		  <td>
+		  <php>if($_SERVER['REQUEST_TIME'] > $vo['apply_start_time'] && $_SERVER['REQUEST_TIME'] < $vo['apply_end_time']){ echo '<span style="color:green">报名期</span>';}else{ echo '<span style="color:red">非报名期</span>';}</php>
+		  /
+		  <php>if($_SERVER['REQUEST_TIME'] > $vo['start_time'] && $_SERVER['REQUEST_TIME'] < $vo['end_time']){ echo '<span style="color:green">活动期</span>';}else{ echo '<span style="color:red">非活动期</span>';}</php>
+		  </td>
+		  <td class="norightborder">
+		  <a href="{pigcms::U('Voteimg/item_list',array('vote_id'=>$vo['id'],'token'=>$token))}" class="btnGreen">投票选项</a>
+		  <a href="{pigcms::U('Voteimg/banner_manage',array('vote_id'=>$vo['id'],'token'=>$token))}" class="btnGreen">横幅管理</a>
+		  <a href="{pigcms::U('Voteimg/stat_list',array('vote_id'=>$vo['id'],'token'=>$token))}" class="btnGreen">统计栏管理</a>
+		  <a href="{pigcms::U('Voteimg/menu_list',array('vote_id'=>$vo['id'],'token'=>$token))}" class="btnGreen">菜单管理</a>
+		  <a href="{pigcms::U('Voteimg/bottom_list',array('vote_id'=>$vo['id'],'token'=>$token))}" class="btnGreen">底部管理</a>
+		  <a href="{pigcms::U('Voteimg/apply_list',array('vote_id'=>$vo['id'],'token'=>$token))}" class="btnGreen">报名管理</a>
+		 <a href="{pigcms::U('Voteimg/vote_log',array('vote_id'=>$vo['id'], 'token'=>$token))}" class="btnGreen">查看投票记录</a>
+		  <a href="{pigcms::U('Voteimg/add_voteimg',array('id'=>$vo['id'],'token'=>$token))}" class="btnGreen">编辑</a>
+		  <a href="{pigcms::U('Voteimg/action_del',array('id'=>$vo['id'],'token'=>$token))}" onclick="return(confirm('确定要删除吗？'))" class="btnGreen">删除</a> </td>
+		</tr>
+	  </tbody>
+	</volist> 
+	</table>
+	<div class="footactions" style="padding-left:10px">
+	  <div class="pages" style="text-align:right;"> {pigcms:$page}</div>
+	</div>
+    </div>
+  </div>
+<include file="Public:footer"/>

@@ -1,0 +1,165 @@
+<include file="Public:head"/>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script>
+<script>
+//餐饮商城团购外卖
+$(document).ready(function(){
+
+});
+</script>
+<form class="form" method="post"   action=""  target="_top" enctype="multipart/form-data">
+	<div class="content">
+		<div class="cLineB">
+			<h4 class="left">我的设置</h4>
+		</div>
+		<div class="msgWrap bgfc">
+			<table class="userinfoArea" style=" margin:0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+				<tbody>
+					<tr>
+						<th>【我的餐饮】</th>
+					</tr>
+					<tr><th></th></tr>
+					<tr>
+						<th>是否显示：</th>
+						<td>
+							<input class="radio" type="radio" id="cy_display1" name="display_cy" value="1" <?php if($my['cy']['display'] == 1){echo "checked";}?>><label for="cy_display1">显示<label>
+							&nbsp;&nbsp;&nbsp;
+							<input class="radio" type="radio" id="cy_display0" name="display_cy" value="0" <?php if($my['cy']['display'] == 0){echo "checked";}?>><label for="cy_display0">不显示<label>
+						</td>
+					</tr>
+					<tr>
+						<th>我的餐饮标题：</th>
+						<td>
+							<input type="input" class="px" id="title_cy"  name="title_cy" value="<?php echo $my['cy']['title'];?>"  style="width:250px"/>
+						</td>
+					</tr>
+					<tr>
+						<th>我的餐饮图标：</th>
+						<td>
+							<img  id="img_cy_src" src="<?php echo $my['cy']['img'];?>"  width="114px"/> <br />
+							<input type="input" class="px" id="img_cy"  name="img_cy" value="<?php echo $my['cy']['img'];?>"  style="width:250px"/>
+							<a href="###" onclick="upyunPicUpload('img_cy',114,114,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('img_cy')">预览</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<div class="cLineB"></div>
+		<div class="msgWrap bgfc">
+			<table class="userinfoArea" style=" margin:0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+				<tbody>
+					<tr>
+						<th>【我的商城】</th>
+					</tr>
+					<tr><th></th></tr>
+					<tr>
+						<th>是否显示：</th>
+						<td>
+							<input class="radio" type="radio" id="sc_display1" name="display_sc" value="1" <?php if($my['sc']['display'] == 1){echo "checked";}?>><label for="sc_display1">显示<label>
+							&nbsp;&nbsp;&nbsp;
+							<input class="radio" type="radio" id="sc_display0" name="display_sc" value="0" <?php if($my['sc']['display'] == 0){echo "checked";}?>><label for="sc_display0">不显示<label>
+						</td>
+					</tr>
+					<tr>
+						<th>我的商城标题：</th>
+						<td>
+							<input type="input" class="px" id="title_sc"  name="title_sc" value="<?php echo $my['sc']['title'];?>"  style="width:250px"/>
+						</td>
+					</tr>
+					<tr>
+						<th>我的商城图标：</th>
+						<td>
+							<img  id="img_sc_src" src="<?php echo $my['sc']['img'];?>"  width="114px"/> <br />
+							<input type="input" class="px" id="img_sc"  name="img_sc" value="<?php echo $my['sc']['img'];?>"  style="width:250px"/>
+							<a href="###" onclick="upyunPicUpload('img_sc',114,114,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('img_sc')">预览</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<div class="cLineB"></div>
+		<div class="msgWrap bgfc">
+			<table class="userinfoArea" style=" margin:0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+				<tbody>
+					<tr>
+						<th>【我的团购】</th>
+					</tr>
+					<tr><th></th></tr>
+					<tr>
+						<th>是否显示：</th>
+						<td>
+							<input class="radio" type="radio" id="tg_display1" name="display_tg" value="1" <?php if($my['tg']['display'] == 1){echo "checked";}?>><label for="tg_display1">显示<label>
+							&nbsp;&nbsp;&nbsp;
+							<input class="radio" type="radio" id="tg_display0" name="display_tg" value="0" <?php if($my['tg']['display'] == 0){echo "checked";}?>><label for="tg_display0">不显示<label>
+						</td>
+					</tr>
+					<tr>
+						<th>我的团购标题：</th>
+						<td>
+							<input type="input" class="px" id="title_tg"  name="title_tg" value="<?php echo $my['tg']['title'];?>"  style="width:250px"/>
+						</td>
+					</tr>
+					<tr>
+						<th>我的团购图标：</th>
+						<td>
+							<img  id="img_tg_src" src="<?php echo $my['tg']['img'];?>"  width="114px"/> <br />
+							<input type="input" class="px" id="img_tg"  name="img_tg" value="<?php echo $my['tg']['img'];?>"  style="width:250px"/>
+							<a href="###" onclick="upyunPicUpload('img_tg',114,114,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('img_tg')">预览</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<div class="cLineB"></div>
+		<div class="msgWrap bgfc">
+			<table class="userinfoArea" style=" margin:0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+				<tbody>
+					<tr>
+						<th>【我的外卖】</th>
+					</tr>
+					<tr><th></th></tr>
+					<tr>
+						<th>是否显示：</th>
+						<td>
+							<input class="radio" type="radio" id="wm_display1" name="display_wm" value="1" <?php if($my['wm']['display'] == 1){echo "checked";}?>><label for="wm_display1">显示<label>
+							&nbsp;&nbsp;&nbsp;
+							<input class="radio" type="radio" id="wm_display0" name="display_wm" value="0" <?php if($my['wm']['display'] == 0){echo "checked";}?>><label for="wm_display0">不显示<label>
+						</td>
+					</tr>
+					<tr>
+						<th>我的外卖标题：</th>
+						<td>
+							<input type="input" class="px" id="title_wm"  name="title_wm" value="<?php echo $my['wm']['title'];?>"  style="width:250px"/>
+						</td>
+					</tr>
+					<tr>
+						<th>我的外卖图标：</th>
+						<td>
+							<img  id="img_wm_src" src="<?php echo $my['wm']['img'];?>"  width="114px"/> <br />
+							<input type="input" class="px" id="img_wm"  name="img_wm" value="<?php echo $my['wm']['img'];?>"  style="width:250px"/>
+							<a href="###" onclick="upyunPicUpload('img_wm',114,114,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('img_wm')">预览</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="cLineB"></div>
+		<div class="msgWrap bgfc">
+			<table class="userinfoArea" style=" margin:0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+				<tbody>
+					<tr>
+						<th>&nbsp;</th>
+						<td>
+							<button type="submit" class="btnGreen" >保存</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</form>
+<include file="Public:footer"/>

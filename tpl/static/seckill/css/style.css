@@ -1,0 +1,101 @@
+@charset "utf-8";
+/* CSS Document */
+*{font:normal 12px/100% "微软雅黑",sans-serif}
+ul,ol,li {list-style:none}
+h1,h2,h3,h4,h5,form,div,p,i,ul,li,ol,body,dd,dl,dt,input,table,th,td,thead,tbody{margin:0; padding:0}
+img{border:0}
+a{text-decoration:none;color:#000}
+a:hover{text-decoration:none;}
+div,p{display:block}
+form{background:0;border:0; padding:0; margin:0}
+html,body{width:100%;height:100%; background-color:#fcfcfc;}
+img{ display:block;}
+
+.nav{ width:100%; background-color:#21292c; line-height:44px; overflow:hidden}
+.nav .nav_back{ float:left; margin-left:8.1%; width:3.75%; margin-top:10px;}
+.nav .nav_more{ float:right; margin-right:8.1%; width:1.09%; margin-top:14px;}
+.nav h1{ font-size:16px; color:rgba(255,255,255,1.00);
+float:left; width:78.12%; text-align:center; line-height:44px; margin:0 auto;} 
+.banner{ clear:both;}
+
+.time{ width:90.6%; margin:0 auto; border:1px solid #cccccc; border-radius: 5px;
+margin-top:15px; padding-top:15px; height:150px; background-color:#fff;}
+.time h1{ text-align:center;}
+.time_1{font-size:12px; color:#666; margin-bottom:7px;}
+.time_2{font-size:13px; color:#4c4c4c; margin-bottom:13px;}
+.time_3{font-size:25px; color:#ff0000; padding-bottom:23px;
+border-bottom:1px solid #cccccc;}
+.time h2{ float:left; margin-left:10%; line-height:18px;
+padding-top:12px; color:#808080;}
+.time_old{ padding-right:5%; border-right:1px solid #cccccc;
+height:43px; color:#808080;}
+.time_old h2 span{color:#288b26;}
+
+.btn{ width:90.6%; margin:0 auto; margin-top:15px;
+ border-radius: 5px; height:35px; 
+ line-height:35px; background-color:#288b26; 
+ color:#fff; font-size:15px; text-align:center;}
+.text{ width:87.6%; margin:0 auto; margin-top:15px;
+  border-radius: 5px; height:30px;
+  line-height:30px; background-color:#fff;
+  color:#4c4c4c; font-size:14px; padding-left:3%;}
+  
+.guize{width:87.6%; margin:0 auto;
+ border:1px solid #cccccc; border-radius: 5px;
+margin-top:15px; height:115px; background-color:#fff; font-size:12px;
+color:#999; padding-left:3%; line-height:15px;}
+.guize div{ font-size:14px !important; color:#666 !important; line-height:44px; }
+
+.product{width:90.6%; margin:15px auto; overflow:hidden;}
+.product li{width:42.96%; border:1px solid #cccccc;
+padding:7px 2.34%; background-color:rgba(255,255,255,1.00);margin-bottom:15px;}
+.product li h3{ margin-top:12px; color:#4c4c4c; font-size:10px;}
+.product li h4{ font-size:15px; color:#787878; margin-top:14px;}
+.product-left{ float:left;}
+.product-right{ float:right;}
+
+
+/*二级页*/
+.clock{ width:90.6%;margin:0 auto; border:1px solid #cccccc; border-radius: 5px;
+margin-top:15px; padding-top:15px; background-color:#fff;}
+.clock_img{ width:90.6%; margin:0 auto;}
+.clock h1{ margin:0 auto;}
+
+.help{width:90.6%;margin:15px auto; 
+border:1px solid #cccccc; border-radius: 5px; 
+background-color:#fff; overflow:hidden;}
+.help img{ float:left; width:10.94%; margin-bottom:10px;
+margin-right:4.06%}
+.help h1{ line-height:30px;
+ border-bottom:1px solid #cccccc;
+ font-size:12px; color:#808080;
+ padding-left:1.87%;}
+ .help div{padding:10px 3.12% 0 3.12%; color:#808080;font-size:12px;
+ overflow:hidden; border-bottom:1px solid #ccc;}
+ .help div h2{ float:right; line-height:24px;
+  }
+ .help div h2 span{ font-size:25px; color:#288b26;}
+ 
+ 
+ .share {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0,0,0,0.7);
+z-index: 9696969;
+}
+ 
+/*三级页*/
+.countdown{width:90.6%;margin:0 auto; border:1px solid #cccccc; border-radius: 5px;
+background-color:#fff; }
+.countdown h1{ font-size:40px; color:#fff; line-height:51px; background-image:url(../images/bg3.png);background-repeat:repeat-x; width:75.62%; margin:0 auto;
+text-align:center; border-radius: 5px; margin-top:24px;}
+.countdown h2{ text-align:center; font-size:12px; color:#999999; margin-top:15px;
+margin-bottom:17px; line-height:17px;}
+.askhelp{width:90.6%;margin:0 auto; border:1px solid #cccccc; border-radius: 5px;
+font-size:12px; color:#fff; background-color:#ff8400; height:35px; text-align:center;
+line-height:35px; margin-top:15px;}
+

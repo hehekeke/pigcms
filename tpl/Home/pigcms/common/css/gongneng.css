@@ -1,0 +1,17 @@
+@charset "utf-8";
+/* CSS Document */
+.banner .zhutu{width:100%;height:300px;position:absolute;left:0px;top:114px; text-align:center;}
+.content{ width:1000px; margin:0 auto; margin-top:60px; margin-bottom:60px;}
+.content .contLt{ width:240px; float:left;}
+.content .contRt{ float:right; width:740px; text-align:center;}
+.content .contRt .chaxun{ font-size:24px; border-bottom:1px solid #e3e3e3; padding-bottom:15px; margin-bottom:20px;}
+.content .contRt .ziduan{ font-size:14px; padding-top:5px;}
+/*********contLt**************/
+.v{float:right;width:19px;height:33px;overflow:hidden;background:url(../images/jiantou_10.png) no-repeat;display:inline-block;}
+.v01{background-position:0 20px;}
+.v02{background-position:0 -13px;}
+.vtitle{height:50px;background:#d5d5d5;line-height:50px;padding-left:20px;font-size:20px;color:#000;font-family:"微软雅黑";cursor:pointer; margin-bottom:2px;}
+.vtitle em{margin:0px 10px 0 0;}
+.clearfix li{ float:left; width:118px; height:40px; text-align:center; margin-bottom:2px; margin-left:1px; margin-right:1px;}
+.vconlist li div{height:100%;line-height:40px;display:block;font-size:14px;color:#1b1b1b;font-family:"微软雅黑"; background:#ebebeb;cursor: pointer;}
+.vconlist li.select div,.vconlist li :hover{color:#fff;text-decoration:none; background:#3caf59;}

@@ -1,0 +1,91 @@
+<include file="Public:head"/>
+<div class="content">
+<div class="cLineB">
+  <h4> 
+    提现管理---添加提现状态
+</h4>
+<a href="{pigcms::U('Micrstore/withdraw')}" class="right btnGrayS vm" style="margin-top:-27px">返回提现列表</a>
+</div>
+<div class="msgWrap bgfc">
+<form class="form" method="post" action="{pigcms::U('Micrstore/edit_withdraw')}">
+<table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%"><tbody>
+<tr>
+<th width="120">开户行：</th>
+<td>{pigcms:$set.opening_bank}</td>
+</tr>
+<tr>
+<th width="120">卡号：</th>
+<td>{pigcms:$set.bank_card}</td>
+</tr>
+<tr>
+<th width="120">开户名：</th>
+<td>{pigcms:$set.bank_card_user}</td>
+</tr>
+<tr>
+<th width="120">提现时间：</th>
+<td>{pigcms:$set.add_time|date='Y-m-d H:i:s',###}</td>
+</tr>
+
+<tr>
+<th width="120">总金额：</th>
+<td>&yen;{pigcms:$set.amount}</td>
+</tr>
+<tr>
+<th width="120">提现人电话：</th>
+<td>{pigcms:$set.tel}</td>
+</tr>
+<tr>
+<th width="120">提现人昵称：</th>
+<td>{pigcms:$set.nickname}</td>
+</tr>
+<tr>
+<th width="120">商户名：</th>
+<td>{pigcms:$set.store}</td>
+</tr>
+<tr>
+<th width="120">商户用户名称：</th>
+<td>{pigcms:$set.user}</td>
+</tr>
+<tr>
+<th width="120">提现状态：</th>
+<td>{pigcms:$set.status}</td>
+</tr>
+<tr>
+<th width="120"><span class="red">*</span>修改状态：</th>
+<td>
+<select name="status">
+<volist name="withdrawal_status" id="vo">
+<option value="{pigcms:$key}" <if condition="$set.status eq $vo"> selected = 'selected'</if>>{pigcms:$vo}</option>
+</volist>
+</select>
+</td>
+</tr>
+<tr>
+<th width="120">备注：</th>
+<td><textarea class="px" id="bak" name="bak" style="width: 300px; height: 120px;"></textarea></td>
+</tr>
+<tr>
+<th>&nbsp;</th>
+<input type="hidden" name="id" value="{pigcms:$set.id}" />
+<input type="hidden" name="token" value="{pigcms:$set.token}" />
+<input type="hidden" name="pigcms_id" value="{pigcms:$set.pigcms_id}" />
+<input type="hidden" name="store_id" value="{pigcms:$set.store_id}" />
+<td><button type="submit" name="button" class="btnGreen sub">保存</button>
+</td>
+</tr>
+</tbody>
+</table>
+</form>
+</div>
+</div>
+<include file="Public:footer"/>
+<script>
+	//左侧高亮
+	$(".ckit").find("li").each(function(){
+	if($.trim($(this).text()) == '提现管理'){
+		$(this).prev().removeClass('selected');
+		$(this).removeClass('subCatalogList');
+		$(this).addClass('selected');
+	}
+});
+</script>

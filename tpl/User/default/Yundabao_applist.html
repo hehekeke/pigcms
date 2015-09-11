@@ -1,0 +1,67 @@
+<include file="Public:head" />
+<link rel="stylesheet" type="text/css" href="{pigcms:$staticPath}/tpl/static/yundabao/css/cymain.css" />
+<div class="content">
+	<div class="cLineB">
+		<h4 class="left">应用列表</h4>
+		<div class="clr"></div>
+	</div>
+	
+	<div class="tab">
+		<ul>
+			<li class="<?php if($_GET['type'] == "" || $_GET['type'] == "0"){?>current <?php }?>tabli" id="tab1"><a href="{pigcms::U('Yundabao/applist',array('token'=>$token,'type'=>'0'))}">所有应用</a></li>
+			<li class="<?php if($_GET['type'] == "1"){?>current <?php }?>tabli" id="tab2"><a href="{pigcms::U('Yundabao/applist',array('token'=>$token,'type'=>'1'))}">未到期应用</a></li>
+			<li class="<?php if($_GET['type'] == "2"){?>current <?php }?>tabli" id="tab3"><a href="{pigcms::U('Yundabao/applist',array('token'=>$token,'type'=>'2'))}">已到期应用</a></li>
+		</ul>
+	</div>
+	
+	<div class="cLineB"></div>
+	
+	<div class="msgWrap">
+		<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+			<thead>
+				<tr>
+					<th width="60px">AppId</th>
+					<th width="60px">图标</th>
+					<th width="60px">名称</th>
+					<th width="60px">版本</th>
+					<th width="60px">版本号</th>
+					<th width="150px">期限</th>
+					<th width="100px">下载</th>
+					<th width="">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="AppList" id="vo">
+					<tr>
+						<td>{pigcms:$vo.AppId}</td>
+						<td><img src="{pigcms:$vo.IconUrl}" width="100%" /></td>
+						<td>{pigcms:$vo.AppName}</td>
+						<td>{pigcms:$vo.PackName}</td>
+						<td>{pigcms:$vo.AppVer}</td>
+						<td>{pigcms:$vo.UseRange}</td>
+						<td>
+							<a href="{pigcms::U('Yundabao/download',array('token'=>$token,'AppId'=>$vo['AppId'],'filetype'=>'apk'))}" target="_blank">点击下载安卓版</a>
+							<br/>
+							<a href="{pigcms::U('Yundabao/download',array('token'=>$token,'AppId'=>$vo['AppId'],'filetype'=>'ipa'))}" target="_blank">点击下载苹果版</a>
+						</td>
+						<td class="norightborder" >
+							<a href="{pigcms::U('Yundabao/update',array('token'=>$token,'AppId'=>$vo['AppId']))}">修改</a>
+							<a href="{pigcms::U('Yundabao/RebuildApp',array('token'=>$token,'AppId'=>$vo['AppId']))}">重新生成</a>
+							<a href="{pigcms::U('Yundabao/data',array('token'=>$token,'AppId'=>$vo['AppId']))}">数据</a>
+							<!-- <a href="javascript:drop_confirm('您确定要删除【分类1】吗?', '/index.php?g=User&m=LivingCircle&a=operate&token=hjbrhl1419386992&typeid=1&type=typedel')">删除</a> -->
+							<a href="javascript:drop_confirm('您确定要删除【{pigcms:$vo.AppName}】吗?','{pigcms::U('Yundabao/DeleteApp',array('token'=>$token,'AppId'=>$vo['AppId']))}')">删除</a>
+						</td>
+					</tr>
+				</volist>
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="cLine">
+		<div class="pageNavigator right">
+			<div class="pages">{pigcms:$page}</div>
+		</div>
+		<div class="clr"></div>
+	</div>
+</div>
+<include file="Public:footer"/>

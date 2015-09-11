@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>关于我们－{pigcms:$f_siteName}</title>
+    </head>
+    
+    <body>
+<!--startof header-->
+    <include file="Public:header00"/>
+            <!--banner-->
+            <div class="banner clr" >
+            	<p  style="background:#d1e4de;" class="zhutu clr">
+                	<if condition="$images['about'] eq ''">
+                        <img src="{pigcms:$staticPath}/tpl/Home/pigcms/common/images/images/2.png" />
+                    <else />
+                        <img src="{pigcms:$images['about']}" style="width:100%;height:300px;">
+                    </if>
+                </p>
+            </div>
+            <!--end banner-->
+        <!--ENDOF header-->
+        
+        <div class="content clr">
+        	<div class="congtS clr">
+            	<div class="shangLt clr">当前位置</div>
+                <div class="shangRt clr">
+                	<p class="oneth clr"> <a href="/">{pigcms:$f_siteName}多用户微信营销系统</a></p>
+                    <p>»</p>
+                    <p class="twoth clr"><if condition="$img eq ''"><a href="#">关于我们</a><else />{pigcms:$img['classname']}</if></p>
+                </div>
+            </div>
+            <if condition="$img eq '' && $fun eq ''">
+           		<div class="congtX clr">
+                    <p class="guanyu clr">关于我们</p>
+                    <p class="duanluo clr">这里显示内容。在后台设置图片后，图片就会在下面显示</P>
+                </div>
+            <elseif condition="$img eq '' && $fun neq ''" />
+                <div class="congtX clr">
+                	<p class="guanyu clr">{pigcms:$fun['title']}</p>
+                    <p class="duanluo clr">{pigcms:$fun['content']}</P>
+                </div>
+            <else/>
+                <div class="congtX clr">
+                    <p class="guanyu clr">{pigcms:$img['title']}</p>
+                    <p class="duanluo clr">{pigcms:$img['info']}</P>
+                </div>
+            </if>
+        </div>
+        <if condition="$img eq '' && $fun eq ''">
+        <!-- 照片展示 开始 -->
+            <div></div>
+        <elseif condition="$img eq ''" />
+            <div></div>
+        <else/>
+            <div style="text-align:center;margin: 0 auto;margin:20px 0 10px 0">
+                <img src="{pigcms:$img['pic']}">
+            </div>
+        </if>
+        <!--footer-->
+        <include file="Public:footer00"/>
+
+    </body>
+</html>

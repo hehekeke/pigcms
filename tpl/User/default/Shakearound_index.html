@@ -1,0 +1,87 @@
+<include file="Public:head"/>
+<div class="content" >  
+<div class="cLineB">
+  <h4>摇一摇.周边<span class="FAQ"></span></h4>
+ </div>
+<div class="cLineC" style="line-height: 18px;">
+ <a href="javascript:add_device()" class="btnGrayS vm bigbtn" >添加设备</a>　 <a href="{pigcms::U('Shakearound/manual_update',array('token'=>$token,'pagfirstRowe'=>$pagfirstRowe,'listRows'=>$listRows))}" class="right btnGrayS vm" style="margin-top:4px">手动更新设备状态</a>
+</div>
+  <div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-bottom:5px;font-size:12px;">温馨提示：1、添加设备后返回给你的major和minor这两个值用于激活设备,请去你的手机下载相关APP激活设备。<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  2、配置工具APP,iPhone手机在Appstore上搜索Realkit下载,Android手机可以在豌豆荚网搜索"realkit"下载安装app。<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  3、开启蓝牙才能使用摇周边功能,如果是Android手机先确认手机硬件支持蓝牙4.0,系统在4.3.3以上,iPhone不限。<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+4、设备状态会缓存,如果你刚激活了设备,请点击"手动更新设备状态"更新。如果点击手动更新设备状态还未改变,请稍等几分钟再点击手动更新操作。
+</div>
+ <div class="msgWrap form">
+<div class="bdrcontent">
+<div id="div_ptype">
+<table class="ListProduct" border="0" cellSpacing="0" cellPadding="0" width="100%">
+<thead>
+<tr>
+<th style=" width:8%;">设备ID</th>
+<th style=" width:10%;">设备名称</th> 
+<th style=" width:15%;">UUID</th>    
+<th style=" width:10%;">major</th>    
+<th style=" width:10%;">minor</th>    
+<th style=" width:10%;">设备状态</th> 
+<th style=" width:10%;">关联的页面</th>         
+<th class="norightborder">操作</th>
+</tr>
+</thead>
+<volist name="device_list" id="li">
+<tr>
+<td>{pigcms:$li.device_id}</td>
+<td>{pigcms:$li.device_comment}</td>
+<td>{pigcms:$li.uuid}</td>
+<td>{pigcms:$li.major}</td>
+<td>{pigcms:$li.minor}</td>
+<td><if condition="$li.status eq 0"><span style="color:red"> 未激活</span>
+<elseif condition="$li.status eq 1"/>已激活但不活跃<elseif condition="$li.status eq 2"/>活跃
+<else /> 审核中
+</if></td>
+<td title="{pigcms:$li.page_name}">{pigcms:$li.page_name|mb_substr=0,40}</td>
+<td class="norightborder">
+    <a href="{pigcms::U('Shakearound/edit_device',array('id'=>$li['id'],'token'=>$token))}" >编辑</a>      |
+    <a href="{pigcms::U('Shakearound/bindpage',array('token'=>$token,'id'=>$li['id']))}">关联页面</a>  | <a href="javascript:;" onclick="statistics({pigcms:$li['status']},'{pigcms:$token}',{pigcms:$li['device_id']})">统计信息</a>
+</td>
+</volist>
+</tr>
+</table>
+</div>
+</div>
+<div class="cLine">
+  <div class="pageNavigator right">
+    <div class="pages">{pigcms:$page}</div>
+  </div>
+  <div class="clr"></div>
+</div>
+
+          </div>
+        </div>
+   
+        <div class="clr"></div>
+      </div>
+    </div>
+  </div> 
+  <!--底部-->
+  	</div>
+	<script>
+	function add_device(){
+		window.location.href="/index.php?g=User&m=Shakearound&a=apply_device&token={pigcms:$token}";
+		//var allow_add = '{pigcms:$allow_add}';
+		//if(allow_add == 'forbid'){
+			//alert('激活率小于50%，请先激活设备再添加');
+	//	}else{
+			//window.location.href="/index.php?g=User&m=Shakearound&a=apply_device&token={pigcms:$token}";
+	//	}
+	}
+	function statistics(status,token,device_id){
+		if(status == 0){
+			alert('设备未激活');
+			return false;
+		}else{
+			window.location.href="/index.php?g=User&m=Shakearound&a=statistics&token="+token+"&device_id="+device_id;
+		}
+	}
+	</script>
+<include file="Public:footer"/>

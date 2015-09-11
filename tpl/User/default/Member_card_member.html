@@ -1,0 +1,169 @@
+<include file="Public:head"/>
+<script src="{pigcms::RES}/js/date/WdatePicker.js"></script>  
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<script src="/tpl/static/upyun.js?{pigcms::date('YmdHis',time())}"></script>
+<div class="content">
+ <div class="cLine">
+      <div style="width:330px;height:40px;float:left;">
+        <ul id="tags" style="margin:0;width:auto;">
+          <li <if condition="$type eq 1">class="selectTag"</if>><a href="{pigcms::U('Member_card/member',array('token'=>$token,'cardid'=>$cardid,'number'=>$number,'type'=>1))}">积分、线下交易</a> </li>
+          <li <if condition="$type eq 2">class="selectTag"</if>><a href="{pigcms::U('Member_card/member',array('token'=>$token,'cardid'=>$cardid,'number'=>$number,'type'=>2))}">会员卡消费记录</a></li>
+          <div class="clr"></div>
+        </ul>　
+      </div>
+      <div style="height:30px;line-height:30px;float:right">
+        <div class="right">
+<if condition="$type eq 1">
+          <a href="{pigcms:$staticPath}/tpl/static/card/cardUseRecord.xls" class="btnGrayS vm">下载导入示例Excel</a>
+          <a href="###" onclick="$('#import').css('display','')" class="btnGrayS vm">导入线下记录</a>
+          <a href="{pigcms::U('Member_card/exportCardUseRecord',array('token'=>$token,'company_id'=>$company_id,'cardid'=>$cardid,'number'=>$number))}" class="btnGrayS vm">导出线下记录</a>
+<else/>
+          <a href="{pigcms:$staticPath}/tpl/static/card/CardPayRecord.xls" class="btnGrayS vm">下载导入示例Excel</a>
+          <a href="###" onclick="$('#import').css('display','')" class="btnGrayS vm">导入消费记录</a>
+          <a href="{pigcms::U('Member_card/exportrmb',array('token'=>$token,'company_id'=>$company_id,'cardid'=>$cardid,'number'=>$number))}" class="btnGrayS vm">导出消费记录</a>
+</if>
+        </div>
+      </div>
+      <div class="clr"></div>
+  </div>
+  <div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-bottom:5px;font-size:12px;">温馨提示：“导出**记录”会导出查找到的匹配数据，不选择查询条件默认导出全部。“会员卡号”可使用“,”隔开查找多个卡号</div>  
+  <div class="msgWrap">
+<!-- 导入 -->	
+		<div class="cLine">
+			<div class="left" style="line-height:30px;">
+        <form  action="" method="POST">
+          <select name="company_id">
+            <option value="">请选择商户门店</option>
+            <volist name="company" id="company">
+              <option value="{pigcms:$company.id}" <if condition="$company['id'] eq $company_id">selected</if>>ID{pigcms:$company.id}-{pigcms:$company.name}</option>
+            </volist>
+          </select>
+          -
+          <select  name="cardid">
+            <option value="">请选择会员卡</option>
+            <volist name="allcard" id="allcard">
+              <option value="{pigcms:$allcard.id}" <if condition="$allcard['id'] eq $cardid">selected</if>>ID{pigcms:$allcard.id}-{pigcms:$allcard.cardname}</option>
+            </volist>
+          </select>
+          会员卡号
+          <input type="text" name="number" value="{pigcms:$number}" placeholder="输入卡号,多个“,”链接" class="px">
+          <input type="submit" value="查找" class="btnGreen vm">
+        </form>
+      </div>
+      <div class="right" id="import" style="display:none;">
+
+<if condition="$type eq 1">
+      <form enctype="multipart/form-data" action="?g=User&amp;m=Upyun&amp;a=localUploadUsecordExcel" id="thumbForm" method="POST">
+					<input type="file" style="width:250px;border:1px solid #ddd" name="photo">
+					<input id="submitbtn" name="doSubmit" type="submit" class="btnGreen" value="上传" onclick="this.value='上传中...'">
+					<input name="type" type="hidden" value="{pigcms:$type}" />
+					<a href="###" onclick="$('#import').css('display','none')" class="vm">取消</a>
+			</form>
+<else/>
+      <form enctype="multipart/form-data" action="?g=User&amp;m=Upyun&amp;a=localUploadPayrecordExcel" id="thumbForm2" method="POST">
+          <input type="file" style="width:250px;border:1px solid #ddd" name="photo">
+          <input id="submitbtn2" name="doSubmit" type="submit" class="btnGreen" value="上传" onclick="this.value='上传中...'">
+          <input name="type" type="hidden" value="{pigcms:$type}" />
+          <a href="###" onclick="$('#import2').css('display','none')" class="btnGrayS vm">取消</a>
+      </form>
+</if>
+
+      </div>
+		</div>
+
+<if condition="$type eq 1">
+    <TABLE class="ListProduct" border="0" cellSpacing="0" cellPadding="0" width="100%">
+      <THEAD>
+        <TR>
+  				<TH>日期</TH>
+  				<TH>金额(元)</TH>
+  				<TH>获取积分</TH>
+  				<TH>类型</TH>
+  				<TH>备注</TH>
+  				<TH>操作</TH>
+        </TR>
+      </THEAD>
+      <TBODY>
+      <volist id="r" name="list">
+        <TR>
+          <TD>{pigcms:$r.time|date='Y-m-d',###}</TD>
+          <TD>{pigcms:$r.expense}</TD>
+          <TD>{pigcms:$r.score}</TD>   
+          <TD>
+          	<if condition="$r.cat eq 2">
+          		积分换券
+          	<elseif condition="$r.cat eq 3"/>
+          		后台赠送
+            <elseif condition="$r.cat eq 4"/>
+              使用礼品券
+            <elseif condition="$r.cat eq 5"/>
+              签到积分
+            <elseif condition="$r.cat eq 6"/>
+              会员充值
+            <elseif condition="$r.cat eq 7"/>
+              线下获取积分
+            <elseif condition="$r.cat eq 8"/>
+              线下消费积分
+          	<else/>
+          		消费
+          	</if>
+          	<TD>{pigcms:$r.notes}</TD>   
+          </TD>            
+          <TD><a href="javascript:drop_confirm('您确定要删除吗?', '/index.php?g=User&m=Member_card&a=useRecord_del&token={pigcms:$Think.get.token}&itemid={pigcms:$r.id}&id={pigcms:$thisCard.id}');"><strong>删除</strong></a></TD> 
+        </TR>
+      </volist>
+        </TBODY>
+      </TABLE>
+<else/>
+      <TABLE class="ListProduct" border="0" cellSpacing="0" cellPadding="0" width="100%">
+        <THEAD>
+          <TR>
+            <TH>日期</TH>
+            <TH>订单号</TH>
+            <TH>订单名称</TH>
+            <TH>交易金额</TH>
+            <TH>状态</TH>
+            <TH>操作</TH>
+          </TR>
+        </THEAD>
+        <TBODY>
+          <volist id="rmb" name="list">
+          <TR>
+            <TD>{pigcms:$rmb.createtime|date='Y-m-d H:i',###}</TD>
+            <TD>{pigcms:$rmb.orderid}</TD>
+            <TD>{pigcms:$rmb.ordername}</TD>
+            <TD>{pigcms:$rmb.price}</TD>
+            <TD><if condition="$rmb['paid'] eq 1">交易成功<else /><font color="red">未付款</font></if></TD>
+            <TD><a href="javascript:drop_confirm('您确定要删除吗?', '/index.php?g=User&m=Member_card&a=payRecord_del&pid={pigcms:$rmb.id}');"><strong>删除</strong></a></TD> 
+          </TR>
+          </volist>
+        </TBODY>
+      </TABLE>
+</if>
+      <div class="cLine">
+        <div class="pageNavigator right">
+            <div class="pages">{pigcms:$page}</div>
+          </div>
+        <div class="clr"></div>
+      </div>
+    <div class="clr"></div>
+  </div>
+</div>
+
+
+
+<script>
+
+function checkAll(form, name) {
+for(var i = 0; i < form.elements.length; i++) {
+var e = form.elements[i];
+if(e.name.match(name)) {
+e.checked = form.elements['chkall'].checked;
+}
+}
+}
+  </script>
+  <!--底部-->
+  	</div>
+<include file="Public:footer"/>  
