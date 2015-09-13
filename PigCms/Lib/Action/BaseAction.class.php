@@ -79,7 +79,7 @@ class BaseAction extends Action{
 			$f_ipc=C('ipc');
 			$f_qrcode='tpl/Home/pigcms/common/images/ewm2.jpg';
 			$f_siteUrl=C('site_url');
-			
+		
 			$this->home_theme=C('DEFAULT_THEME');
 			$f_regNeedMp=C('reg_needmp')=='true'?1:0;
 			$this->reg_needCheck=C('ischeckuser')=='false'?1:0;

@@ -1,1 +1,0 @@
-<?php	return array ( 'token' => 'mmxqcj1430787451', 'wecha_id' => 'oeNn2jhET3AKcV16Rsf1-DvlQcYc', 'to' => 'frineds', 'module' => 'Helping', 'moduleid' => 0, 'time' => 1431176948, 'url' => 'http://www.weixinali.com/index.php?g=Wap&amp;amp;m=Helping&amp;amp;a=index&amp;amp;token=mmxqcj1430787451&amp;amp;id=1&amp;amp;share_key=e19e6a47ec9da535', ); ?>

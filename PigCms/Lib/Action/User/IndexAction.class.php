@@ -303,9 +303,9 @@ class IndexAction extends UserAction{
 		}
 	}
 	public function apiInfo(){
+		
 		$thisWx=apiInfo::info($this->user['id'],intval($_GET['id']));
 		$this->assign('info',$thisWx);
-
 
 
 
@@ -317,6 +317,8 @@ class IndexAction extends UserAction{
 		{
 			$this->assign('fuwu',false);
 		}
+		// p($thisWx);
+		
 		$this->display();
 	}
 	public $token;
